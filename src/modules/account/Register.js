@@ -1,35 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from './actions';
-import Input from '../../components/Input';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 class Register extends Component {
-  onRegister = (event) => {
-  };
 
-  handleInputChange = (event) => {
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value,
-    });
-  };
+  onFacebookLogin = (resp) => {
+    console.log(resp);
+  }
 
   render() {
     return (
-      <form onSubmit={this.onRegister}>
-        <Input name="name" label="Name:" onChange={this.handleInputChange} />
-        <Input name="description" label="Description:" onChange={this.handleInputChange} />
-        <div>
-          <input type="submit" value="Submit" />
-        </div>
-      </form>
+      <FacebookLogin
+        appId="393780347762107"
+        autoLoad
+        callback={this.onFacebookLogin}
+        render={renderProps => (
+          <button onClick={renderProps.onClick}>Sign in with Facebook</button>
+        )}
+      />
     );
   }
 }
 
 Register.propTypes = {
-  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(Register);
