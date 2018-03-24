@@ -65,7 +65,7 @@ const Navigation = ({ children, dispatch }) => (
       <img src={Logo} />
     </Logowrapper>
     <Box onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Box>
-    <Box>Become a Personal Shopper</Box>
+    <Box onClick={() => dispatch(push('/register-shopper'))}>Become a Personal Shopper</Box>
     <Box onClick={() => dispatch(push('/login'))}>Log in</Box>
     <Box onClick={() => dispatch(push('/register'))}>
       <Item signup>SIGN UP</Item>

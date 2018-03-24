@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from './actions';
+import Input from '../../components/Input';
 
 class Register extends Component {
   onRegister = (event) => {
-    const { dispatch } = this.props;
-    event.preventDefault();
-    dispatch(actions.registerShopper(this.state));
   };
 
   handleInputChange = (event) => {
@@ -20,22 +18,8 @@ class Register extends Component {
   render() {
     return (
       <form onSubmit={this.onRegister}>
-        <div>
-          <label htmlFor="name">
-            Name:
-            <input type="text" name="name" onChange={this.handleInputChange} />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="description">
-            Description:
-            <input
-              type="text"
-              name="description"
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </div>
+        <Input name="name" label="Name:" onChange={this.handleInputChange} />
+        <Input name="description" label="Description:" onChange={this.handleInputChange} />
         <div>
           <input type="submit" value="Submit" />
         </div>
