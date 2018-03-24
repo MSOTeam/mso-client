@@ -1,9 +1,14 @@
 {
   "name": "mso-client",
   "version": "0.1.0",
-  "private": true,  
+  "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "history": "^4.7.2",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.1",
@@ -24,27 +29,23 @@
     "redux-thunk": "^2.2.0",
     "styled-components": "^3.2.3",
     "styled-css-grid": "^0.8.2",
-    "styled-reset": "^1.1.2",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0"
-  },  
-  "devDependencies": {    
-    "@storybook/react": "^3.3.15",
+    "styled-reset": "^1.1.2"
+  },
+  "devDependencies": {
     "@storybook/addon-actions": "^3.3.15",
     "@storybook/addon-links": "^3.3.15",
     "@storybook/addons": "^3.3.15",
-    "babel-core": "^6.26.0"
+    "@storybook/react": "^3.3.15",
+    "babel-core": "^6.26.0",
+    "prettier-eslint": "^8.8.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
       "prettier --single-quote --write",
       "git add"
     ]
-  }, 
-  "scripts": {    
+  },
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
