@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookLogin from '../../components/FacebookLogin';
 
 class Register extends Component {
 
@@ -9,16 +9,19 @@ class Register extends Component {
     console.log(resp);
   }
 
+  onEmailRegistration = () => {
+
+  }
+
   render() {
     return (
-      <FacebookLogin
-        appId="393780347762107"
-        autoLoad
-        callback={this.onFacebookLogin}
-        render={renderProps => (
-          <button onClick={renderProps.onClick}>Sign in with Facebook</button>
-        )}
-      />
+      <div>
+        <div>
+          <FacebookLogin
+            onLogin={this.onFacebookLogin}
+          />
+        </div>
+      </div>
     );
   }
 }
