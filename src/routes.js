@@ -12,7 +12,6 @@ const Routes = props => (
       <Route path="/search" component={search.Search} />
       <Route path="/login" component={account.Login} />
       <Route path="/register" component={account.Register} />
-      <Route path="/register-shopper" component={account.RegisterShopper} />
     </div>
   </ConnectedRouter>
 );

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { color } from '../../styles/color';
 import Logo from '../../assets/img/logo.svg';
 import IconSVG from '../../assets/img/icon.svg';
+import Crooked from '../../assets/img/crooked.svg';
 
 const twist = keyframes`
   0% {
@@ -23,6 +24,7 @@ const Logowrapper = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: 2.5vw;
 `;
 
 const Icon = styled.img`
@@ -36,14 +38,32 @@ const Navgrid = styled.div`
   grid-template-rows: 1fr;
   grid-column-gap: 10px;
   align-items: center;
-  width: 95vw;
-  margin: auto;
   height: 100px;
+  border-bottom: 1px solid ${color.lightgrey}
 `;
 
 const Box = styled.p`
   text-align: right;
   cursor: pointer;
+  ${props =>
+    props.last &&
+    css`
+      margin-right: 2.5vw;
+  `};
+  ${props => props.value == 'become' && css`
+  position: relative;
+  &:after {
+    background:repeat-x url(${Crooked});
+    content: '.';
+    position: absolute;
+    bottom: -22px;
+    width: 73.3%;
+    left: 64px;
+    color: white;
+    top: 26px;
+    }
+  }    
+  `}
 `;
 
 const Item = styled.span`
@@ -65,11 +85,9 @@ const Navigation = ({ children, dispatch }) => (
       <img src={Logo} />
     </Logowrapper>
     <Box onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Box>
-    <Box onClick={() => dispatch(push('/register-shopper'))}>Become a Personal Shopper</Box>
-    <Box onClick={() => dispatch(push('/login'))}>Log in</Box>
-    <Box onClick={() => dispatch(push('/register'))}>
-      <Item signup>SIGN UP</Item>
-    </Box>
+    <Box>Become a Personal Shopper</Box>
+    <Box onClick={() => dispatch(push('/register'))}>Sign up</Box>
+    <Box last onClick={() => dispatch(push('/login'))}>Log in</Box>
   </Navgrid>
 );
 

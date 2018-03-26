@@ -6,8 +6,6 @@ const SearchHeader = styled.div`
   background: url(${SearchImg});
   background-size: cover;
   background-position: center;
-  height: 70vh;
-  margin: 0 2.5vw;
 `;
 
 class Search extends Component {
