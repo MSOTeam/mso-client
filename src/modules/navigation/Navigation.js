@@ -39,7 +39,7 @@ const Navgrid = styled.div`
   grid-column-gap: 10px;
   align-items: center;
   height: 100px;
-  border-bottom: 1px solid ${color.lightgrey}
+  border-bottom: 1px solid ${color.lightgrey} 
 `;
 
 const Box = styled.p`

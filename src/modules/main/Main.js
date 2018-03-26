@@ -8,7 +8,7 @@ import { color } from '../../styles/color';
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 60vh 800px 200px 100px 100px 100px 100px;
+  grid-template-rows: 55vh 800px 200px 100px 100px 100px 100px;
   margin: auto;
 `;
 
