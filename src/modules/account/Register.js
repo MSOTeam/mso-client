@@ -21,6 +21,9 @@ class Register extends Component {
     return (
       <form onSubmit={this.onRegister}>
         <div>
+          <div>
+            Sign up  
+          </div>
           <label htmlFor="name">
             Name:
             <input type="text" name="name" onChange={this.handleInputChange} />

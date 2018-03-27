@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
+import Login from '../account/Login';
+import Overlay from './component/Overlay';
 import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
 import Logo from '../../assets/img/logo_big.svg';
@@ -36,18 +39,68 @@ const Navitem = styled(Box)`
   align-self: center;
 `;
 
-const Navigation = ({ children, dispatch }) => (
-  <Navgrid>
-      <Navitem width={[  1, 10/10, 3/10, 5/10, 6/10, 8/10 ]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
-      <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
-      <Navitem>Become a Personal Shopper</Navitem>
-      <Navitem onClick={() => dispatch(push('/register'))}>Sign up</Navitem>
-      <Navitem onClick={() => dispatch(push('/login'))}>Log in</Navitem>
-  </Navgrid>
-);
+
+const customStyles = {
+  content : {
+
+  }
+};
+
+class Navigation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { isOpen: false };
+  }
+
+  toggleModal = event => {
+    const { isOpen } = this.state;
+    this.setState({ isOpen: !isOpen });
+    this.setState({ type: event.target.id });
+  }
+
+  render() {
+    const { isOpen } = this.state;
+    const { children, dispatch } = this.props;
+    return (
+      <div>
+        <Navgrid>
+          <Navitem width={[  1, 10/10, 3/10, 5/10, 6/10, 8/10 ]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
+          <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
+          <Navitem>Become a Personal Shopper</Navitem>
+          <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
+          <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
+          {/* onClick={() => dispatch(push('/login'))} */}
+        </Navgrid>
+        <Modal
+          id="modal_with_forms"
+          isOpen={isOpen}
+          closeTimeoutMS={150}
+          contentLabel="modalB"
+          shouldCloseOnOverlayClick={true}
+          onRequestClose={this.toggleModal}
+          ariaHideApp={false}
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              zIndex: '10',
+            },
+            content: {
+              width: '600px',
+              margin: 'auto',
+              height: '500px'
+            }
+          }}>
+        <Overlay type={this.state.type} />
+        </Modal>
+      </div>
+    );
+  }
+}
 
 Navigation.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
 export default connect()(Navigation);
+
