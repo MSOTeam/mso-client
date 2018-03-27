@@ -38,6 +38,7 @@ const Navitem = styled(Box)`
   cursor: pointer;
   align-self: center;
   font-weight: 100;
+  font-size: 14px;
 `
 
 class Navigation extends Component {

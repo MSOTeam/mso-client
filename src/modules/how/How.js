@@ -21,7 +21,7 @@ const rotate360 = keyframes`
 
 
 const Headline = styled(Flex)`
-  font-size: 32px !important;
+  font-size: 20px;
   text-align: center;
   font-weight: 100;
   letter-spacing: 2px;
@@ -82,15 +82,15 @@ const Shape = styled.div `
 const Itemtext = styled.p`
   text-align: center; 
   ${props => props.big && css`
-    font-size: 20px !important;
+    font-size: 15px !important;
     font-weight: 600; 
   `} 
   ${props => props.small && css`
     text-align: center;
-    line-height: 30px;
-    font-size: 18px !important;
+    line-height: 24px;
+    font-size: 14px !important;
     font-weight: 100;
-    padding: 30px;
+    padding: 15px 30px;
   `}
 `;
 
