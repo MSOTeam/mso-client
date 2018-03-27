@@ -3,91 +3,46 @@ import PropTypes from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
-import Logo from '../../assets/img/logo.svg';
+import Logo from '../../assets/img/logo_big.svg';
 import IconSVG from '../../assets/img/icon.svg';
 import Crooked from '../../assets/img/crooked.svg';
 
-const twist = keyframes`
-  0% {
-    transform: rotate(30deg);
-  }
-  40% {
-    transform: rotate(-30deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-`;
+<Box
+  width={[
+    1/10,
+    2/10,
+    3/10,
+    4/10,
+    5/10,
+    6/10,
+    7/10,
+    8/10,
+    9/10,
+    10/10
+  ]}
+/>
 
-const Logowrapper = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 2.5vw;
-`;
-
-const Icon = styled.img`
-  margin-right: 10px;
-  animation: 0.5s ${twist} ease;
-`;
-
-const Navgrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 240px 240px 100px 150px;
-  grid-template-rows: 1fr;
-  grid-column-gap: 10px;
-  align-items: center;
+const Navgrid = styled(Flex)`
   height: 100px;
   border-bottom: 1px solid ${color.lightgrey} 
+  justify-content: space-between;
+  margin: 0 2.5vw;
 `;
 
-const Box = styled.p`
-  text-align: right;
+const Navitem = styled(Box)`
   cursor: pointer;
-  ${props =>
-    props.last &&
-    css`
-      margin-right: 2.5vw;
-  `};
-  ${props => props.value == 'become' && css`
-  position: relative;
-  &:after {
-    background:repeat-x url(${Crooked});
-    content: '.';
-    position: absolute;
-    bottom: -22px;
-    width: 73.3%;
-    left: 64px;
-    color: white;
-    top: 26px;
-    }
-  }    
-  `}
-`;
-
-const Item = styled.span`
-  padding: 15px;
-  box-sizing: border-box;
-  ${props =>
-    props.signup &&
-    css`
-      background: ${color.primary};
-      color: ${color.light};
-      font-weight: bold;
-    `};
+  align-self: center;
 `;
 
 const Navigation = ({ children, dispatch }) => (
   <Navgrid>
-    <Logowrapper onClick={() => dispatch(push('/'))}>
-      <Icon src={IconSVG} />
-      <img src={Logo} />
-    </Logowrapper>
-    <Box onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Box>
-    <Box>Become a Personal Shopper</Box>
-    <Box onClick={() => dispatch(push('/register'))}>Sign up</Box>
-    <Box last onClick={() => dispatch(push('/login'))}>Log in</Box>
+      <Navitem width={[  1, 10/10, 3/10, 5/10, 6/10, 8/10 ]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
+      <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
+      <Navitem>Become a Personal Shopper</Navitem>
+      <Navitem onClick={() => dispatch(push('/register'))}>Sign up</Navitem>
+      <Navitem onClick={() => dispatch(push('/login'))}>Log in</Navitem>
   </Navgrid>
 );
 

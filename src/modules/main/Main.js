@@ -3,27 +3,19 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Search from '../search/Search';
 import How from '../how/How';
+import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 55vh 800px 200px 100px 100px 100px 100px;
-  margin: auto;
-`;
 
 class Main extends Component {
   render() {
     return (
-      <Grid>
+      <Flex flexDirection='column'>
         <Search />
-        <How />
+        <How/>
         <div style={{ background: color.secondary }}>EXPLORE OUR SHOPPERS</div>
-        <div style={{ background: color.lightgrey }}>
-          what do our customers say!
-        </div>
+        <div style={{ background: color.lightgrey }}>what do our customers say!</div>
         <div style={{ background: color.dark, color: color.light }}>Footer</div>
-      </Grid>
+      </Flex>
     );
   }
 }
