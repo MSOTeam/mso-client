@@ -39,13 +39,6 @@ const Navitem = styled(Box)`
   align-self: center;
 `;
 
-
-const customStyles = {
-  content : {
-
-  }
-};
-
 class Navigation extends Component {
   constructor(props) {
     super(props);
@@ -70,20 +63,18 @@ class Navigation extends Component {
           <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
-          {/* onClick={() => dispatch(push('/login'))} */}
         </Navgrid>
         <Modal
-          id="modal_with_forms"
+          id="modal"
           isOpen={isOpen}
-          closeTimeoutMS={150}
-          contentLabel="modalB"
           shouldCloseOnOverlayClick={true}
           onRequestClose={this.toggleModal}
+          scroll={false}
           ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              zIndex: '10',
+              zIndex: '10',             
             },
             content: {
               width: '600px',

@@ -30,7 +30,7 @@ const Headline = styled(Flex)`
 
 const Howcontainer = styled(Flex)`
   background: ${color.light};
-  width: 60vw;
+  width: 80vw;
   margin: auto; 
   height: 700px;
   justify-content: space-evenly;

@@ -8,6 +8,9 @@ const baseStyles = () => injectGlobal`
     font-family: 'Nunito Sans', sans-serif !important;
     font-size: 14px !important;
   }
+  .ReactModal__Body--open{
+    overflow: hidden;
+  }
 `;
 
 export default baseStyles;

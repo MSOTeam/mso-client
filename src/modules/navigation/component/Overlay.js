@@ -4,9 +4,6 @@ import Register from '../../account/Register';
 import Login from '../../account/Login';
 
 const Overlay = (props) => {
-  if(props.type === '') {
-    return null;
-  }
   return ( 
     <div>     
       {props.type === 'signup' ? (
