@@ -37,7 +37,7 @@ const Navgrid = styled(Flex)`
 const Navitem = styled(Box)`
   cursor: pointer;
   align-self: center;
-`;
+`
 
 class Navigation extends Component {
   constructor(props) {
@@ -79,7 +79,7 @@ class Navigation extends Component {
             content: {
               width: '600px',
               margin: 'auto',
-              height: '500px'
+              height: '650px'
             }
           }}>
         <Overlay type={this.state.type} />

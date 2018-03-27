@@ -34,9 +34,6 @@ const Howcontainer = styled(Flex)`
   margin: auto; 
   height: 700px;
   justify-content: space-evenly;
-  ${media.desktop`padding: 0 20px;`}
-  ${media.tablet`padding: 0 10px;`}
-  ${media.phone`padding: 0 5px;`}
 `;
 
 
@@ -62,20 +59,20 @@ const Shape = styled.div `
   display: flex;
   align-self: center;
   ${props => props.search && css `
-    border-bottom: 87px solid #F7F7F7;
+    border-bottom: 87px solid ${color.lightgrey};
     border-left: 39px solid transparent;
     border-right: 28px solid transparent;
     transform: rotate(56deg);
 
   `}
   ${props => props.clock && css `
-    border-top: 80px solid #F7F7F7;
+    border-top: 80px solid ${color.lightgrey};
     border-left: 46px solid transparent;
     border-right: 18px solid transparent;
     transform: rotate(25deg);
   `}
   ${props => props.go && css `
-    border-top: 100px solid #F7F7F7;
+    border-top: 100px solid ${color.lightgrey};
     border-left: 26px solid transparent;
     border-right: 58px solid transparent;
     transform: rotate(77deg);

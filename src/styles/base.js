@@ -6,7 +6,7 @@ const baseStyles = () => injectGlobal`
   ${reset}
   * {
     font-family: 'Nunito Sans', sans-serif !important;
-    font-size: 14px !important;
+    font-size: 14px;
   }
   .ReactModal__Body--open{
     overflow: hidden;
