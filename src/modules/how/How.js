@@ -84,13 +84,13 @@ const Itemtext = styled.p`
   ${props => props.big && css`
     font-size: 20px !important;
     font-weight: 600; 
-    margin-bottom: 15px;
   `} 
   ${props => props.small && css`
     text-align: center;
     line-height: 30px;
     font-size: 18px !important;
     font-weight: 100;
+    padding: 30px;
   `}
 `;
 
