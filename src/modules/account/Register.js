@@ -10,7 +10,7 @@ import Google from '../../assets/img/google.svg';
 import Email from '../../assets/img/email.svg';
 
 const Modalhead = styled.h1`
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 680;
   text-align: center;
   padding: 25px;
