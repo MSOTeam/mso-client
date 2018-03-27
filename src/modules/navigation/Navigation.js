@@ -37,6 +37,7 @@ const Navgrid = styled(Flex)`
 const Navitem = styled(Box)`
   cursor: pointer;
   align-self: center;
+  font-weight: 100;
 `
 
 class Navigation extends Component {
