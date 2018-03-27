@@ -79,7 +79,7 @@ class Navigation extends Component {
             content: {
               width: '600px',
               margin: 'auto',
-              height: '650px'
+              maxHeight: '50%'
             }
           }}>
         <Overlay type={this.state.type} />
