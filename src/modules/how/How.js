@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
-import { Flex, Box } from 'grid-styled'
+import styled, { css, keyframes } from 'styled-components';
+import { Flex, Box } from 'grid-styled';
 import media  from '../../styles/grid';
 import SearchImg from '../../assets/img/search_img.jpg';
 import Clock from '../../assets/img/clock.svg';
@@ -8,6 +8,17 @@ import SearchSVG from '../../assets/img/search.svg';
 import Go from '../../assets/img/go.svg';
 import { color } from '../../styles/color';
 import { go } from 'react-router-redux/actions';
+
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 
 const Headline = styled(Flex)`
   font-size: 32px !important;
