@@ -1,7 +1,7 @@
 {
   "name": "mso-client",
   "version": "0.1.0",
-  "private": true,  
+  "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "history": "^4.7.2",
@@ -30,8 +30,8 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0"
-  },  
-  "devDependencies": {    
+  },
+  "devDependencies": {
     "@storybook/react": "^3.3.15",
     "@storybook/addon-actions": "^3.3.15",
     "@storybook/addon-links": "^3.3.15",
@@ -43,8 +43,8 @@
       "prettier --single-quote --write",
       "git add"
     ]
-  }, 
-  "scripts": {    
+  },
+  "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
