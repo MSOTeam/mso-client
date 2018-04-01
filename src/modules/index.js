@@ -1,6 +1,6 @@
-import account from './account';
 import app from './app';
+import register from './register';
 import main from './main';
 import search from './search';
 
-export { account, app, main, search };
+export { register, app, main, search };

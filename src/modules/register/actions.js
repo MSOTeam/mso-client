@@ -3,18 +3,19 @@ import {
   REGISTER_SHOPPER_REQUEST,
   REGISTER_SHOPPER_SUCCESS,
   REGISTER_SHOPPER_FAILURE,
+  REGISTER_SET_STEP,
 } from './constants';
 
-export const registerShopperRequest = () => ({
+const registerShopperRequest = () => ({
   type: REGISTER_SHOPPER_REQUEST,
 });
 
-export const registerShopperSuccess = shopper => ({
+const registerShopperSuccess = shopper => ({
   type: REGISTER_SHOPPER_SUCCESS,
   shopper,
 });
 
-export const registerShopperFailure = error => ({
+const registerShopperFailure = error => ({
   type: REGISTER_SHOPPER_FAILURE,
   error,
 });
@@ -29,3 +30,8 @@ export const registerShopper = shopper => (dispatch) => {
       dispatch(registerShopperFailure(error));
     });
 };
+
+export const setStep = step => ({
+  type: REGISTER_SET_STEP,
+  step,
+});

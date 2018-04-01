@@ -17,7 +17,7 @@ import { app } from './modules';
 const history = createHistory();
 
 const store = configureStore({
-  mware: routerMiddleware(history)
+  mware: routerMiddleware(history),
 });
 
 axios.defaults.baseURL = 'http://localhost:5000/api';

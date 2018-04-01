@@ -4,7 +4,6 @@ import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import Login from '../account/Login';
 import Overlay from './component/Overlay';
 import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
@@ -64,7 +63,7 @@ class Navigation extends Component {
           <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
           <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
-          <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
+          {/* <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem> */}
         </Navgrid>
         <Modal
           id="modal"

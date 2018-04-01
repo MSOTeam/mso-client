@@ -8,6 +8,7 @@ import { color } from '../../styles/color';
 import Facebook from '../../assets/img/facebook.svg';
 import Google from '../../assets/img/google.svg';
 import Email from '../../assets/img/email.svg';
+import RegisterEmail from './RegisterEmail';
 
 const Modalhead = styled.h1`
   font-size: 30px;
@@ -81,27 +82,26 @@ const Terms = styled.p`
 `;
 
 class Register extends Component {
-  onRegister = (event) => {
-    const { dispatch } = this.props;
-    event.preventDefault();
-    dispatch(actions.registerShopper(this.state));
-  };
 
-  handleInputChange = (event) => {
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value,
-    });
+  setStep = (step) => {
+    const { dispatch } = this.props;
+    dispatch(actions.setStep(step));
   };
 
   render() {
+    const { step } = this.props;
+
+    if (step === 'email') {
+      return (<RegisterEmail />);
+    }
+
     return (
       <Flex flexDirection="column">
         <Modalhead>Join Myshopover</Modalhead>
         <Modalpara>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, whe500s, whe500s, whe500s, whe500s, when an unknown printer to</Modalpara>
         <Modallogin top facebook>Sign up with Facebook</Modallogin>
         <Modallogin google>Sign up with Google</Modallogin>
-        <Modallogin bottom email>Sign up with Email</Modallogin>
+        <Modallogin bottom email onClick={() => this.setStep('email')}>Sign up with Email</Modallogin>
         <Modalpara>Already have an account? <Signin>Sign in</Signin></Modalpara>
         <Terms>Terms of service</Terms>
       </Flex>
@@ -111,6 +111,13 @@ class Register extends Component {
 
 Register.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  step: PropTypes.string.isRequired,
 };
 
-export default connect()(Register);
+function mapStateToProps(state) {
+  return {
+    step: state.register.step,
+  };
+}
+
+export default connect(mapStateToProps)(Register);

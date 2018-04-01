@@ -1,9 +1,9 @@
-import Login from './Login';
 import Register from './Register';
 import * as actions from './actions';
+import reducer from './reducer';
 
 export default {
-  Login,
   Register,
   actions,
+  reducer,
 };
