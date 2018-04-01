@@ -63,7 +63,7 @@ class Navigation extends Component {
           <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
           <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
-          {/* <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem> */}
+          <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
         </Navgrid>
         <Modal
           id="modal"

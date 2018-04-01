@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
-import { register, main, search } from './modules';
+import { register, login, main, search } from './modules';
 
 const Routes = props => (
   <ConnectedRouter history={props.history}>
@@ -11,6 +11,7 @@ const Routes = props => (
       <Route exact path="/" component={main.Main} />
       <Route path="/search" component={search.Search} />
       <Route path="/register" component={register.Register} />
+      <Route path="/login" component={login.Login} />
       <Route path="/registered" component={register.RegisterSuccess} />
     </div>
   </ConnectedRouter>
