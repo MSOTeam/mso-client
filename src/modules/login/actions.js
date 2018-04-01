@@ -25,7 +25,9 @@ export const login = data => (dispatch) => {
     .post('auth/login', data)
     .then((response) => {
       dispatch(loginSuccess(response));
+      console.log(response.data);
       // dispatch(push('/'));
+      sessionStorage.setItem('token', response.data.token);
     })
     .catch((error) => {
       dispatch(loginFailure(error));
