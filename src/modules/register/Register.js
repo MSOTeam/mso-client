@@ -83,13 +83,19 @@ const Terms = styled.p`
 
 class Register extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      step: '',
+    };
+  }
+
   setStep = (step) => {
-    const { dispatch } = this.props;
-    dispatch(actions.setStep(step));
+    this.setState({ step });
   };
 
   render() {
-    const { step } = this.props;
+    const { step } = this.state;
 
     if (step === 'email') {
       return (<RegisterEmail />);
@@ -111,12 +117,11 @@ class Register extends Component {
 
 Register.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  step: PropTypes.string.isRequired,
+  // step: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    step: state.register.step,
   };
 }
 

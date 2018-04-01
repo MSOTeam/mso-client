@@ -3,7 +3,6 @@ import {
   REGISTER_SHOPPER_REQUEST,
   REGISTER_SHOPPER_SUCCESS,
   REGISTER_SHOPPER_FAILURE,
-  REGISTER_SET_STEP,
 } from './constants';
 
 const registerShopperRequest = () => ({
@@ -31,7 +30,3 @@ export const registerShopper = shopper => (dispatch) => {
     });
 };
 
-export const setStep = step => ({
-  type: REGISTER_SET_STEP,
-  step,
-});
