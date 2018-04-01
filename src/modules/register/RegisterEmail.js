@@ -13,7 +13,7 @@ class RegisterEmail extends Component {
   };
 
   handleInputChange = (event) => {
-    const target = event.target;
+    const { target } = event;
     this.setState({
       [target.name]: target.value,
     });
@@ -25,8 +25,6 @@ class RegisterEmail extends Component {
         onSubmit={this.onRegister}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <Input name="first_name" label="First name:" onChange={this.handleInputChange} />
-        <Input name="last_name" label="Last name:" onChange={this.handleInputChange} />
         <Input name="email" label="Email:" onChange={this.handleInputChange} />
         <Input name="password" label="Password:" type="password" onChange={this.handleInputChange} />
 
