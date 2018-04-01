@@ -11,6 +11,7 @@ const Routes = props => (
       <Route exact path="/" component={main.Main} />
       <Route path="/search" component={search.Search} />
       <Route path="/register" component={register.Register} />
+      <Route path="/registered" component={register.RegisterSuccess} />
     </div>
   </ConnectedRouter>
 );

@@ -9,7 +9,7 @@ class RegisterEmail extends Component {
   onRegister = (event) => {
     const { dispatch } = this.props;
     event.preventDefault();
-    // dispatch(actions.registerShopper(this.state));
+    dispatch(actions.register('client', this.state));
   };
 
   handleInputChange = (event) => {
@@ -28,6 +28,7 @@ class RegisterEmail extends Component {
         <Input name="first_name" label="First name:" onChange={this.handleInputChange} />
         <Input name="last_name" label="Last name:" onChange={this.handleInputChange} />
         <Input name="email" label="Email:" onChange={this.handleInputChange} />
+        <Input name="password" label="Password:" type="password" onChange={this.handleInputChange} />
 
         <div>
           <input type="submit" value="Submit" />

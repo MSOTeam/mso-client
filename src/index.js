@@ -20,7 +20,7 @@ const store = configureStore({
   mware: routerMiddleware(history),
 });
 
-axios.defaults.baseURL = 'http://localhost:5000/api';
+axios.defaults.baseURL = 'http://localhost:5000/';
 
 const Index = () => (
   baseStyles(),
