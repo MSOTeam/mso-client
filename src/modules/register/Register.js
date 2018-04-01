@@ -9,6 +9,7 @@ import Facebook from '../../assets/img/facebook.svg';
 import Google from '../../assets/img/google.svg';
 import Email from '../../assets/img/email.svg';
 import RegisterEmail from './RegisterEmail';
+import RegisterSuccess from './RegisterSuccess';
 
 const Modalhead = styled.h1`
   font-size: 30px;
@@ -83,22 +84,24 @@ const Terms = styled.p`
 
 class Register extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      step: '',
-    };
+  componentWillUnmount = () => {
+    this.setStep('');
   }
 
   setStep = (step) => {
-    this.setState({ step });
+    const { dispatch } = this.props;
+    dispatch(actions.setStep(step));
   };
 
   render() {
-    const { step } = this.state;
+    const { step } = this.props;
 
     if (step === 'email') {
       return (<RegisterEmail />);
+    }
+
+    if (step === 'success') {
+      return (<RegisterSuccess />);
     }
 
     return (
@@ -117,11 +120,12 @@ class Register extends Component {
 
 Register.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // step: PropTypes.string.isRequired,
+  step: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
+    step: state.register.step,
   };
 }
 

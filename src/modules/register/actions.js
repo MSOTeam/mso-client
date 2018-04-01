@@ -4,9 +4,10 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  REGISTER_SET_STEP,
 } from './constants';
 
-export const registerRequest = request => ({
+const registerRequest = request => ({
   type: REGISTER_REQUEST,
   request,
 });
@@ -27,10 +28,14 @@ export const register = (type, data) => (dispatch) => {
     .post(type, data)
     .then((response) => {
       dispatch(registerSuccess(response));
-      dispatch(push('/registered'));
+      // dispatch(push('/settings'));
     })
     .catch((error) => {
       dispatch(registerFailure(error));
     });
 };
 
+export const setStep = step => ({
+  type: REGISTER_SET_STEP,
+  step,
+});
