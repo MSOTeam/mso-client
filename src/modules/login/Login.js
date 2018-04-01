@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
+import LoginEmail from './LoginEmail';
 
-class Login extends Component {
-  render() {
-    return (
-      <div>
-        Login
-      </div>
-    );
-  }
-}
+const Login = () => (
+  <LoginEmail />
+);
 
 export default Login;
