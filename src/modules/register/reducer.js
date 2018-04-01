@@ -18,7 +18,7 @@ export default handleActions(
     [REGISTER_REQUEST]: (state, request) => ({ ...state, request, isFetching: true }),
     [REGISTER_SUCCESS]: (state, { shopper }) => ({ ...state, shopper, step: 'success' }),
     [REGISTER_FAILURE]: (state, { error }) => ({ ...state, error }),
-    [REGISTER_SET_STEP]: (state, { step }) => ({ ...state, step }),
+    [REGISTER_SET_STEP]: (state, { step }) => ({ ...state, step, isFetching: false }),
   },
   initialState,
 );

@@ -6,10 +6,10 @@ import Input from '../../components/Input';
 
 class LoginEmail extends Component {
 
-  onRegister = (event) => {
+  onLogin = (event) => {
     const { dispatch } = this.props;
     event.preventDefault();
-    // dispatch(actions.login('client', this.state));
+    dispatch(actions.login(this.state));
   };
 
   handleInputChange = (event) => {
@@ -22,7 +22,7 @@ class LoginEmail extends Component {
   render() {
     return (
       <form
-        onSubmit={this.onRegister}
+        onSubmit={this.onLogin}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <Input name="email" label="Email:" onChange={this.handleInputChange} />
