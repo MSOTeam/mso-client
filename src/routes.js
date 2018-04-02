@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
 import {
+  app,
   register,
   login,
   main,
@@ -18,12 +19,16 @@ const Routes = props => (
     <div>
       <Route exact path="/" component={main.Main} />
       <Route path="/search" component={search.Search} />
-      <Route path="/register" component={register.Register} />
-      <Route path="/login" component={login.Login} />
+
+      {/* <Route path="/signup" component={app.SignUp} /> */}
+      {/* <Route path="/register" component={register.Register} />
+      <Route path="/login" component={login.Login} /> */}
+
       <Route path="/registered" component={register.RegisterSuccess} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />
       <routes.AuthRoute path="/shoppers" component={shoppers.Shoppers} />
     </div>
+
   </ConnectedRouter>
 );
 

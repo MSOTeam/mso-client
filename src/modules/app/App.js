@@ -1,53 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Navigation from '../navigation/Navigation';
-import { go } from 'react-router-redux/actions';
-import { color } from '../../styles/color';
-import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-
-const NavWrapper = styled.div`
-  background: ${color.light};
-  position: sticky;
-  top: 0px;
-`;
-
-const Signupfixed = styled.div`
-  background: ${color.primary};
-  color: ${color.light};
-  width: 100vw;
-  height: 70px;
-  position: fixed;
-  bottom: 0;
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 2px;
-  cursor: pointer;
-  box-shadow: #00000085 -28px 50px 33px 43px;
-`;
+import SignUp from './SignUp';
+import Authenticated from './Authenticated';
+import { loginSuccess } from '../login/actions';
 
 class App extends Component {
+
+  componentWillMount = () => {
+    const { dispatch, authenticated } = this.props;
+    const { user, token } = sessionStorage;
+    if (user && token && !authenticated) {
+      dispatch(loginSuccess(user, token));
+    }
+  }
+
   render() {
-    const { children } = this.props;
-    return (
-      <div>
-        <NavWrapper>
-          <Navigation />
-        </NavWrapper>
-        {children}
-        <Signupfixed>SIGN UP NOW!</Signupfixed>
-      </div>
-    );
+    const { children, authenticated } = this.props;
+    return authenticated ? (<Authenticated>{ children }</Authenticated>) :
+      (<SignUp>{ children }</SignUp>);
   }
 }
 
 App.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.object.isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default App;
+function mapStateToProps(state) {
+  const authenticated = (state.login.token && state.login.user) ? true : false;
+  return {
+    authenticated,
+  };
+}
+
+export default connect(mapStateToProps)(App);

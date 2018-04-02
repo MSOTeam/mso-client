@@ -8,12 +8,14 @@ import {
 import { toggleModal } from '../navigation/actions';
 
 
-export const loginRequest = () => ({
+const loginRequest = () => ({
   type: LOGIN_REQUEST,
 });
 
-const loginSuccess = () => ({
+export const loginSuccess = (user, token) => ({
   type: LOGIN_SUCCESS,
+  user,
+  token,
 });
 
 const loginFailure = error => ({
@@ -26,10 +28,12 @@ export const login = data => (dispatch) => {
   axios
     .post('auth/login', data)
     .then((response) => {
-      dispatch(loginSuccess(response));
-      sessionStorage.setItem('token', response.data.token);      
+      const { user, token } = response.data;
+      dispatch(loginSuccess(user, token));
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('user', user);
     }).then(() => {
-      dispatch(push('/shoppers'));
+      dispatch(push('/search'));
       dispatch(toggleModal());
     })
     .catch((error) => {

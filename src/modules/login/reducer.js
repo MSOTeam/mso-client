@@ -14,7 +14,7 @@ const initialState = {
 export default handleActions(
   {
     [LOGIN_REQUEST]: state => ({ ...state, isFetching: true }),
-    [LOGIN_SUCCESS]: state => (state),
+    [LOGIN_SUCCESS]: (state, { token, user }) => ({ ...state, token, user }),
     [LOGIN_FAILURE]: (state, { error }) => ({ ...state, error, isFetching: false }),
   },
   initialState,
