@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Navigation from '../navigation/index';
+import Navigation from '../navigation/Navigation';
 import { go } from 'react-router-redux/actions';
 import { color } from '../../styles/color';
 import { push } from 'react-router-redux';

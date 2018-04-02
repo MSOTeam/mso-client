@@ -10,6 +10,7 @@ import { color } from '../../styles/color';
 import Logo from '../../assets/img/logo_big.svg';
 import IconSVG from '../../assets/img/icon.svg';
 import Crooked from '../../assets/img/crooked.svg';
+import * as actions from './actions';
 
 <Box
   width={[
@@ -43,18 +44,18 @@ const Navitem = styled(Box)`
 class Navigation extends Component {
   constructor(props) {
     super(props);
-
     this.state = { isOpen: false };
   }
 
-  toggleModal = event => {
-    const { isOpen } = this.state;
-    this.setState({ isOpen: !isOpen });
+  toggleModal = (event) => {
+    const { dispatch } = this.props;
+    // this.setState({ isOpen: !isOpen });
+    dispatch(actions.toggleModal());
     this.setState({ type: event.target.id });
   }
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen } = this.props;
     const { children, dispatch } = this.props;
     return (
       <div>
@@ -91,8 +92,15 @@ class Navigation extends Component {
 }
 
 Navigation.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
-export default connect()(Navigation);
+function mapStateToProps(state) {
+  return {
+    isOpen: state.navigation.isOpen,
+  }
+}
+
+export default connect(mapStateToProps)(Navigation);
 
