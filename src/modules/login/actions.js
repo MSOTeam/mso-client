@@ -4,6 +4,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  LOGOUT,
 } from './constants';
 import { toggleModal } from '../navigation/actions';
 
@@ -39,4 +40,14 @@ export const login = data => (dispatch) => {
     .catch((error) => {
       dispatch(loginFailure(error));
     });
+};
+
+const logoutUser = () => ({
+  type: LOGOUT,
+});
+
+export const logout = () => (dispatch) => {
+  sessionStorage.clear();
+  dispatch(logoutUser());
+  dispatch(push('/'));
 };

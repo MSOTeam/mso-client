@@ -9,19 +9,20 @@ import Overlay from './component/Overlay';
 import { color } from '../../styles/color';
 import Logo from '../../assets/img/logo_big.svg';
 import * as actions from './actions';
+import { logout } from '../login/actions';
 
-<Box
+  <Box
   width={[
-    1/10,
-    2/10,
-    3/10,
-    4/10,
-    5/10,
-    6/10,
-    7/10,
-    8/10,
-    9/10,
-    10/10
+    1 / 10,
+    2 / 10,
+    3 / 10,
+    4 / 10,
+    5 / 10,
+    6 / 10,
+    7 / 10,
+    8 / 10,
+    9 / 10,
+    10 / 10
   ]}
 />
 
@@ -41,11 +42,12 @@ const Navitem = styled(Box)`
 
 const AuthNavigation = ({ dispatch }) => (
   <Navgrid>
-    <Navitem width={[  1, 10/10, 3/10, 5/10, 6/10, 8/10 ]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
+    <Navitem width={[ 1, 10 / 10, 3 / 10, 5 / 10, 6 / 10, 8 / 10]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
     <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
-    <Navitem>Logout</Navitem>
+    <Navitem onClick={() => dispatch(logout())}>Logout</Navitem>
   </Navgrid>
 );
+
 
 AuthNavigation.propTypes = {
   dispatch: PropTypes.func.isRequired,
