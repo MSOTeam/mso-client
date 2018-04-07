@@ -26,6 +26,7 @@ const Signupfixed = styled.div`
   letter-spacing: 2px;
   cursor: pointer;
   box-shadow: #00000085 -28px 50px 33px 43px;
+  z-index:100;
 `;
 
 const SignUp = ({ children }) => (

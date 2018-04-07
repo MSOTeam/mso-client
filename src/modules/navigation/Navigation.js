@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes, ThemeProvider} from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
@@ -12,7 +12,7 @@ import IconSVG from '../../assets/img/icon.svg';
 import Crooked from '../../assets/img/crooked.svg';
 import * as actions from './actions';
 
-<Box
+<Navitem
   width={[
     1/10,
     2/10,
@@ -39,9 +39,14 @@ const Navitem = styled(Box)`
   align-self: center;
   font-weight: 100;
   font-size: 14px;
-`
+  ${props => props.id === "signup" && css`
+    font-weight: 600;
+  `}
+`;
 
 class Navigation extends Component {
+
+
   constructor(props) {
     super(props);
     this.state = { isOpen: false };
@@ -59,13 +64,18 @@ class Navigation extends Component {
     const { children, dispatch } = this.props;
     return (
       <div>
+        <ThemeProvider theme={{
+          space: [ 0, 6, 12, 18, 24 ],
+          breakpoints: [ '32em', '48em', '64em', '80em', '96em' ]
+        }}>
         <Navgrid>
-          <Navitem width={[  1, 10/10, 3/10, 5/10, 6/10, 8/10 ]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
+          <Navitem w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
           <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
           <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
         </Navgrid>
+        </ThemeProvider>
         <Modal
           id="modal"
           isOpen={isOpen}
