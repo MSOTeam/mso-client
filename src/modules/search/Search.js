@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import SearchImg from '../../assets/img/shop.jpg';
 import { Flex, Box } from 'grid-styled'
+
+import SearchImg from '../../assets/img/shop.jpg';
+import ShopVideo from '../../assets/video/shop.mp4';
 
 const SearchHeader = styled.div`
   background: url(${SearchImg});
@@ -10,9 +12,23 @@ const SearchHeader = styled.div`
   height: 50vh;
 `;
 
+const VideoOverlay = styled.div`
+  overflow: hidden;
+  height: 60vh;
+`;
+
+
 class Search extends Component {
   render() {
-    return <SearchHeader />;
+    return (
+    <VideoOverlay>
+      <video autoplay="true" loop="true" style={{minHeight:'100%', minWidth:'100%', position: 'relative', top: '50%', transform: 'translateY(-50%)'}}>
+        <source src={ShopVideo} type="video/mp4"/>
+        <SearchHeader />
+      </video>
+    </VideoOverlay>
+    //
+  )
   }
 }
 export default Search;
