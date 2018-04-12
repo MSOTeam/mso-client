@@ -9,12 +9,13 @@ const SearchHeader = styled.div`
   background: url(${SearchImg});
   background-size: cover;
   background-position: center;
-  height: 50vh;
 `;
 
 const VideoOverlay = styled.div`
   overflow: hidden;
   height: 60vh;
+  z-index:-1;
+  height: 50vh;
 `;
 
 
