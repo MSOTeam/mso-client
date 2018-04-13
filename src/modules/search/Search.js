@@ -15,7 +15,6 @@ const VideoOverlay = styled.div`
   overflow: hidden;
   height: 60vh;
   z-index:-1;
-  height: 50vh;
 `;
 
 

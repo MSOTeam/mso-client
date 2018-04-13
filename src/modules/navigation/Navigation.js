@@ -39,14 +39,26 @@ const Navitem = styled(Box)`
   align-self: center;
   font-weight: 100;
   font-size: 14px;
+  ${props => props.id === "logo" && css`
+    display: flex;
+    align-items: center;
+
+    > img {
+      position: relative;
+      bottom: 2px;
+    }
+    > small {
+      font-style:italic;
+      font-weight:200;
+      margin-left: 25px;
+    }
+  `}
   ${props => props.id === "signup" && css`
     font-weight: 600;
   `}
 `;
 
 class Navigation extends Component {
-
-
   constructor(props) {
     super(props);
     this.state = { isOpen: false };
@@ -54,7 +66,6 @@ class Navigation extends Component {
 
   toggleModal = (event) => {
     const { dispatch } = this.props;
-    // this.setState({ isOpen: !isOpen });
     dispatch(actions.toggleModal());
     this.setState({ type: event.target.id });
   }
@@ -69,7 +80,10 @@ class Navigation extends Component {
           breakpoints: [ '32em', '48em', '64em', '80em', '96em' ]
         }}>
         <Navgrid>
-          <Navitem w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
+          <Navitem id="logo" w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}>
+            <img src={Logo} />
+            <small>The only way to shop like a local</small>
+          </Navitem>
           <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
           <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>

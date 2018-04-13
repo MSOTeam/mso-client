@@ -26,24 +26,28 @@ const Headline = styled(Flex)`
   font-weight: 100;
   letter-spacing: 2px;
   justify-content: center;
+  position: relative;
+  bottom: 35px;
 `;
 
 const Howcontainer = styled(Flex)`
   background: ${color.light};
-  width: 80vw;
+  width: 90vw;
   margin: auto; 
-  height: 700px;
-  justify-content: space-evenly;
+  height: 630px;
+  justify-content: space-around;
   padding: 85px;
 `;
 
 
 const Howitems = styled(Flex)`
   justify-content: space-between;
+  position: relative;
+  bottom: 35px;
 `;
 
 const Item = styled(Flex)`
-  width: 500px;
+  width: calc(100%/3);
   position: relative;
 `;
 
@@ -83,12 +87,13 @@ const Shape = styled.div `
 const Itemtext = styled.p`
   text-align: center; 
   ${props => props.big && css`
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 600;
   `} 
   ${props => props.small && css`
     text-align: center;
-    line-height: 24px;
-    font-size: 14px !important;
+    line-height: 26px;
+    font-size: 15px !important;
     font-weight: 100;
     padding: 15px 30px;
   `}
