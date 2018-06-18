@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Input = ({
   name, label, onChange, type, style,
 }) => (
-  <label htmlFor={name}>
+  <label htmlFor={name} style={{ fontWeight: 600, fontSize: 18, paddingTop: 10 }}>
     {label}
     <input
       type={type}
