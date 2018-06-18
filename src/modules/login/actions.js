@@ -34,8 +34,9 @@ export const login = data => (dispatch) => {
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('user', user);
     }).then(() => {
-      dispatch(push('/search'));
       dispatch(toggleModal());
+      // dispatch(push('/search'));
+      dispatch(push('/shopperinfo'));      
     })
     .catch((error) => {
       dispatch(loginFailure(error));

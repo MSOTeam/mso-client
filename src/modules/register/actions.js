@@ -1,9 +1,13 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
+import { login } from '../login/actions';
 import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  // REGISTER_SHOPPER_REQUEST,
+  // REGISTER_SHOPPER_SUCCESS,
+  // REGISTER_SHOPPER_FAILURE,
   REGISTER_SET_STEP,
 } from './constants';
 
@@ -28,7 +32,8 @@ export const register = (type, data) => (dispatch) => {
     .post(type, data)
     .then((response) => {
       dispatch(registerSuccess(response));
-      // dispatch(push('/settings'));
+      dispatch(login(data));
+      // dispatch(push('/shopperinfo'));
     })
     .catch((error) => {
       dispatch(registerFailure(error));
