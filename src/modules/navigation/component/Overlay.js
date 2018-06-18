@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import Register from '../../register/Register';
+import RegisterShopper from '../../register/RegisterShopper';
 import Login from '../../login/Login';
 
 const Overlay = (props) => {
   return ( 
     <div>     
       {props.type === 'signup' ? (
-        <Register />
+        <RegisterShopper />
       ) : (
         <Login />
       )}

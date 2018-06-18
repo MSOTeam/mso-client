@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as actions from './actions';
 import Input from '../../components/Input';
 
 class RegisterEmail extends Component {
-
   onRegister = (event) => {
-    const { dispatch } = this.props;
     event.preventDefault();
-    dispatch(actions.register('client', this.state));
+    this.props.onRegister(this.state);
   };
 
   handleInputChange = (event) => {
@@ -37,7 +33,7 @@ class RegisterEmail extends Component {
 }
 
 RegisterEmail.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
 };
 
-export default connect()(RegisterEmail);
+export default RegisterEmail;

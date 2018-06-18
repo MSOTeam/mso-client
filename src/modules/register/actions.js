@@ -2,41 +2,38 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { login } from '../login/actions';
 import {
-  REGISTER_REQUEST,
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  // REGISTER_SHOPPER_REQUEST,
-  // REGISTER_SHOPPER_SUCCESS,
-  // REGISTER_SHOPPER_FAILURE,
+  REGISTER_SHOPPER_REQUEST,
+  REGISTER_SHOPPER_SUCCESS,
+  REGISTER_SHOPPER_FAILURE,
   REGISTER_SET_STEP,
 } from './constants';
 
-const registerRequest = request => ({
-  type: REGISTER_REQUEST,
+const registerShopperRequest = request => ({
+  type: REGISTER_SHOPPER_REQUEST,
   request,
 });
 
-const registerSuccess = shopper => ({
-  type: REGISTER_SUCCESS,
+const registerShopperSuccess = shopper => ({
+  type: REGISTER_SHOPPER_SUCCESS,
   shopper,
 });
 
-const registerFailure = error => ({
-  type: REGISTER_FAILURE,
+const registerShopperFailure = error => ({
+  type: REGISTER_SHOPPER_FAILURE,
   error,
 });
 
-export const register = (type, data) => (dispatch) => {
-  dispatch(registerRequest(data));
+export const registerShopper = data => (dispatch) => {
+  dispatch(registerShopperRequest(data));
   axios
-    .post(type, data)
+    .post('shopper', data)
     .then((response) => {
-      dispatch(registerSuccess(response));
+      dispatch(registerShopperSuccess(response));
       dispatch(login(data));
       dispatch(push('/shopper/profile'));
     })
     .catch((error) => {
-      dispatch(registerFailure(error));
+      dispatch(registerShopperFailure(error));
     });
 };
 

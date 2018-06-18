@@ -82,10 +82,15 @@ const Terms = styled.p`
   margin-top: 50px;
 `;
 
-class Register extends Component {
+class RegisterShopper extends Component {
 
   componentWillUnmount = () => {
     this.setStep('');
+  }
+
+  onRegisterEmail = (data) => {
+    const { dispatch } = this.props;
+    dispatch(actions.registerShopper(data));
   }
 
   setStep = (step) => {
@@ -97,7 +102,7 @@ class Register extends Component {
     const { step } = this.props;
 
     if (step === 'email') {
-      return (<RegisterEmail />);
+      return (<RegisterEmail onRegister={this.onRegisterEmail} />);
     }
 
     if (step === 'success') {
@@ -118,7 +123,7 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
+RegisterShopper.propTypes = {
   dispatch: PropTypes.func.isRequired,
   step: PropTypes.string.isRequired,
 };
@@ -129,4 +134,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(RegisterShopper);
