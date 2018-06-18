@@ -27,7 +27,7 @@ const Routes = props => (
       <Route path="/registered" component={register.RegisterSuccess} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />
       <routes.AuthRoute path="/shoppers" component={shoppers.Shoppers} />
-      <routes.AuthRoute path="/shopperinfo" component={register.ShopperInfo} />
+      <routes.AuthRoute path="/shopper/profile" component={register.ShopperProfile} />
     </div>
 
   </ConnectedRouter>

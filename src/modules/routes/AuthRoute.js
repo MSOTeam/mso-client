@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router';
+import { Route, withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
@@ -28,4 +28,4 @@ AuthRoute.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-export default connect()(AuthRoute);
+export default withRouter(connect()(AuthRoute));

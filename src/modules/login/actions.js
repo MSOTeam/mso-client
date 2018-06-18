@@ -36,7 +36,7 @@ export const login = data => (dispatch) => {
     }).then(() => {
       dispatch(toggleModal());
       // dispatch(push('/search'));
-      dispatch(push('/shopperinfo'));      
+      dispatch(push('/shopper/profile'));
     })
     .catch((error) => {
       dispatch(loginFailure(error));

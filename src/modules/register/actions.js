@@ -33,7 +33,7 @@ export const register = (type, data) => (dispatch) => {
     .then((response) => {
       dispatch(registerSuccess(response));
       dispatch(login(data));
-      // dispatch(push('/shopperinfo'));
+      dispatch(push('/shopper/profile'));
     })
     .catch((error) => {
       dispatch(registerFailure(error));
