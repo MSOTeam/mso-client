@@ -32,7 +32,7 @@ export const login = data => (dispatch) => {
       const { user, token } = response.data;
       dispatch(loginSuccess(user, token));
       sessionStorage.setItem('token', token);
-      sessionStorage.setItem('user', user);
+      // sessionStorage.setItem('user', user.profile);      
     }).then(() => {
       dispatch(toggleModal());
       // dispatch(push('/search'));

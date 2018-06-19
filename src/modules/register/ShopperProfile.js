@@ -15,8 +15,7 @@ class ShopperProfile extends Component {
   onUpdate = (event) => {
     const { dispatch } = this.props;
     event.preventDefault();
-    // dispatch(actions.update('client', this.state));
-    // console.log(this.state.languages);
+    dispatch(actions.setShopperProfile(this.state));
   };
 
   handleInputChange = (event) => {
