@@ -12,7 +12,7 @@ class ShopperProfile extends Component {
     };
   }
 
-  onRegister = (event) => {
+  onUpdate = (event) => {
     const { dispatch } = this.props;
     event.preventDefault();
     // dispatch(actions.update('client', this.state));
@@ -45,7 +45,7 @@ class ShopperProfile extends Component {
   render() {
     return (
       <form
-        onSubmit={this.onRegister}
+        onSubmit={this.onUpdate}
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <Input name="first_name" label="First name:" onChange={this.handleInputChange} />
