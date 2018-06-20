@@ -8,8 +8,8 @@ import Input from '../../components/Input';
 import Checkbox from '../../components/Checkbox';
 
 const Wrapper = styled.div`
-  border-right: 1px #F7F7F7 solid;
-  border-left: 1px #F7F7F7 solid;
+  border-right: 3px #F7F7F7 solid;
+  border-left: 3px #F7F7F7 solid;
   width: 50%;
   margin: auto;
 
@@ -24,7 +24,7 @@ const Form = styled.form`
 
 const Section = styled.section`
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 `;
 
 class ShopperProfile extends Component {
@@ -68,8 +68,8 @@ class ShopperProfile extends Component {
       <Wrapper>
         <Form onSubmit={this.onUpdate}>
           <Section>
-            <Input name="first_name" label="First name:" onChange={this.handleInputChange} />
-            <Input name="last_name" label="Last name:" onChange={this.handleInputChange} />
+            <Input name="first_name" label="First:" onChange={this.handleInputChange} />
+            <Input name="last_name" label="Last:" onChange={this.handleInputChange} />
           </Section>
           <Section>
             <Checkbox
@@ -143,28 +143,32 @@ class ShopperProfile extends Component {
             }
           />
           </Section>
-          <Checkbox
-            name="assists_with"
-            label=" I will assist my clients with the following"
-            onChange={this.handleCheckboxChange}
-            options={
-              [
-                'Fashion Clothing',
-                'Outdoor Apparel'
-              ]
-            }
-          />
-          <Checkbox
-            name="store_types"
-            label="I will take my clients to"
-            onChange={this.handleCheckboxChange}
-            options={
-              [
-                'High street stores',
-                'High-End Stores / Boutiques',
-              ]
-            }
-          />
+          <Section>
+            <Checkbox
+              name="assists_with"
+              label=" I will assist my clients with the following"
+              onChange={this.handleCheckboxChange}
+              options={
+                [
+                  'Fashion Clothing',
+                  'Outdoor Apparel'
+                ]
+              }
+            />
+          </Section>
+          <Section>
+            <Checkbox
+              name="store_types"
+              label="I will take my clients to"
+              onChange={this.handleCheckboxChange}
+              options={
+                [
+                  'High street stores',
+                  'High-End Stores / Boutiques',
+                ]
+              }
+            />
+          </Section>
           <Input name="hourly_price" label="Hourly price:" onChange={this.handleInputChange} />
           {/* availability: {type: []},       */}
           <Input name="hourly_price" label="Hourly price:" onChange={this.handleInputChange} />

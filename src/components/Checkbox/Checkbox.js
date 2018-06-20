@@ -3,24 +3,21 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Label = styled.label`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.3em;
   line-height: 35px;
 `;
 
 const CheckList = styled.div`
-  /* display: flex;
-  flex-wrap: wrap; */
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 const Check = styled.div`
-  /* display: flex; */
-  /* width: calc(100%/4); */
   margin-bottom: 15px;
-  /* &:last-child {
-    width: 100%;
-  } */
+`;
+
+const CheckBox = styled.input`
+  margin-right: 10px;
 `;
 
 
@@ -34,7 +31,7 @@ const Checkbox = ({
     <CheckList>
       {options.map(option => (
         <Check>
-          <input
+          <CheckBox
             type="checkbox"
             name={option}
             onChange={event => onChange(name, event)}
