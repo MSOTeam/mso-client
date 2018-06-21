@@ -43,7 +43,7 @@ const Navitem = styled(Box)`
 const AuthNavigation = ({ dispatch }) => (
   <Navgrid>
     <Navitem width={[ 1, 10 / 10, 3 / 10, 5 / 10, 6 / 10, 8 / 10]} onClick={() => dispatch(push('/'))}><img src={Logo} /></Navitem>
-    <Navitem onClick={() => dispatch(push('/search'))}>Find a Personal Shopper</Navitem>
+    <Navitem onClick={() => dispatch(push('/shoppers'))}>Find a Personal Shopper</Navitem>
     <Navitem onClick={() => dispatch(logout())}>Logout</Navitem>
   </Navgrid>
 );
