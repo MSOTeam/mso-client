@@ -12,6 +12,7 @@ import {
   settings,
   routes,
   shoppers,
+  articles,
 } from './modules';
 
 const Routes = props => (
@@ -26,6 +27,7 @@ const Routes = props => (
 
       <Route path="/registered" component={register.RegisterSuccess} />
       <Route path="/shoppers" component={shoppers.Shoppers} />
+      <Route path="/articles" component={articles.Articles} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />
       <routes.AuthRoute path="/shopper/profile" component={register.ShopperProfile} />
     </div>
