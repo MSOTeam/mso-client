@@ -3,6 +3,9 @@ import {
   FIND_ARTICLES_REQUEST,
   FIND_ARTICLES_SUCCESS,
   FIND_ARTICLES_FAILURE,
+  FIND_ARTICLE_REQUEST,
+  FIND_ARTICLE_SUCCESS,
+  FIND_ARTICLE_FAILURE,
 } from './constants';
 
 export const findArticlesRequest = request => ({
@@ -29,5 +32,32 @@ export const findArticles = data => (dispatch) => {
     })
     .catch((error) => {
       dispatch(findArticlesFailure(error));
+    });
+};
+
+export const findArticleRequest = request => ({
+  type: FIND_ARTICLE_REQUEST,
+  request,
+});
+
+const findArticleSuccess = article => ({
+  type: FIND_ARTICLE_SUCCESS,
+  article,
+});
+
+const findArticleFailure = error => ({
+  type: FIND_ARTICLE_FAILURE,
+  error,
+});
+
+export const findArticle = id => (dispatch) => {
+  dispatch(findArticleRequest({}));
+  axios
+    .get(`${'/article/'}${id}`)
+    .then((response) => {
+      dispatch(findArticleSuccess(response.data.article));
+    })
+    .catch((error) => {
+      dispatch(findArticleFailure(error));
     });
 };

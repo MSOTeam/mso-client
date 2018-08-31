@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { push } from 'react-router-redux';
 import * as actions from './actions';
 
 class Articles extends Component {
@@ -10,10 +11,14 @@ class Articles extends Component {
    }
 
    render() {
+     const { dispatch } = this.props;
      const articles = this.props.articles.map(article => (
-       <div style={{ paddingBottom: 20 }}>
+       <div
+         onClick={() => dispatch(push(`${'/article/'}${article._id}`))}
+         style={{ paddingBottom: 20 }}
+       >
          <div style={{ fontWeight: 600, fontSize: 20, cursor: 'pointer' }}>{article.title}</div>
-         <div dangerouslySetInnerHTML={{ __html: article.content }} />
+         <div dangerouslySetInnerHTML={{ __html: article.excerpt }} />
          <div>Length: {article.length}</div>
        </div>
      ));
