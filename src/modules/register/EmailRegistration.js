@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../../components/Input';
 
-class RegisterEmail extends Component {
+class EmailRegistration extends Component {
   onRegister = (event) => {
     event.preventDefault();
     this.props.onRegister(this.state);
@@ -32,8 +32,8 @@ class RegisterEmail extends Component {
   }
 }
 
-RegisterEmail.propTypes = {
+EmailRegistration.propTypes = {
   onRegister: PropTypes.func.isRequired,
 };
 
-export default RegisterEmail;
+export default EmailRegistration;
