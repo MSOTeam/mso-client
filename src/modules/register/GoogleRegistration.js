@@ -11,7 +11,7 @@ const GoogleRegistration = () => {
 
   return (
     <GoogleLogin
-      clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+      clientId="317827366745-tkf2ndf7ujaeur4mu26bvi5u4l2ts6li.apps.googleusercontent.com"
       buttonText="Login"
       onSuccess={onSuccess}
       onFailure={onFailure}
