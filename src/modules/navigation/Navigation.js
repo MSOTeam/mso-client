@@ -81,11 +81,8 @@ class Navigation extends Component {
         }}>
         <Navgrid>
           <Navitem id="logo" w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}>
-            <img src={Logo} />
-            <small>The only way to shop like a local</small>
+            TagIt
           </Navitem>
-          <Navitem onClick={() => dispatch(push('/shoppers'))}>Find a Personal Shopper</Navitem>
-          <Navitem>Become a Personal Shopper</Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
         </Navgrid>
