@@ -5,8 +5,10 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT,
+  SET_USER,
 } from './constants';
 import { toggleModal } from '../navigation/actions';
+import GoogleUser from './types/GoogleUser';
 
 
 const loginRequest = () => ({
@@ -32,10 +34,8 @@ export const login = data => (dispatch) => {
       const { user, token } = response.data;
       dispatch(loginSuccess(user, token));
       sessionStorage.setItem('token', token);
-      // sessionStorage.setItem('user', user.profile);      
     }).then(() => {
       dispatch(toggleModal());
-      // dispatch(push('/search'));
       dispatch(push('/shopper/profile'));
     })
     .catch((error) => {
@@ -51,4 +51,16 @@ export const logout = () => (dispatch) => {
   sessionStorage.clear();
   dispatch(logoutUser());
   dispatch(push('/'));
+};
+
+export const setUser = (user, token) => ({
+  type: SET_USER,
+  user,
+  token,
+});
+
+export const setGoogleUser = googleUser => (dispatch) => {
+  const user = new GoogleUser(googleUser);
+  sessionStorage.setItem('token', user.token);
+  dispatch(setUser(user, user.token));
 };
