@@ -20,10 +20,6 @@ const Routes = props => (
       <Route exact path="/" component={main.Main} />
       <Route path="/search" component={search.Search} />
 
-      {/* <Route path="/signup" component={app.SignUp} /> */}
-      {/* <Route path="/register" component={register.Register} />
-      <Route path="/login" component={login.Login} /> */}
-
       <Route path="/registered" component={register.RegisterSuccess} />
       <Route path="/articles" component={articles.Articles} />
       <Route path="/article/:id" component={articles.Article} />

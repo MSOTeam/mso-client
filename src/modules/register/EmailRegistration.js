@@ -4,8 +4,9 @@ import Input from '../../components/Input';
 
 class EmailRegistration extends Component {
   onRegister = (event) => {
+    const { handleRegister } = this.props;
     event.preventDefault();
-    this.props.onRegister(this.state);
+    handleRegister(this.state);
   };
 
   handleInputChange = (event) => {
@@ -33,7 +34,7 @@ class EmailRegistration extends Component {
 }
 
 EmailRegistration.propTypes = {
-  onRegister: PropTypes.func.isRequired,
+  handleRegister: PropTypes.func.isRequired,
 };
 
 export default EmailRegistration;

@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FacebookLogin from 'react-facebook-login';
 
-const FbRegistration = () => {
-  const callback = (response) => {
-    console.log(response);
+const FbRegistration = ({ handleRegister }) => {
+  const callback = (resp) => {
+    handleRegister(resp);
   };
 
   return (
@@ -16,6 +17,10 @@ const FbRegistration = () => {
       )}
     />
   );
+};
+
+FbRegistration.propTypes = {
+  handleRegister: PropTypes.func.isRequired,
 };
 
 export default FbRegistration;

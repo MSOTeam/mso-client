@@ -1,5 +1,6 @@
 class FbUser {
   constructor(user) {
+    this.id = user.id;
     this.token = user.accessToken;
     const name = user.name.split(' ');
     this.firstName = name[0];

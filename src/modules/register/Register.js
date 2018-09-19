@@ -86,44 +86,64 @@ const Terms = styled.p`
 
 class Register extends Component {
 
-  componentWillUnmount = () => {
-    this.setStep('');
+  constructor(props) {
+    super(props);
+    this.state = { step: 'select' };
   }
 
-  onRegisterEmail = (data) => {
+  handleEmailRegistration = (user) => {
     const { dispatch } = this.props;
-    dispatch(actions.register(data));
+    dispatch(actions.register(user));
   }
 
-  setStep = (step) => {
-    const { dispatch } = this.props;
-    dispatch(actions.setStep(step));
-  };
+  handleGoogleRegistration = (user) => {
 
-  selection = (
-    <Flex flexDirection="column">
-      <Modallogin top facebook onClick={() => this.setStep('fb')}>Sign up with Facebook</Modallogin>
-      <Modallogin google onClick={() => this.setStep('google')}>Sign up with Google</Modallogin>
-      <Modallogin bottom email onClick={() => this.setStep('email')}>Sign up with Email</Modallogin>
-      <Modalpara>Already have an account? <Signin>Sign in</Signin></Modalpara>
-      <Terms>Terms of service</Terms>
-    </Flex>
-  );
+  }
+
+  handleFbRegistration = (user) => {
+
+  }
+
+  handleError = (error) => {
+    console.log(error);
+  }
 
   render() {
-    const { step } = this.props;
+    const { step } = this.state;
+    const selection = (
+      <Flex flexDirection="column">
+        <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Sign up with Facebook</Modallogin>
+        <Modallogin google onClick={() => this.setState({ step: 'google' })}>Sign up with Google</Modallogin>
+        <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign up with Email</Modallogin>
+        <Modalpara>Already have an account? <Signin>Sign in</Signin></Modalpara>
+        <Terms>Terms of service</Terms>
+      </Flex>
+    );
 
     switch (step) {
       case 'email':
-        return <EmailRegistration onRegister={this.onRegisterEmail} />;
+        return (
+          <EmailRegistration
+            handleRegister={this.handleEmailRegistration}
+          />
+        );
       case 'google':
-        return <GoogleRegistration />;
+        return (
+          <GoogleRegistration
+            handleRegister={this.handleGoogleRegistration}
+            handleError={this.handleError}
+          />
+        );
       case 'fb':
-        return <FbRegistration />;
+        return (
+          <FbRegistration
+            handleRegister={this.handleFbRegistration}
+          />
+        );
       case 'success':
         return <RegisterSuccess />;
       default:
-        return this.selection;
+        return selection;
     }
   }
 }
@@ -133,10 +153,4 @@ Register.propTypes = {
   step: PropTypes.string.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    step: state.register.step,
-  };
-}
-
-export default connect(mapStateToProps)(Register);
+export default connect()(Register);

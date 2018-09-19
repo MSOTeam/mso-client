@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import GoogleLogin from 'react-google-login';
 
-const GoogleRegistration = () => {
+const GoogleRegistration = ({ handleRegister, handleError }) => {
   const onSuccess = (resp) => {
-    console.log(resp);
+    handleRegister(resp);
   };
   const onFailure = (error) => {
-    console.log(error);
+    handleError(error);
   };
 
   return (
@@ -18,5 +19,10 @@ const GoogleRegistration = () => {
     />
   );
 };
+
+GoogleRegistration.propTypes = {
+  handleRegister: PropTypes.func.isRequired,
+  handleError: PropTypes.func.isRequired,
+}
 
 export default GoogleRegistration;
