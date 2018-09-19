@@ -66,6 +66,7 @@ export const setUser = (user, token) => ({
 });
 
 export const setGoogleUser = googleUser => (dispatch) => {
+  console.log(googleUser);
   const user = new GoogleUser(googleUser);
   sessionStorage.setItem('token', user.token);
   setSession(user, user.token);
@@ -73,6 +74,7 @@ export const setGoogleUser = googleUser => (dispatch) => {
 };
 
 export const setFbUser = fbUser => (dispatch) => {
+  console.log(fbUser);
   const user = new FbUser(fbUser);
   setSession(user, user.token);
   dispatch(setUser(user, user.token));
