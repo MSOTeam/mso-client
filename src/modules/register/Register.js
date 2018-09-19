@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import * as actions from './actions';
+import { setGoogleUser, setFbUser } from '../login/actions';
 import { color } from '../../styles/color';
 import Facebook from '../../assets/img/facebook.svg';
 import Google from '../../assets/img/google.svg';
@@ -97,11 +98,13 @@ class Register extends Component {
   }
 
   handleGoogleRegistration = (user) => {
-
+    const { dispatch } = this.props;
+    dispatch(setGoogleUser(user));
   }
 
   handleFbRegistration = (user) => {
-
+    const { dispatch } = this.props;
+    dispatch(setFbUser(user));
   }
 
   handleError = (error) => {
