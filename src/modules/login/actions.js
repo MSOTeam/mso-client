@@ -27,14 +27,19 @@ const loginFailure = error => ({
   error,
 });
 
+const setSession = (user, token) => {
+  sessionStorage.setItem('user', user);
+  sessionStorage.setItem('token', token);
+};
+
 export const login = data => (dispatch) => {
   dispatch(loginRequest(data));
   axios
     .post('auth/login', data)
     .then((response) => {
       const { user, token } = response.data;
+      setSession(user, token);
       dispatch(loginSuccess(user, token));
-      sessionStorage.setItem('token', token);
     }).then(() => {
       dispatch(toggleModal());
       dispatch(push('/shopper/profile'));
@@ -63,12 +68,13 @@ export const setUser = (user, token) => ({
 export const setGoogleUser = googleUser => (dispatch) => {
   const user = new GoogleUser(googleUser);
   sessionStorage.setItem('token', user.token);
+  setSession(user, user.token);
   dispatch(setUser(user, user.token));
 };
 
 export const setFbUser = fbUser => (dispatch) => {
   const user = new FbUser(fbUser);
-  sessionStorage.setItem('token', user.token);
+  setSession(user, user.token);
   dispatch(setUser(user, user.token));
 };
 
