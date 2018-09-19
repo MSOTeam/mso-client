@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FacebookLogin from 'react-facebook-login';
 
-const FbLogin = () => {
-  const callback = (response) => {
-    console.log(response);
+const FbLogin = ({ handleLogin }) => {
+  const callback = (resp) => {
+    handleLogin(resp);
   };
 
   return (
@@ -16,6 +17,10 @@ const FbLogin = () => {
       )}
     />
   );
+};
+
+FbLogin.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
 };
 
 export default FbLogin;

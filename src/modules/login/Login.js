@@ -65,7 +65,17 @@ class Login extends Component {
     dispatch(actions.setGoogleUser(user));
   }
 
-  handleLoginError = (error) => {
+  handleFbLogin = (user) => {
+    const { dispatch } = this.props;
+    dispatch(actions.setFbUser(user));
+  }
+
+  handleEmailLogin = (login) => {
+    const { dispatch } = this.props;
+    dispatch(actions.login(login));
+  }
+
+  handleError = (error) => {
     console.log(error);
   }
 
@@ -82,16 +92,24 @@ class Login extends Component {
 
     switch (step) {
       case 'email':
-        return <EmailLogin />;
+        return (
+          <EmailLogin
+            handleLogin={this.handleEmailLogin}
+          />
+        );
       case 'google':
         return (
           <GoogleLogin
-            handleGoogleLogin={this.handleGoogleLogin}
-            handleLoginError={this.handleLoginError}
+            handleLogin={this.handleGoogleLogin}
+            handleError={this.handleError}
           />
         );
       case 'fb':
-        return <FbLogin />;
+        return (
+          <FbLogin
+            handleLogin={this.handleFbLogin}
+          />
+        );
       default:
         return selection;
     }

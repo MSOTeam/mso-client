@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GoogleLogin as Login } from 'react-google-login';
 
-const GoogleLogin = ({ handleGoogleLogin, handleLoginError }) => {
+const GoogleLogin = ({ handleLogin, handleLoginError }) => {
 
   const onSuccess = (resp) => {
-    handleGoogleLogin(resp);
+    handleLogin(resp);
   };
   const onFailure = (error) => {
     handleLoginError(error);
@@ -22,7 +22,7 @@ const GoogleLogin = ({ handleGoogleLogin, handleLoginError }) => {
 };
 
 GoogleLogin.propTypes = {
-  handleGoogleLogin: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
   handleLoginError: PropTypes.func.isRequired,
 };
 

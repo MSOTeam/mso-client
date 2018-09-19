@@ -3,7 +3,7 @@ class GoogleUser {
     this.token = user.accessToken;
     this.firstName = user.profileObj.givenName;
     this.lastName = user.profileObj.familyName;
-    this.email = user.profileObj;
+    this.email = user.profileObj.email;
   }
 }
 

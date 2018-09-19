@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as actions from './actions';
 import Input from '../../components/Input';
 
 class LoginEmail extends Component {
 
   onLogin = (event) => {
-    const { dispatch } = this.props;
     event.preventDefault();
-    dispatch(actions.login(this.state));
+    const { handleLogin } = this.props;
+    handleLogin(this.state);
   };
 
   handleInputChange = (event) => {
-    const target = event.target;
+    const { target } = event;
     this.setState({
       [target.name]: target.value,
     });
@@ -37,7 +35,7 @@ class LoginEmail extends Component {
 }
 
 LoginEmail.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  handleLogin: PropTypes.func.isRequired,
 };
 
-export default connect()(LoginEmail);
+export default LoginEmail;

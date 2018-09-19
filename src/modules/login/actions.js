@@ -9,6 +9,7 @@ import {
 } from './constants';
 import { toggleModal } from '../navigation/actions';
 import GoogleUser from './types/GoogleUser';
+import FbUser from './types/FbUser';
 
 
 const loginRequest = () => ({
@@ -64,3 +65,10 @@ export const setGoogleUser = googleUser => (dispatch) => {
   sessionStorage.setItem('token', user.token);
   dispatch(setUser(user, user.token));
 };
+
+export const setFbUser = fbUser => (dispatch) => {
+  const user = new FbUser(fbUser);
+  sessionStorage.setItem('token', user.token);
+  dispatch(setUser(user, user.token));
+};
+

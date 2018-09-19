@@ -35,7 +35,6 @@ const SignUp = ({ children }) => (
       <Navigation />
     </NavWrapper>
     {children}
-    <Signupfixed>SIGN UP NOW!</Signupfixed>
   </div>
 );
 
