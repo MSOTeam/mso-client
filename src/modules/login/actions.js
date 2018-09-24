@@ -78,3 +78,20 @@ export const setFbUser = fbUser => (dispatch) => {
   dispatch(setUser(user, user.token));
 };
 
+export const authGoogleUser = googleUser => (dispatch) => {
+  const user = new GoogleUser(googleUser);
+  dispatch(loginRequest(user.token));
+  axios
+    .post('/auth/google', { access_token: user.token })
+    .then((response) => {
+      const token = response.headers['x-auth-token'];
+      setSession(user, token);
+      dispatch(loginSuccess(user, token));
+    }).then(() => {
+      dispatch(toggleModal());
+      dispatch(push('/articles'));
+    })
+    .catch((error) => {
+      dispatch(loginFailure(error));
+    });
+};

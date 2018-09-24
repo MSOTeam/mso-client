@@ -62,7 +62,7 @@ class Login extends Component {
 
   handleGoogleLogin = (user) => {
     const { dispatch } = this.props;
-    dispatch(actions.setGoogleUser(user));
+    dispatch(actions.authGoogleUser(user));
   }
 
   handleFbLogin = (user) => {
