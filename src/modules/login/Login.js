@@ -67,7 +67,7 @@ class Login extends Component {
 
   handleFbLogin = (user) => {
     const { dispatch } = this.props;
-    dispatch(actions.setFbUser(user));
+    dispatch(actions.authFbUser(user));
   }
 
   handleEmailLogin = (login) => {

@@ -65,24 +65,42 @@ export const setUser = (user, token) => ({
   token,
 });
 
-export const setGoogleUser = googleUser => (dispatch) => {
-  const user = new GoogleUser(googleUser);
-  sessionStorage.setItem('token', user.token);
-  setSession(user, user.token);
-  dispatch(setUser(user, user.token));
-};
+// export const setGoogleUser = googleUser => (dispatch) => {
+//   const user = new GoogleUser(googleUser);
+//   sessionStorage.setItem('token', user.token);
+//   setSession(user, user.token);
+//   dispatch(setUser(user, user.token));
+// };
 
-export const setFbUser = fbUser => (dispatch) => {
-  const user = new FbUser(fbUser);
-  setSession(user, user.token);
-  dispatch(setUser(user, user.token));
-};
+// export const setFbUser = fbUser => (dispatch) => {
+//   const user = new FbUser(fbUser);
+//   setSession(user, user.token);
+//   dispatch(setUser(user, user.token));
+// };
 
 export const authGoogleUser = googleUser => (dispatch) => {
   const user = new GoogleUser(googleUser);
   dispatch(loginRequest(user.token));
   axios
     .post('/auth/google', { access_token: user.token })
+    .then((response) => {
+      const token = response.headers['x-auth-token'];
+      setSession(user, token);
+      dispatch(loginSuccess(user, token));
+    }).then(() => {
+      dispatch(toggleModal());
+      dispatch(push('/articles'));
+    })
+    .catch((error) => {
+      dispatch(loginFailure(error));
+    });
+};
+
+export const authFbUser = fbUser => (dispatch) => {
+  const user = new FbUser(fbUser);
+  dispatch(loginRequest(user.token));
+  axios
+    .post('/auth/fb', { access_token: user.token })
     .then((response) => {
       const token = response.headers['x-auth-token'];
       setSession(user, token);
