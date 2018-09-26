@@ -35,14 +35,15 @@ const setSession = (user, token) => {
 export const login = data => (dispatch) => {
   dispatch(loginRequest(data));
   axios
-    .post('auth/login', data)
+    .post('/auth/email', data)
     .then((response) => {
-      const { user, token } = response.data;
+      const token = response.headers['x-auth-token'];
+      const user = { email: data.email };
       setSession(user, token);
       dispatch(loginSuccess(user, token));
     }).then(() => {
       dispatch(toggleModal());
-      dispatch(push('/shopper/profile'));
+      dispatch(push('/articles'));
     })
     .catch((error) => {
       dispatch(loginFailure(error));
@@ -64,19 +65,6 @@ export const setUser = (user, token) => ({
   user,
   token,
 });
-
-// export const setGoogleUser = googleUser => (dispatch) => {
-//   const user = new GoogleUser(googleUser);
-//   sessionStorage.setItem('token', user.token);
-//   setSession(user, user.token);
-//   dispatch(setUser(user, user.token));
-// };
-
-// export const setFbUser = fbUser => (dispatch) => {
-//   const user = new FbUser(fbUser);
-//   setSession(user, user.token);
-//   dispatch(setUser(user, user.token));
-// };
 
 export const authGoogleUser = googleUser => (dispatch) => {
   const user = new GoogleUser(googleUser);
