@@ -26,7 +26,7 @@ const registerFailure = error => ({
 export const register = data => (dispatch) => {
   dispatch(registerRequest(data));
   axios
-    .post('register', data)
+    .post('/user', data)
     .then((response) => {
       dispatch(registerSuccess(response));
       dispatch(login(data));
