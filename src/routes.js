@@ -18,11 +18,8 @@ const Routes = props => (
   <ConnectedRouter history={props.history}>
     <div>
       <Route exact path="/" component={main.Main} />
-      <Route path="/search" component={search.Search} />
-
-      <Route path="/registered" component={register.RegisterSuccess} />
-      <Route path="/articles" component={articles.Articles} />
-      <Route path="/article/:id" component={articles.Article} />
+      <routes.AuthRoute path="/articles" component={articles.Articles} />
+      <routes.AuthRoute path="/article/:id" component={articles.Article} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />
     </div>
 

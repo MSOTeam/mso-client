@@ -9,9 +9,9 @@ class AuthRoute extends Component {
 
  componentWillMount = () => {
    const { dispatch } = this.props;
-  //  if (!sessionStorage.token) {
-  //    dispatch(push('/'));
-  //  }
+   if (!localStorage.token) {
+     dispatch(push('/'));
+   }
  }
 
  render() {
