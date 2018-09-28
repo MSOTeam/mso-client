@@ -23,10 +23,11 @@ const findArticlesFailure = error => ({
   error,
 });
 
-export const findArticles = data => (dispatch) => {
-  dispatch(findArticlesRequest(data));
+export const findArticles = () => (dispatch) => {
+  const token = localStorage.getItem('token');
+  dispatch(findArticlesRequest(token));
   axios
-    .get('article', data)
+    .get('article', { headers: { Authorization: `Bearer ${token}` } })
     .then((response) => {
       dispatch(findArticlesSuccess(response.data.articles));
     })
@@ -53,7 +54,7 @@ const findArticleFailure = error => ({
 export const findArticle = id => (dispatch) => {
   dispatch(findArticleRequest({}));
   axios
-    .get(`${'/article/'}${id}`)
+    .get(`${'/article/'}${id}`, { headers: { 'X-Auth-Token': localStorage.getItem('token') } })
     .then((response) => {
       dispatch(findArticleSuccess(response.data.article));
     })

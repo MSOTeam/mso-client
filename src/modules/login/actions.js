@@ -28,8 +28,8 @@ const loginFailure = error => ({
 });
 
 const setSession = (user, token) => {
-  sessionStorage.setItem('user', user);
-  sessionStorage.setItem('token', token);
+  localStorage.setItem('user', user);
+  localStorage.setItem('token', token);
 };
 
 export const login = data => (dispatch) => {
@@ -55,7 +55,7 @@ const logoutUser = () => ({
 });
 
 export const logout = () => (dispatch) => {
-  sessionStorage.clear();
+  localStorage.clear();
   dispatch(logoutUser());
   dispatch(push('/'));
 };

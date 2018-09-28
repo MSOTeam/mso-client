@@ -9,7 +9,7 @@ class App extends Component {
 
   componentWillMount = () => {
     const { dispatch, authenticated } = this.props;
-    const { user, token } = sessionStorage;
+    const { user, token } = localStorage;
     if (user && token && !authenticated) {
       dispatch(loginSuccess(user, token));
     }
