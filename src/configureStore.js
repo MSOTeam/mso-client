@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { register, navigation, login, shoppers, articles } from './modules';
+import { register, navigation, login, articles } from './modules';
 
 export default ({ initialState = {}, mware }) => {
 
@@ -11,7 +11,6 @@ export default ({ initialState = {}, mware }) => {
     register: register.reducer,
     navigation: navigation.reducer,
     login: login.reducer,
-    shoppers: shoppers.reducer,
     articles: articles.reducer,
   });
 

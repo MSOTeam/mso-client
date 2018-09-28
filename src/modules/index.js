@@ -5,7 +5,6 @@ import main from './main';
 import search from './search';
 import settings from './settings';
 import routes from './routes';
-import shoppers from './shoppers';
 import navigation from './navigation';
 import articles from './articles';
 
@@ -17,7 +16,6 @@ export {
   search,
   settings,
   routes,
-  shoppers,
   navigation,
   articles,
 };
