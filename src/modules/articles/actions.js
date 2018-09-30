@@ -52,9 +52,10 @@ const findArticleFailure = error => ({
 });
 
 export const findArticle = id => (dispatch) => {
+  const token = localStorage.getItem('token');
   dispatch(findArticleRequest({}));
   axios
-    .get(`${'/article/'}${id}`, { headers: { 'X-Auth-Token': localStorage.getItem('token') } })
+    .get(`${'/article/'}${id}`, { headers: { Authorization: `Bearer ${token}` } })
     .then((response) => {
       dispatch(findArticleSuccess(response.data.article));
     })
