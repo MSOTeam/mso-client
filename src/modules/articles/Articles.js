@@ -17,6 +17,9 @@ class Articles extends Component {
          onClick={() => dispatch(push(`${'/article/'}${article._id}`))}
          style={{ paddingBottom: 20 }}
        >
+         <div style={{ fontWeight: 600, fontSize: 18, paddingBottom: 20 }}>
+           {article.tags.map(tag => (<span style={{ paddingRight: 8 }}>{tag}</span>))}
+         </div>
          <div style={{ fontWeight: 600, fontSize: 20, cursor: 'pointer' }}>{article.title}</div>
          <div dangerouslySetInnerHTML={{ __html: article.excerpt }} />
          <div>Length: {article.length}</div>
