@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import AuthNavigation from '../navigation/AuthNavigation';
+import Sidebar from '../sidebar/sidebar';
 import { color } from '../../styles/color';
 
 const NavWrapper = styled.div`
@@ -14,6 +15,7 @@ const Authenticated = ({ children }) => (
   <div>
     <NavWrapper>
       <AuthNavigation />
+      <Sidebar /> 
     </NavWrapper>
     { children }
   </div>

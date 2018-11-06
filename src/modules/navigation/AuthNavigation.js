@@ -14,7 +14,7 @@ const Navgrid = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100px;
-  padding: 0 5%;
+  padding: 0 140px;
   background: ${color.secondary};
 `;
 
