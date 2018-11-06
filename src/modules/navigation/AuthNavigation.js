@@ -1,50 +1,64 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { Flex, Box } from 'grid-styled';
-import Modal from 'react-modal';
-import Overlay from './component/Overlay';
 import { color } from '../../styles/color';
-import Logo from '../../assets/img/logo_big.svg';
-import * as actions from './actions';
+import Logo from '../../assets/logo_p_text_small.svg';
+import Star from '../../assets/star.svg';
+import Reminder from '../../assets/reminder.svg';
+import Progress from '../../assets/progress.svg';
 import { logout } from '../login/actions';
 
-  <Box
-  width={[
-    1 / 10,
-    2 / 10,
-    3 / 10,
-    4 / 10,
-    5 / 10,
-    6 / 10,
-    7 / 10,
-    8 / 10,
-    9 / 10,
-    10 / 10
-  ]}
-/>
-
-const Navgrid = styled(Flex)`
-  height: 100px;
-  border-bottom: 1px solid ${color.lightgrey} 
+const Navgrid = styled.div`
+  display: flex;
   justify-content: space-between;
-  margin: 0 2.5vw;
+  height: 100px;
+  padding: 0 5%;
+  background: ${color.secondary};
 `;
 
-const Navitem = styled(Box)`
+const Navitem = styled.div`
   cursor: pointer;
   align-self: center;
-  font-weight: 100;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  padding-left: 30px;
+  ${props => props.logo && css`
+    padding-left: 0;
+  `}
+  ${props => props.star && css`
+    &::before {
+      content: url(${Star});
+      margin-right: 10px;
+    }
+  `}
+  ${props => props.progress && css`
+    &::before {
+      content: url(${Progress});
+      margin-right: 10px;
+    }
+  `}
+  ${props => props.reminder && css`
+    &::before {
+      content: url(${Reminder});
+      margin-right: 10px;
+    }
+  `}
 `;
 
 const AuthNavigation = ({ dispatch }) => (
   <Navgrid>
-    <Navitem width={[ 1, 10 / 10, 3 / 10, 5 / 10, 6 / 10, 8 / 10]} onClick={() => dispatch(push('/'))}>TagIt</Navitem>
-    <Navitem onClick={() => dispatch(push('/articles'))}>Articles</Navitem>
-    <Navitem onClick={() => dispatch(logout())}>Logout</Navitem>
+    <Navitem logo onClick={() => dispatch(push('/'))}>
+      <img src={Logo} alt="logo" />
+    </Navitem>
+    <div style={{ display: 'flex' }}>
+      <Navitem star onClick={() => dispatch(push('/articles'))}>Favorite</Navitem>
+      <Navitem progress onClick={() => dispatch(push('/articles'))}>In progress</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles'))}>Reminder</Navitem>
+      <Navitem onClick={() => dispatch(logout())}>Logout</Navitem>
+    </div>
   </Navgrid>
 );
 

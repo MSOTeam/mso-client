@@ -27,7 +27,7 @@ class Articles extends Component {
      ));
 
      return (
-       <div>
+       <div style={{ padding: '5%' }}>
          {articles}
        </div>
      );

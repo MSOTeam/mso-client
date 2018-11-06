@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import Overlay from './component/Overlay';
 import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
-import Logo from '../../assets/img/logo_big.svg';
+import Logo from '../../assets/logo_p_text_small.svg';
 import IconSVG from '../../assets/img/icon.svg';
 import Crooked from '../../assets/img/crooked.svg';
 import * as actions from './actions';
@@ -81,7 +81,7 @@ class Navigation extends Component {
         }}>
         <Navgrid>
           <Navitem id="logo" w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}>
-            TagIt
+            <img src={Logo}/>
           </Navitem>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
