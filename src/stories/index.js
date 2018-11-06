@@ -8,6 +8,7 @@ import { storiesOf } from '@storybook/react';
 
 import LogoPwText from '../assets/logo_p_text.svg';
 import Logop from '../assets/logo_p.svg';
+import Application from '../assets/tagit_screen.svg';
 import { color } from '../styles/color';
 
 // storiesOf('Welcome', module).add('to Storybook', () => (
@@ -23,6 +24,16 @@ import { color } from '../styles/color';
 //   ));
 
 storiesOf('Brand', module)
+  .add('Application', () => (
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'baseline', marginLeft: '10px',
+      }}
+    >
+      <div style={{ marginBottom: '30px' }}>
+        <img src={Application} alt="logo" />
+      </div>
+    </div>
+  ))
   .add('Logo', () => (
     <div style={{
       display: 'flex', flexDirection: 'column', alignItems: 'baseline', marginLeft: '30px',
