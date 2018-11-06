@@ -31,7 +31,8 @@ const setSession = (user, token) => {
   localStorage.setItem('user', user);
   localStorage.setItem('token', token);
   /* eslint-disable no-undef */
-  const extensionId = 'ffcejbhgbcnophijkajgbgfjjiblfmdb';
+  /* const extensionId = 'ffcejbhgbcnophijkajgbgfjjiblfmdb'; */
+  const extensionId = 'amaagfbjejeplpphcpajlakcamieadlo';
   chrome.runtime.sendMessage(extensionId, token, resp => console.log(resp));
 };
 

@@ -34,13 +34,13 @@
     "redux-thunk": "^2.2.0",
     "styled-components": "^3.2.3",
     "styled-css-grid": "^0.8.2",
-    "styled-reset": "^1.1.2"
-  },
-  "devDependencies": {
+    "styled-reset": "^1.1.2",
     "@storybook/addon-actions": "^3.3.15",
     "@storybook/addon-links": "^3.3.15",
     "@storybook/addons": "^3.3.15",
-    "@storybook/react": "^3.3.15",
+    "@storybook/react": "^3.3.15"
+  },
+  "devDependencies": {
     "babel-core": "^6.26.0",
     "prettier-eslint": "^8.8.1"
   },

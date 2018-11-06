@@ -1,28 +1,43 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+// import { action } from '@storybook/addon-actions';
+// import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
+// import { Button, Welcome } from '@storybook/react/demo';
 
-import Logo from '../assets/img/logo.svg';
+import LogoPwText from '../assets/logo_p_text.svg';
+import Logop from '../assets/logo_p.svg';
 import { color } from '../styles/color';
 
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
-));
+// storiesOf('Welcome', module).add('to Storybook', () => (
+//   <Welcome showApp={linkTo('Button')} />
+// ));
 
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));
+// storiesOf('Button', module)
+//   .add('with text', () => (
+//     <Button onClick={action('clicked')}>Hello Button</Button>
+//   ))
+//   .add('with some emoji', () => (
+//     <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
+//   ));
 
 storiesOf('Brand', module)
-  .add('Logo', () => <img src={Logo} />)
+  .add('Logo', () => (
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'baseline', marginLeft: '30px',
+      }}
+    >
+      <div style={{ marginBottom: '30px' }}>
+        <p>With text</p>
+        <img src={LogoPwText} alt="logo" />
+      </div>
+      <div>
+        <p>Without text</p>
+        <img src={Logop} alt="logo" />
+      </div>
+    </div>
+  ))
   .add('Colors', () => (
     <div style={{ display: 'flex' }}>
       <div>
@@ -31,10 +46,10 @@ storiesOf('Brand', module)
             background: color.primary,
             height: '150px',
             width: '150px',
-            marginRight: '20px'
+            marginRight: '20px',
           }}
         />
-        <span>#03CEA4</span>
+        <span>color.primary</span>
       </div>
       <div>
         <div
@@ -42,21 +57,21 @@ storiesOf('Brand', module)
             background: color.secondary,
             height: '150px',
             width: '150px',
-            marginRight: '20px'
+            marginRight: '20px',
           }}
         />
-        <span>#970747</span>
+        <span>color.secondary</span>
       </div>
       <div>
         <div
           style={{
-            background: color.lightgrey,
+            background: color.light,
             height: '150px',
             width: '150px',
-            marginRight: '20px'
+            marginRight: '20px',
           }}
         />
-        <span>#F2F2F2</span>
+        <span>color.light</span>
       </div>
       <div>
         <div
@@ -64,10 +79,10 @@ storiesOf('Brand', module)
             background: color.dark,
             height: '150px',
             width: '150px',
-            marginRight: '20px'
+            marginRight: '20px',
           }}
         />
-        <span>#000</span>
+        <span>color.dark</span>
       </div>
     </div>
   ));
