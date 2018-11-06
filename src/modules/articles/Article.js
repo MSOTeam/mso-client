@@ -14,7 +14,7 @@ class Article extends Component {
     const { article } = this.props;
     
     return (
-      <div style={{ width: 800 }}>
+      <div style={{ width: 800, padding: '3% 70px 5% 140px' }}>
         <h1 style={{ fontSize: 26, fontWeight: 600, paddingBottom: 28 }}>{article.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: article.content }} />
       </div>
