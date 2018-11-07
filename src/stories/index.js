@@ -50,14 +50,14 @@ storiesOf('Brand', module)
     </div>
   ))
   .add('Colors', () => (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', height: '100vh' }}>
       <div>
         <div
           style={{
             background: color.primary,
-            height: '150px',
-            width: '150px',
             marginRight: '20px',
+            height: '90vh',
+            width: 'calc(100vw/4)',
           }}
         />
         <span>color.primary</span>
@@ -66,9 +66,9 @@ storiesOf('Brand', module)
         <div
           style={{
             background: color.secondary,
-            height: '150px',
-            width: '150px',
             marginRight: '20px',
+            height: '90vh',
+            width: 'calc(100vw/4)',
           }}
         />
         <span>color.secondary</span>
@@ -77,9 +77,9 @@ storiesOf('Brand', module)
         <div
           style={{
             background: color.light,
-            height: '150px',
-            width: '150px',
             marginRight: '20px',
+            height: '90vh',
+            width: 'calc(100vw/4)',
           }}
         />
         <span>color.light</span>
@@ -88,9 +88,9 @@ storiesOf('Brand', module)
         <div
           style={{
             background: color.dark,
-            height: '150px',
-            width: '150px',
             marginRight: '20px',
+            height: '90vh',
+            width: 'calc(100vw/4.7)',
           }}
         />
         <span>color.dark</span>
