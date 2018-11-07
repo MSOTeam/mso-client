@@ -25,6 +25,15 @@ const ArticlesGrid = styled.div`
     background: white;
     color: palevioletred;
   `}
+  @media (max-width: 1300px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Welcome = styled.h1`
@@ -60,7 +69,7 @@ const ArticleHeader = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 24px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
