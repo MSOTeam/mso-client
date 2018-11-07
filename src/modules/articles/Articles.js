@@ -6,12 +6,8 @@ import { push } from 'react-router-redux';
 import * as actions from './actions';
 import { color } from '../../styles/color';
 
-const ArticlesGrid = styled.div`
+const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 1.5em;
   
   ${props => props.primary && css`
     background: white;
@@ -19,8 +15,44 @@ const ArticlesGrid = styled.div`
   `}
 `;
 
+const ArticlesGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 2em;
+  margin-top: 3%;
+  ${props => props.primary && css`
+    background: white;
+    color: palevioletred;
+  `}
+`;
+
+const Welcome = styled.h1`
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 20px 0 60px 0;
+`;
+
+const Latest = styled.p`
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-bottom: 5px solid ${color.primary};
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  width: 4%;
+`;
+
 const ArticleBox = styled.div`
   display: grid;
+  margin-bottom: 20px;
+`;
+
+const ArticleImage = styled.div`
+  background: ${color.dark};
+  height: 200px;
+  margin-bottom: 15px;
 `;
 
 const ArticleHeader = styled.div`
@@ -37,7 +69,7 @@ const ArticleHeader = styled.div`
 `;
 
 const ArticleExcerp = styled.div`
-  font-weight: 100;
+  font-weight: 200;
   font-size: 16px;
   cursor: pointer;
   line-height: 24px;
@@ -65,9 +97,10 @@ class Articles extends Component {
    }
 
    render() {
-     const { dispatch } = this.props;     
+     const { dispatch } = this.props;
      const articles = this.props.articles.map(article => (
-       <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>         
+       <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
+         <ArticleImage/>
          <ArticleHeader>{article.title}</ArticleHeader>
          <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} />
          {/* <div>Length: {article.length}</div> */}
@@ -76,9 +109,13 @@ class Articles extends Component {
      ));
 
      return (
-       <ArticlesGrid>
+       <ArticlesWrapper>
+        <Welcome>Welcome back user</Welcome>
+        <Latest>Latest</Latest>
+       <ArticlesGrid>         
          {articles}
        </ArticlesGrid>
+       </ArticlesWrapper>
      );
    }
 }
