@@ -17,14 +17,17 @@ const ArticlesWrapper = styled.div`
 
 const ArticlesGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2em;
   margin-top: 3%;
   ${props => props.primary && css`
     background: white;
     color: palevioletred;
   `}
+  @media (max-width: 1800px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   @media (max-width: 1300px) {
     grid-template-columns: 1fr 1fr 1fr;
   }

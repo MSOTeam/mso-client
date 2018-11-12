@@ -8,6 +8,7 @@ import Logo from '../../assets/logo_p_text_small.svg';
 import Star from '../../assets/star.svg';
 import Reminder from '../../assets/reminder.svg';
 import Progress from '../../assets/progress.svg';
+import SignOut from '../../assets/signout.svg';
 import { logout } from '../login/actions';
 
 const Navgrid = styled.div`
@@ -32,20 +33,39 @@ const Navitem = styled.div`
     &::before {
       content: url(${Star});
       margin-right: 10px;
+      position: relative;
+      top: 2px;
     }
   `}
   ${props => props.progress && css`
     &::before {
       content: url(${Progress});
       margin-right: 10px;
+      position: relative;
+      top: 2px;
     }
   `}
   ${props => props.reminder && css`
     &::before {
       content: url(${Reminder});
       margin-right: 10px;
+      position: relative;
+      top: 2px;
     }
   `}
+  ${props => props.logout && css`
+    &::before {
+      content: url(${SignOut});
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
+  `}
+  @media (max-width: 850px) {
+    font-size: 0px;
+    color: white;
+    padding-left: 20px;
+  }
 `;
 
 const AuthNavigation = ({ dispatch }) => (
@@ -57,7 +77,7 @@ const AuthNavigation = ({ dispatch }) => (
       <Navitem star onClick={() => dispatch(push('/articles'))}>Favorite</Navitem>
       <Navitem progress onClick={() => dispatch(push('/articles'))}>In progress</Navitem>
       <Navitem reminder onClick={() => dispatch(push('/articles'))}>Reminder</Navitem>
-      <Navitem onClick={() => dispatch(logout())}>Logout</Navitem>
+      <Navitem logout onClick={() => dispatch(logout())}>Logout</Navitem>
     </div>
   </Navgrid>
 );
