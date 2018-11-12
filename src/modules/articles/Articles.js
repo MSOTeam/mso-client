@@ -18,7 +18,6 @@ const ArticlesWrapper = styled.div`
 const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2em;
   margin-top: 3%;
   ${props => props.primary && css`
@@ -53,7 +52,7 @@ const Latest = styled.p`
   border-bottom: 5px solid ${color.primary};
   padding-bottom: 15px;
   margin-bottom: 20px;
-  width: 4%;
+  width: fit-content;
 `;
 
 const ArticleBox = styled.div`

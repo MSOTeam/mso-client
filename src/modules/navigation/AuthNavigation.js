@@ -70,7 +70,7 @@ const Navitem = styled.div`
 
 const AuthNavigation = ({ dispatch }) => (
   <Navgrid>
-    <Navitem logo onClick={() => dispatch(push('/'))}>
+    <Navitem logo onClick={() => dispatch(push('/articles'))}>
       <img src={Logo} alt="logo" />
     </Navitem>
     <div style={{ display: 'flex' }}>
