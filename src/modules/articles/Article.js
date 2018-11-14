@@ -7,6 +7,8 @@ import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
 import CommentMsg from '../../assets/comment.svg';
 import Members from '../../assets/members.svg';
+import Share from '../../assets/share.svg';
+import Archive from '../../assets/archive.svg';
 
 const StatBox = styled.div`
   display: flex;
@@ -65,7 +67,7 @@ const EditBox = styled.div`
 
 const EditWrapper = styled.div`
   display: flex;
-  width: 40%;
+  width: 60%;
   justify-content: space-between;
   align-items: center;
 `;
@@ -107,6 +109,22 @@ const EditItem = styled.div`
       top: 2px;
     }
   `}
+  ${props => props.share && css`
+    &::before {
+      content: url(${Share});
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
+  `}
+  ${props => props.archive && css`
+    &::before {
+      content: url(${Archive});
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
+  `}
 `;
 
 class Article extends Component {
@@ -137,6 +155,8 @@ class Article extends Component {
             <EditItem highlight>Highlight</EditItem>
             <EditItem comment>Comment</EditItem>
             <EditItem members>Members</EditItem>
+            <EditItem share>Share</EditItem>
+            <EditItem archive>Archive</EditItem>
           </EditWrapper>
         </EditBox>
       </div>
