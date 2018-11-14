@@ -135,6 +135,11 @@ class Article extends Component {
 
   render() {
     const { article } = this.props;
+
+    const minutes = article.length / 5;
+    const ble = minutes / 200;
+    const displayed = Math.ceil(ble.toFixed(2));
+
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
@@ -145,7 +150,7 @@ class Article extends Component {
           <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 18, lineHeight: '45px' }}>{article.title}</h1>
           <StatBox bottom>
             <div>#{article.tags}</div>
-            <div style={{ display: 'flex' }}>Reading time: <StatTime> {article.length}</StatTime></div>
+            <div style={{ display: 'flex' }}>Reading time: <StatTime> {displayed} min</StatTime></div>
           </StatBox>
           <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
         </div>
