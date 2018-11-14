@@ -15,6 +15,7 @@ const StatBox = styled.div`
   justify-content: space-between;
   font-weight: 600;
   font-size: 14px;
+  letter-spacing: 1px;
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;

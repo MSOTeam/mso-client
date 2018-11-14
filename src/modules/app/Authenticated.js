@@ -16,7 +16,7 @@ const Authenticated = ({ children }) => (
   <div>
     <NavWrapper>
       <AuthNavigation />
-      <Sidebar /> 
+      <Sidebar />
     </NavWrapper>
     { children }
   </div>

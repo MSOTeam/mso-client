@@ -98,6 +98,7 @@ const ArticleTags = styled.span`
   line-height: 24px;
   color: ${color.primary};
   align-self: end;
+  letter-spacing: 1px;
 `;
 
 class Articles extends Component {
