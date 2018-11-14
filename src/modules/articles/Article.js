@@ -18,7 +18,7 @@ const StatBox = styled.div`
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;
-    margin-bottom: 15px;
+    margin-bottom: 17px;
     font-weight: 100;
   `}
   ${props => props.bottom && css`
@@ -39,9 +39,12 @@ const ArticleText = styled.p`
   font-size: 19px;
   line-height: 31px;
   margin-bottom: 50px;
-  
+
   & > div > div > div > * {
     padding: 20px 0;
+  }
+  & > div > div > div > p > a {
+    color: #000;
   }
   & > div > div > figure > img {
     background-size: cover;
@@ -62,7 +65,8 @@ const ArticleText = styled.p`
 const EditBox = styled.div`
   position: fixed;
   width: calc(100vw - 80px);
-  background:#FFF6D6;
+  background:#fff; /*#FFF6D6*/
+  box-shadow: black 0px 10px 23px;
   bottom: 0;
   right: 0;
   height: 70px;
@@ -152,7 +156,7 @@ class Article extends Component {
             <div>Tagged: 29. september 2018</div>
             <div>5679 tags</div>
           </StatBox>
-          <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 18, lineHeight: '45px' }}>{article.title}</h1>
+          <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px' }}>{article.title}</h1>
           <StatBox bottom>
             <div>#{article.tags}</div>
             <div style={{ display: 'flex' }}>Reading time: <StatTime> {displayed} min</StatTime></div>
