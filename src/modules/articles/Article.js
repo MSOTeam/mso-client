@@ -66,12 +66,13 @@ const EditBox = styled.div`
   position: fixed;
   width: calc(100vw - 80px);
   background:#fff; /*#FFF6D6*/
-  box-shadow: black 0px 10px 23px;
+  box-shadow: #000 0px 8px 16px;
   bottom: 0;
   right: 0;
   height: 70px;
   display: flex;
   justify-content: center;
+  z-index: -1;
 `;
 
 const EditWrapper = styled.div`
