@@ -16,7 +16,7 @@ const StatBox = styled.div`
   justify-content: space-between;
   font-weight: 600;
   font-size: 14px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;
@@ -164,7 +164,7 @@ class Article extends Component {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
           <StatBox top>
-            <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY, h:mm:ss')}</div>
+            <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
             <div>{article.tags ? article.tags.length : ''} tags</div>
           </StatBox>
           <h3>{article.url}</h3>
