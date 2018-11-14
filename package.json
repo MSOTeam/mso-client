@@ -23,7 +23,7 @@
     "prettier": "^1.10.2",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
-    "react": "^16.2.0",
+    "react": "^16.6.3",
     "react-dom": "^16.2.0",
     "react-facebook-login": "^4.1.0",
     "react-flexbox-grid": "^2.0.0",

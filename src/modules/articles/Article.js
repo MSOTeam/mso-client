@@ -140,6 +140,14 @@ const EditItem = styled.div`
 `;
 
 class Article extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      edit: false,
+    };
+  }
+
   componentDidMount = () => {
     const { dispatch, match } = this.props;
     dispatch(actions.findArticle(match.params.id));
@@ -165,11 +173,18 @@ class Article extends Component {
             <div>#{article.tags}</div>
             <div style={{ display: 'flex' }}>Reading time: <StatTime> {displayed} min</StatTime></div>
           </StatBox>
-          <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
+          {!this.state.edit &&
+            <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
+          }
+          {this.state.edit &&
+            <textarea style={{ width: '100%', height: 400 }}>
+              {article.content}
+            </textarea>
+          }
         </div>
         <EditBox>
           <EditWrapper>
-            <EditItem edit>Edit</EditItem>
+            <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
             <EditItem highlight>Highlight</EditItem>
             <EditItem comment>Comment</EditItem>
             <EditItem members>Members</EditItem>
