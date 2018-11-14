@@ -174,7 +174,6 @@ class Article extends Component {
     const minutes = article.length / 5;
     const ble = minutes / 200;
     const displayed = Math.ceil(ble.toFixed(2));
-
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
