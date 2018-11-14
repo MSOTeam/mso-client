@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
+import moment from 'moment';
 import * as actions from './actions';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
@@ -155,9 +156,10 @@ class Article extends Component {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
           <StatBox top>
-            <div>Tagged: 29. september 2018</div>
-            <div>5679 tags</div>
+            <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY, h:mm:ss')}</div>
+            <div>{article.tags ? article.tags.length : ''} tags</div>
           </StatBox>
+          <h3>{article.url}</h3>
           <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px' }}>{article.title}</h1>
           <StatBox bottom>
             <div>#{article.tags}</div>
