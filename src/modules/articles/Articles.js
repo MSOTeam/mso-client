@@ -45,14 +45,17 @@ const Welcome = styled.h1`
   margin: 20px 0 60px 0;
 `;
 
-const Latest = styled.p`
+const Cats = styled.p`
   font-size: 1em;
-  font-weight: 600;
   letter-spacing: 0.5px;
-  border-bottom: 5px solid ${color.primary};
   padding-bottom: 15px;
   margin-bottom: 20px;
-  width: fit-content;
+  margin-right: 20px;
+  ${props => props.active && css`
+    font-weight: 600;
+    border-bottom: 5px solid ${color.primary};
+    width: fit-content;
+  `}
 `;
 
 const ArticleBox = styled.div`
@@ -122,7 +125,11 @@ class Articles extends Component {
      return (
        <ArticlesWrapper>
          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-         <Latest>Latest</Latest>
+         <div style={{ display: 'flex' }}>
+           <Cats active>Latest</Cats>
+           <Cats>Recommended</Cats>
+           <Cats>Trending</Cats>
+         </div>
          <ArticlesGrid>
            {articles}
          </ArticlesGrid>
