@@ -29,7 +29,7 @@ App.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const authenticated = (state.login.token && state.login.user) ? true : false;
+  const authenticated = (state.login.token) || localStorage.getItem('token');
   return {
     authenticated,
   };

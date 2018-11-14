@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
+import { Editor } from '../../components';
 import * as actions from './actions';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
@@ -190,10 +191,17 @@ class Article extends Component {
           {!this.state.edit &&
             <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
           }
-          {this.state.edit &&
+          {/*this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
               {article.content}
             </textarea>
+          */}
+          {this.state.edit &&
+            <div style={{ border: '1px solid gray', minHeight: 300 }}>
+              <Editor
+                text={article.content}
+              />
+            </div>
           }
         </div>
         <EditBox>
