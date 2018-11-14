@@ -72,7 +72,7 @@ const EditBox = styled.div`
   height: 70px;
   display: flex;
   justify-content: center;
-  z-index: -1;
+  z-index: 1;
 `;
 
 const EditWrapper = styled.div`
