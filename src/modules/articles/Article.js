@@ -20,14 +20,14 @@ const StatBox = styled.div`
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;
-    margin-bottom: 17px;
+    margin-bottom: 22px;
     font-weight: 100;
   `}
   ${props => props.bottom && css`
     cursor: pointer;
     line-height: 24px;
     color: #5649CF;
-    margin-bottom: 20px;
+    margin-bottom: 45px;
   `}
 `;
 
