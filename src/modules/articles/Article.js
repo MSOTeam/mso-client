@@ -10,6 +10,9 @@ import CommentMsg from '../../assets/comment.svg';
 import Members from '../../assets/members.svg';
 import Share from '../../assets/share.svg';
 import Archive from '../../assets/archive.svg';
+import StarEmpty from '../../assets/star_empty.svg';
+import ProgessEmpty from '../../assets/progress_empty.svg';
+import ReminderEmpty from '../../assets/reminder_empty.svg';
 
 const StatBox = styled.div`
   display: flex;
@@ -138,6 +141,18 @@ const EditItem = styled.div`
   `}
 `;
 
+const AddBox = styled.div`
+    display: flex;
+    height: 20vh;
+    flex-direction: column;
+    position: sticky;
+    top: 210px;
+    & > img {
+      margin-bottom: 20px;
+    }
+`;
+
+
 class Article extends Component {
 
   constructor(props) {
@@ -191,6 +206,11 @@ class Article extends Component {
             <EditItem archive>Archive</EditItem>
           </EditWrapper>
         </EditBox>
+        <AddBox>
+          <img src={StarEmpty} alt="Add to favs" title="Add to favs" />
+          <img src={ProgessEmpty} alt="Add to in progress" title="Add to in progress" />
+          <img src={ReminderEmpty} alt="Add to reminder" title="Add to reminder" />
+        </AddBox>
       </div>
     );
   }
