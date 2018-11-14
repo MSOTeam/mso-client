@@ -146,7 +146,7 @@ const AddBox = styled.div`
     height: 20vh;
     flex-direction: column;
     position: sticky;
-    top: 210px;
+    top: 310px;
     & > img {
       margin-bottom: 20px;
     }
