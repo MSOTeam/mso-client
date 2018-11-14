@@ -52,6 +52,10 @@ const ArticleText = styled.p`
     color: #777777;
     font-weight: 100;
   }
+  & > div > div > center {
+    margin: 50px;
+    font-size: 1em;
+  }
 `;
 
 const EditBox = styled.div`
