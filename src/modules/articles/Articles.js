@@ -110,7 +110,7 @@ class Articles extends Component {
      const { dispatch } = this.props;
      const articles = this.props.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
-         <ArticleImage/>
+         <ArticleImage />
          <ArticleHeader>{article.title}</ArticleHeader>
          <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} />
          {/* <div>Length: {article.length}</div> */}
@@ -120,11 +120,11 @@ class Articles extends Component {
 
      return (
        <ArticlesWrapper>
-        <Welcome>Welcome back user</Welcome>
-        <Latest>Latest</Latest>
-       <ArticlesGrid>         
-         {articles}
-       </ArticlesGrid>
+         <Welcome>Welcome back user</Welcome>
+         <Latest>Latest</Latest>
+         <ArticlesGrid>
+           {articles}
+         </ArticlesGrid>
        </ArticlesWrapper>
      );
    }
