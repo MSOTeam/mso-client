@@ -85,7 +85,6 @@ const EditWrapper = styled.div`
 `;
 
 const EditItem = styled.div`
-  text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 14px;
   color: #5649CF;
