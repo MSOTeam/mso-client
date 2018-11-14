@@ -38,7 +38,8 @@ const ArticleText = styled.p`
   font-weight: 500;
   font-size: 19px;
   line-height: 31px;
-
+  margin-bottom: 50px;
+  
   & > div > div > div > * {
     padding: 20px 0;
   }
