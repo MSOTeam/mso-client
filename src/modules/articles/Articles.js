@@ -121,7 +121,7 @@ class Articles extends Component {
 
      return (
        <ArticlesWrapper>
-         <Welcome>Welcome back user</Welcome>
+         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
          <Latest>Latest</Latest>
          <ArticlesGrid>
            {articles}

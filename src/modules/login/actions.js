@@ -28,12 +28,14 @@ const loginFailure = error => ({
 });
 
 const setSession = (user, token) => {
-  localStorage.setItem('user', user);
+  localStorage.setItem('firstName', user.firstName);
+  localStorage.setItem('lastName', user.lastName);
+  localStorage.setItem('setItem', user.email);
   localStorage.setItem('token', token);
   /* eslint-disable no-undef */
   // const extensionId = 'ffcejbhgbcnophijkajgbgfjjiblfmdb';
   const extensionId = 'amaagfbjejeplpphcpajlakcamieadlo';
-  chrome.runtime.sendMessage(extensionId, token, resp => console.log(resp));
+  chrome.runtime.sendMessage(extensionId, token, resp => console.log({ resp }));
 };
 
 export const login = data => (dispatch) => {
