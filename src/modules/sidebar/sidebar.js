@@ -6,7 +6,7 @@ import Crog from '../../assets/crog.svg';
 
 const SidebarWrapper = styled.div`
   background: ${color.primary};
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 100vh;
   width: 80px;
