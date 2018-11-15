@@ -9,9 +9,9 @@ class App extends Component {
 
   componentWillMount = () => {
     const { dispatch, authenticated } = this.props;
-    const { user, token } = localStorage;
-    if (user && token && !authenticated) {
-      dispatch(loginSuccess(user, token));
+    const { token } = localStorage;
+    if (token && !authenticated) {
+      dispatch(loginSuccess('', token));
     }
   }
 
@@ -29,7 +29,7 @@ App.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const authenticated = (state.login.token) || localStorage.getItem('token');
+  const authenticated = (state.login.token);
   return {
     authenticated,
   };
