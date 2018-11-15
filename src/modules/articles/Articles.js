@@ -42,7 +42,7 @@ const Welcome = styled.h1`
   font-size: 1.4em;
   font-weight: 700;
   letter-spacing: 0.5px;
-  margin: 20px 0 60px 0;
+  margin: 20px 0 30px 0;
 `;
 
 const Cats = styled.p`
