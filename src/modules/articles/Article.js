@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import moment from 'moment';
 import { Editor } from '../../components';
 import * as actions from './actions';
+import Focus from '../../assets/focus.svg';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
 import CommentMsg from '../../assets/comment.svg';
@@ -92,6 +93,14 @@ const EditItem = styled.div`
   letter-spacing: 1px;
   font-size: 14px;
   color: #5649CF;
+  ${props => props.focus && css`
+    &::before {
+      content: url(${Focus});
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
+  `}
   ${props => props.edit && css`
     &::before {
       content: url(${Edit});
@@ -149,7 +158,7 @@ const AddBox = styled.div`
     position: sticky;
     top: 310px;
     & > img {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 `;
 
@@ -205,6 +214,7 @@ class Article extends Component {
         </div>
         <EditBox>
           <EditWrapper>
+            <EditItem focus>Focus</EditItem>
             <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
             <EditItem highlight>Highlight</EditItem>
             <EditItem comment>Comment</EditItem>
