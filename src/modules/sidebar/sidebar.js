@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { color } from '../../styles/color';
 import Menu from '../../assets/menu.svg';
 import Crog from '../../assets/crog.svg';
 import Logo from '../../assets/logo_w_text_small.svg';
 import Arrow from '../../assets/arrow.svg';
 import Close from '../../assets/close.svg';
+
+const fadeRight = keyframes`
+  from {
+    transform: translateX(-170px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+`;
 
 const SidebarWrapper = styled.div`
   background: ${color.primary};
@@ -23,6 +32,7 @@ const SidebarWrapper = styled.div`
   box-sizing: border-box;
   ${props => props.open && css`
     width: 250px;
+    animation: ${fadeRight} 0.2s ease-in-out;
   `}
 `;
 
