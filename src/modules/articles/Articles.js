@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import { push } from 'react-router-redux';
 import * as actions from './actions';
 import { color } from '../../styles/color';
+import Search from '../../assets/search.svg';
 
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
@@ -56,6 +57,27 @@ const Cats = styled.p`
     border-bottom: 5px solid ${color.primary};
     width: fit-content;
   `}
+`;
+
+const Filter = styled.input`
+  width: 20%;
+  font-size: 1em;
+  letter-spacing: 0.8px;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border-bottom: 5px solid #eaeaea;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  outline: none;
+  &::placeholder {
+    font-weight: 100;
+  }
+  &::after {
+      content: url(${Search});
+  
+    }
 `;
 
 const ArticleBox = styled.div`
@@ -127,10 +149,13 @@ class Articles extends Component {
      return (
        <ArticlesWrapper>
          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-         <div style={{ display: 'flex' }}>
-           <Cats active>Latest</Cats>
-           <Cats>Recommended</Cats>
-           <Cats>Trending</Cats>
+         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+           <div style={{ display: 'flex' }}>
+             <Cats active>Latest</Cats>
+             <Cats>Recommended</Cats>
+             <Cats>Trending</Cats>
+           </div>
+           <Filter placeholder="Search..." />
          </div>
          <ArticlesGrid>
            {articles}
