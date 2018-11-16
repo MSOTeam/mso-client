@@ -6,6 +6,7 @@ import Menu from '../../assets/menu.svg';
 import Crog from '../../assets/crog.svg';
 import Logo from '../../assets/logo_w_text_small.svg';
 import Arrow from '../../assets/arrow.svg';
+import Close from '../../assets/close.svg';
 
 const SidebarWrapper = styled.div`
   background: ${color.primary};
@@ -35,6 +36,15 @@ const SidebarItems = styled.div`
 const SidebarTop = styled.div`
   display: flex;
   justify-content: center;
+  cursor: pointer;
+`;
+
+const SidebarTopOpen = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 30px;
+  align-items: center;
 `;
 
 const SidebarItemWrapper = styled.div`
@@ -49,6 +59,10 @@ const SidebarItem = styled.p`
   color: white;
   font-weight: 700;
   letter-spacing: 1px;
+  ${props => props.bread && css`
+    font-weight: 100;
+
+  `}
   ${props => props.child && css`
     color: #40359C;
   `}
@@ -75,13 +89,19 @@ class Sidebar extends Component {
         <SidebarTop onClick={this.slide}>
           {
           this.state.open ? (
-            <img src={Logo} alt="logo" open={this.state.open} />
+            <SidebarTopOpen>
+              <img src={Logo} alt="logo" />
+              <div open={this.state.open}><img src={Close} /></div>
+            </SidebarTopOpen>
           ) : (
-            <img src={Menu} alt="menu" open={this.state.open} />
+            <img src={Menu} alt="menu" />
           )
          }
         </SidebarTop>
         <SidebarItems open={this.state.open}>
+          {/* <SidebarItemWrapper>
+            <SidebarItem bread>All</SidebarItem>
+          </SidebarItemWrapper> */}
           <SidebarItemWrapper>
             <SidebarItem>Design</SidebarItem>
             <SidebarItem child><img src={Arrow} /></SidebarItem>
@@ -95,6 +115,9 @@ class Sidebar extends Component {
           </SidebarItemWrapper>
           <SidebarItemWrapper>
             <SidebarItem>Travel</SidebarItem>
+          </SidebarItemWrapper>
+          <SidebarItemWrapper>
+            <SidebarItem>+</SidebarItem>
           </SidebarItemWrapper>
         </SidebarItems>
         <img src={Crog} alt="crog" />
