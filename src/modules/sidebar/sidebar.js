@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
 import { color } from '../../styles/color';
 import Menu from '../../assets/menu.svg';
@@ -54,14 +56,17 @@ const SidebarItemWrapper = styled.div`
 `;
 
 
-const SidebarItem = styled.p`
+const SidebarItem = styled.div`
   font-size: 1em;
   color: white;
   font-weight: 700;
   letter-spacing: 1px;
+  cursor: pointer;
+  &:first-letter {
+    text-transform:capitalize;
+  }
   ${props => props.bread && css`
     font-weight: 100;
-
   `}
   ${props => props.child && css`
     color: #40359C;
@@ -84,6 +89,14 @@ class Sidebar extends Component {
   };
 
   render() {
+    const { dispatch } = this.props;  
+    const categorys = this.props.cats.map(cat => (
+      <SidebarItemWrapper>
+        <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
+        <SidebarItem child><img src={Arrow} /></SidebarItem>
+      </SidebarItemWrapper>
+    ));
+
     return (
       <SidebarWrapper open={this.state.open}>
         <SidebarTop onClick={this.slide}>
@@ -102,20 +115,7 @@ class Sidebar extends Component {
           {/* <SidebarItemWrapper>
             <SidebarItem bread>All</SidebarItem>
           </SidebarItemWrapper> */}
-          <SidebarItemWrapper>
-            <SidebarItem>Design</SidebarItem>
-            <SidebarItem child><img src={Arrow} /></SidebarItem>
-          </SidebarItemWrapper>
-          <SidebarItemWrapper>
-            <SidebarItem>Development</SidebarItem>
-            <SidebarItem child><img src={Arrow} /></SidebarItem>
-          </SidebarItemWrapper>
-          <SidebarItemWrapper>
-            <SidebarItem>Kitchen</SidebarItem>
-          </SidebarItemWrapper>
-          <SidebarItemWrapper>
-            <SidebarItem>Travel</SidebarItem>
-          </SidebarItemWrapper>
+          {categorys}
           <SidebarItemWrapper>
             <SidebarItem>+</SidebarItem>
           </SidebarItemWrapper>
@@ -126,10 +126,18 @@ class Sidebar extends Component {
   }
 }
 
+Sidebar.propTypes = {
+  articles: PropTypes.array,
+};
+
+Sidebar.defaultProps = {
+  cats: [],
+};
+
+
 function mapStateToProps(state) {
-  console.log(state);
   return {
-    sidebarOpen: state.open,
+    cats: state.articles.articles,
   };
 }
 
