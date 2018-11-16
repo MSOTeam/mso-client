@@ -59,25 +59,33 @@ const Cats = styled.p`
   `}
 `;
 
-const Filter = styled.input`
+const FilterBox = styled.div`
+  display: flex;
   width: 20%;
-  font-size: 1em;
-  letter-spacing: 0.8px;
+  justify-content: space-between;
+  border-bottom: 5px solid #eaeaea;
   padding-bottom: 15px;
   margin-bottom: 20px;
   margin-right: 20px;
-  border-bottom: 5px solid #eaeaea;
+`;
+
+const Filter = styled.input`
+  font-size: 1em;
+  letter-spacing: 0.8px;
   border-left: none;
   border-top: none;
   border-right: none;
+  border-bottom: none;
   outline: none;
   &::placeholder {
     font-weight: 100;
   }
-  &::after {
-      content: url(${Search});
-  
-    }
+`;
+
+const SearchIcon = styled.span`
+  background: url(${Search});
+  height: 15px;
+  width: 15px;
 `;
 
 const ArticleBox = styled.div`
@@ -155,7 +163,9 @@ class Articles extends Component {
              <Cats>Recommended</Cats>
              <Cats>Trending</Cats>
            </div>
-           <Filter placeholder="Search..." />
+           <FilterBox>
+             <Filter placeholder="Search..." /><SearchIcon />
+           </FilterBox>
          </div>
          <ArticlesGrid>
            {articles}
