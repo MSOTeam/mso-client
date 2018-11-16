@@ -67,6 +67,9 @@ const ArticleText = styled.p`
     margin: 50px;
     font-size: 1em;
   }
+  & > div > article {
+    display: none;
+  }
 `;
 
 const EditBox = styled.div`
@@ -84,9 +87,12 @@ const EditBox = styled.div`
 
 const EditWrapper = styled.div`
   display: flex;
-  width: 60%;
+  width: 90%;
   justify-content: space-between;
   align-items: center;
+  @media (min-width: 1400px) {
+    width: 60%;
+  }
 `;
 
 const EditItem = styled.div`
