@@ -76,7 +76,7 @@ const EditBox = styled.div`
   position: fixed;
   width: calc(100vw - 80px);
   background:#fff; /*#FFF6D6*/
-  box-shadow: #000 0px 8px 16px;
+  box-shadow: #000 0px -8px 10px -13px;
   bottom: 0;
   right: 0;
   height: 70px;
