@@ -89,11 +89,11 @@ class Sidebar extends Component {
   };
 
   render() {
-    const { dispatch } = this.props;  
+    const { dispatch } = this.props;
     const categorys = this.props.cats.map(cat => (
       <SidebarItemWrapper>
         <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
-        <SidebarItem child><img src={Arrow} /></SidebarItem>
+        <SidebarItem child><img src={Arrow} alt="" /></SidebarItem>
       </SidebarItemWrapper>
     ));
 
@@ -127,7 +127,8 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  articles: PropTypes.array,
+  dispatch: PropTypes.func.isRequired,
+  cats: PropTypes.array,
 };
 
 Sidebar.defaultProps = {
