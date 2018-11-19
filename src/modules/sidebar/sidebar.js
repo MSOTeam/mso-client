@@ -96,7 +96,7 @@ class Sidebar extends Component {
     this.setState({
       open: !this.state.open,
     });
-    this.props.dispatch({ type: 'NAVIGATION_TOGGLE_MODAL' });
+    this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
   render() {
@@ -115,7 +115,9 @@ class Sidebar extends Component {
           this.state.open ? (
             <SidebarTopOpen>
               <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))}/>
-              <div open={this.state.open}><img src={Close} alt="" onClick={this.slide} /></div>
+              <div open={this.state.open}>
+                <img src={Close} alt="" onClick={this.slide} />
+              </div>
             </SidebarTopOpen>
           ) : (
             <img src={Menu} alt="menu" onClick={this.slide}/>
@@ -146,14 +148,9 @@ Sidebar.defaultProps = {
   cats: [],
 };
 function mapStateToProps(state) {
-  console.log(state);
   return {
     cats: state.articles.articles,
   };
 }
-
-export const SidebarStatus = React.createContext();
-export const FamilyProvider = SidebarStatus.Provider;
-export const FamilyConsumer = SidebarStatus.Consumer;
 
 export default connect(mapStateToProps)(Sidebar);

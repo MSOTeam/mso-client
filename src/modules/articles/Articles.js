@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { push } from 'react-router-redux';
 import * as actions from './actions';
 import { color } from '../../styles/color';
-import Search from '../../assets/search.svg';
+// import Search from '../../assets/search.svg';
 
+const fadeRight = keyframes`
+  from {
+    transform: translateX(-170px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+`;
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
   ${props => props.sidebarStatus === true && css`
       padding: 3% 70px 5% 305px;
+      animation: ${fadeRight} 0.2s ease-in-out;
   `}
   ${props => props.primary && css`
     background: white;
@@ -163,10 +172,10 @@ class Articles extends Component {
              <Cats>Recommended</Cats>
              <Cats>Trending</Cats>
            </div>
-           <FilterBox>
+           {/* <FilterBox>
              <Filter placeholder="Search..." />
-             {/* <SearchIcon /> */}
-           </FilterBox>
+             <SearchIcon />
+           </FilterBox> */}
          </div>
          <ArticlesGrid>
            {articles}
@@ -189,7 +198,7 @@ Articles.defaultProps = {
 function mapStateToProps(state) {
   return {
     articles: state.articles.articles,
-    sidebarStatus: state.navigation,
+    sidebarStatus: state.sidebar,
   };
 }
 
