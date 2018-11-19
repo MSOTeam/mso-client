@@ -190,6 +190,13 @@ const AddItem = styled.div`
   `}
 `;
 
+const ArticleWrapper = styled.div`
+  max-width: 800px;
+  padding: 3% 70px 5% 140px;
+  ${props => props.sidebarStatus === true && css`
+      padding: 3% 70px 5% 305px;
+  `}
+`;
 
 class Article extends Component {
 
@@ -219,10 +226,10 @@ class Article extends Component {
   };
 
   render() {
-    const { article } = this.props;
+    const { article, sidebarStatus} = this.props;
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
+        <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <StatBox top>
             <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
             <div>{article.tags ? article.tags.length : ''} tags</div>
@@ -248,7 +255,7 @@ class Article extends Component {
               />
             </div>
           }
-        </div>
+        </ArticleWrapper>
         <EditBox>
           <EditWrapper>
             <EditItem focus>Focus</EditItem>
@@ -282,6 +289,7 @@ Article.defaultProps = {
 function mapStateToProps(state) {
   return {
     article: state.articles.article,
+    sidebarStatus: state.sidebar,
   };
 }
 

@@ -19,7 +19,7 @@ const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
   ${props => props.sidebarStatus === true && css`
       padding: 3% 70px 5% 305px;
-      animation: ${fadeRight} 0.2s ease-in-out;
+      /* animation: ${fadeRight} 0.2s normal forwards ease-in-out; */
   `}
   ${props => props.primary && css`
     background: white;
