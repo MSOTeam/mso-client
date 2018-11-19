@@ -2,7 +2,13 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import Plain from 'slate-plain-serializer';
 import Html from 'slate-html-serializer';
-import { SlateEditor } from 'slate-react';
+import { Editor as SlateEditor } from 'slate-react';
+
+// import { ImagePlugin, ImageButton } from '@slate-editor/image-plugin';
+ 
+// const plugins = [
+//   ImagePlugin(),
+// ];
 
 // const BLOCK_TAGS = {
 //   blockquote: 'quote',
