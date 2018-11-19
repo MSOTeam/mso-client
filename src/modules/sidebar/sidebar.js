@@ -96,11 +96,11 @@ class Sidebar extends Component {
     this.setState({
       open: !this.state.open,
     });
+    this.props.dispatch({ type: 'NAVIGATION_TOGGLE_MODAL' });
   };
 
   render() {
     const { dispatch } = this.props;
-    
     const categorys = this.props.cats.map(cat => (
       <SidebarItemWrapper>
         <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
@@ -110,15 +110,15 @@ class Sidebar extends Component {
 
     return (
       <SidebarWrapper open={this.state.open}>
-        <SidebarTop onClick={this.slide}>
+        <SidebarTop>
           {
           this.state.open ? (
             <SidebarTopOpen>
-              <img src={Logo} alt="logo" />
-              <div open={this.state.open}><img src={Close} alt="" /></div>
+              <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))}/>
+              <div open={this.state.open}><img src={Close} alt="" onClick={this.slide} /></div>
             </SidebarTopOpen>
           ) : (
-            <img src={Menu} alt="menu" />
+            <img src={Menu} alt="menu" onClick={this.slide}/>
           )
          }
         </SidebarTop>
@@ -146,6 +146,7 @@ Sidebar.defaultProps = {
   cats: [],
 };
 function mapStateToProps(state) {
+  console.log(state);
   return {
     cats: state.articles.articles,
   };

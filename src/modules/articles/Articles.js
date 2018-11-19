@@ -9,7 +9,9 @@ import Search from '../../assets/search.svg';
 
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
-  
+  ${props => props.sidebarStatus === true && css`
+      padding: 3% 70px 5% 305px;
+  `}
   ${props => props.primary && css`
     background: white;
     color: palevioletred;
@@ -66,7 +68,7 @@ const FilterBox = styled.div`
   border-bottom: 5px solid #eaeaea;
   padding-bottom: 15px;
   margin-bottom: 20px;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 `;
 
 const Filter = styled.input`
@@ -82,11 +84,11 @@ const Filter = styled.input`
   }
 `;
 
-const SearchIcon = styled.span`
-  background: url(${Search});
-  height: 15px;
-  width: 15px;
-`;
+// const SearchIcon = styled.span`
+//   background: url(${Search});
+//   height: 15px;
+//   width: 15px;
+// `;
 
 const ArticleBox = styled.div`
   display: grid;
@@ -107,7 +109,7 @@ const ArticleHeader = styled.div`
   margin-bottom: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 `;
@@ -141,7 +143,7 @@ class Articles extends Component {
    }
 
    render() {
-     const { dispatch } = this.props;
+     const { dispatch, sidebarStatus } = this.props;
      const articles = this.props.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <ArticleImage />
@@ -153,7 +155,7 @@ class Articles extends Component {
      ));
 
      return (
-       <ArticlesWrapper>
+       <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen}>
          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
            <div style={{ display: 'flex' }}>
@@ -162,7 +164,8 @@ class Articles extends Component {
              <Cats>Trending</Cats>
            </div>
            <FilterBox>
-             <Filter placeholder="Search..." /><SearchIcon />
+             <Filter placeholder="Search..." />
+             {/* <SearchIcon /> */}
            </FilterBox>
          </div>
          <ArticlesGrid>
@@ -176,6 +179,7 @@ class Articles extends Component {
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
   articles: PropTypes.array,
+  sidebarStatus: PropTypes.bool.isRequired,
 };
 
 Articles.defaultProps = {
@@ -185,6 +189,7 @@ Articles.defaultProps = {
 function mapStateToProps(state) {
   return {
     articles: state.articles.articles,
+    sidebarStatus: state.navigation,
   };
 }
 

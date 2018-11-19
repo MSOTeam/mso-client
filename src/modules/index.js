@@ -7,6 +7,7 @@ import settings from './settings';
 import routes from './routes';
 import navigation from './navigation';
 import articles from './articles';
+import sidebar from './sidebar';
 
 export {
   register,
@@ -18,4 +19,5 @@ export {
   routes,
   navigation,
   articles,
+  sidebar,
 };
