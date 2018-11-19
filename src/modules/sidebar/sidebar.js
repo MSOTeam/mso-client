@@ -100,6 +100,7 @@ class Sidebar extends Component {
 
   render() {
     const { dispatch } = this.props;
+    
     const categorys = this.props.cats.map(cat => (
       <SidebarItemWrapper>
         <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
@@ -149,5 +150,9 @@ function mapStateToProps(state) {
     cats: state.articles.articles,
   };
 }
+
+export const SidebarStatus = React.createContext();
+export const FamilyProvider = SidebarStatus.Provider;
+export const FamilyConsumer = SidebarStatus.Consumer;
 
 export default connect(mapStateToProps)(Sidebar);

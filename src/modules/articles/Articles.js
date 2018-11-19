@@ -142,8 +142,6 @@ class Articles extends Component {
 
    render() {
      const { dispatch } = this.props;
-     console.log(this.props.articles);
-
      const articles = this.props.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <ArticleImage />
