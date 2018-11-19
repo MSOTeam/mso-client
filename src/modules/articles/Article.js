@@ -63,6 +63,15 @@ const ArticleText = styled.p`
     color: #777777;
     font-weight: 100;
   }
+  & > div > div > article > div > div > div > div > pre {
+    margin: 16px 0;
+    background: grey;
+    padding: 11px;
+  }
+
+  & > div > div > article > div > div > div > div > pre > * {
+    font-family: 'Cousine', monospace !important;
+  }
   & > div > div > center {
     margin: 50px;
     font-size: 1em;
@@ -71,6 +80,8 @@ const ArticleText = styled.p`
     display: none;
   }
 `;
+
+
 
 const EditBox = styled.div`
   position: fixed;

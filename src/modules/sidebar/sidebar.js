@@ -114,7 +114,7 @@ class Sidebar extends Component {
           this.state.open ? (
             <SidebarTopOpen>
               <img src={Logo} alt="logo" />
-              <div open={this.state.open}><img src={Close} /></div>
+              <div open={this.state.open}><img src={Close} alt="" /></div>
             </SidebarTopOpen>
           ) : (
             <img src={Menu} alt="menu" />
@@ -144,8 +144,6 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   cats: [],
 };
-
-
 function mapStateToProps(state) {
   return {
     cats: state.articles.articles,
