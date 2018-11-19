@@ -198,7 +198,7 @@ class Article extends Component {
           {this.state.edit &&
             <div style={{ border: '1px solid gray', minHeight: 300 }}>
               <Editor
-                text={article.content}
+                value={article.content}
               />
             </div>
           }
