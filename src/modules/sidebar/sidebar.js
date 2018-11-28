@@ -50,6 +50,7 @@ const SidebarTop = styled.div`
   display: flex;
   justify-content: center;
   cursor: pointer;
+  margin-bottom: 55px;
 `;
 
 const SidebarTopOpen = styled.div`
@@ -63,7 +64,7 @@ const SidebarTopOpen = styled.div`
 const SidebarItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 30px 20px 30px;
+  margin: 0 30px 10px 30px;
 `;
 
 
