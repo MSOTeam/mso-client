@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
+import _ from 'lodash';
 import { color } from '../../styles/color';
 import Menu from '../../assets/menu.svg';
 import Crog from '../../assets/crog.svg';
@@ -88,8 +89,19 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       open: false,
+      taglist: [],
     };
-    this.slide = this.slide.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    const { cats } = this.props;
+    const arr = [];
+    _.each(cats, (value) => {
+      arr.push(value.tags[0]);
+    });
+    const removeDuplicates = _.uniq(arr);
+    const ordered = _.orderBy(removeDuplicates);
+    this.setState({ taglist: ordered });
   }
 
   slide = () => {
@@ -101,9 +113,10 @@ class Sidebar extends Component {
 
   render() {
     const { dispatch } = this.props;
-    const categorys = this.props.cats.map(cat => (
+    const { taglist } = this.state;
+    const categorys = taglist.map(tag => (
       <SidebarItemWrapper>
-        <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
+        <SidebarItem onClick={() => dispatch(push(`${tag}`))}>{tag}</SidebarItem>
         <SidebarItem child><img src={Arrow} alt="" /></SidebarItem>
       </SidebarItemWrapper>
     ));
@@ -114,13 +127,13 @@ class Sidebar extends Component {
           {
           this.state.open ? (
             <SidebarTopOpen>
-              <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))}/>
+              <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))} />
               <div open={this.state.open}>
                 <img src={Close} alt="" onClick={this.slide} />
               </div>
             </SidebarTopOpen>
           ) : (
-            <img src={Menu} alt="menu" onClick={this.slide}/>
+            <img src={Menu} alt="menu" onClick={this.slide} />
           )
          }
         </SidebarTop>
