@@ -188,11 +188,12 @@ class Articles extends Component {
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
   articles: PropTypes.array,
-  sidebarStatus: PropTypes.bool.isRequired,
+  sidebarStatus: PropTypes.bool,
 };
 
 Articles.defaultProps = {
   articles: [],
+  sidebarStatus: false,
 };
 
 function mapStateToProps(state) {
