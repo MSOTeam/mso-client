@@ -49,16 +49,16 @@ const SidebarItems = styled.div`
 const SidebarTop = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   cursor: pointer;
-  margin-bottom: 55px;
 `;
 
 const SidebarTopOpen = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
   padding: 0 30px;
   align-items: center;
+  margin-bottom: 55px;
 `;
 
 const SidebarItemWrapper = styled.div`
@@ -137,16 +137,16 @@ class Sidebar extends Component {
             <img src={Menu} alt="menu" onClick={this.slide} />
           )
          }
+          <SidebarItems open={this.state.open}>
+            {/* <SidebarItemWrapper>
+              <SidebarItem bread>All</SidebarItem>
+            </SidebarItemWrapper> */}
+            {categorys}
+            <SidebarItemWrapper>
+              <SidebarItem>+</SidebarItem>
+            </SidebarItemWrapper>
+          </SidebarItems>
         </SidebarTop>
-        <SidebarItems open={this.state.open}>
-          {/* <SidebarItemWrapper>
-            <SidebarItem bread>All</SidebarItem>
-          </SidebarItemWrapper> */}
-          {categorys}
-          <SidebarItemWrapper>
-            <SidebarItem>+</SidebarItem>
-          </SidebarItemWrapper>
-        </SidebarItems>
         <img src={Crog} alt="crog" />
       </SidebarWrapper>
     );
