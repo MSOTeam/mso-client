@@ -280,6 +280,7 @@ class Article extends Component {
 Article.propTypes = {
   dispatch: PropTypes.func.isRequired,
   article: PropTypes.object,
+  sidebarStatus: PropTypes.bool.isRequired,
 };
 
 Article.defaultProps = {

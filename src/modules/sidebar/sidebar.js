@@ -106,9 +106,7 @@ class Sidebar extends Component {
   }
 
   slide = () => {
-    this.setState({
-      open: !this.state.open,
-    });
+    this.setState({ open: !this.state.open });
     this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
@@ -116,7 +114,7 @@ class Sidebar extends Component {
     const { dispatch } = this.props;
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
-      <SidebarItemWrapper>
+      <SidebarItemWrapper key={tag}>
         <SidebarItem onClick={() => dispatch(push(`${tag}`))}>{tag}</SidebarItem>
         <SidebarItem child><img src={Arrow} alt="" /></SidebarItem>
       </SidebarItemWrapper>
