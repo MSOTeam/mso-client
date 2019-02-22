@@ -153,6 +153,8 @@ class Articles extends Component {
 
    render() {
      const { dispatch, sidebarStatus } = this.props;
+     console.log(this.props);
+     
      const articles = this.props.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <ArticleImage />

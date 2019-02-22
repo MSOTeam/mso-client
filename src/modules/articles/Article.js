@@ -199,7 +199,6 @@ const ArticleWrapper = styled.div`
 `;
 
 class Article extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -226,7 +225,7 @@ class Article extends Component {
   };
 
   render() {
-    const { article, sidebarStatus} = this.props;
+    const { article, sidebarStatus } = this.props;
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
@@ -235,7 +234,11 @@ class Article extends Component {
             <div>{article.tags ? article.tags.length : ''} tags</div>
           </StatBox>
           <h3>{article.url}</h3>
-          <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px' }}>{article.title}</h1>
+          <h1 style={{
+            fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px',
+            }}
+          >{article.title}
+          </h1>
           <StatBox bottom>
             <div>#{article.tags}</div>
             <div style={{ display: 'flex' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
@@ -243,7 +246,7 @@ class Article extends Component {
           {!this.state.edit &&
             <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
           }
-          {/*this.state.edit &&
+          {/* this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
               {article.content}
             </textarea>

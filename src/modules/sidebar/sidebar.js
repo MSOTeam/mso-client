@@ -64,15 +64,15 @@ const SidebarTopOpen = styled.div`
 const SidebarItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 30px 10px 30px;
+  margin: 0 30px 20px 30px;
 `;
 
 
 const SidebarItem = styled.div`
   font-size: 1em;
   color: white;
-  font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  font-weight: 100;
   cursor: pointer;
   &:first-letter {
     text-transform:capitalize;
