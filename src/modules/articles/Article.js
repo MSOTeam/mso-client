@@ -47,22 +47,33 @@ const ArticleText = styled.p`
   line-height: 31px;
   margin-bottom: 50px;
 
+  & > div > div  {
+    overflow: hidden;
+  }
+
   & > div > div > div > * {
     padding: 20px 0;
   }
   & > div > div > div > p > a {
     color: #000;
   }
-  & > div > div > figure > img {
-    background-size: cover;
-    width: 100%;
+  & > div > div > figure {
+    margin-bottom: 50px;
   }
+
   & > div > div > figure > figcaption > * {
     font-weight: 600;
     font-size: 14px;
     color: #777777;
     font-weight: 100;
   }
+
+  & > div > div > figure > span > img {
+    background-size: cover;
+    width: 100%;
+    height: auto;
+  }
+
   & > div > div > article > div > div > div > div > pre {
     margin: 16px 0;
     background: grey;
@@ -78,6 +89,16 @@ const ArticleText = styled.p`
   }
   & > div > article {
     display: none;
+  }
+  & > div > div > p {
+    line-height: 38px;
+  }
+
+  & > div > div > h2 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 25px 0 10px 0;
+    
   }
 `;
 
@@ -171,7 +192,7 @@ const AddBox = styled.div`
     height: 20vh;
     flex-direction: column;
     position: sticky;
-    top: 310px;
+    top: 400px;
 `;
 
 const AddItem = styled.div`

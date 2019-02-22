@@ -29,7 +29,7 @@ const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 46px 0;
+  padding: 36px 0;
   box-sizing: border-box;
   ${props => props.open && css`
     width: 250px;
@@ -48,7 +48,7 @@ const SidebarItems = styled.div`
 
 const SidebarTop = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   cursor: pointer;
 `;
