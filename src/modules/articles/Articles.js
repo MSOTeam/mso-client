@@ -100,7 +100,6 @@ const Filter = styled.input`
 // `;
 
 const ArticleBox = styled.div`
-  display: grid;
   margin-bottom: 20px;
   cursor: pointer;
 `;
@@ -113,7 +112,7 @@ const ArticleImage = styled.div`
 
 const ArticleHeader = styled.div`
   font-weight: 600;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 24px;
   margin-bottom: 10px;
   overflow: hidden;
@@ -124,10 +123,11 @@ const ArticleHeader = styled.div`
 `;
 
 const ArticleExcerp = styled.div`
-  font-weight: 200;
+  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   margin-bottom: 15px;
+  color: rgba(0,0,0,.54)!important;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
