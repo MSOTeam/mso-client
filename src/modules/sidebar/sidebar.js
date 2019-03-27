@@ -13,10 +13,19 @@ import Close from '../../assets/close.svg';
 
 const fadeRight = keyframes`
   from {
-    transform: translateX(-170px);
+    width: 80px;
   }
   to {
-    transform: translateX(0px);
+    width: 250px;
+  }
+`;
+
+const fadeLeft = keyframes`
+  from {
+    width: 250px;
+  }
+  to {
+    width: 80px;
   }
 `;
 
@@ -34,6 +43,9 @@ const SidebarWrapper = styled.div`
   ${props => props.open && css`
     width: 250px;
     animation: ${fadeRight} 0.2s ease-in-out;
+  `}
+  ${props => !props.open && css`
+    animation: ${fadeLeft} 0.2s ease-in-out;
   `}
 `;
 
@@ -72,7 +84,7 @@ const SidebarItem = styled.div`
   font-size: 1em;
   color: white;
   letter-spacing: 2px;
-  font-weight: 100;
+  font-weight: 400;
   cursor: pointer;
   &:first-letter {
     text-transform:capitalize;
@@ -132,7 +144,9 @@ class Sidebar extends Component {
               </div>
             </SidebarTopOpen>
           ) : (
-            <img src={Menu} alt="menu" onClick={this.slide} />
+            <div style={{ marginLeft: '30px' }}>
+              <img src={Menu} alt="menu" onClick={this.slide} />
+            </div>
           )
          }
           <SidebarItems open={this.state.open}>
