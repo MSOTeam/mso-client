@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PropTypes } from 'prop-types';
+import axios from 'axios';
 import { push } from 'react-router-redux';
-import * as actions from './actions';
 import { color } from '../../styles/color';
-// import Search from '../../assets/search.svg';
+import Search from '../../assets/search.svg';
 
-const fadeRight = keyframes`
-  from {
-    transform: translateX(-170px);
-  }
-  to {
-    transform: translateX(0px);
-  }
-`;
+
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
+  transition: padding 0.3s;
+
   ${props => props.sidebarStatus === true && css`
-      padding: 3% 70px 5% 305px;
-      /* animation: ${fadeRight} 0.2s normal forwards ease-in-out; */
+      padding: 3% 70px 5% 315px;
   `}
   ${props => props.primary && css`
     background: white;
@@ -72,11 +66,13 @@ const Cats = styled.p`
 
 const FilterBox = styled.div`
   display: flex;
-  width: 20%;
-  justify-content: space-between;
-  border-bottom: 5px solid #eaeaea;
+  width: 5%;
+  justify-content: flex-end;
+  align-self: end;
+  /* justify-content: space-between; */
+  /* border-bottom: 5px solid #eaeaea;
   padding-bottom: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
   /* margin-right: 20px; */
 `;
 
@@ -117,7 +113,7 @@ const ArticleHeader = styled.div`
   margin-bottom: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 `;
@@ -146,16 +142,24 @@ const ArticleTags = styled.span`
 `;
 
 class Articles extends Component {
+  state = {
+    articles: [],
+  }
    componentDidMount = () => {
-     const { dispatch } = this.props;
-     dispatch(actions.findArticles());
+     const token = localStorage.getItem('token');
+     axios
+       .get('article', { headers: { Authorization: `Bearer ${token}` } })
+       .then((response) => {
+         this.setState({ articles: response.data.articles });
+       })
+       .catch((error) => {
+         console.log(error);
+       });
    }
 
    render() {
      const { dispatch, sidebarStatus } = this.props;
-     console.log(this.props);
-     
-     const articles = this.props.articles.map(article => (
+     const articles = this.state.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <ArticleImage />
          <ArticleHeader>{article.title}</ArticleHeader>
@@ -174,10 +178,10 @@ class Articles extends Component {
              <Cats>Recommended</Cats>
              <Cats>Trending</Cats>
            </div>
-           {/* <FilterBox>
-             <Filter placeholder="Search..." />
-             <SearchIcon />
-           </FilterBox> */}
+           <FilterBox>
+             {/* <Filter placeholder="Filter..." /> */}
+             <img src={Search} alt="" />
+           </FilterBox>
          </div>
          <ArticlesGrid>
            {articles}
@@ -189,12 +193,10 @@ class Articles extends Component {
 
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  articles: PropTypes.array,
   sidebarStatus: PropTypes.bool,
 };
 
 Articles.defaultProps = {
-  articles: [],
   sidebarStatus: false,
 };
 

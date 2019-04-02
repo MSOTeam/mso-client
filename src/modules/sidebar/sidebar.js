@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import _ from 'lodash';
+import axios from 'axios';
 import { color } from '../../styles/color';
 import Menu from '../../assets/menu.svg';
 import Crog from '../../assets/crog.svg';
@@ -40,12 +41,12 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   padding: 36px 0;
   box-sizing: border-box;
+  ${props => !props.open && css`
+    animation: ${fadeLeft} 0.2s ease-in-out;
+  `}
   ${props => props.open && css`
     width: 250px;
     animation: ${fadeRight} 0.2s ease-in-out;
-  `}
-  ${props => !props.open && css`
-    animation: ${fadeLeft} 0.2s ease-in-out;
   `}
 `;
 
@@ -62,7 +63,12 @@ const SidebarTop = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  cursor: pointer;
+
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const SidebarTopOpen = styled.div`
@@ -71,6 +77,7 @@ const SidebarTopOpen = styled.div`
   padding: 0 30px;
   align-items: center;
   margin-bottom: 55px;
+  height: 30px;
 `;
 
 const SidebarItemWrapper = styled.div`
@@ -81,11 +88,13 @@ const SidebarItemWrapper = styled.div`
 
 
 const SidebarItem = styled.div`
-  font-size: 1em;
+  font-size: 0.9em;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
-  cursor: pointer;
+  &:hover {
+      cursor: pointer;
+    }
   &:first-letter {
     text-transform:capitalize;
   }
@@ -106,15 +115,22 @@ class Sidebar extends Component {
     };
   }
 
-  componentWillReceiveProps() {
-    const { cats } = this.props;
-    const arr = [];
-    _.each(cats, (value) => {
-      arr.push(value.tags[0]);
-    });
-    const removeDuplicates = _.uniq(arr);
-    const ordered = _.orderBy(removeDuplicates);
-    this.setState({ taglist: ordered });
+  componentDidMount = () => {
+    const token = localStorage.getItem('token');
+    axios
+      .get('article', { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        const arr = [];
+        _.each(response.data.articles, (value) => {
+          arr.push(value.tags[0]);
+        });
+        const removeDuplicates = _.uniq(arr);
+        const ordered = _.orderBy(removeDuplicates);
+        this.setState({ taglist: ordered });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   slide = () => {
@@ -128,7 +144,7 @@ class Sidebar extends Component {
     const categorys = taglist.map(tag => (
       <SidebarItemWrapper key={tag}>
         <SidebarItem onClick={() => dispatch(push(`${tag}`))}>{tag}</SidebarItem>
-        <SidebarItem child><img src={Arrow} alt="" /></SidebarItem>
+        {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
       </SidebarItemWrapper>
     ));
 
@@ -137,11 +153,9 @@ class Sidebar extends Component {
         <SidebarTop>
           {
           this.state.open ? (
-            <SidebarTopOpen>
+            <SidebarTopOpen open={this.state.open}>
               <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))} />
-              <div open={this.state.open}>
-                <img src={Close} alt="" onClick={this.slide} />
-              </div>
+              <img src={Close} alt="" onClick={this.slide} />
             </SidebarTopOpen>
           ) : (
             <div style={{ marginLeft: '30px' }}>
