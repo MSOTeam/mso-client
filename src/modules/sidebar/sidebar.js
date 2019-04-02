@@ -74,7 +74,7 @@ const SidebarTop = styled.div`
 const SidebarTopOpen = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 24px 0 30px;
   align-items: center;
   margin-bottom: 55px;
   height: 30px;
@@ -155,7 +155,7 @@ class Sidebar extends Component {
           this.state.open ? (
             <SidebarTopOpen open={this.state.open}>
               <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))} />
-              <img src={Close} alt="" onClick={this.slide} />
+              <img src={Close} alt="" onClick={this.slide} style={{padding: '6px'}} />
             </SidebarTopOpen>
           ) : (
             <div style={{ marginLeft: '30px' }}>
