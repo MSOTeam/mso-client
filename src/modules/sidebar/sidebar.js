@@ -12,24 +12,6 @@ import Logo from '../../assets/logo_w_text_small.svg';
 import Arrow from '../../assets/arrow.svg';
 import Close from '../../assets/close.svg';
 
-const fadeRight = keyframes`
-  from {
-    width: 80px;
-  }
-  to {
-    width: 250px;
-  }
-`;
-
-const fadeLeft = keyframes`
-  from {
-    width: 250px;
-  }
-  to {
-    width: 80px;
-  }
-`;
-
 const SidebarWrapper = styled.div`
   background: ${color.primary};
   position: fixed;
@@ -41,12 +23,9 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   padding: 36px 0;
   box-sizing: border-box;
-  ${props => !props.open && css`
-    animation: ${fadeLeft} 0.2s ease-in-out;
-  `}
+  transition: width 0.3s;
   ${props => props.open && css`
     width: 250px;
-    animation: ${fadeRight} 0.2s ease-in-out;
   `}
 `;
 

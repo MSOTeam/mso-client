@@ -214,8 +214,9 @@ const AddItem = styled.div`
 const ArticleWrapper = styled.div`
   max-width: 800px;
   padding: 3% 70px 5% 140px;
+  transition: padding 0.3s;
   ${props => props.sidebarStatus === true && css`
-      padding: 3% 70px 5% 305px;
+    padding: 3% 70px 5% 315px;
   `}
 `;
 
