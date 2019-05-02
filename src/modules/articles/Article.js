@@ -53,6 +53,7 @@ const ArticleText = styled.p`
 
   & > div > div > div > * {
     padding: 20px 0;
+    line-height: 38px;
   }
   & > div > div > div > p > a {
     color: #000;
@@ -90,7 +91,7 @@ const ArticleText = styled.p`
   & > div > article {
     display: none;
   }
-  & > div > div > p {
+  & > p {
     line-height: 38px;
   }
 
@@ -192,7 +193,7 @@ const AddBox = styled.div`
     height: 20vh;
     flex-direction: column;
     position: sticky;
-    top: 400px;
+    top: 200px;
 `;
 
 const AddItem = styled.div`
@@ -212,7 +213,7 @@ const AddItem = styled.div`
 `;
 
 const ArticleWrapper = styled.div`
-  max-width: 800px;
+  max-width: 700px;
   padding: 3% 70px 5% 140px;
   transition: padding 0.3s;
   ${props => props.sidebarStatus === true && css`
@@ -252,18 +253,19 @@ class Article extends Component {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <StatBox top>
-            <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
-            <div>{article.tags ? article.tags.length : ''} tags</div>
+            <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
+            {/* <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div> */}
+            <div style={{ fontSize: '0.9em' }}>Source</div>
           </StatBox>
           <h3>{article.url}</h3>
           <h1 style={{
-            fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px',
+            fontSize: '2em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px',
             }}
           >{article.title}
           </h1>
           <StatBox bottom>
-            <div>#{article.tags}</div>
-            <div style={{ display: 'flex' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
+            <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
+            <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
           </StatBox>
           {!this.state.edit &&
             <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />

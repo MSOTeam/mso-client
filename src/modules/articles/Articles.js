@@ -76,18 +76,18 @@ const FilterBox = styled.div`
   /* margin-right: 20px; */
 `;
 
-const Filter = styled.input`
-  font-size: 1em;
-  letter-spacing: 0.8px;
-  border-left: none;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  outline: none;
-  &::placeholder {
-    font-weight: 100;
-  }
-`;
+// const Filter = styled.input`
+//   font-size: 1em;
+//   letter-spacing: 0.8px;
+//   border-left: none;
+//   border-top: none;
+//   border-right: none;
+//   border-bottom: none;
+//   outline: none;
+//   &::placeholder {
+//     font-weight: 100;
+//   }
+// `;
 
 // const SearchIcon = styled.span`
 //   background: url(${Search});
@@ -95,43 +95,66 @@ const Filter = styled.input`
 //   width: 15px;
 // `;
 
+
 const ArticleBox = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &:hover {
+    transition: all .2s ease-in-out;
+   > div > img {
+    transform: scale(1.05);
+    }
+    
+  }
+`;
+
+const ArticleBoxOverlay = styled.div`
+  overflow: hidden;
+  height: 200px; 
+  margin-bottom: 10px;
 `;
 
 const ArticleImage = styled.div`
-  background: ${color.dark};
-  height: 200px;
-  margin-bottom: 15px;
+  ${props => props.image && css`
+      background: url(${props.image}) no-repeat center center;
+  `}
+  height: 100%;
+  width: 100%;
+  background-size: cover;
 `;
 
 const ArticleHeader = styled.div`
   font-weight: 600;
-  font-size: 19px;
-  line-height: 24px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-`;
-
-const ArticleExcerp = styled.div`
-  font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  margin-bottom: 15px;
-  color: rgba(0,0,0,.54)!important;
+  margin-bottom: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  letter-spacing: 1px;
+  box-sizing: border-box;
 `;
 
-const ArticleTags = styled.span`
+// const ArticleExcerp = styled.div`
+//   font-weight: 400;
+//   font-size: 15px;
+//   line-height: 24px;
+//   margin-bottom: 15px;
+//   color: rgba(0,0,0,.54)!important;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   -webkit-line-clamp: 2;
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   letter-spacing: 1px;
+// `;
+
+const ArticleTags = styled.div`
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -139,6 +162,7 @@ const ArticleTags = styled.span`
   color: ${color.primary};
   align-self: end;
   letter-spacing: 1px;
+  box-sizing: border-box;
 `;
 
 class Articles extends Component {
@@ -150,6 +174,7 @@ class Articles extends Component {
      axios
        .get('article', { headers: { Authorization: `Bearer ${token}` } })
        .then((response) => {
+         console.log(response.data.articles[5]);
          this.setState({ articles: response.data.articles });
        })
        .catch((error) => {
@@ -161,9 +186,13 @@ class Articles extends Component {
      const { dispatch, sidebarStatus } = this.props;
      const articles = this.state.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
-         <ArticleImage />
-         <ArticleHeader>{article.title}</ArticleHeader>
-         <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} />
+         <div>
+           <ArticleBoxOverlay>
+             <ArticleImage image={article.image} />
+           </ArticleBoxOverlay>
+           <ArticleHeader>{article.title}</ArticleHeader>
+         </div>
+         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
          {/* <div>Length: {article.length}</div> */}
          {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
        </ArticleBox>
@@ -193,7 +222,9 @@ class Articles extends Component {
 
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  sidebarStatus: PropTypes.bool,
+  sidebarStatus: PropTypes.shape({
+    open: PropTypes.bool,
+  }),
 };
 
 Articles.defaultProps = {
