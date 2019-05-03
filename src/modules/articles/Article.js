@@ -19,20 +19,20 @@ import ReminderEmpty from '../../assets/reminder_empty.svg';
 const StatBox = styled.div`
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
+  font-weight: 100;
   font-size: 14px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     font-weight: 100;
   `}
   ${props => props.bottom && css`
     cursor: pointer;
     line-height: 24px;
     color: #5649CF;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
   `}
 `;
 
@@ -42,10 +42,37 @@ const StatTime = styled.div`
 `;
 
 const ArticleText = styled.p`
-  font-weight: 500;
-  font-size: 19px;
-  line-height: 31px;
+  font-weight: 300;
+  font-size: 1.2em;
+  line-height: 35px;
   margin-bottom: 50px;
+  text-align: justify;
+
+  a  {
+    color: black;
+    text-decoration: none;
+  }
+
+  img  {
+    max-width: 100%;
+    margin: 30px auto 20px;
+    display: block;
+  }
+
+  ol  {
+    margin: 30px 0;
+  }
+  
+  h2, h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 35px 0 10px;
+  }
+
+  h4, h5{
+    font-weight: 600;
+    margin: 35px 0 10px;
+  }
 
   & > div > div  {
     overflow: hidden;
@@ -241,25 +268,26 @@ class Article extends Component {
 
   readingTime = () => {
     const { article } = this.props;
-    const minutes = article.length / 5;
-    const avgTime = minutes / 200;
+    const minutes = article.length / 2;
+    const avgTime = minutes / 50;
     const displayed = Math.ceil(avgTime.toFixed(2));
     return displayed;
   };
 
   render() {
     const { article, sidebarStatus } = this.props;
+    console.log(article.image);
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <StatBox top>
-            <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
+            {/* <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div> */}
             {/* <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div> */}
             <div style={{ fontSize: '0.9em' }}>Source</div>
           </StatBox>
           <h3>{article.url}</h3>
           <h1 style={{
-            fontSize: '2em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px',
+            fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
             }}
           >{article.title}
           </h1>
@@ -267,6 +295,7 @@ class Article extends Component {
             <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
             <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
           </StatBox>
+          <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
           {!this.state.edit &&
             <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
           }
