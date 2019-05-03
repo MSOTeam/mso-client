@@ -254,6 +254,8 @@ class Article extends Component {
     this.state = {
       edit: false,
       addToFav: false,
+      highlight: '',
+      article: { title: null, content: null },
     };
   }
 
@@ -262,20 +264,42 @@ class Article extends Component {
     dispatch(actions.findArticle(match.params.id));
   }
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.article !== prevProps.article) {
+      this.setState({ article: this.props.article });
+    }
+  }
+
   addToFav = () => {
     console.log(this.state.addToFav);
   }
 
   readingTime = () => {
-    const { article } = this.props;
+    const { article } = this.state;
     const minutes = article.length / 2;
     const avgTime = minutes / 50;
     const displayed = Math.ceil(avgTime.toFixed(2));
     return displayed;
   };
 
+  highlight = () => {
+    this.setState({ highlight: document.getSelection().toString() });
+  }
+
+  setHighlight = () => {
+    console.log(this.state.highlight);
+
+    const { article, highlight } = this.state;
+    const content = article.content.replace(highlight, `<mark>${highlight}</mark>`);
+    article.content = content;
+
+    this.setState({ article });
+  }
+
   render() {
-    const { article, sidebarStatus } = this.props;
+    const { sidebarStatus } = this.props;
+    const { article } = this.state;
     console.log(article.image);
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -297,7 +321,10 @@ class Article extends Component {
           </StatBox>
           <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
           {!this.state.edit &&
-            <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
+            <ArticleText
+              onMouseUp={() => this.highlight()}
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
           }
           {/* this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
@@ -316,7 +343,7 @@ class Article extends Component {
           <EditWrapper>
             <EditItem focus>Focus</EditItem>
             <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
-            <EditItem highlight>Highlight</EditItem>
+            <EditItem highlight onClick={() => this.setHighlight()}>Highlight</EditItem>
             <EditItem comment>Comment</EditItem>
             <EditItem members>Members</EditItem>
             <EditItem share>Share</EditItem>
