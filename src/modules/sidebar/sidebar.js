@@ -3,21 +3,14 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
+import _ from 'lodash';
+import axios from 'axios';
 import { color } from '../../styles/color';
 import Menu from '../../assets/menu.svg';
 import Crog from '../../assets/crog.svg';
 import Logo from '../../assets/logo_w_text_small.svg';
 import Arrow from '../../assets/arrow.svg';
 import Close from '../../assets/close.svg';
-
-const fadeRight = keyframes`
-  from {
-    transform: translateX(-170px);
-  }
-  to {
-    transform: translateX(0px);
-  }
-`;
 
 const SidebarWrapper = styled.div`
   background: ${color.primary};
@@ -28,11 +21,11 @@ const SidebarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 46px 0;
+  padding: 36px 0;
   box-sizing: border-box;
+  transition: width 0.3s;
   ${props => props.open && css`
     width: 250px;
-    animation: ${fadeRight} 0.2s ease-in-out;
   `}
 `;
 
@@ -47,16 +40,23 @@ const SidebarItems = styled.div`
 
 const SidebarTop = styled.div`
   display: flex;
-  justify-content: center;
-  cursor: pointer;
+  justify-content: flex-start;
+  flex-direction: column;
+
+  img {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 const SidebarTopOpen = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  padding: 0 30px;
+  padding: 0 24px 0 30px;
   align-items: center;
+  margin-bottom: 55px;
+  height: 30px;
 `;
 
 const SidebarItemWrapper = styled.div`
@@ -67,11 +67,13 @@ const SidebarItemWrapper = styled.div`
 
 
 const SidebarItem = styled.div`
-  font-size: 1em;
+  font-size: 0.9em;
   color: white;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
+  letter-spacing: 2px;
+  font-weight: 400;
+  &:hover {
+      cursor: pointer;
+    }
   &:first-letter {
     text-transform:capitalize;
   }
@@ -88,49 +90,68 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       open: false,
+      taglist: [],
     };
-    this.slide = this.slide.bind(this);
+  }
+
+  componentDidMount = () => {
+    const token = localStorage.getItem('token');
+    axios
+      .get('article', { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        const arr = [];
+        _.each(response.data.articles, (value) => {
+          arr.push(value.tags[0]);
+        });
+        const removeDuplicates = _.uniq(arr);
+        const ordered = _.orderBy(removeDuplicates);
+        this.setState({ taglist: ordered });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   slide = () => {
-    this.setState({
-      open: !this.state.open,
-    });
+    this.setState({ open: !this.state.open });
+    this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
   render() {
     const { dispatch } = this.props;
-    
-    const categorys = this.props.cats.map(cat => (
-      <SidebarItemWrapper>
-        <SidebarItem onClick={() => dispatch(push(`${cat.tags}`))}>{cat.tags}</SidebarItem>
-        <SidebarItem child><img src={Arrow} alt="" /></SidebarItem>
+    const { taglist } = this.state;
+    const categorys = taglist.map(tag => (
+      <SidebarItemWrapper key={tag}>
+        <SidebarItem onClick={() => dispatch(push(`${tag}`))}>{tag}</SidebarItem>
+        {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
       </SidebarItemWrapper>
     ));
 
     return (
       <SidebarWrapper open={this.state.open}>
-        <SidebarTop onClick={this.slide}>
+        <SidebarTop>
           {
           this.state.open ? (
-            <SidebarTopOpen>
-              <img src={Logo} alt="logo" />
-              <div open={this.state.open}><img src={Close} alt="" /></div>
+            <SidebarTopOpen open={this.state.open}>
+              <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))} />
+              <img src={Close} alt="" onClick={this.slide} style={{padding: '6px'}} />
             </SidebarTopOpen>
           ) : (
-            <img src={Menu} alt="menu" />
+            <div style={{ marginLeft: '30px' }}>
+              <img src={Menu} alt="menu" onClick={this.slide} />
+            </div>
           )
          }
+          <SidebarItems open={this.state.open}>
+            {/* <SidebarItemWrapper>
+              <SidebarItem bread>All</SidebarItem>
+            </SidebarItemWrapper> */}
+            {categorys}
+            <SidebarItemWrapper>
+              <SidebarItem>+</SidebarItem>
+            </SidebarItemWrapper>
+          </SidebarItems>
         </SidebarTop>
-        <SidebarItems open={this.state.open}>
-          {/* <SidebarItemWrapper>
-            <SidebarItem bread>All</SidebarItem>
-          </SidebarItemWrapper> */}
-          {categorys}
-          <SidebarItemWrapper>
-            <SidebarItem>+</SidebarItem>
-          </SidebarItemWrapper>
-        </SidebarItems>
         <img src={Crog} alt="crog" />
       </SidebarWrapper>
     );
@@ -150,9 +171,5 @@ function mapStateToProps(state) {
     cats: state.articles.articles,
   };
 }
-
-export const SidebarStatus = React.createContext();
-export const FamilyProvider = SidebarStatus.Provider;
-export const FamilyConsumer = SidebarStatus.Consumer;
 
 export default connect(mapStateToProps)(Sidebar);

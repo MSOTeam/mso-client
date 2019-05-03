@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import axios from 'axios';
 import './index.css';
@@ -14,7 +14,7 @@ import Routes from './routes';
 
 import { app } from './modules';
 
-const history = createHistory();
+const history = createBrowserHistory();
 
 const store = configureStore({
   mware: routerMiddleware(history),

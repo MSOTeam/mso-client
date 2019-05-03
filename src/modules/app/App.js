@@ -6,7 +6,6 @@ import Authenticated from './Authenticated';
 import { loginSuccess } from '../login/actions';
 
 class App extends Component {
-
   componentWillMount = () => {
     const { dispatch, authenticated } = this.props;
     const { token } = localStorage;
@@ -22,9 +21,13 @@ class App extends Component {
   }
 }
 
+App.defaultProps = {
+  authenticated: false,
+};
+
 App.propTypes = {
   children: PropTypes.object.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
 };
 

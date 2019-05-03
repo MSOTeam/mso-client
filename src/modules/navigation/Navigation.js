@@ -8,8 +8,6 @@ import Overlay from './component/Overlay';
 import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
 import Logo from '../../assets/logo_p_text_small.svg';
-import IconSVG from '../../assets/img/icon.svg';
-import Crooked from '../../assets/img/crooked.svg';
 import * as actions from './actions';
 
 <Navitem

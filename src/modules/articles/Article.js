@@ -19,20 +19,20 @@ import ReminderEmpty from '../../assets/reminder_empty.svg';
 const StatBox = styled.div`
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
+  font-weight: 100;
   font-size: 14px;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   ${props => props.top && css`
     line-height: 24px;
     color: #777777;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
     font-weight: 100;
   `}
   ${props => props.bottom && css`
     cursor: pointer;
     line-height: 24px;
     color: #5649CF;
-    margin-bottom: 45px;
+    margin-bottom: 30px;
   `}
 `;
 
@@ -42,27 +42,66 @@ const StatTime = styled.div`
 `;
 
 const ArticleText = styled.p`
-  font-weight: 500;
-  font-size: 19px;
-  line-height: 31px;
+  font-weight: 300;
+  font-size: 1.2em;
+  line-height: 35px;
   margin-bottom: 50px;
+  text-align: justify;
+
+  a  {
+    color: black;
+    text-decoration: none;
+  }
+
+  img  {
+    max-width: 100%;
+    margin: 30px auto 20px;
+    display: block;
+  }
+
+  ol  {
+    margin: 30px 0;
+  }
+  
+  h2, h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 35px 0 10px;
+  }
+
+  h4, h5{
+    font-weight: 600;
+    margin: 35px 0 10px;
+  }
+
+  & > div > div  {
+    overflow: hidden;
+  }
 
   & > div > div > div > * {
     padding: 20px 0;
+    line-height: 38px;
   }
   & > div > div > div > p > a {
     color: #000;
   }
-  & > div > div > figure > img {
-    background-size: cover;
-    width: 100%;
+  & > div > div > figure {
+    margin-bottom: 50px;
   }
+
   & > div > div > figure > figcaption > * {
     font-weight: 600;
     font-size: 14px;
     color: #777777;
     font-weight: 100;
   }
+
+  & > div > div > figure > span > img {
+    background-size: cover;
+    width: 100%;
+    height: auto;
+  }
+
   & > div > div > article > div > div > div > div > pre {
     margin: 16px 0;
     background: grey;
@@ -78,6 +117,16 @@ const ArticleText = styled.p`
   }
   & > div > article {
     display: none;
+  }
+  & > p {
+    line-height: 38px;
+  }
+
+  & > div > div > h2 {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 25px 0 10px 0;
+    
   }
 `;
 
@@ -171,7 +220,7 @@ const AddBox = styled.div`
     height: 20vh;
     flex-direction: column;
     position: sticky;
-    top: 310px;
+    top: 200px;
 `;
 
 const AddItem = styled.div`
@@ -190,9 +239,16 @@ const AddItem = styled.div`
   `}
 `;
 
+const ArticleWrapper = styled.div`
+  max-width: 700px;
+  padding: 3% 70px 5% 140px;
+  transition: padding 0.3s;
+  ${props => props.sidebarStatus === true && css`
+    padding: 3% 70px 5% 315px;
+  `}
+`;
 
 class Article extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -212,31 +268,38 @@ class Article extends Component {
 
   readingTime = () => {
     const { article } = this.props;
-    const minutes = article.length / 5;
-    const avgTime = minutes / 200;
+    const minutes = article.length / 2;
+    const avgTime = minutes / 50;
     const displayed = Math.ceil(avgTime.toFixed(2));
     return displayed;
   };
 
   render() {
-    const { article } = this.props;
+    const { article, sidebarStatus } = this.props;
+    console.log(article.image);
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ maxWidth: 800, padding: '3% 70px 5% 140px' }}>
+        <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <StatBox top>
-            <div>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
-            <div>{article.tags ? article.tags.length : ''} tags</div>
+            {/* <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div> */}
+            {/* <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div> */}
+            <div style={{ fontSize: '0.9em' }}>Source</div>
           </StatBox>
           <h3>{article.url}</h3>
-          <h1 style={{ fontSize: '2.3em', fontWeight: 700, paddingBottom: 22, lineHeight: '45px' }}>{article.title}</h1>
+          <h1 style={{
+            fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
+            }}
+          >{article.title}
+          </h1>
           <StatBox bottom>
-            <div>#{article.tags}</div>
-            <div style={{ display: 'flex' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
+            <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
+            <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
           </StatBox>
+          <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
           {!this.state.edit &&
             <ArticleText dangerouslySetInnerHTML={{ __html: article.content }} />
           }
-          {/*this.state.edit &&
+          {/* this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
               {article.content}
             </textarea>
@@ -248,7 +311,7 @@ class Article extends Component {
               />
             </div>
           }
-        </div>
+        </ArticleWrapper>
         <EditBox>
           <EditWrapper>
             <EditItem focus>Focus</EditItem>
@@ -273,6 +336,7 @@ class Article extends Component {
 Article.propTypes = {
   dispatch: PropTypes.func.isRequired,
   article: PropTypes.object,
+  sidebarStatus: PropTypes.bool.isRequired,
 };
 
 Article.defaultProps = {
@@ -282,6 +346,7 @@ Article.defaultProps = {
 function mapStateToProps(state) {
   return {
     article: state.articles.article,
+    sidebarStatus: state.sidebar,
   };
 }
 

@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { PropTypes } from 'prop-types';
+import axios from 'axios';
 import { push } from 'react-router-redux';
-import * as actions from './actions';
 import { color } from '../../styles/color';
 import Search from '../../assets/search.svg';
 
+
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
-  
+  transition: padding 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+      padding: 3% 70px 5% 315px;
+  `}
   ${props => props.primary && css`
     background: white;
     color: palevioletred;
@@ -61,70 +66,95 @@ const Cats = styled.p`
 
 const FilterBox = styled.div`
   display: flex;
-  width: 20%;
-  justify-content: space-between;
-  border-bottom: 5px solid #eaeaea;
+  width: 5%;
+  justify-content: flex-end;
+  align-self: end;
+  /* justify-content: space-between; */
+  /* border-bottom: 5px solid #eaeaea;
   padding-bottom: 15px;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  margin-bottom: 20px; */
+  /* margin-right: 20px; */
 `;
 
-const Filter = styled.input`
-  font-size: 1em;
-  letter-spacing: 0.8px;
-  border-left: none;
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-  outline: none;
-  &::placeholder {
-    font-weight: 100;
+// const Filter = styled.input`
+//   font-size: 1em;
+//   letter-spacing: 0.8px;
+//   border-left: none;
+//   border-top: none;
+//   border-right: none;
+//   border-bottom: none;
+//   outline: none;
+//   &::placeholder {
+//     font-weight: 100;
+//   }
+// `;
+
+// const SearchIcon = styled.span`
+//   background: url(${Search});
+//   height: 15px;
+//   width: 15px;
+// `;
+
+
+const ArticleBox = styled.div`
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &:hover {
+    transition: all .2s ease-in-out;
+   > div > img {
+    transform: scale(1.05);
+    }
+    
   }
 `;
 
-const SearchIcon = styled.span`
-  background: url(${Search});
-  height: 15px;
-  width: 15px;
-`;
-
-const ArticleBox = styled.div`
-  display: grid;
-  margin-bottom: 20px;
-  cursor: pointer;
+const ArticleBoxOverlay = styled.div`
+  overflow: hidden;
+  height: 200px; 
+  margin-bottom: 10px;
 `;
 
 const ArticleImage = styled.div`
-  background: ${color.dark};
-  height: 200px;
-  margin-bottom: 15px;
+  ${props => props.image && css`
+      background: url(${props.image}) no-repeat center center;
+  `}
+  height: 100%;
+  width: 100%;
+  background-size: cover;
 `;
 
 const ArticleHeader = styled.div`
   font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-`;
-
-const ArticleExcerp = styled.div`
-  font-weight: 200;
   font-size: 16px;
   line-height: 24px;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  letter-spacing: 1px;
+  box-sizing: border-box;
 `;
 
-const ArticleTags = styled.span`
+// const ArticleExcerp = styled.div`
+//   font-weight: 400;
+//   font-size: 15px;
+//   line-height: 24px;
+//   margin-bottom: 15px;
+//   color: rgba(0,0,0,.54)!important;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   -webkit-line-clamp: 2;
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   letter-spacing: 1px;
+// `;
+
+const ArticleTags = styled.div`
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -132,28 +162,44 @@ const ArticleTags = styled.span`
   color: ${color.primary};
   align-self: end;
   letter-spacing: 1px;
+  box-sizing: border-box;
 `;
 
 class Articles extends Component {
+  state = {
+    articles: [],
+  }
    componentDidMount = () => {
-     const { dispatch } = this.props;
-     dispatch(actions.findArticles());
+     const token = localStorage.getItem('token');
+     axios
+       .get('article', { headers: { Authorization: `Bearer ${token}` } })
+       .then((response) => {
+         console.log(response.data.articles[5]);
+         this.setState({ articles: response.data.articles });
+       })
+       .catch((error) => {
+         console.log(error);
+       });
    }
 
    render() {
-     const { dispatch } = this.props;
-     const articles = this.props.articles.map(article => (
+     const { dispatch, sidebarStatus } = this.props;
+     const articles = this.state.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
-         <ArticleImage />
-         <ArticleHeader>{article.title}</ArticleHeader>
-         <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} />
+         <div>
+           <ArticleBoxOverlay>
+             <ArticleImage image={article.image} />
+           </ArticleBoxOverlay>
+           <ArticleHeader>{article.title}</ArticleHeader>
+         </div>
+         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
          {/* <div>Length: {article.length}</div> */}
          {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
        </ArticleBox>
      ));
 
      return (
-       <ArticlesWrapper>
+       <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen}>
          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
            <div style={{ display: 'flex' }}>
@@ -162,7 +208,8 @@ class Articles extends Component {
              <Cats>Trending</Cats>
            </div>
            <FilterBox>
-             <Filter placeholder="Search..." /><SearchIcon />
+             {/* <Filter placeholder="Filter..." /> */}
+             <img src={Search} alt="" />
            </FilterBox>
          </div>
          <ArticlesGrid>
@@ -175,16 +222,19 @@ class Articles extends Component {
 
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  articles: PropTypes.array,
+  sidebarStatus: PropTypes.shape({
+    open: PropTypes.bool,
+  }),
 };
 
 Articles.defaultProps = {
-  articles: [],
+  sidebarStatus: false,
 };
 
 function mapStateToProps(state) {
   return {
     articles: state.articles.articles,
+    sidebarStatus: state.sidebar,
   };
 }
 
