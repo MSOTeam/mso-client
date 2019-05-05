@@ -296,31 +296,27 @@ class Article extends Component {
     if (html.startsWith('<')) {
       const index = html.indexOf('>');
       html = html.slice(index + 1, html.length);
-      console.log('first: ', index);
     }
 
     if (html.endsWith('>')) {
       const index = html.lastIndexOf('<');
       html = html.slice(0, index);
-      console.log('last: ', index);
     }
 
-    console.log(html);
-    // console.log(html.length);
-    //  console.log(html);
     this.setState({ highlight: html });
 
     // this.setState({ highlight: document.getSelection().toString() });
   }
 
   setHighlight = () => {
-    console.log(this.state.highlight);
-
     const { article, highlight } = this.state;
-    const content = article.content.replace(highlight, `<mark>${highlight}</mark>`);
-    article.content = content;
 
-    // console.log(content);
+    const element = document.getElementById('articleContent');
+    const currenthtml = element.innerHTML;
+    // console.log(currenthtml.indexOf(html));
+
+    const content = currenthtml.replace(highlight, `<mark>${highlight}</mark>`);
+    article.content = content;
 
     this.setState({ article });
   }
@@ -328,7 +324,7 @@ class Article extends Component {
   render() {
     const { sidebarStatus } = this.props;
     const { article } = this.state;
-    console.log(article.image);
+
     return (
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
@@ -349,10 +345,12 @@ class Article extends Component {
           </StatBox>
           <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
           {!this.state.edit &&
-            <ArticleText
-              onMouseUp={() => this.highlight()}
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />            
+            <div id="articleContent">
+              <ArticleText
+                onMouseUp={() => this.highlight()}
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
+            </div>
           }
           {/* this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
