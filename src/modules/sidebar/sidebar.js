@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import _ from 'lodash';
 import axios from 'axios';
 import { color } from '../../styles/color';
