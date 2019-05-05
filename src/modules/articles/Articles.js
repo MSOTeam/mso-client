@@ -209,7 +209,7 @@ class Articles extends Component {
            </div>
            <FilterBox>
              {/* <Filter placeholder="Filter..." /> */}
-             <img src={Search} alt="" />
+             {/* <img src={Search} alt="" /> */}
            </FilterBox>
          </div>
          <ArticlesGrid>
