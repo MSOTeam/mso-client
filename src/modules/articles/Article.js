@@ -284,7 +284,33 @@ class Article extends Component {
   };
 
   highlight = () => {
-    this.setState({ highlight: document.getSelection().toString() });
+    const selection = document.getSelection();
+    const range = selection.getRangeAt(0);
+    const clonedSelection = range.cloneContents();
+    
+    const div = document.createElement('div');
+    div.appendChild(clonedSelection);
+
+    let html = div.innerHTML;
+
+    if (html.startsWith('<')) {
+      const index = html.indexOf('>');
+      html = html.slice(index + 1, html.length);
+      console.log('first: ', index);
+    }
+
+    if (html.endsWith('>')) {
+      const index = html.lastIndexOf('<');
+      html = html.slice(0, index);
+      console.log('last: ', index);
+    }
+
+    console.log(html);
+    // console.log(html.length);
+    //  console.log(html);
+    this.setState({ highlight: html });
+
+    // this.setState({ highlight: document.getSelection().toString() });
   }
 
   setHighlight = () => {
@@ -293,6 +319,8 @@ class Article extends Component {
     const { article, highlight } = this.state;
     const content = article.content.replace(highlight, `<mark>${highlight}</mark>`);
     article.content = content;
+
+    // console.log(content);
 
     this.setState({ article });
   }
@@ -324,7 +352,7 @@ class Article extends Component {
             <ArticleText
               onMouseUp={() => this.highlight()}
               dangerouslySetInnerHTML={{ __html: article.content }}
-            />
+            />            
           }
           {/* this.state.edit &&
             <textarea style={{ width: '100%', height: 400 }}>
