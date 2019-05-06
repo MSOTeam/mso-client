@@ -254,6 +254,7 @@ class Article extends Component {
     this.state = {
       edit: false,
       addToFav: false,
+      highlight: false,
       highlight: '',
       article: { title: null, content: null },
     };
@@ -303,8 +304,16 @@ class Article extends Component {
       html = html.slice(0, index);
     }
 
-    this.setState({ highlight: html });
+    const element = document.getElementById('articleContent');
+    const currenthtml = element.innerHTML;
+    const { article } = this.state;
 
+    const content = currenthtml.replace(html, `<mark>${html}</mark>`);
+    article.content = content;
+
+    this.setState({ article });
+
+    // this.setState({ highlight: html });
     // this.setState({ highlight: document.getSelection().toString() });
   }
 
@@ -313,7 +322,6 @@ class Article extends Component {
 
     const element = document.getElementById('articleContent');
     const currenthtml = element.innerHTML;
-    // console.log(currenthtml.indexOf(html));
 
     const content = currenthtml.replace(highlight, `<mark>${highlight}</mark>`);
     article.content = content;
@@ -347,7 +355,7 @@ class Article extends Component {
           {!this.state.edit &&
             <div id="articleContent">
               <ArticleText
-                onMouseUp={() => this.highlight()}
+                onMouseUp={this.state.highlight ? () => this.highlight() : null}
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </div>
@@ -369,7 +377,12 @@ class Article extends Component {
           <EditWrapper>
             <EditItem focus>Focus</EditItem>
             <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
-            <EditItem highlight onClick={() => this.setHighlight()}>Highlight</EditItem>
+            {this.state.highlight &&
+              <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
+            }
+            {!this.state.highlight &&
+              <EditItem highlight onClick={() => this.setState({ highlight: true })}>Highlight</EditItem>
+            }
             <EditItem comment>Comment</EditItem>
             <EditItem members>Members</EditItem>
             <EditItem share>Share</EditItem>
