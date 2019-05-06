@@ -45,7 +45,7 @@ const ArticleText = styled.p`
   font-weight: 300;
   font-size: 1.2em;
   line-height: 35px;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   text-align: justify;
 
   a  {
@@ -141,15 +141,19 @@ const EditBox = styled.div`
   display: flex;
   justify-content: center;
   z-index: 1;
+  transition: 0.3s;
+  ${props => props.sidebarStatus === true && css`
+    width: calc(100vw - 250px);
+  `}
 `;
 
 const EditWrapper = styled.div`
   display: flex;
-  width: 90%;
+  width: 700px;
   justify-content: space-between;
   align-items: center;
   @media (min-width: 1400px) {
-    width: 60%;
+    /* width: 60%; */
   }
 `;
 
@@ -219,7 +223,8 @@ const AddBox = styled.div`
     display: flex;
     height: 20vh;
     flex-direction: column;
-    position: sticky;
+    position: absolute;
+    right: -100px;
     top: 200px;
 `;
 
@@ -241,10 +246,11 @@ const AddItem = styled.div`
 
 const ArticleWrapper = styled.div`
   max-width: 700px;
-  padding: 3% 70px 5% 140px;
+  padding: 3% 0 7% 0;
+  position: relative;
   transition: padding 0.3s;
   ${props => props.sidebarStatus === true && css`
-    padding: 3% 70px 5% 315px;
+    padding: 3% 70px 7% 315px;
   `}
 `;
 
@@ -332,16 +338,14 @@ class Article extends Component {
   render() {
     const { sidebarStatus } = this.props;
     const { article } = this.state;
-
     return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <StatBox top>
             {/* <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div> */}
             {/* <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div> */}
-            <div style={{ fontSize: '0.9em' }}>Source</div>
+            {/* <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a> */}
           </StatBox>
-          <h3>{article.url}</h3>
           <h1 style={{
             fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
             }}
@@ -372,10 +376,16 @@ class Article extends Component {
               />
             </div>
           }
+          <a style={{ fontSize: '0.9em', textDecoration: 'none', lineHeight: '24px', color: '#777777', marginBottom: '10px', fontWeight: '100' }} href={article.url} target="_blank">Source</a>
         </ArticleWrapper>
-        <EditBox>
+        {/* <AddBox>
+          <AddItem star onClick={this.addToFav} />
+          <AddItem progress />
+          <AddItem reminder />
+        </AddBox> */}
+        <EditBox sidebarStatus={sidebarStatus.isOpen}>
           <EditWrapper>
-            <EditItem focus>Focus</EditItem>
+            {/* <EditItem focus>Focus</EditItem> */}
             <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
             {this.state.highlight &&
               <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
@@ -385,15 +395,11 @@ class Article extends Component {
             }
             <EditItem comment>Comment</EditItem>
             <EditItem members>Members</EditItem>
-            <EditItem share>Share</EditItem>
+            {/* <EditItem share>Share</EditItem> */}
             <EditItem archive>Archive</EditItem>
           </EditWrapper>
         </EditBox>
-        <AddBox>
-          <AddItem star onClick={this.addToFav} />
-          <AddItem progress />
-          <AddItem reminder />
-        </AddBox>
+ 
       </div>
     );
   }
