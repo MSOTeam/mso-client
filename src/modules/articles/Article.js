@@ -314,7 +314,21 @@ class Article extends Component {
     const currenthtml = element.innerHTML;
     const { article } = this.state;
 
-    const content = currenthtml.replace(html, `<mark>${html}</mark>`);
+    let markedHtml = "";
+
+    for (let i = 0; i < html.length; i++) {
+      if (html[i] === '<') {
+        markedHtml += '</mark><';
+      } else if (html[i] === '>') {
+        markedHtml += '><mark>';
+      } else {
+        markedHtml += html[i];
+      }
+    }
+
+    markedHtml = `<mark>${markedHtml}</mark>`;
+
+    const content = currenthtml.replace(html, markedHtml);
     article.content = content;
 
     this.setState({ article });
