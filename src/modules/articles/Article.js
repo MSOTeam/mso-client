@@ -16,6 +16,10 @@ import StarEmpty from '../../assets/star_empty.svg';
 import ProgessEmpty from '../../assets/progress_empty.svg';
 import ReminderEmpty from '../../assets/reminder_empty.svg';
 
+import PStar from '../../assets/star.svg';
+import PReminder from '../../assets/reminder.svg';
+import PProgress from '../../assets/progress.svg';
+
 const StatBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -131,17 +135,26 @@ const ArticleText = styled.p`
 `;
 
 const EditBox = styled.div`
-  position: fixed;
-  width: calc(100vw - 80px);
-  background:#fff; /*#FFF6D6*/
+  position: sticky;
+  /* width: calc(100vw - 80px);
+  background:#fff; 
   box-shadow: #000 0px -8px 10px -13px;
   bottom: 0;
   right: 0;
   height: 70px;
   display: flex;
   justify-content: center;
-  z-index: 1;
+  z-index: 1; */
+  z-index: 10000;
+  float: right;
+  top: 150px;
   transition: 0.3s;
+  margin-top: 200px;
+  padding-left: 50px;
+  height: 322px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   ${props => props.sidebarStatus === true && css`
     width: calc(100vw - 250px);
   `}
@@ -217,6 +230,16 @@ const EditItem = styled.div`
       top: 2px;
     }
   `}
+  cursor: pointer;
+  ${props => props.star && css`
+      content: url(${PStar});
+  `}
+  ${props => props.progress && css`
+      content: url(${PProgress});
+  `}
+  ${props => props.reminder && css`
+      content: url(${PReminder});
+  `}
 `;
 
 const AddBox = styled.div`
@@ -245,9 +268,12 @@ const AddItem = styled.div`
 `;
 
 const ArticleWrapper = styled.div`
-  max-width: 700px;
+  max-width: 780px;
   padding: 3% 0 7% 0;
   position: relative;
+  display: flex;
+  flex-direction: row-reverse
+  /* transform: translateZ(0); */
   transition: padding 0.3s;
   ${props => props.sidebarStatus === true && css`
     padding: 3% 70px 7% 315px;
@@ -314,7 +340,7 @@ class Article extends Component {
     const currenthtml = element.innerHTML;
     const { article } = this.state;
 
-    let markedHtml = "";
+    let markedHtml = '';
 
     for (let i = 0; i < html.length; i++) {
       if (html[i] === '<') {
@@ -355,11 +381,28 @@ class Article extends Component {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
-          <StatBox top>
-            {/* <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div> */}
-            {/* <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div> */}
-            {/* <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a> */}
-          </StatBox>
+          <EditBox sidebarStatus={sidebarStatus.isOpen}>                        
+            <EditItem star onClick={this.addToFav} />
+            <EditItem progress />
+            <EditItem reminder />
+            <EditItem archive />
+            <EditItem />
+            <EditItem />
+            {this.state.highlight &&
+              <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
+            }
+            {!this.state.highlight &&
+              <EditItem highlight onClick={() => this.setState({ highlight: true })} />
+            }
+            <EditItem comment />
+            <EditItem members />
+          </EditBox>
+          {/* <StatBox top>
+            <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
+            <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
+            <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a>
+          </StatBox> */}
+          <div style={{ display: '700px'}}>
           <h1 style={{
             fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
             }}
@@ -391,28 +434,30 @@ class Article extends Component {
             </div>
           }
           <a style={{ fontSize: '0.9em', textDecoration: 'none', lineHeight: '24px', color: '#777777', marginBottom: '10px', fontWeight: '100' }} href={article.url} target="_blank">Source</a>
+          </div>
         </ArticleWrapper>
         {/* <AddBox>
           <AddItem star onClick={this.addToFav} />
           <AddItem progress />
           <AddItem reminder />
         </AddBox> */}
-        <EditBox sidebarStatus={sidebarStatus.isOpen}>
-          <EditWrapper>
-            {/* <EditItem focus>Focus</EditItem> */}
-            <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
-            {this.state.highlight &&
-              <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
-            }
-            {!this.state.highlight &&
-              <EditItem highlight onClick={() => this.setState({ highlight: true })}>Highlight</EditItem>
-            }
-            <EditItem comment>Comment</EditItem>
-            <EditItem members>Members</EditItem>
-            {/* <EditItem share>Share</EditItem> */}
-            <EditItem archive>Archive</EditItem>
-          </EditWrapper>
-        </EditBox>
+        {/* <EditBox sidebarStatus={sidebarStatus.isOpen}>
+          <EditItem focus>Focus</EditItem>
+          <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
+          {this.state.highlight &&
+            <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
+          }
+          {!this.state.highlight &&
+            <EditItem highlight onClick={() => this.setState({ highlight: true })}></EditItem>
+          }
+          <EditItem comment></EditItem>
+          <EditItem members></EditItem>
+          <EditItem share>Share</EditItem>
+          <EditItem archive></EditItem>
+          <EditItem star onClick={this.addToFav} />
+          <EditItem progress></EditItem>
+          <EditItem reminder></EditItem>
+        </EditBox> */}
  
       </div>
     );
