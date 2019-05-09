@@ -147,11 +147,11 @@ const EditBox = styled.div`
   z-index: 1; */
   z-index: 10000;
   float: right;
-  top: 150px;
+  top: 25%;
   transition: 0.3s;
   margin-top: 200px;
-  padding-left: 50px;
-  height: 322px;
+  padding-left: 80px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -196,6 +196,9 @@ const EditItem = styled.div`
       margin-right: 10px;
       position: relative;
       top: 2px;
+      &:hover {
+        top: 100px;
+      }
     }
   `}
   ${props => props.comment && css`
@@ -232,13 +235,13 @@ const EditItem = styled.div`
   `}
   cursor: pointer;
   ${props => props.star && css`
-      content: url(${PStar});
+      content: url(${StarEmpty});
   `}
   ${props => props.progress && css`
-      content: url(${PProgress});
+      content: url(${ProgessEmpty});
   `}
   ${props => props.reminder && css`
-      content: url(${PReminder});
+      content: url(${ReminderEmpty});
   `}
 `;
 
@@ -381,7 +384,7 @@ class Article extends Component {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
-          <EditBox sidebarStatus={sidebarStatus.isOpen}>                        
+          <EditBox sidebarStatus={sidebarStatus.isOpen}>
             <EditItem star onClick={this.addToFav} />
             <EditItem progress />
             <EditItem reminder />
@@ -402,18 +405,18 @@ class Article extends Component {
             <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
             <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a>
           </StatBox> */}
-          <div style={{ display: '700px'}}>
-          <h1 style={{
-            fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
-            }}
-          >{article.title}
-          </h1>
-          <StatBox bottom>
-            <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
-            <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
-          </StatBox>
-          <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
-          {!this.state.edit &&
+          <div style={{ display: '700px' }}>
+            <h1 style={{
+              fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
+              }}
+            >{article.title}
+            </h1>
+            <StatBox bottom>
+              <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
+              <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
+            </StatBox>
+            <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
+            {!this.state.edit &&
             <div id="articleContent">
               <ArticleText
                 onMouseUp={this.state.highlight ? () => this.highlight() : null}
@@ -421,19 +424,19 @@ class Article extends Component {
               />
             </div>
           }
-          {/* this.state.edit &&
-            <textarea style={{ width: '100%', height: 400 }}>
-              {article.content}
-            </textarea>
-          */}
-          {this.state.edit &&
-            <div style={{ border: '1px solid gray', minHeight: 300 }}>
-              <Editor
-                value={article.content}
-              />
-            </div>
-          }
-          <a style={{ fontSize: '0.9em', textDecoration: 'none', lineHeight: '24px', color: '#777777', marginBottom: '10px', fontWeight: '100' }} href={article.url} target="_blank">Source</a>
+            {/* this.state.edit &&
+              <textarea style={{ width: '100%', height: 400 }}>
+                {article.content}
+              </textarea>
+            */}
+            {this.state.edit &&
+              <div style={{ border: '1px solid gray', minHeight: 300 }}>
+                <Editor
+                  value={article.content}
+                />
+              </div>
+            }
+            <a style={{ fontSize: '0.9em', textDecoration: 'none', lineHeight: '24px', color: '#777777', marginBottom: '10px', fontWeight: '100' }} href={article.url} target="_blank">Source</a>
           </div>
         </ArticleWrapper>
         {/* <AddBox>
