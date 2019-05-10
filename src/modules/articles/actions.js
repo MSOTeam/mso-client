@@ -84,9 +84,10 @@ const updateFailure = error => ({
 });
 
 export const updateArticle = (id, content) => (dispatch) => {
+  const token = localStorage.getItem('token');
   dispatch(updateRequest(id, content));
   axios
-    .put(`${'/article'}`, { body: { id, content } })
+    .put(`${'/article'}`, { id, content }, { headers: { Authorization: `Bearer ${token}` } })
     .then(response => dispatch(updateSuccess(response)))
     .catch(ex => dispatch(updateFailure(ex)));
 };

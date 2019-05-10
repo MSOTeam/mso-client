@@ -365,7 +365,7 @@ class Article extends Component {
 
   save = () => {
     const { match, dispatch } = this.props;
-    dispatch(actions.updateArticle(match.params.id, this.state.article));
+    dispatch(actions.updateArticle(match.params.id, this.state.article.content));
     this.setState({ highlight: false });
   }
 
