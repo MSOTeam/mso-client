@@ -7,6 +7,9 @@ import {
   FIND_ARTICLE_REQUEST,
   FIND_ARTICLE_SUCCESS,
   FIND_ARTICLE_FAILURE,
+  UPDATE_ARTICLE_REQUEST,
+  UPDATE_ARTICLE_SUCCESS,
+  UPDATE_ARTICLE_FAILURE,
 } from './constants';
 
 const initialState = {
@@ -23,6 +26,9 @@ export default handleActions(
     [FIND_ARTICLE_REQUEST]: (state, request) => ({ ...state, request, isFetching: true }),
     [FIND_ARTICLE_SUCCESS]: (state, { article }) => ({ ...state, article }),
     [FIND_ARTICLE_FAILURE]: (state, { error }) => ({ ...state, error }),
+    [UPDATE_ARTICLE_REQUEST]: (state, { id, content }) => ({ ...state, id, content }),
+    [UPDATE_ARTICLE_SUCCESS]: (state, { response }) => ({ ...state, response }),
+    [UPDATE_ARTICLE_FAILURE]: (state, { error }) => ({ ...state, error }),
   },
   initialState,
 );

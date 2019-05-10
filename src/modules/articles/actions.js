@@ -6,6 +6,9 @@ import {
   FIND_ARTICLE_REQUEST,
   FIND_ARTICLE_SUCCESS,
   FIND_ARTICLE_FAILURE,
+  UPDATE_ARTICLE_REQUEST,
+  UPDATE_ARTICLE_SUCCESS,
+  UPDATE_ARTICLE_FAILURE,
 } from './constants';
 
 export const findArticlesRequest = request => ({
@@ -62,4 +65,28 @@ export const findArticle = id => (dispatch) => {
     .catch((error) => {
       dispatch(findArticleFailure(error));
     });
+};
+
+const updateRequest = (id, content) => ({
+  type: UPDATE_ARTICLE_REQUEST,
+  id,
+  content,
+});
+
+const updateSuccess = response => ({
+  type: UPDATE_ARTICLE_SUCCESS,
+  response,
+});
+
+const updateFailure = error => ({
+  type: UPDATE_ARTICLE_FAILURE,
+  error,
+});
+
+export const updateArticle = (id, content) => (dispatch) => {
+  dispatch(updateRequest(id, content));
+  axios
+    .put(`${'/article'}`, { body: { id, content } })
+    .then(response => dispatch(updateSuccess(response)))
+    .catch(ex => dispatch(updateFailure(ex)));
 };

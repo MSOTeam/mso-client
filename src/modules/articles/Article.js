@@ -361,21 +361,12 @@ class Article extends Component {
     article.content = content;
 
     this.setState({ article });
-
-    // this.setState({ highlight: html });
-    // this.setState({ highlight: document.getSelection().toString() });
   }
 
-  setHighlight = () => {
-    const { article, highlight } = this.state;
-
-    const element = document.getElementById('articleContent');
-    const currenthtml = element.innerHTML;
-
-    const content = currenthtml.replace(highlight, `<mark>${highlight}</mark>`);
-    article.content = content;
-
-    this.setState({ article });
+  save = () => {
+    const { match, dispatch } = this.props;
+    dispatch(actions.updateArticle(match.params.id, this.state.article));
+    this.setState({ highlight: false });
   }
 
   render() {
@@ -392,7 +383,7 @@ class Article extends Component {
             <EditItem />
             <EditItem />
             {this.state.highlight &&
-              <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
+              <EditItem onClick={this.save}>Save</EditItem>
             }
             {!this.state.highlight &&
               <EditItem highlight onClick={() => this.setState({ highlight: true })} />
