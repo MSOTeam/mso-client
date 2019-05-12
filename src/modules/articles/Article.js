@@ -50,7 +50,7 @@ const ArticleText = styled.p`
   font-size: 1.2em;
   line-height: 35px;
   margin-bottom: 25px;
-  text-align: justify;
+  
 
   a  {
     color: black;
@@ -149,8 +149,8 @@ const EditBox = styled.div`
   float: right;
   top: 25%;
   transition: 0.3s;
-  margin-top: 200px;
-  padding-left: 80px;
+  margin-top: 230px;
+  padding-left: 40px;
   height: 380px;
   display: flex;
   flex-direction: column;
@@ -272,7 +272,7 @@ const AddItem = styled.div`
 
 const ArticleWrapper = styled.div`
   max-width: 780px;
-  padding: 3% 0 7% 0;
+  padding: 3% 0;
   position: relative;
   display: flex;
   flex-direction: row-reverse
@@ -383,7 +383,7 @@ class Article extends Component {
             <EditItem />
             <EditItem />
             {this.state.highlight &&
-              <EditItem onClick={this.save}>Save</EditItem>
+              <EditItem highlight onClick={this.save} />
             }
             {!this.state.highlight &&
               <EditItem highlight onClick={() => this.setState({ highlight: true })} />
