@@ -117,6 +117,10 @@ class Sidebar extends Component {
     this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
+  addTag = () => {
+    console.log('added');
+  }
+
   render() {
     const { dispatch } = this.props;
     const { taglist } = this.state;
@@ -148,7 +152,7 @@ class Sidebar extends Component {
             </SidebarItemWrapper> */}
             {categorys}
             <SidebarItemWrapper>
-              <SidebarItem>+</SidebarItem>
+              <SidebarItem onClick={this.addTag}>+</SidebarItem>
             </SidebarItemWrapper>
           </SidebarItems>
         </SidebarTop>
