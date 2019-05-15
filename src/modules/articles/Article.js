@@ -174,6 +174,8 @@ const EditItem = styled.div`
   letter-spacing: 1px;
   font-size: 14px;
   color: #5649CF;
+  cursor: pointer;
+  transition: opacity 0.2s;
   ${props => props.focus && css`
     &::before {
       content: url(${Focus});
@@ -233,7 +235,6 @@ const EditItem = styled.div`
       top: 2px;
     }
   `}
-  cursor: pointer;
   ${props => props.star && css`
       content: url(${StarEmpty});
   `}
@@ -242,6 +243,10 @@ const EditItem = styled.div`
   `}
   ${props => props.reminder && css`
       content: url(${ReminderEmpty});
+  `}
+  ${props => props.disabled === true && css`
+    opacity: 0.5;
+    cursor: default;
   `}
 `;
 
@@ -290,7 +295,6 @@ class Article extends Component {
       edit: false,
       addToFav: false,
       highlight: false,
-      highlight: '',
       article: { title: null, content: null },
     };
   }
@@ -371,15 +375,16 @@ class Article extends Component {
 
   render() {
     const { sidebarStatus } = this.props;
-    const { article } = this.state;
+    const { article, highlight } = this.state;
+    console.log(highlight);
     return (
       <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
         <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
           <EditBox sidebarStatus={sidebarStatus.isOpen}>
-            <EditItem star onClick={this.addToFav} />
-            <EditItem progress />
-            <EditItem reminder />
-            <EditItem archive />
+            <EditItem star disabled={highlight} onClick={this.addToFav} />
+            <EditItem progress disabled={highlight} />
+            <EditItem reminder disabled={highlight} />
+            <EditItem archive disabled={highlight} />
             <EditItem />
             <EditItem />
             {this.state.highlight &&
@@ -388,8 +393,8 @@ class Article extends Component {
             {!this.state.highlight &&
               <EditItem highlight onClick={() => this.setState({ highlight: true })} />
             }
-            <EditItem comment />
-            <EditItem members />
+            <EditItem comment disabled={highlight} />
+            <EditItem members disabled={highlight} />
           </EditBox>
           {/* <StatBox top>
             <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
@@ -410,7 +415,7 @@ class Article extends Component {
             {!this.state.edit &&
             <div id="articleContent">
               <ArticleText
-                onMouseUp={this.state.highlight ? () => this.highlight() : null}
+                onMouseUp={highlight ? () => this.highlight() : null}
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             </div>
