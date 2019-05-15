@@ -96,20 +96,40 @@ class Sidebar extends Component {
 
   componentDidMount = () => {
     const token = localStorage.getItem('token');
+
     axios
-      .get('article', { headers: { Authorization: `Bearer ${token}` } })
+      .get('tag', { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        const arr = [];
-        _.each(response.data.articles, (value) => {
-          arr.push(value.tags[0]);
-        });
-        const removeDuplicates = _.uniq(arr);
-        const ordered = _.orderBy(removeDuplicates);
+        
+        const { tags } = response.data;
+        console.log(tags);
+      // const arr = [];
+      // _.each(response.data.articles, (value) => {
+      //   arr.push(value.tags[0]);
+      // });
+      // const removeDuplicates = _.uniq(arr);
+        const ordered = _.orderBy(tags);
+        
         this.setState({ taglist: ordered });
       })
       .catch((error) => {
         console.log(error);
       });
+
+    // axios
+    //   .get('article', { headers: { Authorization: `Bearer ${token}` } })
+    //   .then((response) => {
+    //     const arr = [];
+    //     _.each(response.data.articles, (value) => {
+    //       arr.push(value.tags[0]);
+    //     });
+    //     const removeDuplicates = _.uniq(arr);
+    //     const ordered = _.orderBy(removeDuplicates);
+    //     this.setState({ taglist: ordered });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   slide = () => {
@@ -125,8 +145,8 @@ class Sidebar extends Component {
     const { dispatch } = this.props;
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
-      <SidebarItemWrapper key={tag}>
-        <SidebarItem onClick={() => dispatch(push(`${tag}`))}>{tag}</SidebarItem>
+      <SidebarItemWrapper key={tag.name}>
+        <SidebarItem onClick={() => dispatch(push(`${tag.tag}`))}>{tag.tag}</SidebarItem>
         {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
       </SidebarItemWrapper>
     ));
