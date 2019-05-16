@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
-import moment from 'moment';
 import { Editor } from '../../components';
 import * as actions from './actions';
 import Focus from '../../assets/focus.svg';
@@ -16,9 +15,33 @@ import StarEmpty from '../../assets/star_empty.svg';
 import ProgessEmpty from '../../assets/progress_empty.svg';
 import ReminderEmpty from '../../assets/reminder_empty.svg';
 
-import PStar from '../../assets/star.svg';
-import PReminder from '../../assets/reminder.svg';
-import PProgress from '../../assets/progress.svg';
+const ArticleWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 80px repeat(8, 1fr);
+  grid-auto-rows: minmax(min-content, max-content);
+  width: 100%;
+  position: relative;
+  transition: all 0.3s;
+  ${props => props.sidebarStatus === true && css`
+    grid-template-columns: 250px repeat(8, 1fr);
+  `}
+`;
+
+const H1 = styled.h1`
+  font-size: 3em;
+  font-weight: 700;
+  padding: 80px 0 10px 0; 
+  line-height: 54px;
+  grid-column: 4 / 8;
+  grid-row: 1 / 1;
+  
+`;
+
+const FeatImg = styled.img`
+    grid-area: 3 / 4 / 3 / 8;
+    margin-bottom: 30px; 
+    width: 100%;
+`;
 
 const StatBox = styled.div`
   display: flex;
@@ -33,6 +56,9 @@ const StatBox = styled.div`
     font-weight: 100;
   `}
   ${props => props.bottom && css`
+    grid-column: 4 / 8;
+    grid-row: 2 / 2;
+    align-self: center;
     cursor: pointer;
     line-height: 24px;
     color: #5649CF;
@@ -50,8 +76,8 @@ const ArticleText = styled.p`
   font-size: 1.2em;
   line-height: 35px;
   margin-bottom: 25px;
-  
-
+  grid-column: 4 / 8;
+  grid-row: 4;
   a  {
     color: black;
     text-decoration: none;
@@ -77,97 +103,21 @@ const ArticleText = styled.p`
     font-weight: 600;
     margin: 35px 0 10px;
   }
-
-  & > div > div  {
-    overflow: hidden;
-  }
-
-  & > div > div > div > * {
-    padding: 20px 0;
-    line-height: 38px;
-  }
-  & > div > div > div > p > a {
-    color: #000;
-  }
-  & > div > div > figure {
-    margin-bottom: 50px;
-  }
-
-  & > div > div > figure > figcaption > * {
-    font-weight: 600;
-    font-size: 14px;
-    color: #777777;
-    font-weight: 100;
-  }
-
-  & > div > div > figure > span > img {
-    background-size: cover;
-    width: 100%;
-    height: auto;
-  }
-
-  & > div > div > article > div > div > div > div > pre {
-    margin: 16px 0;
-    background: grey;
-    padding: 11px;
-  }
-
-  & > div > div > article > div > div > div > div > pre > * {
-    font-family: 'Cousine', monospace !important;
-  }
-  & > div > div > center {
-    margin: 50px;
-    font-size: 1em;
-  }
-  & > div > article {
-    display: none;
-  }
-  & > p {
-    line-height: 38px;
-  }
-
-  & > div > div > h2 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 25px 0 10px 0;
-    
-  }
 `;
 
 const EditBox = styled.div`
+  grid-area: 3 / 8 / 8 / 8;
   position: sticky;
-  /* width: calc(100vw - 80px);
-  background:#fff; 
-  box-shadow: #000 0px -8px 10px -13px;
-  bottom: 0;
-  right: 0;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  z-index: 1; */
-  z-index: 10000;
-  float: right;
-  top: 25%;
-  transition: 0.3s;
-  margin-top: 230px;
+  top: 100px;
+  transition: width 0.3s;
   padding-left: 40px;
   height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
   ${props => props.sidebarStatus === true && css`
-    width: calc(100vw - 250px);
   `}
-`;
-
-const EditWrapper = styled.div`
-  display: flex;
-  width: 700px;
-  justify-content: space-between;
-  align-items: center;
-  @media (min-width: 1400px) {
-    /* width: 60%; */
-  }
 `;
 
 const EditItem = styled.div`
@@ -175,7 +125,7 @@ const EditItem = styled.div`
   font-size: 14px;
   color: #5649CF;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s;
   ${props => props.focus && css`
     &::before {
       content: url(${Focus});
@@ -202,6 +152,17 @@ const EditItem = styled.div`
         top: 100px;
       }
     }
+    &:hover {
+      &::after {
+        transition: all 3s;
+        content: "Highlight";
+        position: relative;
+        bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+      }
+    }
   `}
   ${props => props.comment && css`
     &::before {
@@ -210,6 +171,15 @@ const EditItem = styled.div`
       position: relative;
       top: 2px;
     }
+    &:hover {
+      &::after {
+        transition: all 3s;
+        content: "Comment";
+        position: relative;
+        bottom: 3px;
+        left: 6px;
+      }
+    }
   `}
   ${props => props.members && css`
     &::before {
@@ -217,6 +187,17 @@ const EditItem = styled.div`
       margin-right: 10px;
       position: relative;
       top: 2px;
+    }
+    &:hover {
+      &::after {
+        transition: all 3s;
+        content: "Members";
+        position: relative;
+        bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+      }
     }
   `}
   ${props => props.share && css`
@@ -234,15 +215,74 @@ const EditItem = styled.div`
       position: relative;
       top: 2px;
     }
+    &:hover {
+      &::after {
+        transition: all 3s;
+        content: "Archive";
+        position: relative;
+        bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+      }
+    }
   `}
   ${props => props.star && css`
+  &::before {
       content: url(${StarEmpty});
+      margin-right: 10px;
+      position: relative;
+      top: 2px;
+    }
+    &:hover {
+      &::after {
+        transition: all 3s;
+        content: "Favourite";
+        position: relative;
+        bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+      }
+    }
   `}
   ${props => props.progress && css`
-      content: url(${ProgessEmpty});
+    &::before {
+        content: url(${ProgessEmpty});
+        margin-right: 10px;
+        position: relative;
+        top: 2px;
+      }
+      &:hover {
+        &::after {
+          transition: all 3s;
+          content: "In progress";
+          position: relative;
+          bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+        }
+      }
   `}
   ${props => props.reminder && css`
-      content: url(${ReminderEmpty});
+    &::before {
+        content: url(${ReminderEmpty});
+        margin-right: 10px;
+        position: relative;
+        top: 2px;
+      }
+      &:hover {
+        &::after {
+          transition: all 3s;
+          content: "Reminder";
+          position: relative;
+          bottom: 4px;
+    left: 6px;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+        }
+      }
   `}
   ${props => props.disabled === true && css`
     opacity: 0.5;
@@ -250,42 +290,16 @@ const EditItem = styled.div`
   `}
 `;
 
-const AddBox = styled.div`
-    display: flex;
-    height: 20vh;
-    flex-direction: column;
-    position: absolute;
-    right: -100px;
-    top: 200px;
-`;
-
-const AddItem = styled.div`
-  cursor: pointer;
-  ${props => props.star && css`
-      content: url(${StarEmpty});
-      margin-bottom: 30px;
-  `}
-  ${props => props.progress && css`
-      content: url(${ProgessEmpty});
-      margin-bottom: 30px;
-  `}
-  ${props => props.reminder && css`
-      content: url(${ReminderEmpty});
-      margin-bottom: 30px;
-  `}
-`;
-
-const ArticleWrapper = styled.div`
-  max-width: 780px;
-  padding: 3% 0;
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse
-  /* transform: translateZ(0); */
-  transition: padding 0.3s;
-  ${props => props.sidebarStatus === true && css`
-    padding: 3% 70px 7% 315px;
-  `}
+const Source = styled.a`
+  grid-area: 5 / 5 / 6 / 7;
+  justify-self: center;
+  font-size: 0.9em;
+  text-decoration: none;
+  letter-spacing: 2px;
+  line-height: 24px;
+  color: rgb(119, 119, 119);
+  margin: 20px 0 60px 0;
+  font-weight: 100;
 `;
 
 class Article extends Component {
@@ -307,7 +321,7 @@ class Article extends Component {
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.article !== prevProps.article) {
-      this.setState({ article: this.props.article });
+      this.setState({ article: this.props.article });     
     }
   }
 
@@ -376,89 +390,57 @@ class Article extends Component {
   render() {
     const { sidebarStatus } = this.props;
     const { article, highlight } = this.state;
-    console.log(highlight);
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
-        <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
-          <EditBox sidebarStatus={sidebarStatus.isOpen}>
-            <EditItem star disabled={highlight} onClick={this.addToFav} />
-            <EditItem progress disabled={highlight} />
-            <EditItem reminder disabled={highlight} />
-            <EditItem archive disabled={highlight} />
-            <EditItem />
-            <EditItem />
-            {this.state.highlight &&
-              <EditItem highlight onClick={this.save} />
-            }
-            {!this.state.highlight &&
-              <EditItem highlight onClick={() => this.setState({ highlight: true })} />
-            }
-            <EditItem comment disabled={highlight} />
-            <EditItem members disabled={highlight} />
-          </EditBox>
-          {/* <StatBox top>
-            <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
-            <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
-            <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a>
-          </StatBox> */}
-          <div style={{ display: '700px' }}>
-            <h1 style={{
-              fontSize: '3em', fontWeight: 700, paddingBottom: 10, lineHeight: '54px',
-              }}
-            >{article.title}
-            </h1>
-            <StatBox bottom>
-              <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
-              <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
-            </StatBox>
-            <img style={{marginBottom: '30px', width: '100%' }} src={article.image} />
-            {!this.state.edit &&
-            <div id="articleContent">
-              <ArticleText
-                onMouseUp={highlight ? () => this.highlight() : null}
-                dangerouslySetInnerHTML={{ __html: article.content }}
-              />
-            </div>
-          }
-            {/* this.state.edit &&
-              <textarea style={{ width: '100%', height: 400 }}>
-                {article.content}
-              </textarea>
-            */}
-            {this.state.edit &&
-              <div style={{ border: '1px solid gray', minHeight: 300 }}>
-                <Editor
-                  value={article.content}
-                />
-              </div>
-            }
-            <a style={{ fontSize: '0.9em', textDecoration: 'none', lineHeight: '24px', color: '#777777', marginBottom: '10px', fontWeight: '100' }} href={article.url} target="_blank">Source</a>
-          </div>
-        </ArticleWrapper>
-        {/* <AddBox>
-          <AddItem star onClick={this.addToFav} />
-          <AddItem progress />
-          <AddItem reminder />
-        </AddBox> */}
-        {/* <EditBox sidebarStatus={sidebarStatus.isOpen}>
-          <EditItem focus>Focus</EditItem>
-          <EditItem edit onClick={() => this.setState({ edit: !this.state.edit })}>Edit</EditItem>
+      // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
+      <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
+        {/* <StatBox top>
+          <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
+          <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
+          <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a>
+        </StatBox> */}
+        <H1>{article.title}</H1>
+        <StatBox bottom>
+          <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
+          <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
+        </StatBox>
+        <FeatImg src={article.image} />
+        {!this.state.edit &&
+          <ArticleText
+            onMouseUp={highlight ? () => this.highlight() : null}
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+      }
+        <EditBox sidebarStatus={sidebarStatus.isOpen}>
+          <EditItem star disabled={highlight} onClick={this.addToFav} />
+          <EditItem progress disabled={highlight} />
+          <EditItem reminder disabled={highlight} />
+          <EditItem archive disabled={highlight} />
+          <EditItem />
+          <EditItem />
           {this.state.highlight &&
-            <EditItem onClick={() => this.setState({ highlight: false })}>Save</EditItem>
+            <EditItem highlight onClick={this.save} />
           }
           {!this.state.highlight &&
-            <EditItem highlight onClick={() => this.setState({ highlight: true })}></EditItem>
+            <EditItem highlight onClick={() => this.setState({ highlight: true })} />
           }
-          <EditItem comment></EditItem>
-          <EditItem members></EditItem>
-          <EditItem share>Share</EditItem>
-          <EditItem archive></EditItem>
-          <EditItem star onClick={this.addToFav} />
-          <EditItem progress></EditItem>
-          <EditItem reminder></EditItem>
-        </EditBox> */}
- 
-      </div>
+          <EditItem comment disabled={highlight} />
+          <EditItem members disabled={highlight} />
+        </EditBox>
+        {/* this.state.edit &&
+          <textarea style={{ width: '100%', height: 400 }}>
+            {article.content}
+          </textarea>
+        */}
+        {this.state.edit &&
+          <div style={{ border: '1px solid gray', minHeight: 300 }}>
+            <Editor
+              value={article.content}
+            />
+          </div>
+        }
+        <Source href={article.url} target="_blank">Source</Source>
+      </ArticleWrapper>
+      // </div>
     );
   }
 }

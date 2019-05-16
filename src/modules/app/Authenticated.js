@@ -7,9 +7,9 @@ import { color } from '../../styles/color';
 
 const NavWrapper = styled.div`
   background: ${color.light};
-  position: sticky;
+  /* position: sticky;
   top: 0px;
-  z-index: 10;
+  z-index: 10; */
 `;
 
 const Authenticated = ({ children }) => (
