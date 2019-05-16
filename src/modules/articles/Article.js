@@ -125,168 +125,114 @@ const EditItem = styled.div`
   font-size: 14px;
   color: #5649CF;
   cursor: pointer;
-  transition: all 0.2s;
-  ${props => props.focus && css`
-    &::before {
-      content: url(${Focus});
-      margin-right: 10px;
+  &:hover {
+    &::after {
       position: relative;
-      top: 2px;
+      bottom: 4px;
+      left: 6px;
+      font-size: 0.9em;
+      letter-spacing: 2px;
+    }
+  }
+  &::before {
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+    &:hover {
+      top: 100px;
+    }
+  }
+  ${props => props.star && css`
+  
+  &::before {
+      content: url(${StarEmpty});
+    }
+    &:hover {
+      &::after {
+        content: "Favourite";
+      }
     }
   `}
-  ${props => props.edit && css`
+  ${props => props.reminder && css`
     &::before {
-      content: url(${Edit});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
+        content: url(${ReminderEmpty});
+      }
+      &:hover {
+        &::after {
+          content: "Reminder";
+        }
+      }
+  `}
+  ${props => props.progress && css`
+    &::before {
+        content: url(${ProgessEmpty});
+      }
+      &:hover {
+        &::after {
+          content: "In progress";
+        }
+      }
+  `}
+  ${props => props.archive && css`
+    &::before {
+      content: url(${Archive});
+    }
+    &:hover {
+      &::after {
+        content: "Archive";
+      }
     }
   `}
   ${props => props.highlight && css`
     &::before {
       content: url(${Highlight});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-      &:hover {
-        top: 100px;
-      }
     }
     &:hover {
       &::after {
-        transition: all 3s;
         content: "Highlight";
-        position: relative;
-        bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
       }
     }
   `}
   ${props => props.comment && css`
     &::before {
       content: url(${CommentMsg});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
     }
     &:hover {
       &::after {
-        transition: all 3s;
         content: "Comment";
-        position: relative;
-        bottom: 3px;
-        left: 6px;
       }
     }
   `}
   ${props => props.members && css`
     &::before {
       content: url(${Members});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
     }
     &:hover {
       &::after {
-        transition: all 3s;
         content: "Members";
-        position: relative;
-        bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
       }
+    }
+  `}
+
+  ${props => props.disabled === true && css`
+    opacity: 0.5;
+    cursor: default;
+  `}
+
+  ${props => props.focus && css`
+    &::before {
+      content: url(${Focus});
+    }
+  `}
+  ${props => props.edit && css`
+    &::before {
+      content: url(${Edit});
     }
   `}
   ${props => props.share && css`
     &::before {
       content: url(${Share});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
     }
-  `}
-  ${props => props.archive && css`
-    &::before {
-      content: url(${Archive});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
-    &:hover {
-      &::after {
-        transition: all 3s;
-        content: "Archive";
-        position: relative;
-        bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-      }
-    }
-  `}
-  ${props => props.star && css`
-  &::before {
-      content: url(${StarEmpty});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
-    &:hover {
-      &::after {
-        transition: all 3s;
-        content: "Favourite";
-        position: relative;
-        bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-      }
-    }
-  `}
-  ${props => props.progress && css`
-    &::before {
-        content: url(${ProgessEmpty});
-        margin-right: 10px;
-        position: relative;
-        top: 2px;
-      }
-      &:hover {
-        &::after {
-          transition: all 3s;
-          content: "In progress";
-          position: relative;
-          bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-        }
-      }
-  `}
-  ${props => props.reminder && css`
-    &::before {
-        content: url(${ReminderEmpty});
-        margin-right: 10px;
-        position: relative;
-        top: 2px;
-      }
-      &:hover {
-        &::after {
-          transition: all 3s;
-          content: "Reminder";
-          position: relative;
-          bottom: 4px;
-    left: 6px;
-    font-size: 0.9em;
-    letter-spacing: 2px;
-        }
-      }
-  `}
-  ${props => props.disabled === true && css`
-    opacity: 0.5;
-    cursor: default;
   `}
 `;
 
@@ -415,7 +361,6 @@ class Article extends Component {
           <EditItem progress disabled={highlight} />
           <EditItem reminder disabled={highlight} />
           <EditItem archive disabled={highlight} />
-          <EditItem />
           <EditItem />
           {this.state.highlight &&
             <EditItem highlight onClick={this.save} />
