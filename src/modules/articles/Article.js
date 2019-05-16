@@ -14,6 +14,7 @@ import Archive from '../../assets/archive.svg';
 import StarEmpty from '../../assets/star_empty.svg';
 import ProgessEmpty from '../../assets/progress_empty.svg';
 import ReminderEmpty from '../../assets/reminder_empty.svg';
+import Back from '../../assets/back.svg';
 
 const ArticleWrapper = styled.div`
   display: grid;
@@ -35,6 +36,15 @@ const H1 = styled.h1`
   grid-column: 4 / 8;
   grid-row: 1 / 1;
   
+`;
+const BackButton = styled.img`
+  grid-area: 1 / 3 / 1 / 3;
+  align-self: center;
+  justify-self: center;
+  position: sticky;
+  top: 100px;
+  margin-top: 12px;
+  cursor: pointer;;
 `;
 
 const FeatImg = styled.img`
@@ -333,6 +343,11 @@ class Article extends Component {
     this.setState({ highlight: false });
   }
 
+  back = () => {
+    /* eslint-disable */
+    history.go(-1)
+  }
+
   render() {
     const { sidebarStatus } = this.props;
     const { article, highlight } = this.state;
@@ -349,6 +364,7 @@ class Article extends Component {
           <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
           <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
         </StatBox>
+        <BackButton src={Back} onClick={this.back} />
         <FeatImg src={article.image} />
         {!this.state.edit &&
           <ArticleText
