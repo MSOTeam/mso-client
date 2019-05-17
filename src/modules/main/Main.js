@@ -1,29 +1,9 @@
 import React, { Component } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 import Articles from '../articles/Articles';
 import { color } from '../../styles/color';
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-const ArticlesWrapper = styled.div`
-  padding: 3% 70px 5% 140px;
-  transition: padding 0.3s;
-
-  ${props => props.sidebarStatus === true && css`
-      padding: 3% 70px 5% 315px;
-  `}
-  ${props => props.primary && css`
-    background: white;
-    color: palevioletred;
-  `}
-`;
 
 const Welcome = styled.h1`
   font-size: 1.4em;
@@ -60,6 +40,12 @@ const FilterBox = styled.div`
 
 class Main extends Component {
   render() {
+    const { authenticated } = this.props;
+
+    if(!authenticated) {
+      return <div />;
+    }
+
     return (
       <div>
         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
@@ -81,4 +67,19 @@ class Main extends Component {
   }
 }
 
-export default Main;
+Main.defaultProps = {
+  authenticated: false,
+};
+
+Main.propTypes = {
+  authenticated: PropTypes.bool,
+};
+
+function mapStateToProps(state) {
+  const authenticated = (state.login.token);
+  return {
+    authenticated,
+  };
+}
+
+export default connect(mapStateToProps)(Main);
