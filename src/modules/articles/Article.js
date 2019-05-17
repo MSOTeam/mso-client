@@ -120,6 +120,9 @@ const ArticleText = styled.p`
   span {
     font-size: 0.8em;
   }
+  p {
+    margin-bottom: 25px;
+  }
 `;
 
 const EditBox = styled.div`
