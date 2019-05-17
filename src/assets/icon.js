@@ -1,9 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+
+export const opacity = keyframes`
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+`;
 
 const ScSvg = styled.svg`      
 `;
 const ScPath = styled.path`      
+`;
+
+const SvgLoader = styled.svg`
+  animation: ${opacity} 2s infinite;
+  animation-fill-mode: forwards;
 `;
 
 export const Archive = () => {
@@ -240,4 +255,10 @@ export const Star = props => {
     </svg>
   );
 };
+
+export const LoadingLogo = () => (
+  <SvgLoader width="34" height="100" viewBox="0 0 234 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M164.61 193.4C164.61 229.274 148.312 247.501 115.715 248.081C84.9554 246.498 69.5755 228.339 69.5755 193.604V133.692H136.644V81.3292H69.5755V0H0.000251681L0 81.3292L0.000251681 133.692V194.718C0.000251681 229.626 9.09141 255.993 27.2737 273.819C45.4561 291.273 73.6573 300 111.877 300C112.45 300 113.206 300 114.138 299.983C115.088 299.994 116.042 300 117 300C118.02 300 119.037 299.994 120.048 299.981C121.032 300 121.825 300 122.421 300C160.539 300 188.665 291.256 206.799 273.769C224.933 255.909 234 229.492 234 194.516V152.619L234 81.0003L164.61 81V152.619V193.4ZM163.225 0H234V53.9574H163.225V0Z" fill="#5649CF"/>
+  </SvgLoader>
+)
 

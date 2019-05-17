@@ -39,11 +39,11 @@ const H1 = styled.h1`
 `;
 const BackButton = styled.img`
   grid-area: 1 / 3 / 1 / 3;
-  align-self: center;
-  justify-self: center;
+  justify-self: right;
   position: sticky;
-  top: 100px;
-  margin-top: 12px;
+  top: 17px;
+  padding-top: 87px;
+  padding-right: 40px;
   cursor: pointer;;
 `;
 
@@ -84,6 +84,7 @@ const StatTime = styled.div`
 const ArticleText = styled.p`
   font-weight: 300;
   font-size: 1.2em;
+  letter-spacing: .5px;
   line-height: 35px;
   margin-bottom: 25px;
   grid-column: 4 / 8;
@@ -91,6 +92,8 @@ const ArticleText = styled.p`
   a  {
     color: black;
     text-decoration: none;
+    font-size: 0.8em;
+
   }
 
   img  {
@@ -112,6 +115,10 @@ const ArticleText = styled.p`
   h4, h5{
     font-weight: 600;
     margin: 35px 0 10px;
+  }
+
+  span {
+    font-size: 0.8em;
   }
 `;
 

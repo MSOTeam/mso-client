@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { PropTypes } from 'prop-types';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { color } from '../../styles/color';
-import Search from '../../assets/search.svg';
+import { LoadingLogo } from '../../assets/icon';
 
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 const ArticlesWrapper = styled.div`
   padding: 3% 70px 5% 140px;
@@ -118,11 +127,13 @@ const ArticleBoxOverlay = styled.div`
   overflow: hidden;
   height: 200px; 
   margin-bottom: 10px;
+  background: #FAFAFA;
 `;
 
 const ArticleImage = styled.div`
   ${props => props.image && css`
-      background: url(${props.image}) no-repeat center center;
+    animation: ${fadeIn} .2s ease-in-out;
+    background: url(${props.image}) no-repeat center center;
   `}
   height: 100%;
   width: 100%;
@@ -214,6 +225,7 @@ class Articles extends Component {
              {/* <Filter placeholder="Filter..." /> */}
              {/* <img src={Search} alt="" /> */}
            </FilterBox>
+           {/* <LoadingLogo /> */}
          </div>
          <ArticlesGrid>
            {articles}
