@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import AuthNavigation from '../navigation/AuthNavigation';
 import Sidebar from '../sidebar/sidebar';
 import { color } from '../../styles/color';
@@ -12,18 +13,46 @@ const NavWrapper = styled.div`
   z-index: 10; */
 `;
 
-const Authenticated = ({ children }) => (
+const ArticlesWrapper = styled.div`
+  padding: 3% 70px 5% 140px;
+  transition: padding 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+      padding: 3% 70px 5% 315px;
+  `}
+  ${props => props.primary && css`
+    background: white;
+    color: palevioletred;
+  `}
+`;
+
+const Authenticated = ({ children, sidebarStatus }) => (
   <div>
     <NavWrapper>
       <AuthNavigation />
       <Sidebar />
     </NavWrapper>
-    { children }
+    <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen}>
+      { children }
+    </ArticlesWrapper>
   </div>
 );
 
-Authenticated.propTypes = {
-  children: PropTypes.object.isRequired,
+Authenticated.defaultProps = {
+  sidebarStatus: false,
 };
 
-export default Authenticated;
+Authenticated.propTypes = {
+  children: PropTypes.object.isRequired,
+  sidebarStatus: PropTypes.shape({
+    open: PropTypes.bool,
+  }),
+};
+
+function mapStateToProps(state) {
+  return {
+    sidebarStatus: state.sidebar,
+  };
+}
+
+export default connect(mapStateToProps)(Authenticated);
