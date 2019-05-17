@@ -108,7 +108,7 @@ class Articles extends Component {
    componentDidMount = () => {
      const token = localStorage.getItem('token');
      axios
-       .get('article?tag=hello', { headers: { Authorization: `Bearer ${token}` } })
+       .get('article', { headers: { Authorization: `Bearer ${token}` } })
        .then((response) => {
          console.log(response.data.articles[5]);
          this.setState({ articles: response.data.articles });
