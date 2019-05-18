@@ -49,7 +49,7 @@ export const login = data => (dispatch) => {
       dispatch(loginSuccess(user, token));
     }).then(() => {
       dispatch(toggleModal());
-      dispatch(push('/articles'));
+      dispatch(push('/'));
     })
     .catch((error) => {
       dispatch(loginFailure(error));
@@ -83,7 +83,7 @@ export const authGoogleUser = googleUser => (dispatch) => {
       dispatch(loginSuccess(user, token));
     }).then(() => {
       dispatch(toggleModal());
-      dispatch(push('/articles'));
+      dispatch(push('/'));
     })
     .catch((error) => {
       dispatch(loginFailure(error));
@@ -101,7 +101,7 @@ export const authFbUser = fbUser => (dispatch) => {
       dispatch(loginSuccess(user, token));
     }).then(() => {
       dispatch(toggleModal());
-      dispatch(push('/articles'));
+      dispatch(push('/'));
     })
     .catch((error) => {
       dispatch(loginFailure(error));

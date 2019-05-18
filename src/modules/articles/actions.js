@@ -26,11 +26,11 @@ const findArticlesFailure = error => ({
   error,
 });
 
-export const findArticles = () => (dispatch) => {
+export const findArticles = tag => (dispatch) => {
   const token = localStorage.getItem('token');
   dispatch(findArticlesRequest(token));
   axios
-    .get('article', { headers: { Authorization: `Bearer ${token}` } })
+    .get('article?tag=test', { headers: { Authorization: `Bearer ${token}` } })
     .then((response) => {
       dispatch(findArticlesSuccess(response.data.articles));
     })

@@ -17,19 +17,6 @@ const fadeIn = keyframes`
   }
 `;
 
-const ArticlesWrapper = styled.div`
-  padding: 3% 70px 5% 140px;
-  transition: padding 0.3s;
-
-  ${props => props.sidebarStatus === true && css`
-      padding: 3% 70px 5% 315px;
-  `}
-  ${props => props.primary && css`
-    background: white;
-    color: palevioletred;
-  `}
-`;
-
 const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -55,58 +42,6 @@ const ArticlesGrid = styled.div`
     grid-template-columns: 1fr;
   }
 `;
-
-const Welcome = styled.h1`
-  font-size: 1.4em;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px 0;
-`;
-
-const Cats = styled.p`
-  font-size: 1em;
-  letter-spacing: 0.5px;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  ${props => props.active && css`
-    font-weight: 600;
-    border-bottom: 5px solid ${color.primary};
-    width: fit-content;
-  `}
-`;
-
-const FilterBox = styled.div`
-  display: flex;
-  width: 5%;
-  justify-content: flex-end;
-  align-self: end;
-  /* justify-content: space-between; */
-  /* border-bottom: 5px solid #eaeaea;
-  padding-bottom: 15px;
-  margin-bottom: 20px; */
-  /* margin-right: 20px; */
-`;
-
-// const Filter = styled.input`
-//   font-size: 1em;
-//   letter-spacing: 0.8px;
-//   border-left: none;
-//   border-top: none;
-//   border-right: none;
-//   border-bottom: none;
-//   outline: none;
-//   &::placeholder {
-//     font-weight: 100;
-//   }
-// `;
-
-// const SearchIcon = styled.span`
-//   background: url(${Search});
-//   height: 15px;
-//   width: 15px;
-// `;
-
 
 const ArticleBox = styled.div`
   margin-bottom: 10px;
@@ -154,19 +89,6 @@ const ArticleHeader = styled.div`
   box-sizing: border-box;
 `;
 
-// const ArticleExcerp = styled.div`
-//   font-weight: 400;
-//   font-size: 15px;
-//   line-height: 24px;
-//   margin-bottom: 15px;
-//   color: rgba(0,0,0,.54)!important;
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   -webkit-line-clamp: 2;
-//   display: -webkit-box;
-//   -webkit-box-orient: vertical;
-//   letter-spacing: 1px;
-// `;
 
 const ArticleTags = styled.div`
   font-weight: 600;
@@ -197,7 +119,7 @@ class Articles extends Component {
    }
 
    render() {
-     const { dispatch, sidebarStatus } = this.props;
+     const { dispatch } = this.props;
      const articles = this.state.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <div>
@@ -213,43 +135,20 @@ class Articles extends Component {
      ));
 
      return (
-       <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen}>
-         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-           <div style={{ display: 'flex' }}>
-             <Cats active>Latest</Cats>
-             <Cats>Recommended</Cats>
-             <Cats>Trending</Cats>
-           </div>
-           <FilterBox>
-             {/* <Filter placeholder="Filter..." /> */}
-             {/* <img src={Search} alt="" /> */}
-           </FilterBox>
-           {/* <LoadingLogo /> */}
-         </div>
-         <ArticlesGrid>
-           {articles}
-         </ArticlesGrid>
-       </ArticlesWrapper>
+       <ArticlesGrid>
+         {articles}
+       </ArticlesGrid>
      );
    }
 }
 
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  sidebarStatus: PropTypes.shape({
-    open: PropTypes.bool,
-  }),
-};
-
-Articles.defaultProps = {
-  sidebarStatus: false,
 };
 
 function mapStateToProps(state) {
   return {
     articles: state.articles.articles,
-    sidebarStatus: state.sidebar,
   };
 }
 
