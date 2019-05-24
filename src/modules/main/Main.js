@@ -5,6 +5,15 @@ import styled, { css } from 'styled-components';
 import Articles from '../articles/Articles';
 import { color } from '../../styles/color';
 
+const Header = styled.div`
+  padding: 50px 70px 0 140px;
+  transition: all 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+      padding: 50px 70px 0  315px;
+  `}
+`;
+
 const Welcome = styled.h1`
   font-size: 1.4em;
   font-weight: 700;
@@ -25,6 +34,7 @@ const Cats = styled.p`
   `}
 `;
 
+
 const FilterBox = styled.div`
   display: flex;
   width: 5%;
@@ -37,48 +47,44 @@ const FilterBox = styled.div`
   /* margin-right: 20px; */
 `;
 
-
-class Main extends Component {
-  render() {
-    const { authenticated } = this.props;
-
-    if(!authenticated) {
-      return <div />;
-    }
-
-    return (
-      <div>
+const Main = ({ authenticated, sidebarStatus }) => {
+  if (!authenticated) {
+    return <div />;
+  }
+  return (
+    <div>
+      <Header sidebarStatus={sidebarStatus.isOpen}>
         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
-          <Cats active>Latest</Cats>
-          <Cats>Recommended</Cats>
-          <Cats>Trending</Cats>
+            <Cats active>Latest</Cats>
+            <Cats>Recommended</Cats>
+            <Cats>Trending</Cats>
+          </div>
         </div>
-          <FilterBox>
-          {/* <Filter placeholder="Filter..." /> */}
-          {/* <img src={Search} alt="" /> */}
-        </FilterBox>
-          {/* <LoadingLogo /> */}
-        </div>
-        <Articles />
-      </div>
-    );
-  }
-}
+      </Header>
+      <Articles />
+    </div>
+  );
+};
 
 Main.defaultProps = {
   authenticated: false,
+  sidebarStatus: false,
 };
 
 Main.propTypes = {
   authenticated: PropTypes.bool,
+  sidebarStatus: PropTypes.shape({
+    open: PropTypes.bool,
+  }),
 };
 
 function mapStateToProps(state) {
   const authenticated = (state.login.token);
   return {
     authenticated,
+    sidebarStatus: state.sidebar,
   };
 }
 

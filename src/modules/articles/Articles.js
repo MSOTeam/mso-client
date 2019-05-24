@@ -49,26 +49,6 @@ const ArticlesGrid = styled.div`
   }
 `;
 
-const Welcome = styled.h1`
-  font-size: 1.4em;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px 0;
-`;
-
-const Cats = styled.p`
-  font-size: 1em;
-  letter-spacing: 0.5px;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  ${props => props.active && css`
-    font-weight: 600;
-    border-bottom: 5px solid ${color.primary};
-    width: fit-content;
-  `}
-`;
-
 const ArticleBox = styled.div`
   margin-bottom: 10px;
   cursor: pointer;
@@ -135,7 +115,6 @@ class Articles extends Component {
      axios
        .get('article', { headers: { Authorization: `Bearer ${token}` } })
        .then((response) => {
-         console.log(response.data.articles[5]);
          this.setState({ articles: response.data.articles });
        })
        .catch((error) => {

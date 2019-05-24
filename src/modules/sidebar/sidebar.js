@@ -100,7 +100,6 @@ class Sidebar extends Component {
     axios
       .get('tag', { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        
         const { tags } = response.data;
         console.log(tags);
       // const arr = [];
@@ -157,7 +156,7 @@ class Sidebar extends Component {
           {
           this.state.open ? (
             <SidebarTopOpen open={this.state.open}>
-              <img src={Logo} alt="logo" onClick={() => dispatch(push('/articles'))} />
+              <img src={Logo} alt="logo" onClick={() => dispatch(push('/'))} />
               <img src={Close} alt="" onClick={this.slide} style={{padding: '6px'}} />
             </SidebarTopOpen>
           ) : (
