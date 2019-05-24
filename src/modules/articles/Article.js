@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Editor } from '../../components';
 import * as actions from './actions';
 import Focus from '../../assets/focus.svg';
@@ -16,12 +16,25 @@ import ProgessEmpty from '../../assets/progress_empty.svg';
 import ReminderEmpty from '../../assets/reminder_empty.svg';
 import Back from '../../assets/back.svg';
 
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+
 const ArticleWrapper = styled.div`
   display: grid;
   grid-template-columns: 80px repeat(8, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   width: 100%;
-  position: relative;
+  position: relative;    
+  animation: ${fadeIn} .5s ease-in-out;
+
   transition: all 0.3s;
   ${props => props.sidebarStatus === true && css`
     grid-template-columns: 250px repeat(8, 1fr);
@@ -31,7 +44,7 @@ const ArticleWrapper = styled.div`
 const H1 = styled.h1`
   font-size: 3em;
   font-weight: 700;
-  padding: 80px 0 10px 0; 
+  padding: 10px 0; 
   line-height: 54px;
   grid-column: 4 / 8;
   grid-row: 1 / 1;
@@ -39,12 +52,11 @@ const H1 = styled.h1`
 `;
 const BackButton = styled.img`
   grid-area: 1 / 3 / 1 / 3;
-  justify-self: right;
+  justify-self: center;
   position: sticky;
   top: 17px;
-  padding-top: 87px;
-  padding-right: 40px;
-  cursor: pointer;;
+  padding-top: 18px;
+  cursor: pointer;
 `;
 
 const FeatImg = styled.img`

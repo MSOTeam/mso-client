@@ -19,15 +19,21 @@ const fadeIn = keyframes`
 
 const ArticlesGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2em;
-  margin-top: 3%;
+  padding: 50px 70px 0 140px;
+  transition: all 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+      padding: 50px 70px 0  315px;
+  `}
+
   ${props => props.primary && css`
     background: white;
     color: palevioletred;
   `}
   @media (max-width: 2600px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
   @media (max-width: 1800px) {
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -43,19 +49,32 @@ const ArticlesGrid = styled.div`
   }
 `;
 
+const Welcome = styled.h1`
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px 0;
+`;
+
+const Cats = styled.p`
+  font-size: 1em;
+  letter-spacing: 0.5px;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  ${props => props.active && css`
+    font-weight: 600;
+    border-bottom: 5px solid ${color.primary};
+    width: fit-content;
+  `}
+`;
+
 const ArticleBox = styled.div`
   margin-bottom: 10px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  &:hover {
-    transition: all .2s ease-in-out;
-   > div > img {
-    transform: scale(1.05);
-    }
-    
-  }
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -63,6 +82,7 @@ const ArticleBoxOverlay = styled.div`
   height: 200px; 
   margin-bottom: 10px;
   background: #FAFAFA;
+
 `;
 
 const ArticleImage = styled.div`
@@ -73,6 +93,11 @@ const ArticleImage = styled.div`
   height: 100%;
   width: 100%;
   background-size: cover;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ArticleHeader = styled.div`
@@ -119,7 +144,7 @@ class Articles extends Component {
    }
 
    render() {
-     const { dispatch } = this.props;
+     const { dispatch, sidebarStatus } = this.props;
      const articles = this.state.articles.map(article => (
        <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
          <div>
@@ -135,20 +160,28 @@ class Articles extends Component {
      ));
 
      return (
-       <ArticlesGrid>
+       <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
          {articles}
        </ArticlesGrid>
      );
    }
 }
 
+Articles.defaultProps = {
+  sidebarStatus: false,
+};
+
 Articles.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  sidebarStatus: PropTypes.shape({
+    open: PropTypes.bool,
+  }),
 };
 
 function mapStateToProps(state) {
   return {
     articles: state.articles.articles,
+    sidebarStatus: state.sidebar,
   };
 }
 
