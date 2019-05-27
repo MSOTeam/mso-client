@@ -104,6 +104,7 @@ const ArticleTags = styled.div`
   align-self: end;
   letter-spacing: 1px;
   box-sizing: border-box;
+  margin-right: 10px;
 `;
 
 class Articles extends Component {
@@ -151,7 +152,9 @@ class Articles extends Component {
         </div>
         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
         {/* <div>Length: {article.length}</div> */}
-        {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
+        <div style={{ display: 'flex' }}>
+          {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
+        </div>
       </ArticleBox>
     ));
 
