@@ -111,43 +111,65 @@ class Articles extends Component {
     articles: [],
   }
    componentDidMount = () => {
-     const token = localStorage.getItem('token');
-     axios
-       .get('article', { headers: { Authorization: `Bearer ${token}` } })
-       .then((response) => {
-         this.setState({ articles: response.data.articles });
-       })
-       .catch((error) => {
-         console.log(error);
-       });
+     this.fetch();
    }
 
-   render() {
-     const { dispatch, sidebarStatus } = this.props;
-     const articles = this.state.articles.map(article => (
-       <ArticleBox onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
-         <div>
-           <ArticleBoxOverlay>
-             <ArticleImage image={article.image} />
-           </ArticleBoxOverlay>
-           <ArticleHeader>{article.title}</ArticleHeader>
-         </div>
-         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
-         {/* <div>Length: {article.length}</div> */}
-         {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
-       </ArticleBox>
-     ));
+   componentDidUpdate = (prevProps, prevState) => {    
+     const { match } = this.props;
 
-     return (
-       <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-         {articles}
-       </ArticlesGrid>
-     );
+     if (match.params.tag !== prevProps.match.params.tag) {
+       this.fetch();
+     }
    }
+
+  fetch = () => {
+    const { match } = this.props;
+
+    const url = `article/?tag=${match.params.tag}`;
+
+    const token = localStorage.getItem('token');
+    axios
+      .get(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        this.setState({ articles: response.data.articles });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+  render() {
+    const { dispatch, sidebarStatus } = this.props;
+    const articles = this.state.articles.map(article => (
+      <ArticleBox key={article._id} onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
+        <div>
+          <ArticleBoxOverlay>
+            <ArticleImage image={article.image} />
+          </ArticleBoxOverlay>
+          <ArticleHeader>{article.title}</ArticleHeader>
+        </div>
+        {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
+        {/* <div>Length: {article.length}</div> */}
+        {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
+      </ArticleBox>
+    ));
+
+    return (
+      <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+        {articles}
+      </ArticlesGrid>
+    );
+  }
 }
 
 Articles.defaultProps = {
   sidebarStatus: false,
+  match: {
+    params: {
+      tag: '',
+    },
+  },
 };
 
 Articles.propTypes = {
@@ -155,6 +177,7 @@ Articles.propTypes = {
   sidebarStatus: PropTypes.shape({
     open: PropTypes.bool,
   }),
+  match: PropTypes.object,
 };
 
 function mapStateToProps(state) {
