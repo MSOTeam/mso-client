@@ -145,7 +145,7 @@ class Sidebar extends Component {
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
       <SidebarItemWrapper key={tag.name}>
-        <SidebarItem onClick={() => dispatch(push(`articles/${tag.tag}`))}>{tag.tag}</SidebarItem>
+        <SidebarItem onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}</SidebarItem>
         {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
       </SidebarItemWrapper>
     ));
