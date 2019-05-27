@@ -28,7 +28,7 @@ const Navitem = styled.div`
   `}
   ${props => props.signup && css`
     background: ${color.secondary};
-    padding: 15px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     color: #000;
     font-weight: bold;
@@ -56,11 +56,13 @@ class Navigation extends Component {
   render() {
     const { isOpen } = this.props;
     return (
-      <div>
+      <div style={{ height: '100vh', background: color.primary }}>
         <Navgrid>
           <img alt="logo" src={Logo} />
-          <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px'}}>
-            <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '500px'}}>
+            <Navitem id="why">Why tagit</Navitem>
+            <Navitem id="features">Features</Navitem>
+            <Navitem id="login" onClick={this.toggleModal}>Sign in</Navitem>
             <Navitem signup id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           </div>
         </Navgrid>
