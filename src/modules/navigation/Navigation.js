@@ -1,44 +1,44 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css, keyframes, ThemeProvider} from 'styled-components';
-import { push } from 'react-router-redux';
+import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Overlay from './component/Overlay';
-import { Flex, Box } from 'grid-styled'
 import { color } from '../../styles/color';
-import Logo from '../../assets/logo_p_text_small.svg';
 import * as actions from './actions';
+import Logo from '../../assets/logo_w_text_small.svg';
 
-const Navgrid = styled(Flex)`
-  height: 100px;
-  border-bottom: 1px solid ${color.lightgrey} 
+const Navgrid = styled.div`
+  display: flex;
   justify-content: space-between;
-  margin: 0 2.5vw;
+  height: 100px;
+  padding: 0 70px 0 70px;
+  background: ${color.primary};
 `;
 
-const Navitem = styled(Box)`
+const Navitem = styled.div`
   cursor: pointer;
   align-self: center;
-  font-weight: 100;
-  font-size: 14px;
-  ${props => props.id === "logo" && css`
-    display: flex;
-    align-items: center;
-
-    > img {
-      position: relative;
-      bottom: 2px;
-    }
-    > small {
-      font-style:italic;
-      font-weight:200;
-      margin-left: 25px;
-    }
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: #fff;
+  ${props => props.logo && css`
+    padding-left: 0;
   `}
-  ${props => props.id === "signup" && css`
-    font-weight: 600;
+  ${props => props.signup && css`
+    background: ${color.secondary};
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #000;
+    font-weight: bold;
+    box-sizing: border-box;
   `}
+  @media (max-width: 850px) {
+    font-size: 0px;
+    color: white;
+    padding-left: 20px;
+  }
 `;
 
 class Navigation extends Component {
@@ -55,13 +55,14 @@ class Navigation extends Component {
 
   render() {
     const { isOpen } = this.props;
-    const { children, dispatch } = this.props;
     return (
       <div>
         <Navgrid>
-          <img src={Logo}/>
-          <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
-          <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
+          <img alt="logo" src={Logo} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '200px'}}>
+            <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
+            <Navitem signup id="signup" onClick={this.toggleModal}>Sign up</Navitem>
+          </div>
         </Navgrid>
         <Modal
           id="modal"
@@ -97,7 +98,7 @@ Navigation.propTypes = {
 function mapStateToProps(state) {
   return {
     isOpen: state.navigation.isOpen,
-  }
+  };
 }
 
 export default connect(mapStateToProps)(Navigation);

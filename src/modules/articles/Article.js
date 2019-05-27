@@ -103,9 +103,7 @@ const ArticleText = styled.p`
   grid-row: 4;
   a  {
     color: black;
-    text-decoration: none;
-    font-size: 0.8em;
-
+    text-decoration: underline;
   }
 
   img  {

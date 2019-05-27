@@ -175,7 +175,7 @@ class Sidebar extends Component {
             </SidebarItemWrapper>
           </SidebarItems>
         </SidebarTop>
-        <img src={Crog} alt="crog" />
+        <img onClick={() => dispatch(push('/settings'))} src={Crog} alt="crog" />
       </SidebarWrapper>
     );
   }
