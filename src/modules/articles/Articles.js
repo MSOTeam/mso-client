@@ -21,11 +21,11 @@ const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 2em;
-  padding: 50px 70px 0 140px;
+  padding: 20px 70px 0 140px;
   transition: all 0.3s;
 
   ${props => props.sidebarStatus === true && css`
-      padding: 50px 70px 0  315px;
+      padding: 20px 70px 0  315px;
   `}
 
   ${props => props.primary && css`

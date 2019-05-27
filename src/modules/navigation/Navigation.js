@@ -10,21 +10,6 @@ import { color } from '../../styles/color';
 import Logo from '../../assets/logo_p_text_small.svg';
 import * as actions from './actions';
 
-<Navitem
-  width={[
-    1/10,
-    2/10,
-    3/10,
-    4/10,
-    5/10,
-    6/10,
-    7/10,
-    8/10,
-    9/10,
-    10/10
-  ]}
-/>
-
 const Navgrid = styled(Flex)`
   height: 100px;
   border-bottom: 1px solid ${color.lightgrey} 
@@ -73,18 +58,11 @@ class Navigation extends Component {
     const { children, dispatch } = this.props;
     return (
       <div>
-        <ThemeProvider theme={{
-          space: [ 0, 6, 12, 18, 24 ],
-          breakpoints: [ '32em', '48em', '64em', '80em', '96em' ]
-        }}>
         <Navgrid>
-          <Navitem id="logo" w={[ 1, 1/4, 3/10, 4/10, 5/10, 6/10]} onClick={() => dispatch(push('/'))}>
-            <img src={Logo}/>
-          </Navitem>
+          <img src={Logo}/>
           <Navitem id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           <Navitem id="login" onClick={this.toggleModal}>Log in</Navitem>
         </Navgrid>
-        </ThemeProvider>
         <Modal
           id="modal"
           isOpen={isOpen}
@@ -94,15 +72,16 @@ class Navigation extends Component {
           ariaHideApp={false}
           style={{
             overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              zIndex: '10',             
+              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              zIndex: '10',
             },
             content: {
-              width: '600px',
+              width: '500px',
               margin: 'auto',
-              maxHeight: '650px',
-            }
-          }}>
+              maxHeight: '450px',
+            },
+          }}
+        >
           <Overlay type={this.state.type} />
         </Modal>
       </div>

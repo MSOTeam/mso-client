@@ -13,7 +13,7 @@ import FbLogin from './FbLogin';
 import EmailLogin from './EmailLogin';
 
 const Modallogin = styled.p`
-  border: 2px ${color.lightgrey} solid;
+  border: 1px #5649CF solid;
   width: 80%;
   margin: auto;
   margin-top: 20px;
@@ -83,11 +83,13 @@ class Login extends Component {
     const { step } = this.state;
 
     const selection = (
+      <div>
       <Flex flexDirection="column">
         <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Facebook</Modallogin>
         <Modallogin google onClick={() => this.setState({ step: 'google' })}>Google</Modallogin>
         <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Email</Modallogin>
       </Flex>
+      </div>
     );
 
     switch (step) {
