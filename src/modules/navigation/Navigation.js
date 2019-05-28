@@ -41,7 +41,18 @@ const Navitem = styled.div`
   }
 `;
 
-class Navigation extends Component {
+const ScHeadline = styled.h1`
+  font-size: 3.5em;
+  font-weight: 900;
+  line-height: 60px;
+  color: white;
+  @media (max-width: 760px) {
+    font-size: 2.3em;
+    line-height: 45px;
+  }
+`;
+
+class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = { isOpen: false };
@@ -87,12 +98,15 @@ class Navigation extends Component {
         >
           <Overlay type={this.state.type} />
         </Modal>
+        <ScHeadline>
+            Save anything and view it  when you want
+        </ScHeadline>
       </div>
     );
   }
 }
 
-Navigation.propTypes = {
+Landing.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 };
@@ -103,5 +117,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps)(Landing);
 

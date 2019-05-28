@@ -117,6 +117,7 @@ class Articles extends Component {
 
    componentDidUpdate = (prevProps, prevState) => {    
      const { match } = this.props;
+     console.log("fdfdaa");
 
      if (match.params.tag !== prevProps.match.params.tag) {
        this.fetch();

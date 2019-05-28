@@ -33,8 +33,8 @@ const ArticleWrapper = styled.div`
   grid-auto-rows: minmax(min-content, max-content);
   width: 100%;
   position: relative;    
+  padding-top: 40px;
   animation: ${fadeIn} .5s ease-in-out;
-
   transition: all 0.3s;
   ${props => props.sidebarStatus === true && css`
     grid-template-columns: 250px repeat(8, 1fr);
@@ -54,7 +54,7 @@ const BackButton = styled.img`
   grid-area: 1 / 3 / 1 / 3;
   justify-self: center;
   position: sticky;
-  top: 17px;
+  top: 84px;
   padding-top: 18px;
   cursor: pointer;
 `;
@@ -371,6 +371,7 @@ class Article extends Component {
   render() {
     const { sidebarStatus } = this.props;
     const { article, highlight } = this.state;
+    console.log(article);
     return (
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
@@ -381,7 +382,8 @@ class Article extends Component {
         </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <div style={{ fontSize: '0.9em' }}>#{article.tags}</div>
+          <div style={{ fontSize: '0.9em', display: 'flex'}}>
+          <span style={{ marginRight: '10px'}}>#{article.tags}</span></div>
           <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />

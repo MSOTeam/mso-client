@@ -23,6 +23,7 @@ const SidebarWrapper = styled.div`
   justify-content: space-between;
   padding: 36px 0;
   box-sizing: border-box;
+  z-index: 100;
   transition: width 0.3s;
   ${props => props.open && css`
     width: 250px;
@@ -95,41 +96,23 @@ class Sidebar extends Component {
   }
 
   componentDidMount = () => {
-    const token = localStorage.getItem('token');
+    this.fetch();
+  }
 
+  fetch = () => {
+    const token = localStorage.getItem('token');
     axios
       .get('tag', { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         const { tags } = response.data;
-        console.log(tags);
-      // const arr = [];
-      // _.each(response.data.articles, (value) => {
-      //   arr.push(value.tags[0]);
-      // });
-      // const removeDuplicates = _.uniq(arr);
         const ordered = _.orderBy(tags);
-        
         this.setState({ taglist: ordered });
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // axios
-    //   .get('article', { headers: { Authorization: `Bearer ${token}` } })
-    //   .then((response) => {
-    //     const arr = [];
-    //     _.each(response.data.articles, (value) => {
-    //       arr.push(value.tags[0]);
-    //     });
-    //     const removeDuplicates = _.uniq(arr);
-    //     const ordered = _.orderBy(removeDuplicates);
-    //     this.setState({ taglist: ordered });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   }
+
 
   slide = () => {
     this.setState({ open: !this.state.open });
@@ -142,6 +125,7 @@ class Sidebar extends Component {
 
   render() {
     const { dispatch } = this.props;
+    console.log(this.props);
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
       <SidebarItemWrapper key={tag.name}>
