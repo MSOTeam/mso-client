@@ -357,6 +357,19 @@ class Article extends Component {
     this.setState({ article });
   }
 
+  comment = () => {
+
+  }
+
+  edit = () => {
+    const { highlight, comment } = this.state;
+    if (highlight) {
+      this.highlight();
+    } else if (comment) {
+      this.comment();
+    }
+  }
+
   save = () => {
     const { match, dispatch } = this.props;
     dispatch(actions.updateArticle(match.params.id, this.state.article.content));
@@ -375,7 +388,9 @@ class Article extends Component {
   render() {
     const { sidebarStatus } = this.props;
     const { article, highlight, comment, edit } = this.state;
-    console.log(article);
+    
+
+
     return (
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
@@ -393,7 +408,7 @@ class Article extends Component {
         <BackButton src={Back} onClick={this.back} />
         <FeatImg src={article.image} />       
         <ArticleText
-          onMouseUp={highlight ? () => this.highlight() : null}
+          onMouseUp={this.edit}
           dangerouslySetInnerHTML={{ __html: article.content }}
           id="articleContent"
         />      
