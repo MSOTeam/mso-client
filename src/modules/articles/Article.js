@@ -399,26 +399,25 @@ class Article extends Component {
         />      
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
 
-          <EditItem star disabled={edit} onClick={this.addToFav} />
-          <EditItem progress disabled={edit} />
-          <EditItem reminder disabled={edit} />
-          <EditItem archive disabled={edit} />
+          <EditItem star disabled={highlight || comment} onClick={this.addToFav} />
+          <EditItem progress disabled={highlight || comment} />
+          <EditItem reminder disabled={highlight || comment} />
+          <EditItem archive disabled={highlight || comment} />
           <EditItem />
 
           {highlight &&
             <EditItem highlight onClick={this.save} />
           }
           {!highlight &&
-            <EditItem highlight disabled={edit} onClick={() => this.setState({ highlight: true, edit: true })} />
+            <EditItem highlight disabled={comment} onClick={() => this.setState({ highlight: true })} />
           }
-
           {comment &&
             <EditItem comment onClick={this.save} />
           }
           {!comment &&
-            <EditItem comment disabled={edit} onClick={() => this.setState({ comment: true, edit: true })} />
+            <EditItem comment disabled={highlight} onClick={() => this.setState({ comment: true })} />
           }
-          <EditItem members disabled={edit} />
+          <EditItem members disabled={highlight || comment} />
         </EditBox>
         {/* this.state.edit &&
           <textarea style={{ width: '100%', height: 400 }}>
