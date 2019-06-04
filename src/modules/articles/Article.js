@@ -360,7 +360,11 @@ class Article extends Component {
   save = () => {
     const { match, dispatch } = this.props;
     dispatch(actions.updateArticle(match.params.id, this.state.article.content));
-    this.setState({ highlight: false });
+    this.setState({
+      highlight: false,
+      comment: false,
+      edit: false,
+    });
   }
 
   back = () => {
@@ -370,7 +374,7 @@ class Article extends Component {
 
   render() {
     const { sidebarStatus } = this.props;
-    const { article, highlight } = this.state;
+    const { article, highlight, comment, edit } = this.state;
     console.log(article);
     return (
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
@@ -387,41 +391,47 @@ class Article extends Component {
           <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
-        <FeatImg src={article.image} />
-        {!this.state.edit &&
-          <ArticleText
-            onMouseUp={highlight ? () => this.highlight() : null}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-            id="articleContent"
-          />
-      }
+        <FeatImg src={article.image} />       
+        <ArticleText
+          onMouseUp={highlight ? () => this.highlight() : null}
+          dangerouslySetInnerHTML={{ __html: article.content }}
+          id="articleContent"
+        />      
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
-          <EditItem star disabled={highlight} onClick={this.addToFav} />
-          <EditItem progress disabled={highlight} />
-          <EditItem reminder disabled={highlight} />
-          <EditItem archive disabled={highlight} />
+
+          <EditItem star disabled={edit} onClick={this.addToFav} />
+          <EditItem progress disabled={edit} />
+          <EditItem reminder disabled={edit} />
+          <EditItem archive disabled={edit} />
           <EditItem />
-          {this.state.highlight &&
+
+          {highlight &&
             <EditItem highlight onClick={this.save} />
           }
-          {!this.state.highlight &&
-            <EditItem highlight onClick={() => this.setState({ highlight: true })} />
+          {!highlight &&
+            <EditItem highlight disabled={edit} onClick={() => this.setState({ highlight: true, edit: true })} />
           }
-          <EditItem comment disabled={highlight} />
-          <EditItem members disabled={highlight} />
+
+          {comment &&
+            <EditItem comment onClick={this.save} />
+          }
+          {!comment &&
+            <EditItem comment disabled={edit} onClick={() => this.setState({ comment: true, edit: true })} />
+          }
+          <EditItem members disabled={edit} />
         </EditBox>
         {/* this.state.edit &&
           <textarea style={{ width: '100%', height: 400 }}>
             {article.content}
           </textarea>
         */}
-        {this.state.edit &&
+        {/* {this.state.edit &&
           <div style={{ border: '1px solid gray', minHeight: 300 }}>
             <Editor
               value={article.content}
             />
           </div>
-        }
+        } */}
         <Source href={article.url} target="_blank">Source</Source>
       </ArticleWrapper>
       // </div>
