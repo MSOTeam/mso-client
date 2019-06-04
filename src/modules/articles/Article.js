@@ -392,6 +392,7 @@ class Article extends Component {
           <ArticleText
             onMouseUp={highlight ? () => this.highlight() : null}
             dangerouslySetInnerHTML={{ __html: article.content }}
+            id="articleContent"
           />
       }
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
