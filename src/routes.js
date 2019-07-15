@@ -4,11 +4,11 @@ import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
 import {
-  app,
-  register,
-  login,
+  // app,
+  // register,
+  // login,
   main,
-  search,
+  // search,
   settings,
   routes,
   articles,

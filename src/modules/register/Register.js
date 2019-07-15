@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
-import { Flex, Box } from 'grid-styled';
 import * as actions from './actions';
 import { authGoogleUser, authFbUser } from '../login/actions';
 import { color } from '../../styles/color';
@@ -114,13 +113,13 @@ class Register extends Component {
   render() {
     const { step } = this.state;
     const selection = (
-      <Flex flexDirection="column">
+      <div>
         <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Sign up with Facebook</Modallogin>
         <Modallogin google onClick={() => this.setState({ step: 'google' })}>Sign up with Google</Modallogin>
         <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign up with Email</Modallogin>
         <Modalpara>Already have an account? <Signin>Sign in</Signin></Modalpara>
         <Terms>Terms of service</Terms>
-      </Flex>
+      </div>
     );
 
     switch (step) {

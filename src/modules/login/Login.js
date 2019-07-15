@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
-import { Flex, Box } from 'grid-styled';
 import * as actions from './actions';
 import { color } from '../../styles/color';
 import Facebook from '../../assets/facebook.svg';
@@ -84,11 +83,9 @@ class Login extends Component {
 
     const selection = (
       <div>
-      <Flex flexDirection="column">
         <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Facebook</Modallogin>
         <Modallogin google onClick={() => this.setState({ step: 'google' })}>Google</Modallogin>
         <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Email</Modallogin>
-      </Flex>
       </div>
     );
 
