@@ -61,7 +61,7 @@ const BackButton = styled.img`
   top: 84px;
   padding-top: 18px;
   cursor: pointer;
-  height: 20%;
+  height: 25px;
 `;
 
 const FeatImg = styled.img`
