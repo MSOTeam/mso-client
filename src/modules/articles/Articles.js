@@ -73,10 +73,10 @@ const ArticleImage = styled.div`
   height: 100%;
   width: 100%;
   background-size: cover;
-  transition: all .2s ease-in-out;
+  transition: transform .1s linear;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 `;
 
@@ -144,8 +144,8 @@ class Articles extends Component {
   render() {
     const { dispatch, sidebarStatus } = this.props;
     const articles = this.state.articles.map(article => (
-      <ArticleBox key={article._id} onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
-        <div>
+      <ArticleBox key={article._id} >
+        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
           <ArticleBoxOverlay>
             <ArticleImage image={article.image} />
           </ArticleBoxOverlay>
@@ -154,7 +154,7 @@ class Articles extends Component {
         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
         {/* <div>Length: {article.length}</div> */}
         <div style={{ display: 'flex' }}>
-          {article.tags.map(tag => (<ArticleTags>#{tag}</ArticleTags>))}
+          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
         </div>
       </ArticleBox>
     ));

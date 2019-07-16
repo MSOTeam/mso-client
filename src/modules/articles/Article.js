@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { Editor } from '../../components';
+import { push } from 'react-router-redux';
+
 import * as actions from './actions';
 import Focus from '../../assets/focus.svg';
 import Edit from '../../assets/edit.svg';
@@ -42,14 +44,16 @@ const ArticleWrapper = styled.div`
 `;
 
 const H1 = styled.h1`
-  font-size: 3em;
-  font-weight: 700;
-  padding: 10px 0; 
-  line-height: 54px;
+  font-size: 2.2em;
+  font-weight: 600;
+  padding: 10px 0;
+  line-height: 42px;
   grid-column: 4 / 8;
   grid-row: 1 / 1;
-  
+  letter-spacing: 1px;
+  margin-bottom: 1px;
 `;
+
 const BackButton = styled.img`
   grid-area: 1 / 3 / 1 / 3;
   justify-self: center;
@@ -57,6 +61,7 @@ const BackButton = styled.img`
   top: 84px;
   padding-top: 18px;
   cursor: pointer;
+  height: 20%;
 `;
 
 const FeatImg = styled.img`
@@ -89,8 +94,8 @@ const StatBox = styled.div`
 `;
 
 const StatTime = styled.div`
-  font-weight: 700;
-  margin-left: 6px;
+  font-weight: 600;
+  font-size: 14px;
 `;
 
 const ArticleText = styled.p`
@@ -133,6 +138,10 @@ const ArticleText = styled.p`
   p {
     margin-bottom: 25px;
   }
+  iframe {
+      width: 100%;
+      height: 384px;
+    }
 `;
 
 const EditBox = styled.div`
@@ -140,7 +149,7 @@ const EditBox = styled.div`
   position: sticky;
   top: 100px;
   transition: width 0.3s;
-  padding-left: 40px;
+  justify-self: center;
   height: 380px;
   display: flex;
   flex-direction: column;
@@ -165,12 +174,8 @@ const EditItem = styled.div`
     }
   }
   &::before {
-    margin-right: 10px;
     position: relative;
     top: 2px;
-    &:hover {
-      top: 100px;
-    }
   }
   ${props => props.star && css`
   
@@ -285,12 +290,12 @@ class Article extends Component {
       edit: false,
       addToFav: false,
       highlight: false,
-      article: { title: null, content: null },
+      article: { title: null, content: null, tags: [] },
     };
   }
 
   componentDidMount = () => {
-    const { dispatch, match } = this.props;
+    const { dispatch, match } = this.props;    
     dispatch(actions.findArticle(match.params.id));
   }
 
@@ -386,9 +391,13 @@ class Article extends Component {
   }
 
   render() {
-    const { sidebarStatus } = this.props;
+    const { sidebarStatus, dispatch } = this.props;
     const { article, highlight, comment, edit } = this.state;
-    
+    console.log(article.tags);  
+    console.log(highlight);  
+    const tags = article.tags.map((item) =>
+      <StatTime onClick={() => dispatch(push(`/articles/${item}`))} style={{paddingRight: '10px'}}>#{item}</StatTime>
+    );
 
 
     return (
@@ -401,9 +410,8 @@ class Article extends Component {
         </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <div style={{ fontSize: '0.9em', display: 'flex'}}>
-          <span style={{ marginRight: '10px'}}>#{article.tags}</span></div>
-          <div style={{ display: 'flex', fontSize: '0.9em' }}>Reading time: <StatTime> {this.readingTime()} min</StatTime></div>
+          <div style={{display: 'flex'}}>{tags}</div>
+          <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
         <FeatImg src={article.image} />       

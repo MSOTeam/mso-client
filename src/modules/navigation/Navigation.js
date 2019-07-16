@@ -29,7 +29,7 @@ const Navitem = styled.div`
   ${props => props.signup && css`
     background: ${color.secondary};
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 2px;
     color: #000;
     font-weight: bold;
     box-sizing: border-box;
@@ -73,6 +73,7 @@ class Landing extends Component {
           <div style={{ display: 'flex', justifyContent: 'space-between', width: '500px'}}>
             <Navitem id="why">Why tagit</Navitem>
             <Navitem id="features">Features</Navitem>
+            <Navitem id="features">Pricing</Navitem>
             <Navitem id="login" onClick={this.toggleModal}>Sign in</Navitem>
             <Navitem signup id="signup" onClick={this.toggleModal}>Sign up</Navitem>
           </div>
@@ -99,7 +100,7 @@ class Landing extends Component {
           <Overlay type={this.state.type} />
         </Modal>
         <ScHeadline>
-            Save anything and view it  when you want
+          Just read it later
         </ScHeadline>
       </div>
     );

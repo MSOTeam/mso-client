@@ -5,7 +5,7 @@ import reset from 'styled-reset';
 const baseStyles = () => injectGlobal`
   ${reset}
   * {
-    font-family: 'Nunito Sans', sans-serif !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
     font-size: 14px;
   }
   .ReactModal__Body--open{
