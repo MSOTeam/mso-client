@@ -83,11 +83,18 @@ class Login extends Component {
 
     const selection = (
       <div>
+        <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
+        <FbLogin handleLogin={this.handleFbLogin} />
         <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Facebook</Modallogin>
         <Modallogin google onClick={() => this.setState({ step: 'google' })}>Google</Modallogin>
-        <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Email</Modallogin>
+  
+        {/* <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Email</Modallogin> */}
       </div>
     );
+
+    // <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Facebook</Modallogin>
+    // <Modallogin google onClick={() => this.setState({ step: 'google' })}>Google</Modallogin>
+    // <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Email</Modallogin>
 
     switch (step) {
       case 'email':
@@ -98,16 +105,11 @@ class Login extends Component {
         );
       case 'google':
         return (
-          <GoogleLogin
-            handleLogin={this.handleGoogleLogin}
-            handleError={this.handleError}
-          />
+          <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         );
       case 'fb':
         return (
-          <FbLogin
-            handleLogin={this.handleFbLogin}
-          />
+          <FbLogin handleLogin={this.handleFbLogin} />
         );
       default:
         return selection;

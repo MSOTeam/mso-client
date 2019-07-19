@@ -87,7 +87,7 @@ class Landing extends Component {
           ariaHideApp={false}
           style={{
             overlay: {
-              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              backgroundColor: 'rgb(86, 73, 207, 0.8)',
               zIndex: '10',
             },
             content: {
@@ -100,7 +100,7 @@ class Landing extends Component {
           <Overlay type={this.state.type} />
         </Modal>
         <ScHeadline>
-          Just read it later
+          Why not just read it later
         </ScHeadline>
       </div>
     );

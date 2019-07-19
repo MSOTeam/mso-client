@@ -49,7 +49,7 @@ const H1 = styled.h1`
   padding: 10px 0;
   line-height: 42px;
   grid-column: 4 / 8;
-  grid-row: 1 / 1;
+    grid-row: 3 / 3;
   letter-spacing: 1px;
   margin-bottom: 1px;
 `;
@@ -65,7 +65,7 @@ const BackButton = styled.img`
 `;
 
 const FeatImg = styled.img`
-    grid-area: 3 / 4 / 3 / 8;
+    grid-area: 1 / 4 / 3 / 8;
     margin-bottom: 30px; 
     width: 100%;
 `;
@@ -84,7 +84,7 @@ const StatBox = styled.div`
   `}
   ${props => props.bottom && css`
     grid-column: 4 / 8;
-    grid-row: 2 / 2;
+    grid-row: 4 / 5;
     align-self: center;
     cursor: pointer;
     line-height: 24px;
@@ -105,7 +105,8 @@ const ArticleText = styled.p`
   line-height: 35px;
   margin-bottom: 25px;
   grid-column: 4 / 8;
-  grid-row: 4;
+  grid-row: 6;
+  font-size: 21px;
   a  {
     color: black;
     text-decoration: underline;
@@ -142,10 +143,18 @@ const ArticleText = styled.p`
       width: 100%;
       height: 384px;
     }
+
+    blockquote {
+    font-weight: 400;
+    background: #FAFAFA;
+    padding: 20px;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
 `;
 
 const EditBox = styled.div`
-  grid-area: 3 / 8 / 8 / 8;
+  grid-area: 5 / 8 / 8 / 8;
   position: sticky;
   top: 100px;
   transition: width 0.3s;
@@ -272,7 +281,7 @@ const EditItem = styled.div`
 `;
 
 const Source = styled.a`
-  grid-area: 5 / 5 / 6 / 7;
+  grid-area: 7 / 5 / 7 / 7;
   justify-self: center;
   font-size: 0.9em;
   text-decoration: none;
