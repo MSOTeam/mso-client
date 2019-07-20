@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Articles from '../articles/Articles';
 import { color } from '../../styles/color';
+import Search from '../../assets/search.svg';
 
 const Header = styled.div`
   padding: 50px 70px 0 140px;
@@ -35,16 +36,24 @@ const Cats = styled.p`
 `;
 
 
-const FilterBox = styled.div`
-  display: flex;
-  width: 5%;
-  justify-content: flex-end;
-  align-self: end;
-  /* justify-content: space-between; */
-  /* border-bottom: 5px solid #eaeaea;
-  padding-bottom: 15px;
-  margin-bottom: 20px; */
-  /* margin-right: 20px; */
+const FilterBox = styled.input`
+    content: url(${Search});
+    background-image: url(${Search});
+    background-position: 7px 7px;
+    background-repeat: no-repeat;
+    background: #FAFAFA;
+    width: 100%;
+    height: 60px;
+    margin: 14px 0;
+    font-style: italic;
+    box-shadow: none;
+    border: #eaeaea 1px solid;
+    outline: none;
+    box-sizing: border-box;
+    padding-left: 10px;
+    font-size: 1.3em;
+    font-weight: 300;
+    letter-spacing: 1px;
 `;
 
 const Main = ({ authenticated, sidebarStatus }) => {
@@ -54,6 +63,8 @@ const Main = ({ authenticated, sidebarStatus }) => {
   return (
     <div>
       <Header sidebarStatus={sidebarStatus.isOpen}>
+      <img src={Search}/>
+
         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
@@ -62,6 +73,7 @@ const Main = ({ authenticated, sidebarStatus }) => {
             <Cats>Trending</Cats>
           </div>
         </div>
+        <FilterBox placeholder="Search" />
       </Header>
       <Articles />
     </div>
