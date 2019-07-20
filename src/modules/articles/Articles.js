@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 
 const ArticlesGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
   grid-gap: 2em;
   padding: 20px 70px 0 140px;
   transition: all 0.3s;
@@ -32,21 +32,6 @@ const ArticlesGrid = styled.div`
     background: white;
     color: palevioletred;
   `}
-  @media (max-width: 2600px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 1800px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 1300px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
 `;
 
 const ArticleBox = styled.div`
@@ -153,7 +138,7 @@ class Articles extends Component {
         </div>
         {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
         {/* <div>Length: {article.length}</div> */}
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
         </div>
       </ArticleBox>

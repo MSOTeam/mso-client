@@ -173,7 +173,7 @@ const EditItem = styled.div`
   font-size: 14px;
   color: #5649CF;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     &::after {
       position: relative;
       bottom: 4px;
@@ -185,77 +185,77 @@ const EditItem = styled.div`
   &::before {
     position: relative;
     top: 2px;
-  }
+  } */
   ${props => props.star && css`
   
   &::before {
       content: url(${StarEmpty});
     }
-    &:hover {
+    /* &:hover {
       &::after {
         content: "Favourite";
       }
-    }
+    } */
   `}
   ${props => props.reminder && css`
     &::before {
         content: url(${ReminderEmpty});
       }
-      &:hover {
+      /* &:hover {
         &::after {
           content: "Reminder";
         }
-      }
+      } */
   `}
   ${props => props.progress && css`
     &::before {
         content: url(${ProgessEmpty});
       }
-      &:hover {
+      /* &:hover {
         &::after {
           content: "In progress";
         }
-      }
+      } */
   `}
   ${props => props.archive && css`
     &::before {
       content: url(${Archive});
     }
-    &:hover {
+    /* &:hover {
       &::after {
         content: "Archive";
       }
-    }
+    } */
   `}
   ${props => props.highlight && css`
     &::before {
       content: url(${Highlight});
     }
-    &:hover {
+    /* &:hover {
       &::after {
         content: "Highlight";
       }
-    }
+    } */
   `}
   ${props => props.comment && css`
     &::before {
       content: url(${CommentMsg});
     }
-    &:hover {
+    /* &:hover {
       &::after {
         content: "Comment";
       }
-    }
+    } */
   `}
   ${props => props.members && css`
     &::before {
       content: url(${Members});
     }
-    &:hover {
+    /* &:hover {
       &::after {
         content: "Members";
       }
-    }
+    } */
   `}
 
   ${props => props.disabled === true && css`
