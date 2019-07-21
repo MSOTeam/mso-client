@@ -50,7 +50,7 @@ const FilterBox = styled.input`
     border: #eaeaea 1px solid;
     outline: none;
     box-sizing: border-box;
-    padding-left: 10px;
+    padding-left: 50px;
     font-size: 1.3em;
     font-weight: 300;
     letter-spacing: 1px;
@@ -63,7 +63,6 @@ const Main = ({ authenticated, sidebarStatus }) => {
   return (
     <div>
       <Header sidebarStatus={sidebarStatus.isOpen}>
-      <img src={Search}/>
 
         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -73,7 +72,10 @@ const Main = ({ authenticated, sidebarStatus }) => {
             <Cats>Trending</Cats>
           </div>
         </div>
-        <FilterBox placeholder="Search" />
+        <div style={{ position: 'relative' }}>
+          <img src={Search} style={{ position: 'absolute', top: '29px', left: '13px' }} />
+          <FilterBox placeholder="Search" />
+        </div>
       </Header>
       <Articles />
     </div>
