@@ -1,33 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FacebookLogin from 'react-facebook-login';
-import styled, { css, keyframes } from 'styled-components';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import styled from 'styled-components';
 import Facebook from '../../assets/facebook.svg';
 
-const Modallogin = styled(FacebookLogin)`
-  border: 1px #5649CF solid;
+const ScLogin = styled.button`
+  border: 1px #E0E0E0 solid;
+  border-radius: 4px;
   width: 80%;
   margin: auto;
-  margin-top: 20px;
-  padding: 17px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 20px;
   box-sizing: border-box;
   font-size: 15px;
-  font-weight: 100;
+  font-weight: 400;
   display: flex;
-  align-items: center;
-  cursor:pointer;
-  ${props => props.top && css `
-    margin-top: 50px;
-  `}
-  ${props => props.bottom && css `
-    margin-bottom: 50px;
-  `}
-  ${props => props.facebook && css `
+  cursor: pointer;
     &:before {
+      display: block;
       content:url(${Facebook});
       margin-right: 20px;
+      height: 18px;
     }
-  `}
 `;
 
 const FbLogin = ({ handleLogin }) => {
@@ -36,11 +31,11 @@ const FbLogin = ({ handleLogin }) => {
   };
 
   return (
-    <Modallogin
+    <FacebookLogin
       appId="327203661179854"
       callback={callback}
       render={renderProps => (
-        <div></div>
+        <ScLogin onClick={renderProps.onClick}>Sign in with Facebook</ScLogin>
       )}
     />
   );
