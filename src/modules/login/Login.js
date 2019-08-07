@@ -19,7 +19,7 @@ const H2 = styled.h2`
   font-size: 2em;
   color: ${color.dark};
   font-weight: 300;
-  padding: 20px 0 20px;
+  padding: 20px 0 25px;
   letter-spacing: 1px;
 `;
 
@@ -48,7 +48,7 @@ const ScLogin = styled.p`
 
 const Action = styled.p`
   letter-spacing: 1px;
-  margin-bottom: 40px;
+  margin: 10px 0 40px;
 `;
 
 const ActionLink = styled.span`
@@ -59,6 +59,7 @@ const ActionLink = styled.span`
 
 const Terms = styled.p`
   font-weight: 100;
+  font-size: 0.9em;
   cursor: pointer;
   color: ${color.dark};
   margin-top: 10px;
