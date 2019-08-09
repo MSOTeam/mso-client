@@ -5,63 +5,41 @@ import styled, { css, keyframes } from 'styled-components';
 import * as actions from './actions';
 import { authGoogleUser, authFbUser } from '../login/actions';
 import { color } from '../../styles/color';
-import Facebook from '../../assets/facebook.svg';
-import Google from '../../assets/google.svg';
 import Email from '../../assets/email.svg';
 import EmailRegistration from './EmailRegistration';
 import RegisterSuccess from './RegisterSuccess';
 import GoogleRegistration from './GoogleRegistration';
 import FbRegistration from './FbRegistration';
 
-const Modalhead = styled.h1`
-  font-size: 30px;
-  font-weight: 680;
-  text-align: center;
-  padding: 25px;
-  letter-spacing: 3px;
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const Modalpara = styled.p`
-  width: 80%;
-  text-align: center;
-  line-height: 25px;
-  margin: auto;
-  margin-top: 9px;
-  font-weight: 100;
+const H2 = styled.h2`
+  font-size: 2em;
+  color: ${color.dark};
+  font-weight: 300;
+  padding: 20px 0 25px;
+  letter-spacing: 1px;
 `;
 
-const Modallogin = styled.p`
-  border: 2px ${color.lightgrey} solid;
+const ScLogin = styled.p`
+  border: 1px #E0E0E0 solid;
+  border-radius: 4px;
   width: 80%;
   margin: auto;
-  margin-top: 20px;
-  padding: 17px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding: 20px;
   box-sizing: border-box;
   font-size: 15px;
-  font-weight: 100;
+  font-weight: 400;
   display: flex;
-  align-items: center;
   cursor:pointer;
-  ${props => props.top && css `
-    margin-top: 50px;
-  `}
-  ${props => props.bottom && css `
-    margin-bottom: 50px;
-  `}
-  ${props => props.facebook && css `
-    &:before {
-      content:url(${Facebook});
-      margin-right: 20px;
-    }
-  `}
-  ${props => props.google && css `
-    &:before {
-      content:url(${Google});
-      margin-right: 20px;
-      width: 20px;
-    }
-  `}
-  ${props => props.email && css `
+  align-items: center;
+  ${props => props.email && css`
     &:before {
       content:url(${Email});
       margin-right: 20px;
@@ -70,19 +48,26 @@ const Modallogin = styled.p`
   `}
 `;
 
-const Signin = styled.span`
-  font-weight: 700;
+const Action = styled.p`
+  letter-spacing: 1px;
+  margin: 10px 0 40px;
+`;
+
+const ActionLink = styled.span`
+  color: ${color.primary};
+  font-weight: 600;
   cursor: pointer;
 `;
 
 const Terms = styled.p`
   font-weight: 100;
+  font-size: 0.9em;
   cursor: pointer;
-  font-size: 12px;
-  color: #03CEA4;
-  text-align: center;
-  margin-top: 50px;
+  color: ${color.dark};
+  margin-top: 10px;
+  letter-spacing: 1px;
 `;
+
 
 class Register extends Component {
 
@@ -113,13 +98,14 @@ class Register extends Component {
   render() {
     const { step } = this.state;
     const selection = (
-      <div>
-        <Modallogin top facebook onClick={() => this.setState({ step: 'fb' })}>Sign up with Facebook</Modallogin>
-        <Modallogin google onClick={() => this.setState({ step: 'google' })}>Sign up with Google</Modallogin>
-        <Modallogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign up with Email</Modallogin>
-        <Modalpara>Already have an account? <Signin>Sign in</Signin></Modalpara>
-        <Terms>Terms of service</Terms>
-      </div>
+      <LoginWrapper>
+        <H2>Join tagit</H2>
+        <GoogleRegistration handleRegister={this.handleGoogleRegistration} handleError={this.handleError} />
+        <FbRegistration google onClick={() => this.setState({ step: 'google' })} />
+        <ScLogin bottom email handleRegister={this.handleEmailRegistration}>Sign up with Email</ScLogin>
+        <Action>Already have an account? <ActionLink>Sign in</ActionLink></Action>
+        <Terms>Terms of Service | Privacy Policy</Terms>
+      </LoginWrapper>
     );
 
     switch (step) {
