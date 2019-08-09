@@ -36,7 +36,7 @@ const GoogleRegistration = ({ handleRegister, handleError }) => {
   return (
     <ScLogin
       clientId="317827366745-tkf2ndf7ujaeur4mu26bvi5u4l2ts6li.apps.googleusercontent.com"
-      buttonText="Login"
+      buttonText="Sign up with Google"
       onSuccess={onSuccess}
       onFailure={onFailure}
     />
