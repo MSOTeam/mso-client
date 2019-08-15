@@ -80,7 +80,7 @@ class Login extends Component {
         <H2>Welcome back</H2>
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
-        <ScLogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign in with email</ScLogin>
+        {/* <ScLogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign in with email</ScLogin> */}
       </LoginWrapper>
     );
 

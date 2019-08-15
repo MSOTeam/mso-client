@@ -29,7 +29,7 @@ const Modal = styled.div`
   z-index: 1;
   width: 500px;
   margin: auto;
-  height: 500px;
+  height: 450px;
   background: white;
   padding-top: 20px;
   overflow: hidden;
@@ -57,6 +57,7 @@ const ActionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 30px;
 `;
 
 const Action = styled.p`

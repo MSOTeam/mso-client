@@ -86,7 +86,7 @@ class Register extends Component {
           <H2>Join tagit</H2>
           <GoogleRegistration handleRegister={this.handleGoogleRegistration} handleError={this.handleError} />
           <FbRegistration google onClick={() => this.setState({ step: 'google' })} />
-          <ScLogin bottom email handleRegister={this.handleEmailRegistration}>Sign up with Email</ScLogin>
+          {/* <ScLogin bottom email handleRegister={this.handleEmailRegistration}>Sign up with Email</ScLogin> */}
         </LoginWrapper>
       </>
     );
