@@ -16,7 +16,7 @@ const Navgrid = styled.div`
   justify-content: space-between;
   height: 100px;
   padding: 0 70px 0 140px;
-  background: ${color.secondary};
+  /* background: ${color.secondary}; */
 `;
 
 const Navitem = styled.div`

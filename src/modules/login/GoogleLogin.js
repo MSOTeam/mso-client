@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Google from '../../assets/google.svg';
 
 const ScLogin = styled(Login)`
-  border: 1px #E0E0E0 solid;
+  border: 1px #a9a9a9 solid;
   border-radius: 4px;
   width: 80%;
   margin: auto;

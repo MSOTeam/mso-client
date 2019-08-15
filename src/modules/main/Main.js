@@ -16,9 +16,9 @@ const Header = styled.div`
 `;
 
 const Welcome = styled.h1`
-  font-size: 1.4em;
+  font-size: 1.9em;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   margin: 20px 0 30px 0;
 `;
 
@@ -37,17 +37,20 @@ const Cats = styled.p`
 
 
 const FilterBox = styled.input`
-    content: url(${Search});
+    /* content: url(${Search}); */
     background-image: url(${Search});
-    background-position: 7px 7px;
+    background-position: 7px 14px;
     background-repeat: no-repeat;
-    background: #FAFAFA;
+    /* background: #FAFAFA; */
     width: 100%;
     height: 60px;
-    margin: 14px 0;
+    margin: 0px 0 35px;
     font-style: italic;
     box-shadow: none;
     border: #eaeaea 1px solid;
+    border-left: none;
+    border-top: none;
+    border-right: none;
     outline: none;
     box-sizing: border-box;
     padding-left: 50px;
@@ -65,15 +68,14 @@ const Main = ({ authenticated, sidebarStatus }) => {
       <Header sidebarStatus={sidebarStatus.isOpen}>
 
         <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
             <Cats active>Latest</Cats>
             <Cats>Recommended</Cats>
             <Cats>Trending</Cats>
           </div>
-        </div>
+        </div> */}
         <div style={{ position: 'relative' }}>
-          <img src={Search} style={{ position: 'absolute', top: '29px', left: '13px' }} />
           <FilterBox placeholder="Search" />
         </div>
       </Header>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Facebook from '../../assets/facebook.svg';
 
 const ScLogin = styled.button`
-  border: 1px #E0E0E0 solid;
+  border: 1px #a9a9a9 solid;
   border-radius: 4px;
   width: 80%;
   margin: auto;
