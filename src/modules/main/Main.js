@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import Articles from '../articles/Articles';
 import { color } from '../../styles/color';
 import Search from '../../assets/search.svg';
+import { GridLayout, MasonaryLayout } from '../../assets/icon';
 
 const Header = styled.div`
   padding: 50px 70px 0 140px;
@@ -68,9 +69,14 @@ const Main = ({ authenticated, sidebarStatus }) => {
       <Header sidebarStatus={sidebarStatus.isOpen}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ marginRight: '10px' }}>Cards</div>
-            <div>Lines</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '45px' }}>
+            <div style={{ cursor: 'pointer'}}>
+              <GridLayout style={{ marginRight: '10px' }} />
+            </div>
+            <div>
+            {/* <ListLayout style={{ marginRight: '10px' }} /> */}
+            <MasonaryLayout />
+            </div>
           </div>
         </div>
 

@@ -6,11 +6,8 @@ import styled, { css } from 'styled-components';
 import _ from 'lodash';
 import axios from 'axios';
 import { color } from '../../styles/color';
-import Menu from '../../assets/menu.svg';
-import Crog from '../../assets/crog.svg';
-import Logo from '../../assets/logo_w_text_small.svg';
+import { Menu, Crog, LogoWhite, Close } from '../../assets/icon';
 import Arrow from '../../assets/arrow.svg';
-import Close from '../../assets/close.svg';
 
 const SidebarWrapper = styled.div`
   background: ${color.primary};
@@ -44,11 +41,6 @@ const SidebarTop = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   overflow: scroll;
-  img {
-    &:hover {
-      cursor: pointer;
-    }
-  }
 `;
 
 const SidebarTopOpen = styled.div`
@@ -72,9 +64,7 @@ const SidebarItem = styled.div`
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
-  &:hover {
-      cursor: pointer;
-    }
+
   &:first-letter {
     text-transform:capitalize;
   }
@@ -84,6 +74,9 @@ const SidebarItem = styled.div`
   ${props => props.child && css`
     color: #40359C;
   `}
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 class Sidebar extends Component {
@@ -125,7 +118,6 @@ class Sidebar extends Component {
 
   render() {
     const { dispatch } = this.props;
-    console.log(this.props);
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
       <SidebarItemWrapper key={tag.name}>
@@ -140,12 +132,16 @@ class Sidebar extends Component {
           {
           this.state.open ? (
             <SidebarTopOpen open={this.state.open}>
-              <img src={Logo} alt="logo" onClick={() => dispatch(push('/'))} />
-              <img src={Close} alt="" onClick={this.slide} style={{padding: '6px'}} />
+              <div style={{ cursor:'pointer'}} onClick={() => dispatch(push('/'))}>
+                <LogoWhite />
+              </div>
+              <div style={{ cursor:'pointer', padding: '6px' }} onClick={this.slide} >
+                <Close />
+              </div>
             </SidebarTopOpen>
           ) : (
-            <div style={{ marginLeft: '30px' }}>
-              <img src={Menu} alt="menu" onClick={this.slide} />
+            <div style={{ cursor:'pointer', display: 'flex', justifyContent: 'center' }} onClick={this.slide}>
+              <Menu />
             </div>
           )
          }
@@ -159,7 +155,9 @@ class Sidebar extends Component {
             </SidebarItemWrapper>
           </SidebarItems>
         </SidebarTop>
-        <img onClick={() => dispatch(push('/settings'))} src={Crog} alt="crog" />
+        <div style={{ cursor:'pointer', display: 'flex', justifyContent: 'center' }} onClick={() => dispatch(push('/settings'))} >
+          <Crog />
+        </div>
       </SidebarWrapper>
     );
   }
@@ -167,7 +165,6 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  cats: PropTypes.array,
 };
 
 Sidebar.defaultProps = {

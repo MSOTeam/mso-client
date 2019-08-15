@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 
 const ArticlesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
   grid-gap: 2em;
   padding: 20px 70px 0 140px;
   transition: all 0.3s;
@@ -136,8 +136,6 @@ class Articles extends Component {
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
         </div>
-        {/* <ArticleExcerp dangerouslySetInnerHTML={{ __html: article.excerpt }} /> */}
-        {/* <div>Length: {article.length}</div> */}
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
         </div>
