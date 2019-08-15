@@ -46,26 +46,6 @@ const ScLogin = styled.p`
   `}
 `;
 
-const Action = styled.p`
-  letter-spacing: 1px;
-  margin: 10px 0 40px;
-`;
-
-const ActionLink = styled.span`
-  color: ${color.primary};
-  font-weight: 600;
-  cursor: pointer;
-`;
-
-const Terms = styled.p`
-  font-weight: 100;
-  font-size: 0.9em;
-  cursor: pointer;
-  color: ${color.dark};
-  margin-top: 10px;
-  letter-spacing: 1px;
-`;
-
 
 class Login extends Component {
   constructor(props) {
@@ -101,9 +81,6 @@ class Login extends Component {
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
         <ScLogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign in with email</ScLogin>
-        <Action>Don't have an account? <ActionLink>Create one</ActionLink></Action>
-        <Terms>Terms of Service | Privacy Policy</Terms>
-
       </LoginWrapper>
     );
 

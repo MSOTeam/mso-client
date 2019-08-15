@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as actions from './actions';
 import { authGoogleUser, authFbUser } from '../login/actions';
 import { color } from '../../styles/color';
@@ -48,32 +48,13 @@ const ScLogin = styled.p`
   `}
 `;
 
-const Action = styled.p`
-  letter-spacing: 1px;
-  margin: 10px 0 40px;
-`;
-
-const ActionLink = styled.span`
-  color: ${color.primary};
-  font-weight: 600;
-  cursor: pointer;
-`;
-
-const Terms = styled.p`
-  font-weight: 100;
-  font-size: 0.9em;
-  cursor: pointer;
-  color: ${color.dark};
-  margin-top: 10px;
-  letter-spacing: 1px;
-`;
-
 
 class Register extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { step: 'select' };
+    this.state = {
+      step: 'select',
+    };
   }
 
   handleEmailRegistration = (user) => {
@@ -95,17 +76,19 @@ class Register extends Component {
     console.log(error);
   }
 
+
   render() {
     const { step } = this.state;
+    console.log(this.props);
     const selection = (
-      <LoginWrapper>
-        <H2>Join tagit</H2>
-        <GoogleRegistration handleRegister={this.handleGoogleRegistration} handleError={this.handleError} />
-        <FbRegistration google onClick={() => this.setState({ step: 'google' })} />
-        <ScLogin bottom email handleRegister={this.handleEmailRegistration}>Sign up with Email</ScLogin>
-        <Action>Already have an account? <ActionLink>Sign in</ActionLink></Action>
-        <Terms>Terms of Service | Privacy Policy</Terms>
-      </LoginWrapper>
+      <>
+        <LoginWrapper>
+          <H2>Join tagit</H2>
+          <GoogleRegistration handleRegister={this.handleGoogleRegistration} handleError={this.handleError} />
+          <FbRegistration google onClick={() => this.setState({ step: 'google' })} />
+          <ScLogin bottom email handleRegister={this.handleEmailRegistration}>Sign up with Email</ScLogin>
+        </LoginWrapper>
+      </>
     );
 
     switch (step) {
@@ -138,7 +121,6 @@ class Register extends Component {
 
 Register.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  step: PropTypes.string.isRequired,
 };
 
 export default connect()(Register);

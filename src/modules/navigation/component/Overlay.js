@@ -4,6 +4,7 @@ import styled, { css, keyframes } from 'styled-components';
 import Register from '../../register/Register';
 import Login from '../../login/Login';
 import X from '../../../assets/close_black.svg';
+import { color } from '../../../styles/color';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -52,9 +53,35 @@ const CloseIcon = styled.img`
   cursor: pointer;
 `;
 
+const ActionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Action = styled.p`
+  letter-spacing: 1px;
+  margin: 10px 0 40px;
+`;
+
+const ActionLink = styled.span`
+  color: ${color.primary};
+  font-weight: 600;
+  cursor: pointer;
+`;
+
+const Terms = styled.p`
+  font-weight: 100;
+  font-size: 0.9em;
+  cursor: pointer;
+  color: ${color.dark};
+  margin-top: 10px;
+  letter-spacing: 1px;
+`;
+
+
 const Overlay = (props) => {
   const [type, setType] = useState(0);
-
   useEffect(() => {
     setType(props.type);
   }, [props]);
@@ -63,17 +90,29 @@ const Overlay = (props) => {
     setType(type === '');
   };
 
+  const Change = (event) => {
+    props.handle(event);
+  };
+
   return (
     <Wrapper type={type}>
       {type === 'signup' ? (
         <Modal>
           <Register type={type} />
           <CloseIcon src={X} onClick={Close} />
+          <ActionWrapper>
+            <Action>Already have an account? <ActionLink id="login" onClick={Change}>Sign in</ActionLink></Action>
+            <Terms>Terms of Service | Privacy Policy</Terms>
+          </ActionWrapper>
         </Modal>
       ) : (
         <Modal>
           <Login type={type} />
           <CloseIcon src={X} onClick={Close} />
+          <ActionWrapper>
+            <Action>Don't have an account? <ActionLink id="signup" onClick={Change}>Create one</ActionLink></Action>
+            <Terms>Terms of Service | Privacy Policy</Terms>
+          </ActionWrapper>
         </Modal>
       )}
       <Background onClick={Close} />

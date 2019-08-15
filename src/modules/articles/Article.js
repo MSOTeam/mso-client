@@ -89,13 +89,14 @@ const StatBox = styled.div`
     cursor: pointer;
     line-height: 24px;
     color: #5649CF;
-    margin-bottom: 30px;
+    margin: 15px 0 25px;
   `}
 `;
 
 const StatTime = styled.div`
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
+  letter-spacing: 1px;
 `;
 
 const ArticleText = styled.p`
@@ -109,7 +110,9 @@ const ArticleText = styled.p`
   font-size: 21px;
   a  {
     color: black;
-    text-decoration: underline;
+    text-decoration: none;
+    border-bottom: 3px solid black;
+    padding-bottom: 1px;
   }
 
   img  {
@@ -150,7 +153,10 @@ const ArticleText = styled.p`
     padding: 20px;
     margin-bottom: 25px;
     letter-spacing: 2px;
-}
+  }
+  p > img, p + p > span {
+    display: none;
+  }
 `;
 
 const EditBox = styled.div`

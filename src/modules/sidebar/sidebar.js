@@ -43,7 +43,7 @@ const SidebarTop = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-
+  overflow: scroll;
   img {
     &:hover {
       cursor: pointer;

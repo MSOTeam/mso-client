@@ -92,7 +92,8 @@ const Intro = () => {
           <ScHeadline>
             Save anything and view it  when you want
           </ScHeadline>
-          <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage>
+          {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
+          <ScMessage>All your precious findings and inspiration saved to the same place, forever</ScMessage>
         </ScItem>    
         <ScItem />  
         </ScText>

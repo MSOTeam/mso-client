@@ -69,6 +69,7 @@ class Nav extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(event) {
+    console.log(event);
     this.setState({ type: event.target.id });
   }
 
@@ -88,7 +89,7 @@ class Nav extends Component {
           </NavItemWrapper>
         </NavWrapper>
         <Modal>
-          <Overlay type={this.state.type} />
+          <Overlay type={this.state.type} handle={this.handleClick} />
         </Modal>
       </>
     );
