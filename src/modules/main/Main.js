@@ -66,8 +66,14 @@ const Main = ({ authenticated, sidebarStatus }) => {
   return (
     <div>
       <Header sidebarStatus={sidebarStatus.isOpen}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ marginRight: '10px' }}>Cards</div>
+            <div>Lines</div>
+          </div>
+        </div>
 
-        <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
         {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
             <Cats active>Latest</Cats>
