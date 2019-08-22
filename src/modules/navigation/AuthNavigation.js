@@ -74,7 +74,7 @@ const AuthNavigation = ({ dispatch }) => (
       <img src={Logo} alt="logo" />
     </Navitem>
     <div style={{ display: 'flex' }}>
-      <Navitem star onClick={() => dispatch(push('/favorites'))}>Favourites</Navitem>
+      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favourites</Navitem>
       <Navitem progress onClick={() => dispatch(push('/inprogress'))}>In progress</Navitem>
       <Navitem reminder onClick={() => dispatch(push('/reminder'))}>Reminder</Navitem>
       <Navitem logout onClick={() => dispatch(logout())}>Logout</Navitem>
