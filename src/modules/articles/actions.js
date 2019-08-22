@@ -67,10 +67,10 @@ export const findArticle = id => (dispatch) => {
     });
 };
 
-const updateRequest = (id, content) => ({
+const updateRequest = (id, article) => ({
   type: UPDATE_ARTICLE_REQUEST,
   id,
-  content,
+  article,
 });
 
 const updateSuccess = response => ({
@@ -83,11 +83,11 @@ const updateFailure = error => ({
   error,
 });
 
-export const updateArticle = (id, content) => (dispatch) => {
+export const updateArticle = (id, article) => (dispatch) => {
   const token = localStorage.getItem('token');
-  dispatch(updateRequest(id, content));
+  dispatch(updateRequest(id, article));
   axios
-    .put(`${'/article'}`, { id, content }, { headers: { Authorization: `Bearer ${token}` } })
+    .put(`${'/article'}`, { id, article }, { headers: { Authorization: `Bearer ${token}` } })
     .then(response => dispatch(updateSuccess(response)))
     .catch(ex => dispatch(updateFailure(ex)));
 };

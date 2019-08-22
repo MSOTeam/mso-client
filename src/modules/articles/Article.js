@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
-import { Editor } from '../../components';
 import { push } from 'react-router-redux';
 
 import * as actions from './actions';
@@ -34,7 +33,7 @@ const ArticleWrapper = styled.div`
   grid-template-columns: 80px repeat(8, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   width: 100%;
-  position: relative;    
+  position: relative;
   padding-top: 40px;
   animation: ${fadeIn} .5s ease-in-out;
   transition: all 0.3s;
@@ -66,7 +65,7 @@ const BackButton = styled.img`
 
 const FeatImg = styled.img`
     grid-area: 1 / 4 / 3 / 8;
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
     width: 100%;
 `;
 
@@ -124,7 +123,7 @@ const ArticleText = styled.p`
   ol  {
     margin: 30px 0;
   }
-  
+
   h2, h3 {
     font-size: 1.1em;
     font-weight: 700;
@@ -192,8 +191,14 @@ const EditItem = styled.div`
     position: relative;
     top: 2px;
   } */
+  ${props => props.bg && css`
+    &::before {
+      background: #000;
+    }
+  `}
+
   ${props => props.star && css`
-  
+
   &::before {
       content: url(${StarEmpty});
     }
@@ -310,19 +315,15 @@ class Article extends Component {
   }
 
   componentDidMount = () => {
-    const { dispatch, match } = this.props;    
+    const { dispatch, match } = this.props;
     dispatch(actions.findArticle(match.params.id));
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     if (this.props.article !== prevProps.article) {
-      this.setState({ article: this.props.article });     
+      this.setState({ article: this.props.article });
     }
-  }
-
-  addToFav = () => {
-    console.log(this.state.addToFav);
   }
 
   readingTime = () => {
@@ -337,7 +338,7 @@ class Article extends Component {
     const selection = document.getSelection();
     const range = selection.getRangeAt(0);
     const clonedSelection = range.cloneContents();
-    
+
     const div = document.createElement('div');
     div.appendChild(clonedSelection);
 
@@ -392,7 +393,9 @@ class Article extends Component {
 
   save = () => {
     const { match, dispatch } = this.props;
-    dispatch(actions.updateArticle(match.params.id, this.state.article.content));
+    const { article } = this.state;
+
+    dispatch(actions.updateArticle(match.params.id, article));
     this.setState({
       highlight: false,
       comment: false,
@@ -405,11 +408,27 @@ class Article extends Component {
     history.go(-1)
   }
 
+  toggleFav = () => {
+    const { match, dispatch } = this.props;
+    const { article } = this.state;
+
+    const index = article.tags.indexOf('favorites');
+    if(index === -1) {
+      article.tags.push('favorites');
+    } else {
+      article.tags.splice(index, 1);
+    }
+
+    dispatch(actions.updateArticle(match.params.id, article ));
+
+    this.setState({ article })
+
+  }
+
   render() {
     const { sidebarStatus, dispatch } = this.props;
     const { article, highlight, comment, edit } = this.state;
-    console.log(article.tags);  
-    console.log(highlight);  
+
     const tags = article.tags.map((item) =>
       <StatTime onClick={() => dispatch(push(`/articles/${item}`))} style={{paddingRight: '10px'}}>#{item}</StatTime>
     );
@@ -429,15 +448,15 @@ class Article extends Component {
           <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
-        <FeatImg src={article.image} />       
+        <FeatImg src={article.image} />
         <ArticleText
           onMouseUp={this.edit}
           dangerouslySetInnerHTML={{ __html: article.content }}
           id="articleContent"
-        />      
+        />
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
 
-          <EditItem star disabled={highlight || comment} onClick={this.addToFav} />
+          <EditItem star disabled={highlight || comment} bg={article.tags.indexOf('favorites') > -1} onClick={this.toggleFav} />
           <EditItem progress disabled={highlight || comment} />
           <EditItem reminder disabled={highlight || comment} />
           <EditItem archive disabled={highlight || comment} />
