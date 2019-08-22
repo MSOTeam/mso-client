@@ -75,8 +75,8 @@ const AuthNavigation = ({ dispatch }) => (
     </Navitem>
     <div style={{ display: 'flex' }}>
       <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favourites</Navitem>
-      <Navitem progress onClick={() => dispatch(push('/inprogress'))}>In progress</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/reminder'))}>Reminder</Navitem>
+      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}>In progress</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Reminder</Navitem>
       <Navitem logout onClick={() => dispatch(logout())}>Logout</Navitem>
     </div>
   </Navgrid>

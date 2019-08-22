@@ -408,13 +408,13 @@ class Article extends Component {
     history.go(-1)
   }
 
-  toggleFav = () => {
+  toggleTag = (tag) => {
     const { match, dispatch } = this.props;
     const { article } = this.state;
 
-    const index = article.tags.indexOf('favorites');
+    const index = article.tags.indexOf(tag);
     if(index === -1) {
-      article.tags.push('favorites');
+      article.tags.push(tag);
     } else {
       article.tags.splice(index, 1);
     }
@@ -456,10 +456,34 @@ class Article extends Component {
         />
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
 
-          <EditItem star disabled={highlight || comment} bg={article.tags.indexOf('favorites') > -1} onClick={this.toggleFav} />
-          <EditItem progress disabled={highlight || comment} />
-          <EditItem reminder disabled={highlight || comment} />
-          <EditItem archive disabled={highlight || comment} />
+          <EditItem
+            star
+            disabled={highlight || comment}
+            bg={article.tags.indexOf('favorites') > -1}
+            onClick={() => this.toggleTag('favorites')}
+          />
+
+          <EditItem
+            progress
+            bg={article.tags.indexOf('inprogress') > -1}
+            disabled={highlight || comment}
+            onClick={() => this.toggleTag('inprogress')}
+          />
+
+          <EditItem
+            reminder
+            bg={article.tags.indexOf('reminder') > -1}
+            disabled={highlight || comment}
+            onClick={() => this.toggleTag('reminder')}
+          />
+
+          <EditItem
+            archive
+            bg={article.tags.indexOf('archive') > -1}
+            disabled={highlight || comment}
+            onClick={() => this.toggleTag('archive')}
+          />
+
           <EditItem />
 
           {highlight &&
