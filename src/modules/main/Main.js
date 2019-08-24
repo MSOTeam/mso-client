@@ -8,11 +8,11 @@ import Search from '../../assets/search.svg';
 import { GridLayout, MasonaryLayout } from '../../assets/icon';
 
 const Header = styled.div`
-  padding: 50px 70px 0 140px;
+  padding: 0px 70px 0 140px;
   transition: all 0.3s;
 
   ${props => props.sidebarStatus === true && css`
-      padding: 50px 70px 0  315px;
+      padding: 0px 70px 0  315px;
   `}
 `;
 

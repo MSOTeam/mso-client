@@ -17,6 +17,10 @@ const Navgrid = styled.div`
   height: 100px;
   padding: 0 70px 0 140px;
   /* background: ${color.secondary}; */
+  @media (max-width: 850px) {
+    padding: 0 20px 0 80px;
+
+  }
 `;
 
 const Navitem = styled.div`
@@ -62,7 +66,7 @@ const Navitem = styled.div`
     }
   `}
   @media (max-width: 850px) {
-    font-size: 0px;
+    font-size: 2px;
     color: white;
     padding-left: 20px;
   }

@@ -19,7 +19,7 @@ const fadeIn = keyframes`
 
 const ArticlesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+  grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
   grid-gap: 2em;
   padding: 20px 70px 0 140px;
   transition: all 0.3s;
@@ -92,6 +92,13 @@ const ArticleTags = styled.div`
   margin-right: 10px;
 `;
 
+const CatName = styled.h1`
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 20px 0 30px 0;
+`;
+
 class Articles extends Component {
   state = {
     articles: [],
@@ -102,8 +109,6 @@ class Articles extends Component {
 
    componentDidUpdate = (prevProps, prevState) => {    
      const { match } = this.props;
-     console.log("fdfdaa");
-
      if (match.params.tag !== prevProps.match.params.tag) {
        this.fetch();
      }

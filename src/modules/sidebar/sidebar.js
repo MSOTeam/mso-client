@@ -100,6 +100,7 @@ class Sidebar extends Component {
         const { tags } = response.data;
         const ordered = _.orderBy(tags);
         this.setState({ taglist: ordered });
+        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);

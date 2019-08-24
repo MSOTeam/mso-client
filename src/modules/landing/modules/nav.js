@@ -69,7 +69,6 @@ class Nav extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(event) {
-    console.log(event);
     this.setState({ type: event.target.id });
   }
 

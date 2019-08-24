@@ -5,16 +5,15 @@ import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 
 import * as actions from './actions';
+import { Reminder, Archive } from '../../assets/icon';
 import Focus from '../../assets/focus.svg';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
 import CommentMsg from '../../assets/comment.svg';
 import Members from '../../assets/members.svg';
 import Share from '../../assets/share.svg';
-import Archive from '../../assets/archive.svg';
 import StarEmpty from '../../assets/star_empty.svg';
 import ProgessEmpty from '../../assets/progress_empty.svg';
-import ReminderEmpty from '../../assets/reminder_empty.svg';
 import Back from '../../assets/back.svg';
 
 
@@ -51,6 +50,10 @@ const H1 = styled.h1`
     grid-row: 3 / 3;
   letter-spacing: 1px;
   margin-bottom: 1px;
+  @media (max-width: 1280px) {
+    grid-column: 3 / 9;
+  }
+
 `;
 
 const BackButton = styled.img`
@@ -61,12 +64,23 @@ const BackButton = styled.img`
   padding-top: 18px;
   cursor: pointer;
   height: 25px;
+  @media (max-width: 1280px) {
+    grid-area: 1 / 2 / 1 / 3;
+  }
 `;
 
-const FeatImg = styled.img`
+const FeatImg = styled.div`
     grid-area: 1 / 4 / 3 / 8;
     margin-bottom: 30px;
     width: 100%;
+    background-image: url(${props => props.src || ""}); 
+    background-repeat:no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 600px;
+    @media (max-width: 1280px) {
+      grid-area: 1 / 3 / 3 / 9;
+    }
 `;
 
 const StatBox = styled.div`
@@ -90,6 +104,9 @@ const StatBox = styled.div`
     color: #5649CF;
     margin: 15px 0 25px;
   `}
+  @media (max-width: 1280px) {
+    grid-column: 3 / 9;
+  }
 `;
 
 const StatTime = styled.div`
@@ -107,6 +124,9 @@ const ArticleText = styled.p`
   grid-column: 4 / 8;
   grid-row: 6;
   font-size: 21px;
+  @media (max-width: 1280px) {
+    grid-column: 3 / 9;
+  }
   a  {
     color: black;
     text-decoration: none;
@@ -136,7 +156,6 @@ const ArticleText = styled.p`
   }
 
   span {
-    font-size: 0.8em;
   }
   p {
     margin-bottom: 25px;
@@ -171,6 +190,9 @@ const EditBox = styled.div`
   align-items: flex-start;
   ${props => props.sidebarStatus === true && css`
   `}
+  @media (max-width: 1280px) {
+    grid-area: 6 / 9 / 8 / 9;
+  }
 `;
 
 const EditItem = styled.div`
@@ -208,16 +230,6 @@ const EditItem = styled.div`
       }
     } */
   `}
-  ${props => props.reminder && css`
-    &::before {
-        content: url(${ReminderEmpty});
-      }
-      /* &:hover {
-        &::after {
-          content: "Reminder";
-        }
-      } */
-  `}
   ${props => props.progress && css`
     &::before {
         content: url(${ProgessEmpty});
@@ -227,16 +239,6 @@ const EditItem = styled.div`
           content: "In progress";
         }
       } */
-  `}
-  ${props => props.archive && css`
-    &::before {
-      content: url(${Archive});
-    }
-    /* &:hover {
-      &::after {
-        content: "Archive";
-      }
-    } */
   `}
   ${props => props.highlight && css`
     &::before {
@@ -469,24 +471,25 @@ class Article extends Component {
             disabled={highlight || comment}
             onClick={() => this.toggleTag('inprogress')}
           />
-
-          <EditItem
-            reminder
+          <EditItem             
             bg={article.tags.indexOf('reminder') > -1}
             disabled={highlight || comment}
-            onClick={() => this.toggleTag('reminder')}
-          />
-
+            onClick={() => this.toggleTag('reminder')}>
+            <Reminder bg={article.tags.indexOf('reminder') > -1} />
+          </EditItem>
+       
           <EditItem
-            archive
             bg={article.tags.indexOf('archive') > -1}
             disabled={highlight || comment}
             onClick={() => this.toggleTag('archive')}
-          />
-
+            >
+            <Archive bg={article.tags.indexOf('archive') > -1} />
+          </EditItem>
           <EditItem />
 
-          {highlight &&
+
+
+          {/* {highlight &&
             <EditItem highlight onClick={this.save} />
           }
           {!highlight &&
@@ -498,7 +501,9 @@ class Article extends Component {
           {!comment &&
             <EditItem comment disabled={highlight} onClick={() => this.setState({ comment: true })} />
           }
-          <EditItem members disabled={highlight || comment} />
+          <EditItem members disabled={highlight || comment} /> */}
+
+
         </EditBox>
         {/* this.state.edit &&
           <textarea style={{ width: '100%', height: 400 }}>
