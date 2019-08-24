@@ -5,7 +5,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 
 import * as actions from './actions';
-import { Reminder, Archive } from '../../assets/icon';
+import { Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
 import Focus from '../../assets/focus.svg';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
@@ -178,12 +178,13 @@ const ArticleText = styled.p`
 `;
 
 const EditBox = styled.div`
+  margin-top: 12px;
   grid-area: 5 / 8 / 8 / 8;
   position: sticky;
   top: 100px;
   transition: width 0.3s;
   justify-self: center;
-  height: 380px;
+  height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -199,7 +200,11 @@ const EditItem = styled.div`
   letter-spacing: 1px;
   font-size: 14px;
   color: #5649CF;
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+  background-image: url(${props => props.src || ""}); 
+
   /* &:hover {
     &::after {
       position: relative;
@@ -457,25 +462,45 @@ class Article extends Component {
           id="articleContent"
         />
         <EditBox sidebarStatus={sidebarStatus.isOpen}>
-
           <EditItem
-            star
             disabled={highlight || comment}
             bg={article.tags.indexOf('favorites') > -1}
             onClick={() => this.toggleTag('favorites')}
-          />
+          >
+          {
+            article.tags.indexOf('favorites') > -1 ? (
+              <FavChecked />
+            ) : (
+              <Fav />
+            )
+          }
+          </EditItem>
 
           <EditItem
-            progress
             bg={article.tags.indexOf('inprogress') > -1}
             disabled={highlight || comment}
             onClick={() => this.toggleTag('inprogress')}
-          />
+          >
+          {
+            article.tags.indexOf('inprogress') > -1 ? (
+              <InProgressChecked />
+            ) : (
+              <InProgress />
+            )
+          }
+          </EditItem>
+
           <EditItem             
             bg={article.tags.indexOf('reminder') > -1}
             disabled={highlight || comment}
             onClick={() => this.toggleTag('reminder')}>
-            <Reminder bg={article.tags.indexOf('reminder') > -1} />
+            {
+              article.tags.indexOf('reminder') > -1 ? (
+                <ReminderChecked />
+              ) : (
+                <Reminder />
+              )
+            }
           </EditItem>
        
           <EditItem
@@ -483,7 +508,13 @@ class Article extends Component {
             disabled={highlight || comment}
             onClick={() => this.toggleTag('archive')}
             >
-            <Archive bg={article.tags.indexOf('archive') > -1} />
+            {
+              article.tags.indexOf('archive') > -1 ? (
+                <ArchiveChecked />
+              ) : (
+                <Archive />
+              )
+            }
           </EditItem>
           <EditItem />
 
