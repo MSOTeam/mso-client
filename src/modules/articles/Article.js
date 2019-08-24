@@ -75,9 +75,9 @@ const FeatImg = styled.div`
     width: 100%;
     background-image: url(${props => props.src || ""}); 
     background-repeat:no-repeat;
-    background-position: center center;
+    background-position: center;
     background-size: cover;
-    height: 600px;
+    height: 800px;
     @media (max-width: 1280px) {
       grid-area: 1 / 3 / 3 / 9;
     }
