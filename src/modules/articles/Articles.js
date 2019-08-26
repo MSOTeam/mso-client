@@ -42,6 +42,7 @@ const ArticleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 290px;
 `;
 
 const ArticleBoxOverlay = styled.div`
