@@ -168,7 +168,7 @@ const ArticleText = styled.p`
     margin-bottom: 25px;
     letter-spacing: 2px;
   }
-  p > img, p + p > span {
+  p > img, p + p > span, div > div > section > div > div > div >  div, div > section > div > figure {
     display: none;
   }
 `;
