@@ -18,7 +18,7 @@ const Routes = props => (
   <ConnectedRouter history={props.history}>
     <div>
       <Route exact path="/" component={main.Main} />
-      <routes.AuthRoute path="/articles" component={articles.Articles} />
+
       <routes.AuthRoute path="/articles/:tag" component={articles.Articles} />
       <routes.AuthRoute path="/article/:id" component={articles.Article} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />

@@ -28,6 +28,7 @@ const findArticlesFailure = error => ({
 
 export const findArticles = tag => (dispatch) => {
   const token = localStorage.getItem('token');
+
   dispatch(findArticlesRequest(token));
   axios
     .get('article?tag=test', { headers: { Authorization: `Bearer ${token}` } })

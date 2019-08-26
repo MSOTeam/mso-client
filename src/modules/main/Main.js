@@ -79,17 +79,16 @@ const Main = ({ authenticated, sidebarStatus }) => {
             </div>
           </div>
         </div>
-
         {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
             <Cats active>Latest</Cats>
             <Cats>Recommended</Cats>
             <Cats>Trending</Cats>
           </div>
-        </div> */}
+        </div>
         <div style={{ position: 'relative' }}>
           <FilterBox placeholder="Search" />
-        </div>
+        </div>*/}
       </Header>
       <Articles />
     </div>

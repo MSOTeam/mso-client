@@ -4,8 +4,10 @@ import styled, { css, keyframes } from 'styled-components';
 import { PropTypes } from 'prop-types';
 import axios from 'axios';
 import { push } from 'react-router-redux';
+import { debounce } from 'lodash';
 import { color } from '../../styles/color';
 import { LoadingLogo } from '../../assets/icon';
+import Search from '../../assets/search.svg';
 
 
 const fadeIn = keyframes`
@@ -44,7 +46,7 @@ const ArticleBox = styled.div`
 
 const ArticleBoxOverlay = styled.div`
   overflow: hidden;
-  height: 200px; 
+  height: 200px;
   margin-bottom: 10px;
   background: #FAFAFA;
 
@@ -99,6 +101,27 @@ const CatName = styled.h1`
   margin: 20px 0 30px 0;
 `;
 
+const FilterBox = styled.input`
+    background-image: url(${Search});
+    background-position: 7px 14px;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 60px;
+    margin: 0px 0 35px;
+    font-style: italic;
+    box-shadow: none;
+    border: #eaeaea 1px solid;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    outline: none;
+    box-sizing: border-box;
+    padding-left: 50px;
+    font-size: 1.3em;
+    font-weight: 300;
+    letter-spacing: 1px;
+`;
+
 class Articles extends Component {
   state = {
     articles: [],
@@ -107,7 +130,7 @@ class Articles extends Component {
      this.fetch();
    }
 
-   componentDidUpdate = (prevProps, prevState) => {    
+   componentDidUpdate = (prevProps, prevState) => {
      const { match } = this.props;
      if (match.params.tag !== prevProps.match.params.tag) {
        this.fetch();
@@ -116,10 +139,9 @@ class Articles extends Component {
 
   fetch = () => {
     const { match } = this.props;
-
     const url = `article/?tag=${match.params.tag}`;
-
     const token = localStorage.getItem('token');
+
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
@@ -129,6 +151,25 @@ class Articles extends Component {
         console.log(error);
       });
   }
+
+  search = debounce((value) => {
+    const { match } = this.props;
+    let text = '';
+    if (value.length > 3) {
+      text = value;
+    }
+    const url = `article/?tag=${match.params.tag}&text=${text}`;
+    const token = localStorage.getItem('token');
+
+    axios
+      .get(url, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        this.setState({ articles: response.data.articles });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, 300);
 
 
   render() {
@@ -148,9 +189,17 @@ class Articles extends Component {
     ));
 
     return (
-      <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-        {articles}
-      </ArticlesGrid>
+      <div>
+        <div style={{ padding: '20px 70px 0 140px' }}>
+          <FilterBox
+            placeholder="Search"
+            onChange={e => this.search(e.target.value)}
+          />
+        </div>
+        <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+          {articles}
+        </ArticlesGrid>
+      </div>
     );
   }
 }
