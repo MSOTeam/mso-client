@@ -55,7 +55,7 @@ const SidebarTopOpen = styled.div`
 const SidebarItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 30px 20px 30px;
+  margin: 0 30px 15px 30px;
 `;
 
 
@@ -64,18 +64,28 @@ const SidebarItem = styled.div`
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
-
-  &:first-letter {
-    text-transform:capitalize;
-  }
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
   ${props => props.bread && css`
     font-weight: 100;
   `}
   ${props => props.child && css`
-    color: #40359C;
+    color: #5649CF;
+    letter-spacing: 1px;
   `}
   &:hover {
     cursor: pointer;
+    > div{
+      font-size: 0.9em;
+      color: #40359C;
+      letter-spacing: 1px;
+      font-weight: 700;
+      width: auto;
+      position: relative;
+      top: 2px;
+    }
   }
 `;
 
@@ -122,8 +132,10 @@ class Sidebar extends Component {
     const { taglist } = this.state;
     const categorys = taglist.map(tag => (
       <SidebarItemWrapper key={tag.name}>
-        <SidebarItem onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}</SidebarItem>
+        <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}
         {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
+        <SidebarItem child>Edit</SidebarItem>
+        </SidebarItem>
       </SidebarItemWrapper>
     ));
 
