@@ -99,7 +99,6 @@ const StatBox = styled.div`
     grid-column: 4 / 8;
     grid-row: 4 / 5;
     align-self: center;
-    cursor: pointer;
     line-height: 24px;
     color: #5649CF;
     margin: 15px 0 25px;
@@ -128,9 +127,7 @@ const ArticleText = styled.p`
     grid-column: 3 / 9;
   }
   a  {
-    color: black;
     text-decoration: none;
-    border-bottom: 3px solid black;
     padding-bottom: 1px;
   }
 
@@ -310,6 +307,10 @@ const Source = styled.a`
   font-weight: 100;
 `;
 
+const Tags = styled.div`
+`;
+
+
 class Article extends Component {
   constructor(props) {
     super(props);
@@ -437,7 +438,7 @@ class Article extends Component {
     const { article, highlight, comment, edit } = this.state;
 
     const tags = article.tags.map((item) =>
-      <StatTime onClick={() => dispatch(push(`/articles/${item}`))} style={{paddingRight: '10px'}}>#{item}</StatTime>
+      <StatTime onClick={() => dispatch(push(`/articles/${item}`))} style={{paddingRight: '10px', cursor:'pointer'}}>#{item}</StatTime>
     );
 
 
@@ -451,7 +452,7 @@ class Article extends Component {
         </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <div style={{display: 'flex'}}>{tags}</div>
+          <Tags style={{display: 'flex'}}>{tags} +</Tags>
           <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
