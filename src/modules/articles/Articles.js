@@ -121,6 +121,11 @@ const FilterBox = styled.input`
     font-size: 1.3em;
     font-weight: 300;
     letter-spacing: 1px;
+    transition: all 0.3s;
+    ${props => props.sidebarStatus === true && css`
+      width: calc(100% - 175px);
+      margin-left: 175px;
+    `}
 `;
 
 class Articles extends Component {
@@ -194,6 +199,7 @@ class Articles extends Component {
         <div style={{ padding: '20px 70px 0 140px' }}>
           <FilterBox
             placeholder="Search"
+            sidebarStatus={sidebarStatus.isOpen}
             onChange={e => this.search(e.target.value)}
           />
         </div>
