@@ -61,7 +61,6 @@ const BackButton = styled.img`
   justify-self: center;
   position: sticky;
   top: 84px;
-  padding-top: 18px;
   cursor: pointer;
   height: 25px;
   @media (max-width: 1280px) {
@@ -456,7 +455,7 @@ class Article extends Component {
           <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
-        <FeatImg src={article.image} />
+        <img style={{width: '100%', gridArea: '1 / 8 / 1 / 4', marginBottom: '30px'}}src={article.image} />
         <ArticleText
           onMouseUp={this.edit}
           dangerouslySetInnerHTML={{ __html: article.content }}
