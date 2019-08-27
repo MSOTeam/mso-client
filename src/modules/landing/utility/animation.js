@@ -61,6 +61,14 @@ export const fadeRight = keyframes`
   }
 `;
 
+export const boxShadow = keyframes`
+  from {
+    box-shadow: #28a6c8 0px 0px 0px 0px;
+  }
+  to {
+    box-shadow: #28a6c8 0px 0px 35px 10px;
+  }
+`;
 
 
 export const opacity = keyframes`

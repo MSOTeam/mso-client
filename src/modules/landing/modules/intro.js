@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Modal from '../../modal/Modal';
 import Overlay from '../../navigation/component/Overlay';
+import Email from './email';
 import { fadeBottom, fadeRight, shake } from '../utility/animation';
 import App from '../assets/app.png';
 
 
 const ScIntroWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
   position: relative;
   z-index: 10;
-  padding: 0 10% 100px;
+  margin: 0 10% 100px;
   align-items: center;
   @media (min-width: 2150px) {
   }
@@ -25,7 +25,7 @@ const ScText = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   @media (min-width: 2750px) {
   }
   @media (max-width: 760px) {
@@ -51,7 +51,7 @@ const ScHeadline = styled.h1`
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;
   animation-delay: 1.2s;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   @media (max-width: 760px) {
     font-size: 2.3em;
     line-height: 45px;
@@ -87,7 +87,7 @@ const ScImg = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100%;
+  width: 106%;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;
@@ -96,7 +96,7 @@ const Img = styled.img`
 
 const Button = styled.div`
   background: #29C3C6;
-  width: 200px;
+  width: 300px;
   margin: auto;
   margin-top: 85px;
   height: 50px;
@@ -109,7 +109,7 @@ const Button = styled.div`
   letter-spacing: 1px;
   font-weight: 600;
   padding: 7px 15px;
-  box-shadow: #28a6c8 0px 0px 33px 2px;
+  box-shadow: #28a6c8 0px 0px 35px 10px;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;
@@ -120,33 +120,25 @@ const Intro = () => {
   const [type, setType] = useState(0);
 
   useEffect(() => {
-    setType(' ');
   });
-
-
-  const handleClick = ({ event }) => {
-    console.log(event)
-    setType(type === event);
-  };
 
   return (
     <>
       <ScIntroWrapper>
         <ScText>
           <ScItem top>
-            <ScHeadline>
-              Save anything and view it  when you want
-            </ScHeadline>
+            <ScHeadline>Your ultimate notebook on the web</ScHeadline>
+            {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
             <ScMessage>All your precious findings and inspiration saved to the same place, forever!</ScMessage>
-            <Button id="signup" onClick={handleClick}>Get started</Button>
+            {/* <Button id="signup" onClick={event => setType(event.target.id)}>Get started</Button> */}
+            {/* <Button id="signup" onClick={event => setType(event.target.id)}>Request beta access</Button> */}
+            <Email/>
+
           </ScItem>
-          <ScItem />
         </ScText>
         {/* <ScImg /> */}
-        <div>
-          <Img src={App} />
-        </div>
+        <Img src={App} />
       </ScIntroWrapper>
       <Modal>
         <Overlay type={type} />

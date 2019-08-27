@@ -113,10 +113,8 @@ const Features = (props) => {
       
       <ScFeature left>
           <ScFeatureItemWrapper>
-            <ScFeatureItem>
               <Save/>
               <ScSubHeader>Save and view later</ScSubHeader>
-            </ScFeatureItem>
             <ScP>With so much content on the internet and so little time, tagit can be your best friend in saving and then viewing content whenever you want at the right time for you.</ScP>
           </ScFeatureItemWrapper>
       </ScFeature>

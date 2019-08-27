@@ -86,7 +86,6 @@ const Overlay = (props) => {
   useEffect(() => {
     setType(props.type);
   }, [props]);
-
   const Close = () => {
     setType(type === '');
   };
