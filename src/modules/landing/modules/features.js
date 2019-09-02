@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Email from './email';
 
 import { Save, Organize, Reminder, Highlight, Recommended, Central, Collab, Offline } from '../assets/icon';
 import { fadeTop, opacity} from '../utility/animation';
@@ -18,7 +19,9 @@ const ScWhy = styled.div`
 `
 const ScFeature = styled.div`
   display: flex;
-  
+  justify-content: space-between;
+  margin-bottom: 10px;
+
   ${props => props.left && css`
     justify-content: flex-start;
   `}
@@ -35,7 +38,8 @@ const ScFeature = styled.div`
 `
 
 const ScFeatureHeadline = styled.h1`
-  font-size: 2.5em;
+  font-size: 3.5em;
+  text-align: center;
   font-weight: 900;
   line-height: 60px;
   color: #fff;
@@ -46,11 +50,14 @@ const ScFeatureHeadline = styled.h1`
   `
 
 const ScFeatureItemWrapper = styled.div`
-  width: calc(100vw/2.8);
+  width: calc(100vw/2.6);
   height: auto;  
-  background: #fff;
-  box-shadow: 0px 11px 27px rgba(0,0,0,0.25);
-  border-radius: 10px 10px 0px 0px;
+  color: #564ace;
+  margin: 20px 0;
+  background: white;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    border-radius: 10px;
   @media (min-width: 2150px) {
     width: calc(100vw/5);
   }
@@ -62,40 +69,29 @@ const ScFeatureItemWrapper = styled.div`
 
 const ScFeatureItem = styled.div`
   display: flex;
-  background: #29C3C6;
-  padding: 30px;
   align-items: center;
   border-radius: 10px 10px 0px 0px;
+  margin-bottom: 5px;
 `
 
 const ScSubHeader = styled.h3`
-  font-size: 1.4em;
+  font-size: 1.7em;
   font-weight: 600;
-  color: white;
+  color: #564ace;
   margin: 0 0 0 20px;
 `
 
 const ScP = styled.p`
-  padding: 15px 30px 30px 30px;
-  line-height: 26px;
+  padding-top: 15px;
+  line-height: 30px;
   font-size: 1.1em;
+  font-weight: 400;
+  letter-spacing: 1px;
 `
 
 const ScEmailSection = styled.div`  
-  margin: auto;
-  position: relative;
-  bottom: 200px;  
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 19%;
-  box-sizing: border-box;
-  align-content: center;
-  height: 30px;
-  /* border-radius: 10px;
-  background: rgb(40, 166, 200);
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 11px 27px; */
+  margin: 150px auto;
+    width: 77%;
   @media (max-width: 1000px) {
     bottom: 0;
   }
@@ -111,25 +107,24 @@ const Features = (props) => {
     <ScWhy> 
       <ScFeatureHeadline>Features</ScFeatureHeadline>
       
-      <ScFeature left>
+      <ScFeature >
           <ScFeatureItemWrapper>
+            <ScFeatureItem>
               <Save/>
               <ScSubHeader>Save and view later</ScSubHeader>
+              </ScFeatureItem>
             <ScP>With so much content on the internet and so little time, tagit can be your best friend in saving and then viewing content whenever you want at the right time for you.</ScP>
           </ScFeatureItemWrapper>
-      </ScFeature>
-
-      <ScFeature right pos="50">
           <ScFeatureItemWrapper>
             <ScFeatureItem>
               <Organize/>
-              <ScSubHeader>Organize</ScSubHeader>
+              <ScSubHeader>Organise</ScSubHeader>
             </ScFeatureItem>
-            <ScP>We offer a very powerful tag system that helps you categorize and organize content for easy access later, no more lost articles that you wanted to read.</ScP>
+            <ScP>We offer a very powerful tag system that helps you categorise and organise content for easy access later, no more lost articles that you wanted to read.</ScP>
           </ScFeatureItemWrapper>
       </ScFeature>
 
-      <ScFeature left pos="150">
+      <ScFeature>
           <ScFeatureItemWrapper>
             <ScFeatureItem>
               <Reminder/>
@@ -137,9 +132,6 @@ const Features = (props) => {
             </ScFeatureItem>
             <ScP>We all sometimes need a reminder. When you tag content we offer you the possibility to get a reminder for that piece of content, yes please next saturday would be great. </ScP>
           </ScFeatureItemWrapper>
-      </ScFeature>
-
-      <ScFeature right pos="200">
         <ScFeatureItemWrapper>
           <ScFeatureItem>
             <Highlight/>
@@ -160,7 +152,7 @@ const Features = (props) => {
         </ScFeatureItemWrapper>
       </ScFeature> */}
 
-      <ScFeature left pos="250">
+      <ScFeature >
         <ScFeatureItemWrapper>
           <ScFeatureItem>
             <Recommended/>
@@ -168,9 +160,6 @@ const Features = (props) => {
           </ScFeatureItem>
           <ScP>We analyze what you tag and give you recommendation on more articles to read based on your interests.</ScP>
         </ScFeatureItemWrapper>
-      </ScFeature>
-
-         <ScFeature right pos="300">
         <ScFeatureItemWrapper>
           <ScFeatureItem>
             <Collab/>
@@ -180,7 +169,7 @@ const Features = (props) => {
         </ScFeatureItemWrapper>
       </ScFeature>
 
-      <ScFeature left pos="350">
+      <ScFeature >
         <ScFeatureItemWrapper>
           <ScFeatureItem>
             <Central/>
@@ -188,9 +177,6 @@ const Features = (props) => {
           </ScFeatureItem>
           <ScP>All of your findings and discoveries will be accessible on every device. You just pick the right tool and all your data will be there.</ScP>
         </ScFeatureItemWrapper>
-      </ScFeature>
-
-      <ScFeature right pos="400">
         <ScFeatureItemWrapper>
           <ScFeatureItem>
             <Offline/>
@@ -201,7 +187,7 @@ const Features = (props) => {
       </ScFeature>
 
         <ScEmailSection bottom>
-
+          <Email/>
         </ScEmailSection>
 
     </ScWhy>

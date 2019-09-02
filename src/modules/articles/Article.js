@@ -111,6 +111,16 @@ const StatTime = styled.div`
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 1px;
+  ${props => props.tag && css`
+    padding: 0px 12px;
+    cursor: pointer;
+    background: #665ad60f;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #5649cf24;
+    margin-right: 10px;
+    cursor: pointer;
+  `}
 `;
 
 const ArticleText = styled.p`
@@ -309,6 +319,10 @@ const Source = styled.a`
 const Tags = styled.div`
 `;
 
+const AddTag = styled.div`
+  font-weight: 500;
+`;
+
 
 class Article extends Component {
   constructor(props) {
@@ -437,7 +451,7 @@ class Article extends Component {
     const { article, highlight, comment, edit } = this.state;
 
     const tags = article.tags.map((item) =>
-      <StatTime onClick={() => dispatch(push(`/articles/${item}`))} style={{paddingRight: '10px', cursor:'pointer'}}>#{item}</StatTime>
+      <StatTime tag onClick={() => dispatch(push(`/articles/${item}`))}>{item}</StatTime>
     );
 
 
@@ -451,7 +465,7 @@ class Article extends Component {
         </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <Tags style={{display: 'flex'}}>{tags} +</Tags>
+          <Tags style={{display: 'flex'}}>{tags} <AddTag>+</AddTag></Tags>
           <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
