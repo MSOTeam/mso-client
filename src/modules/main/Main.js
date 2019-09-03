@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import Articles from '../articles/Articles';
 import { color } from '../../styles/color';
 import Search from '../../assets/search.svg';
-import { GridLayout, MasonaryLayout } from '../../assets/icon';
+import { GridLayout, MasonaryLayout, Sort } from '../../assets/icon';
 
 const Header = styled.div`
   padding: 0px 70px 0 140px;
@@ -70,13 +70,13 @@ const Main = ({ authenticated, sidebarStatus }) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '45px' }}>
-            <div style={{ cursor: 'pointer'}}>
+            {/* <div style={{ cursor: 'pointer'}}>
               <GridLayout style={{ marginRight: '10px' }} />
             </div>
-            <div>
+            <div> */}
             {/* <ListLayout style={{ marginRight: '10px' }} /> */}
-            <MasonaryLayout />
-            </div>
+            <Sort />
+            {/* </div> */}
           </div>
         </div>
         {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>

@@ -41,7 +41,7 @@ const ArticleBox = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   min-height: 310px;
 `;
 
@@ -93,6 +93,7 @@ const ArticleTags = styled.div`
   border-radius: 20px;
   border: 1px solid #5649cf47;
   margin-right: 10px;
+  margin-bottom: 10px;
   cursor: pointer;
   line-height: 24px;
   color: #5649CF;
@@ -185,7 +186,7 @@ class Articles extends Component {
     const { dispatch, sidebarStatus } = this.props;
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
-        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
+        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px'}}>
           <ArticleBoxOverlay>
             {/* <div>
               <Fav/>
@@ -209,6 +210,7 @@ class Articles extends Component {
             onChange={e => this.search(e.target.value)}
           />
         </div>
+
         <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
           {articles}
         </ArticlesGrid>

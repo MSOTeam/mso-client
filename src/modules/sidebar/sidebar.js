@@ -55,12 +55,12 @@ const SidebarTopOpen = styled.div`
 const SidebarItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 0 30px 15px 30px;
+  margin: 0 30px 19px 30px;
 `;
 
 
 const SidebarItem = styled.div`
-  font-size: 0.9em;
+  font-size: 1em;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
@@ -78,7 +78,7 @@ const SidebarItem = styled.div`
   &:hover {
     cursor: pointer;
     > div{
-      font-size: 0.9em;
+      font-size: 1em;
       color: #40359C;
       letter-spacing: 1px;
       font-weight: 700;
