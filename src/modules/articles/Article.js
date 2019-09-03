@@ -5,7 +5,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 
 import * as actions from './actions';
-import { Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
+import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
 import Focus from '../../assets/focus.svg';
 import Edit from '../../assets/edit.svg';
 import Highlight from '../../assets/highlight.svg';
@@ -114,10 +114,9 @@ const StatTime = styled.div`
   ${props => props.tag && css`
     padding: 0px 12px;
     cursor: pointer;
-    background: #665ad60f;
     text-align: center;
     border-radius: 20px;
-    border: 1px solid #5649cf24;
+    border: 1px solid #5649CF;
     margin-right: 10px;
     cursor: pointer;
   `}
@@ -323,6 +322,48 @@ const AddTag = styled.div`
   font-weight: 500;
 `;
 
+const TagWrapper = styled.div`
+  position: relative;
+  &:hover {
+      div:nth-child(2) {
+        display: block;
+      }
+    }
+`;
+
+
+const EditTag = styled.div`
+  position: absolute;
+  right: 2px;
+  bottom: 10px;
+  display: none;
+  cursor: pointer;
+  &:hover {
+      + div {
+        display: block;
+      }
+    }
+`;
+
+const EditMenu = styled.div`
+  position: absolute;
+  right: -64px;
+  bottom: -35px;
+  background: black;
+  z-index: 1000;
+  display: none;
+  border-radius: 3px;
+`;
+
+
+const EditPop = styled.span`
+  color: white;
+  padding: 0 10px;
+  font-weight: 400;
+  font-size: 1.1em;
+`;
+
+
 
 class Article extends Component {
   constructor(props) {
@@ -451,7 +492,18 @@ class Article extends Component {
     const { article, highlight, comment, edit } = this.state;
 
     const tags = article.tags.map((item) =>
+     <TagWrapper>
       <StatTime tag onClick={() => dispatch(push(`/articles/${item}`))}>{item}</StatTime>
+      <EditTag>
+        <EditIcon/>
+      </EditTag>
+      <EditMenu>
+        <div style={{display: 'flex', flexDirection: 'column', padding: '6px'}}>
+        <EditPop>Rename</EditPop>
+        <EditPop>Delete</EditPop>
+        </div>
+      </EditMenu>
+    </TagWrapper>
     );
 
 
@@ -466,6 +518,7 @@ class Article extends Component {
         <H1>{article.title}</H1>
         <StatBox bottom>
           <Tags style={{display: 'flex'}}>{tags} <AddTag>+</AddTag></Tags>
+
           <StatTime> {this.readingTime()} min</StatTime>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />

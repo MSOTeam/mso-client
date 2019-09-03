@@ -52,10 +52,10 @@ const ScFeatureHeadline = styled.h1`
 const ScFeatureItemWrapper = styled.div`
   width: calc(100vw/2.6);
   height: auto;  
-  color: #564ace;
+  color: #000;
   margin: 20px 0;
   background: white;
-    padding: 30px 40px;
+    padding: 30px 35px;
     box-sizing: border-box;
     border-radius: 10px;
   @media (min-width: 2150px) {
@@ -76,14 +76,15 @@ const ScFeatureItem = styled.div`
 
 const ScSubHeader = styled.h3`
   font-size: 1.7em;
-  font-weight: 600;
+  font-weight: 700;
   color: #564ace;
   margin: 0 0 0 20px;
+  letter-spacing: 1px;
 `
 
 const ScP = styled.p`
   padding-top: 15px;
-  line-height: 30px;
+  line-height: 26px;
   font-size: 1.1em;
   font-weight: 400;
   letter-spacing: 1px;
