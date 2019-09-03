@@ -6,7 +6,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import { color } from '../../styles/color';
-import { LoadingLogo, Fav } from '../../assets/icon';
+import { LoadingLogo, Sort } from '../../assets/icon';
 import Search from '../../assets/search.svg';
 
 
@@ -106,11 +106,19 @@ const CatName = styled.h1`
   margin: 20px 0 30px 0;
 `;
 
+const FilteWrapper = styled.div`
+  padding: 20px 70px 0px 140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+
 const FilterBox = styled.input`
     background-image: url(${Search});
     background-position: 7px 14px;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 95%;
     height: 60px;
     margin: 0px 0 35px;
     font-style: italic;
@@ -203,13 +211,16 @@ class Articles extends Component {
 
     return (
       <div>
-        <div style={{ padding: '20px 70px 0 140px' }}>
+        <FilteWrapper>
           <FilterBox
             placeholder="Search"
             sidebarStatus={sidebarStatus.isOpen}
             onChange={e => this.search(e.target.value)}
           />
-        </div>
+          <div title="Sort" style={{cursor:'pointer'}}>
+          <Sort />
+          </div>
+        </FilteWrapper>
 
         <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
           {articles}

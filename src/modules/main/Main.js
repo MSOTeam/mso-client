@@ -75,7 +75,6 @@ const Main = ({ authenticated, sidebarStatus }) => {
             </div>
             <div> */}
             {/* <ListLayout style={{ marginRight: '10px' }} /> */}
-            <Sort />
             {/* </div> */}
           </div>
         </div>
