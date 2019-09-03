@@ -6,7 +6,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import { color } from '../../styles/color';
-import { LoadingLogo } from '../../assets/icon';
+import { LoadingLogo, Fav } from '../../assets/icon';
 import Search from '../../assets/search.svg';
 
 
@@ -42,7 +42,7 @@ const ArticleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 290px;
+  min-height: 310px;
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -50,7 +50,7 @@ const ArticleBoxOverlay = styled.div`
   height: 200px;
   margin-bottom: 10px;
   background: #FAFAFA;
-
+  position: relative;
 `;
 
 const ArticleImage = styled.div`
@@ -84,15 +84,18 @@ const ArticleHeader = styled.div`
 
 
 const ArticleTags = styled.div`
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 0px 12px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid #5649cf47;
+  margin-right: 10px;
   cursor: pointer;
   line-height: 24px;
-  color: ${color.primary};
-  align-self: end;
-  letter-spacing: 1px;
-  box-sizing: border-box;
-  margin-right: 10px;
+  color: #5649CF;
 `;
 
 const CatName = styled.h1`
@@ -184,12 +187,15 @@ class Articles extends Component {
       <ArticleBox key={article._id} >
         <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
           <ArticleBoxOverlay>
+            {/* <div>
+              <Fav/>
+            </div> */}
             <ArticleImage image={article.image} />
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
+          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >{tag}</ArticleTags>))}
         </div>
       </ArticleBox>
     ));

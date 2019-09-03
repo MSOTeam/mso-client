@@ -86,7 +86,7 @@ const StatBox = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: 100;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 1px;
   ${props => props.top && css`
     line-height: 24px;
@@ -116,7 +116,7 @@ const StatTime = styled.div`
     cursor: pointer;
     text-align: center;
     border-radius: 20px;
-    border: 1px solid #5649CF;
+    border: 1px solid #5649cf47;
     margin-right: 10px;
     cursor: pointer;
   `}
@@ -171,11 +171,11 @@ const ArticleText = styled.p`
     }
 
     blockquote {
-    font-weight: 400;
-    background: #FAFAFA;
-    padding: 20px;
-    margin-bottom: 25px;
-    letter-spacing: 2px;
+    font-weight: 600;
+    padding: 44px 0;
+    letter-spacing: 1px;
+    font-size: 1.7em;
+    line-height: 47px;
   }
   p > img, p + p > span, div > div > section > div > div > div >  div, div > section > div > figure {
     display: none;
