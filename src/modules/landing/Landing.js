@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import Nav from './modules/nav';
 import Intro from './modules/intro';
+import What from './modules/what';
+
 import Features from './modules/features';
 import Loader from './utility/loader';
 
@@ -57,6 +59,7 @@ class Landing extends Component {
         <Loader/>
         <Nav/>
         <Intro/>
+        {/* <What/> */}
         <Features/>
         <ScCircleTop/>
         <ScCircleBottom/>

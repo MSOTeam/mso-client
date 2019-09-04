@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import io from "socket.io-client";
 import { color } from '../../styles/color';
-import { LoadingLogo } from '../../assets/icon';
+import { LoadingLogo, Sort } from '../../assets/icon';
 import Search from '../../assets/search.svg';
 
 
@@ -42,8 +42,8 @@ const ArticleBox = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 290px;
+  justify-content: flex-start;
+  min-height: 310px;
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -51,7 +51,7 @@ const ArticleBoxOverlay = styled.div`
   height: 200px;
   margin-bottom: 10px;
   background: #FAFAFA;
-
+  position: relative;
 `;
 
 const ArticleImage = styled.div`
@@ -85,15 +85,19 @@ const ArticleHeader = styled.div`
 
 
 const ArticleTags = styled.div`
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 0px 12px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid #5649cf47;
+  margin-right: 10px;
+  margin-bottom: 10px;
   cursor: pointer;
   line-height: 24px;
-  color: ${color.primary};
-  align-self: end;
-  letter-spacing: 1px;
-  box-sizing: border-box;
-  margin-right: 10px;
+  color: #5649CF;
 `;
 
 const CatName = styled.h1`
@@ -103,11 +107,19 @@ const CatName = styled.h1`
   margin: 20px 0 30px 0;
 `;
 
+const FilteWrapper = styled.div`
+  padding: 20px 70px 0px 140px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+
 const FilterBox = styled.input`
     background-image: url(${Search});
     background-position: 7px 14px;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 95%;
     height: 60px;
     margin: 0px 0 35px;
     font-style: italic;
@@ -199,27 +211,34 @@ class Articles extends Component {
     const { dispatch, sidebarStatus } = this.props;
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
-        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))}>
+        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px'}}>
           <ArticleBoxOverlay>
+            {/* <div>
+              <Fav/>
+            </div> */}
             <ArticleImage image={article.image} />
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
+          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >{tag}</ArticleTags>))}
         </div>
       </ArticleBox>
     ));
 
     return (
       <div>
-        <div style={{ padding: '20px 70px 0 140px' }}>
+        <FilteWrapper>
           <FilterBox
             placeholder="Search"
             sidebarStatus={sidebarStatus.isOpen}
             onChange={e => this.search(e.target.value)}
           />
-        </div>
+          <div title="Sort" style={{cursor:'pointer'}}>
+          <Sort />
+          </div>
+        </FilteWrapper>
+
         <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
           {articles}
         </ArticlesGrid>

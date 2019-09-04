@@ -99,12 +99,10 @@ export const Collab = () => (
     <circle data-name="layer2" cx="12" cy="10" r="6" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></circle><path data-name="layer2" d="M22 28c0-7.5-4.5-12-10-12S2 20.5 2 28z" fill="none" stroke="#202020" strokeMiterlimit="10" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"></path>
     <path data-name="layer1" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" d="M12 34l8 8m32-8l-8 8M24 14h16" strokeLinejoin="round" strokeLinecap="round"></path>
   </svg>
-)
+);
 
 export const LoadingLogo = () => (
   <svg width="54" height="120" viewBox="0 0 234 300" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fillRule="evenodd" clipRule="evenodd" d="M164.61 193.4C164.61 229.274 148.312 247.501 115.715 248.081C84.9554 246.498 69.5755 228.339 69.5755 193.604V133.692H136.644V81.3292H69.5755V0H0.000251681L0 81.3292L0.000251681 133.692V194.718C0.000251681 229.626 9.09141 255.993 27.2737 273.819C45.4561 291.273 73.6573 300 111.877 300C112.45 300 113.206 300 114.138 299.983C115.088 299.994 116.042 300 117 300C118.02 300 119.037 299.994 120.048 299.981C121.032 300 121.825 300 122.421 300C160.539 300 188.665 291.256 206.799 273.769C224.933 255.909 234 229.492 234 194.516V152.619L234 81.0003L164.61 81V152.619V193.4ZM163.225 0H234V53.9574H163.225V0Z" fill="#5649CF"/>
   </svg>
-)
-
-
+);
