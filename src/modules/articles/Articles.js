@@ -5,6 +5,7 @@ import { PropTypes } from 'prop-types';
 import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
+import io from "socket.io-client";
 import { color } from '../../styles/color';
 import { LoadingLogo } from '../../assets/icon';
 import Search from '../../assets/search.svg';
@@ -134,6 +135,22 @@ class Articles extends Component {
   }
    componentDidMount = () => {
      this.fetch();
+
+     //  const socket = io(`http://localhost:5000?token=${localStorage.getItem('token')}`);
+     //  socket.on('article', data => console.log(data));
+
+     const options = {
+       rememberUpgrade: true,
+       transports: ['websocket'],
+       secure: false,
+       rejectUnauthorized: false,
+     };
+
+     const socket = io('http://localhost:5000', options);
+     socket.on('article', (data) => {
+       console.log(data);
+       this.fetch();
+     });
    }
 
    componentDidUpdate = (prevProps, prevState) => {
