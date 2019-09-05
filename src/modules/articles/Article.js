@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import ProgressBar from 'react-scroll-on-progressbar';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
@@ -510,6 +511,14 @@ class Article extends Component {
     return (
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
+        {/* <ProgressBar
+          color="#fff"
+          height={10}
+          direction="left"
+          position="bottom"
+          gradient={true}
+          gradientColor="#eee"
+        /> */}
         {/* <StatBox top>
           <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
           <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>

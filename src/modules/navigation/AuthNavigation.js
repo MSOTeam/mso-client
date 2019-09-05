@@ -4,7 +4,8 @@ import styled, { css } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { color } from '../../styles/color';
-import Logo from '../../assets/logo_p_text_small.svg';
+import { Logo, FavCheckedSmall, InProgressCheckedSmall, ReminderCheckedSmall } from '../../assets/icon';
+
 import Star from '../../assets/star.svg';
 import Reminder from '../../assets/reminder.svg';
 import Progress from '../../assets/progress.svg';
@@ -29,41 +30,9 @@ const Navitem = styled.div`
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.5px;
-  padding-left: 50px;
+  padding-left: 30px;
   ${props => props.logo && css`
     padding-left: 0;
-  `}
-  ${props => props.star && css`
-    &::before {
-      content: url(${Star});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
-  `}
-  ${props => props.progress && css`
-    &::before {
-      content: url(${Progress});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
-  `}
-  ${props => props.reminder && css`
-    &::before {
-      content: url(${Reminder});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
-  `}
-  ${props => props.logout && css`
-    &::before {
-      content: url(${SignOut});
-      margin-right: 10px;
-      position: relative;
-      top: 2px;
-    }
   `}
   @media (max-width: 850px) {
     font-size: 2px;
@@ -75,14 +44,14 @@ const Navitem = styled.div`
 const AuthNavigation = ({ dispatch }) => (
   <Navgrid>
     <Navitem logo onClick={() => dispatch(push('/'))}>
-      <img src={Logo} alt="logo" />
+      <Logo />
     </Navitem>
     <div style={{ display: 'flex' }}>
       <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favourites</Navitem>
       <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}>In progress</Navitem>
       <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Reminder</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Unsorted</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Archive</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}>Unsorted</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}>Archive</Navitem>
       <Navitem logout onClick={() => dispatch(logout())}>Logout</Navitem>
     </div>
   </Navgrid>
