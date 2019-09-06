@@ -365,6 +365,12 @@ const EditPop = styled.span`
   font-size: 1.1em;
 `;
 
+const Progress = styled(ProgressBar)`
+  color: white;
+  padding: 0 10px;
+  font-weight: 400;
+  font-size: 1.1em;
+`;
 
 
 class Article extends Component {
@@ -513,10 +519,10 @@ class Article extends Component {
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
         <ProgressBar
-          color="#777777"
-          height={6}
+          color="#21C1C4"
+          height={4}
           direction="right"
-          position="bottom"
+          position="top"
         />
         {/* <StatBox top>
           <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
