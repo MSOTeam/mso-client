@@ -136,9 +136,25 @@ const FilterBox = styled.input`
     letter-spacing: 1px;
     transition: all 0.3s;
     ${props => props.sidebarStatus === true && css`
-      width: calc(100% - 175px);
+      width: calc(100% - 220px);
       margin-left: 175px;
     `}
+`;
+
+const Header = styled.div`
+  padding: 0px 70px 0 140px;
+  transition: all 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+      padding: 0px 70px 0  315px;
+  `}
+`;
+const Welcome = styled.h1`
+  font-size: 1.9em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 20px 0 30px 0;
+  text-transform: capitalize;
 `;
 
 class Articles extends Component {
@@ -208,7 +224,8 @@ class Articles extends Component {
 
 
   render() {
-    const { dispatch, sidebarStatus } = this.props;
+    const { dispatch, sidebarStatus, match } = this.props;
+    console.log(this.props);
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px'}}>
@@ -228,6 +245,9 @@ class Articles extends Component {
 
     return (
       <div>
+        <Header>
+          <Welcome>{match.params.tag}</Welcome>
+        </Header>
         <FilteWrapper>
           <FilterBox
             placeholder="Search"

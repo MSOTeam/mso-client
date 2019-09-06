@@ -37,28 +37,7 @@ const Cats = styled.p`
 `;
 
 
-const FilterBox = styled.input`
-    /* content: url(${Search}); */
-    background-image: url(${Search});
-    background-position: 7px 14px;
-    background-repeat: no-repeat;
-    /* background: #FAFAFA; */
-    width: 100%;
-    height: 60px;
-    margin: 0px 0 35px;
-    font-style: italic;
-    box-shadow: none;
-    border: #eaeaea 1px solid;
-    border-left: none;
-    border-top: none;
-    border-right: none;
-    outline: none;
-    box-sizing: border-box;
-    padding-left: 50px;
-    font-size: 1.3em;
-    font-weight: 300;
-    letter-spacing: 1px;
-`;
+
 
 const Main = ({ authenticated, sidebarStatus }) => {
   if (!authenticated) {
@@ -67,26 +46,15 @@ const Main = ({ authenticated, sidebarStatus }) => {
   return (
     <div>
       <Header sidebarStatus={sidebarStatus.isOpen}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}> */}
           <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '45px' }}>
-            {/* <div style={{ cursor: 'pointer'}}>
-              <GridLayout style={{ marginRight: '10px' }} />
-            </div>
-            <div> */}
-            {/* <ListLayout style={{ marginRight: '10px' }} /> */}
-            {/* </div> */}
-          </div>
-        </div>
+        {/* </div> */}
         {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
             <Cats active>Latest</Cats>
             <Cats>Recommended</Cats>
             <Cats>Trending</Cats>
           </div>
-        </div>
-        <div style={{ position: 'relative' }}>
-          <FilterBox placeholder="Search" />
         </div>*/}
       </Header>
       <Articles />

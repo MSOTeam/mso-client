@@ -176,7 +176,7 @@ const ArticleText = styled.p`
     font-weight: 600;
     padding: 44px 0;
     letter-spacing: 1px;
-    font-size: 1.7em;
+    font-size: 1.5em;
     line-height: 47px;
   }
   p > img, p + p > span, div > div > section > div > div > div >  div, div > section > div > figure {
@@ -326,6 +326,7 @@ const AddTag = styled.div`
 
 const TagWrapper = styled.div`
   position: relative;
+  margin-bottom: 10px;
   &:hover {
       div:nth-child(2) {
         display: block;
@@ -531,7 +532,7 @@ class Article extends Component {
         </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <Tags style={{display: 'flex'}}>{tags} <AddTag>+</AddTag></Tags>
+          <Tags style={{display: 'flex', flexWrap: 'wrap'}}>{tags} <AddTag>+</AddTag></Tags>
 
           {/* <StatTime> {this.readingTime()} min</StatTime> */}
         </StatBox>

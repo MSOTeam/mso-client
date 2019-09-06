@@ -60,7 +60,7 @@ const SidebarItemWrapper = styled.div`
 
 
 const SidebarItem = styled.div`
-  font-size: 1em;
+  font-size: 16px;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
@@ -74,17 +74,20 @@ const SidebarItem = styled.div`
   ${props => props.child && css`
     color: #5649CF;
     letter-spacing: 1px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    width: auto;
+    position: relative;
+    top: 2px;
+    font-size: 1em;
+    &:hover {
+      color: #40359C;
+    }
   `}
   &:hover {
     cursor: pointer;
-    > div{
-      font-size: 1em;
+    + div{
       color: #40359C;
-      letter-spacing: 1px;
-      font-weight: 700;
-      width: auto;
-      position: relative;
-      top: 2px;
     }
   }
 `;
@@ -123,6 +126,10 @@ class Sidebar extends Component {
     this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
+  edit = (e) => {
+    console.log("hell");
+  };
+
   addTag = () => {
     console.log('added');
   }
@@ -134,8 +141,8 @@ class Sidebar extends Component {
       <SidebarItemWrapper key={tag.name}>
         <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}
         {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
-        <SidebarItem child>Edit</SidebarItem>
         </SidebarItem>
+        <SidebarItem child onClick={this.edit}>Edit</SidebarItem>
       </SidebarItemWrapper>
     ));
 
