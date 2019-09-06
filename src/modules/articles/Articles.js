@@ -245,7 +245,7 @@ class Articles extends Component {
 
     return (
       <div>
-        <Header>
+      <Header sidebarStatus={sidebarStatus.isOpen}>
           <Welcome>{match.params.tag}</Welcome>
         </Header>
         <FilteWrapper>
