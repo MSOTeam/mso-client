@@ -10,6 +10,7 @@ const ScWhy = styled.div`
   z-index: 100;
   position: relative;
   padding: 0 10%;
+  background: white;
   animation: ${opacity} 1s ease-in-out;
   animation-fill-mode: both;
   animation-delay: 2.3s;
@@ -20,7 +21,6 @@ const ScWhy = styled.div`
 const ScFeature = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
 
   ${props => props.left && css`
     justify-content: flex-start;
@@ -39,10 +39,10 @@ const ScFeature = styled.div`
 
 const ScFeatureHeadline = styled.h1`
   font-size: 3.5em;
-  text-align: center;
   font-weight: 900;
   line-height: 60px;
-  color: #fff;
+  color: #5649CF
+  padding-top: 100px;;
   margin-bottom: 50px;
   opacity: 0;
   animation: ${fadeTop} 1s ease-in-out;
@@ -55,7 +55,7 @@ const ScFeatureItemWrapper = styled.div`
   color: #000;
   margin: 20px 0;
   background: white;
-    padding: 30px 35px;
+    padding: 30px 0px;
     box-sizing: border-box;
     border-radius: 10px;
   @media (min-width: 2150px) {
@@ -186,10 +186,6 @@ const Features = (props) => {
           <ScP>Everything you tag will be save and secure for as long as you please. When there is no signal, you can be sure that all of your content will still be accessible.</ScP>
         </ScFeatureItemWrapper>
       </ScFeature>
-
-        <ScEmailSection bottom>
-          <Email/>
-        </ScEmailSection>
 
     </ScWhy>
   );

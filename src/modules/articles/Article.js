@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
+import ProgressBar from "react-progressbar-on-scroll";
 
 import * as actions from './actions';
 import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
@@ -511,14 +512,12 @@ class Article extends Component {
     return (
       // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
-        {/* <ProgressBar
-          color="#fff"
-          height={10}
-          direction="left"
+        <ProgressBar
+          color="#777777"
+          height={6}
+          direction="right"
           position="bottom"
-          gradient={true}
-          gradientColor="#eee"
-        /> */}
+        />
         {/* <StatBox top>
           <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
           <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
@@ -528,7 +527,7 @@ class Article extends Component {
         <StatBox bottom>
           <Tags style={{display: 'flex'}}>{tags} <AddTag>+</AddTag></Tags>
 
-          <StatTime> {this.readingTime()} min</StatTime>
+          {/* <StatTime> {this.readingTime()} min</StatTime> */}
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
         <img style={{width: '100%', gridArea: '1 / 8 / 1 / 4', marginBottom: '30px'}}src={article.image} />

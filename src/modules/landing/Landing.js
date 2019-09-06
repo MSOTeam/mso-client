@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Nav from './modules/nav';
 import Intro from './modules/intro';
 import What from './modules/what';
+import Email from './modules/email';
 
 import Features from './modules/features';
 import Loader from './utility/loader';
@@ -38,6 +39,17 @@ const ScCircleBottom = styled.div`
     opacity: 0.3;
 `
 
+const EmailWrapper = styled.div`
+  width: 100vw;
+  background: black;
+  height: 500px;
+  position: relative;
+  z-index:100;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
 const ScSmall = styled.small`
     width: 100vw;
     background: black;
@@ -63,6 +75,10 @@ class Landing extends Component {
         <Features/>
         <ScCircleTop/>
         <ScCircleBottom/>
+        <EmailWrapper>
+        <Email/>
+          <h1>Want to join the party?</h1>
+        </EmailWrapper>
         <ScSmall>Developed in Iceland</ScSmall>
       </ScApp>
     );
