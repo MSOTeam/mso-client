@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import { color } from '../../styles/color';
-import { Logo, FavCheckedSmall, InProgressCheckedSmall, ReminderCheckedSmall } from '../../assets/icon';
+import { Logo, FavCheckedSmall, InProgressCheckedSmall, ReminderCheckedSmall, LogOut, ArchiveCheckedSmall, Unsorted } from '../../assets/icon';
 
 import Star from '../../assets/star.svg';
 import Reminder from '../../assets/reminder.svg';
@@ -30,7 +30,7 @@ const Navitem = styled.div`
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.5px;
-  padding-left: 30px;
+  padding-left: 20px;
   ${props => props.logo && css`
     padding-left: 0;
   `}
@@ -47,12 +47,12 @@ const AuthNavigation = ({ dispatch }) => (
       <Logo />
     </Navitem>
     <div style={{ display: 'flex' }}>
-      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favourites</Navitem>
-      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}>In progress</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Reminder</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}>Unsorted</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}>Archive</Navitem>
-      <Navitem logout onClick={() => dispatch(logout())}>Logout</Navitem>
+      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><FavCheckedSmall/></Navitem>
+      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}><InProgressCheckedSmall/></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}><ArchiveCheckedSmall/></Navitem>
+      <Navitem logout onClick={() => dispatch(logout())}><LogOut/></Navitem>
     </div>
   </Navgrid>
 );

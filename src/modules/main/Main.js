@@ -45,9 +45,9 @@ const Main = ({ authenticated, sidebarStatus }) => {
   }
   return (
     <div>
-      <Header sidebarStatus={sidebarStatus.isOpen}>
+      {/* <Header sidebarStatus={sidebarStatus.isOpen}> */}
         {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}> */}
-          <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome>
+          {/* <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome> */}
         {/* </div> */}
         {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex' }}>
@@ -56,7 +56,7 @@ const Main = ({ authenticated, sidebarStatus }) => {
             <Cats>Trending</Cats>
           </div>
         </div>*/}
-      </Header>
+      {/* </Header> */}
       <Articles />
     </div>
   );
