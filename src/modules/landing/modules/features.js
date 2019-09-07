@@ -14,6 +14,7 @@ const ScWhy = styled.div`
   animation: ${opacity} 1s ease-in-out;
   animation-fill-mode: both;
   animation-delay: 2.3s;
+  padding-bottom: 100px;
   @media (min-width: 2150px) {
     padding: 0 25%;
   }
@@ -38,7 +39,7 @@ const ScFeature = styled.div`
 `
 
 const ScFeatureHeadline = styled.h1`
-  font-size: 3.5em;
+  font-size: 3em;
   font-weight: 900;
   line-height: 60px;
   color: #5649CF
@@ -50,7 +51,7 @@ const ScFeatureHeadline = styled.h1`
   `
 
 const ScFeatureItemWrapper = styled.div`
-  width: calc(100vw/2.6);
+  width: calc(100vw/2.8);
   height: auto;  
   color: #000;
   margin: 20px 0;
@@ -75,9 +76,9 @@ const ScFeatureItem = styled.div`
 `
 
 const ScSubHeader = styled.h3`
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: 700;
-  color: #564ace;
+  color: #000;
   margin: 0 0 0 20px;
   letter-spacing: 1px;
 `

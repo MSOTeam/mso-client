@@ -107,7 +107,7 @@ const CatName = styled.h1`
 `;
 
 const FilteWrapper = styled.div`
-  padding: 20px 70px 0px 140px;
+  padding: 0px 70px 0px 140px;
   display: flex;
   justify-content: space-between;
   align-items: center;

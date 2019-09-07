@@ -41,11 +41,12 @@ const ScCircleBottom = styled.div`
 
 const EmailWrapper = styled.div`
   width: 100vw;
-  background: black;
+  background: #564ace;
   height: 500px;
   position: relative;
   z-index:100;
   display: flex;
+  flex-direction: column;
     justify-content: center;
     align-items: center;
 `
@@ -64,6 +65,14 @@ const ScSmall = styled.small`
     letter-spacing: 1px;
 `
 
+const Text = styled.h1`
+  font-size: 3em;
+  font-weight: 100;
+  line-height: 30px;
+  letter-spacing: 1px;
+  color: white;
+`
+
 class Landing extends Component {
   render() {
     return (
@@ -76,8 +85,8 @@ class Landing extends Component {
         <ScCircleTop/>
         <ScCircleBottom/>
         <EmailWrapper>
-        <Email/>
-          <h1>Want to join the party?</h1>
+          <Text>Want to join the party?</Text>
+          <Email/>
         </EmailWrapper>
         <ScSmall>Developed in Iceland</ScSmall>
       </ScApp>

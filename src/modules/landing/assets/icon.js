@@ -26,7 +26,7 @@ export const LogoW = () => (
 )
   
 export const Save = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22">
     <path fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" d="M52 62V34H12v28m10-18h20m-20 8h16" strokeLinejoin="round" strokeLinecap="round"></path>
     <path fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" d="M54 2l8 8v52H2V2h52zm-12 8v4" strokeLinejoin="round" strokeLinecap="round"></path>
     <path d="M50 2v18a2 2 0 0 1-2 2H28a2 2 0 0 1-2-2V2" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></path>
@@ -34,7 +34,7 @@ export const Save = () => (
 )
 
 export const Organize = () => (
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
     <path d="M16 20H8v42h30v-8" strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" strokeLinejoin="round" strokeLinecap="round"></path>
     <path d="M24 12h-8v42h30v-8" strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" strokeLinejoin="round" strokeLinecap="round"></path>
     <path d="M24 2v44h32V14L44 2H24z" strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" strokeLinejoin="round" strokeLinecap="round"></path>
@@ -43,7 +43,7 @@ export const Organize = () => (
 )
 
 export const Reminder = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22">
     <path data-name="layer1" d="M20 2.847A13.326 13.326 0 0 0 2.847 20zm24 0A13.326 13.326 0 0 1 61.153 20z" fill="none" stroke="#5649CF" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round"></path>
     <circle data-name="layer2" cx="32" cy="35" r="26" fill="none" stroke="#5649CF" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round"></circle>
     <path data-name="layer2" fill="none" stroke="#5649CF" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="3" d="M6 62l8.122-8.122M58 62l-8.122-8.122" strokeLinejoin="round"></path>
@@ -52,7 +52,7 @@ export const Reminder = () => (
 )
 
 export const Highlight = () => (
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
     <path d="M47.192 10.352l5.525-5.525 8.851 8.852-5.525 5.526" strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" data-name="layer2" strokeLinejoin="round" strokeLinecap="round"></path>
     <path strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" d="M13.655 59.173h-9.59l-1.42-1.42-.213-.214 6.689-6.689a4.336 4.336 0 0 0 1.428-3.157v-3.268a1.335 1.335 0 0 1 .387-1l.869-.868.828-.829.574-.574 12.032 12.039-1.4 1.4-.867.868a1.332 1.332 0 0 1-1 .387h-3.265a4.337 4.337 0 0 0-3.158 1.428z" data-name="layer1" strokeLinejoin="round" strokeLinecap="round"></path>
     <path d="M25.239 53.193l32.396-32.396L45.6 8.76 13.203 41.156m2.117 16.351l-6.428-6.428" strokeWidth="3" strokeMiterlimit="10" stroke="#5649CF" fill="none" data-name="layer1" strokeLinejoin="round" strokeLinecap="round"></path>
@@ -60,7 +60,7 @@ export const Highlight = () => (
 )
 
 export const Share = () => (
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
     <path data-name="layer2" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" d="M20.9 36.5l22.2 11m0-31l-22.2 11" strokeLinejoin="round" strokeLinecap="round"></path>
     <circle data-name="layer1" cx="12" cy="32" r="10" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></circle>
     <circle data-name="layer1" cx="52" cy="12" r="10" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></circle>
@@ -69,13 +69,13 @@ export const Share = () => (
 )
 
 export const Recommended = () => (
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
     <path data-name="layer1" d="M54 35h2a4 4 0 1 0 0-8H34a81 81 0 0 0 2-18 4 4 0 0 0-8 0s-4 22-18 22H4v24h10c4 0 12 4 16 4h20a4 4 0 0 0 0-8h2a4 4 0 0 0 0-8h2a4 4 0 0 0 0-8" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></path>
   </svg>
 )
 
 export const Central = () => (
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" width="22" height="22">
     <rect data-name="layer2" x="12" y="12" width="40" height="40" rx="2" ry="2" fill="none" stroke="#5649CF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></rect>
     <path data-name="layer2" fill="none" stroke="#5649CF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M32 12V2M22 12V2m20 10V2M22 62V52m20 10V52M32 62V52m20-20h10M52 22h10M52 42h10M2 22h10M2 42h10M2 32h10"></path>
     <rect data-name="layer1" x="20" y="20" width="24" height="24" rx="2" ry="2" fill="none" stroke="#5649CF" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3"></rect>
@@ -83,13 +83,13 @@ export const Central = () => (
 )
 
 export const Offline = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22">
     <path data-name="layer1" d="M49 24h-.5a17 17 0 0 0-32.3 4.4A11 11 0 1 0 13 50h36a13 13 0 0 0 0-26z" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></path>
   </svg>
 )
 
 export const Collab = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="36" height="36">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22">
     <circle data-name="layer2" cx="32" cy="39" r="7" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></circle>
     <path data-name="layer2" d="M32 46a12.1 12.1 0 0 0-12 12v2h24v-2a12.1 12.1 0 0 0-12-12z" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></path>
     <circle data-name="layer2" cx="52" cy="10" r="6" fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round"></circle>
