@@ -44,7 +44,7 @@ const Main = ({ authenticated, sidebarStatus }) => {
     return <div />;
   }
   return (
-    <div>
+    <>
       {/* <Header sidebarStatus={sidebarStatus.isOpen}> */}
         {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}> */}
           {/* <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome> */}
@@ -58,7 +58,7 @@ const Main = ({ authenticated, sidebarStatus }) => {
         </div>*/}
       {/* </Header> */}
       <Articles />
-    </div>
+    </>
   );
 };
 
