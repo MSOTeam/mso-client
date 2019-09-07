@@ -60,7 +60,7 @@ const SidebarItemWrapper = styled.div`
 
 
 const SidebarItem = styled.div`
-  font-size: 16px;
+  font-size: 0.9em;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;

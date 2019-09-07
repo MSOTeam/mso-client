@@ -70,15 +70,10 @@ const BackButton = styled.img`
   }
 `;
 
-const FeatImg = styled.div`
-    grid-area: 1 / 4 / 3 / 8;
+const FeatImg = styled.img`
+    width: 100%; 
+    grid-area: 1 / 8 / 1 / 4;
     margin-bottom: 30px;
-    width: 100%;
-    background-image: url(${props => props.src || ""}); 
-    background-repeat:no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 800px;
     @media (max-width: 1280px) {
       grid-area: 1 / 3 / 3 / 9;
     }
@@ -537,7 +532,7 @@ class Article extends Component {
           {/* <StatTime> {this.readingTime()} min</StatTime> */}
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
-        <img style={{width: '100%', gridArea: '1 / 8 / 1 / 4', marginBottom: '30px'}}src={article.image} />
+        <FeatImg src={article.image} />
         <ArticleText
           onMouseUp={this.edit}
           dangerouslySetInnerHTML={{ __html: article.content }}
