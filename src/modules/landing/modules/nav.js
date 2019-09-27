@@ -39,6 +39,30 @@ const Navitem = styled.div`
   font-size: 15px;
   letter-spacing: 0.5px;
   color: #fff;
+  z-index: 1;
+  position: relative;
+  padding: 0.5em 1em;
+
+  &::before {
+    content: '';
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #29C3C6;
+  transform-origin: center right;
+  transform: scaleX(0);
+  transition: transform 0.25s ease-in-out;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover::before {
+    transform-origin: center left;
+  transform: scaleX(1);
+  }
   ${props => props.logo && css`
     padding-left: 0;
   `}
