@@ -20,7 +20,6 @@ const Navgrid = styled.div`
   /* background: ${color.secondary}; */
   @media (max-width: 850px) {
     padding: 0 20px 0 80px;
-
   }
 `;
 
@@ -41,19 +40,24 @@ const Navitem = styled.div`
   }
 `;
 
-const AuthNavigation = ({ dispatch }) => (
+const Flex = styled.div`
+  display: flex;
+`;
+
+
+const AuthNavigation = ({ dispatch, props }) => console.log(props) || (
   <Navgrid>
     <Navitem logo onClick={() => dispatch(push('/'))}>
       <Logo />
     </Navitem>
-    <div style={{ display: 'flex' }}>
-      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><FavCheckedSmall/></Navitem>
-      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}><InProgressCheckedSmall/></Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/></Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}><ArchiveCheckedSmall/></Navitem>
-      <Navitem logout onClick={() => dispatch(logout())}><LogOut/></Navitem>
-    </div>
+    <Flex>
+      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favorites</Navitem>
+      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}>In progress</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Reminder</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}>Unsorted</Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}>Archive</Navitem>
+      <Navitem logout onClick={() => dispatch(logout())}>Log out</Navitem>
+    </Flex>
   </Navgrid>
 );
 

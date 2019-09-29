@@ -87,7 +87,7 @@ const ScImg = styled.div`
 `;
 
 const Img = styled.img`
-  width: 106%;
+  width: 70%;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;

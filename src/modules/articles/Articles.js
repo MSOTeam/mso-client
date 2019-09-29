@@ -24,7 +24,7 @@ const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
   grid-gap: 2em;
-  padding: 20px 70px 0 140px;
+  padding: 35px 70px 0 140px;
   transition: all 0.3s;
 
   ${props => props.sidebarStatus === true && css`
@@ -118,7 +118,7 @@ const FilterBox = styled.input`
     background-image: url(${Search});
     background-position: 7px 14px;
     background-repeat: no-repeat;
-    width: 95%;
+    width: 100%;
     height: 60px;
     margin: 0px 0 35px;
     font-style: italic;
@@ -250,11 +250,10 @@ class Articles extends Component {
             sidebarStatus={sidebarStatus.isOpen}
             onChange={e => this.search(e.target.value)}
           />
-          <div title="Sort" style={{cursor:'pointer'}}>
-          <Sort />
-          </div>
         </FilteWrapper>
-
+        {/* <div title="Sort" style={{ padding: '0px 70px 0px 140px', display: 'flex', justifyContent: 'flex-end' }}>
+          <Sort style={{cursor:'pointer'}} />
+          </div> */}
         <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
           {articles}
         </ArticlesGrid>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import * as actions from '../articles/actions';
 import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
 import _ from 'lodash';
@@ -134,6 +135,22 @@ class Sidebar extends Component {
     console.log('added');
   }
 
+  toggleTag = (tag) => {
+    const { match, dispatch } = this.props;
+    console.log(this.props);
+    // const index = article.tags.indexOf(tag);
+    // if(index === -1) {
+    //   article.tags.push(tag);
+    // } else {
+    //   article.tags.splice(index, 1);
+    // }
+
+    // dispatch(actions.updateArticle(match.params.id, article ));
+
+    // this.setState({ article })
+
+  }
+
   render() {
     const { dispatch } = this.props;
     const { taglist } = this.state;
@@ -171,7 +188,7 @@ class Sidebar extends Component {
             </SidebarItemWrapper> */}
             {categorys}
             <SidebarItemWrapper>
-              <SidebarItem onClick={this.addTag}>+</SidebarItem>
+              <SidebarItem onClick={() => this.toggleTag('add')}>+</SidebarItem>
             </SidebarItemWrapper>
           </SidebarItems>
         </SidebarTop>
@@ -192,7 +209,7 @@ Sidebar.defaultProps = {
 };
 function mapStateToProps(state) {
   return {
-    cats: state.articles.articles,
+    cats: state.articles,
   };
 }
 

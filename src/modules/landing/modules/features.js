@@ -9,7 +9,7 @@ import { fadeTop, opacity} from '../utility/animation';
 const ScWhy = styled.div`
   z-index: 100;
   position: relative;
-  padding: 0 10%;
+  padding: 0 20%;
   background: white;
   animation: ${opacity} 1s ease-in-out;
   animation-fill-mode: both;
@@ -51,7 +51,7 @@ const ScFeatureHeadline = styled.h1`
   `
 
 const ScFeatureItemWrapper = styled.div`
-  width: calc(100vw/2.8);
+  width: calc(100vw/3.5);
   height: auto;  
   color: #000;
   margin: 20px 0;
@@ -85,7 +85,7 @@ const ScSubHeader = styled.h3`
 
 const ScP = styled.p`
   padding-top: 15px;
-  line-height: 26px;
+  line-height: 30px;
   font-size: 1.1em;
   font-weight: 400;
   letter-spacing: 1px;
