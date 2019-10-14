@@ -14,6 +14,7 @@ const ScApp = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
+  height: 100vh;
 `
 
 const ScCircleTop = styled.div`
@@ -81,13 +82,13 @@ class Landing extends Component {
         <Nav/>
         <Intro/>
         {/* <What/> */}
-        <Features/>
+        {/* <Features/> */}
         <ScCircleTop/>
         <ScCircleBottom/>
-        <EmailWrapper>
+        {/* <EmailWrapper>
           <Text>Want to join the party?</Text>
           <Email/>
-        </EmailWrapper>
+        </EmailWrapper> */}
         <ScSmall>Developed in Iceland</ScSmall>
       </ScApp>
     );

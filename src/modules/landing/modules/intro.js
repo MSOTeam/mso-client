@@ -4,37 +4,38 @@ import Modal from '../../modal/Modal';
 import Overlay from '../../navigation/component/Overlay';
 import Email from './email';
 import { fadeBottom, fadeRight, shake } from '../utility/animation';
-import App from '../assets/app.png';
+import App from '../assets/landing.png';
 
 
 const ScIntroWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
   z-index: 10;
   margin: 0 10% 100px;
-  align-items: center;
   @media (min-width: 2150px) {
+    padding: 0 20%;
+
   }
   @media (max-width: 760px) {
     flex-direction: column;
     padding: 0 10%;
   }
-`
+`;
+
 const ScText = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin-bottom: 80px;
+  justify-content: space-between;
+  margin-bottom: 210px;
   @media (min-width: 2750px) {
   }
   @media (max-width: 760px) {
     margin-bottom: 20px;
   }
-`
+`;
 
 const ScItem = styled.div`
-  text-align: center;
   ${props => props.top && css`
     @media (max-width: 760px) {
       min-height: 0;  
@@ -43,10 +44,13 @@ const ScItem = styled.div`
 `;
 
 const ScHeadline = styled.h1`
+  font-family: 'Source Serif Pro', serif !important;
   font-size: 3.5em;
   font-weight: 900;
   line-height: 60px;
   color: white;
+  width: 110%;
+  margin-bottom: 20px;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;
@@ -59,8 +63,8 @@ const ScHeadline = styled.h1`
 `;
 
 const ScMessage = styled.p`  
-  font-size: 1.5em;
-  font-weight: 100;
+  font-size: 1.3em;
+  font-weight: 300;
   line-height: 30px;
   letter-spacing: 1px;
   color: white;
@@ -123,19 +127,20 @@ const Intro = () => {
   });
 
   return (
-    <>
+    <div>
       <ScIntroWrapper>
         <ScText>
-          <ScItem top>
-            <ScHeadline>Your ultimate notebook on the web</ScHeadline>
+          <div>
+            <ScHeadline>Collect and keep all of your findings</ScHeadline>
+            {/* <ScHeadline>Your ultimate notebook on the web</ScHeadline> */}
             {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
-            <ScMessage>All your precious findings and inspiration saved to the same place, forever!</ScMessage>
+            <ScMessage>With so much content available today on the internet the task of trying to finish all the articles or watch the videos you find can be daunting. Usually it resaults with a cluttered browser with either way to many open tabs or a bookmarking mess. With tagit you can save it and view it later whenever you want.</ScMessage>
+            {/* <ScMessage>All your precious findings and inspiration saved to the same place, forever!</ScMessage> */}
             {/* <Button id="signup" onClick={event => setType(event.target.id)}>Get started</Button> */}
             {/* <Button id="signup" onClick={event => setType(event.target.id)}>Request beta access</Button> */}
-            <Email/>
-
-          </ScItem>
+          </div>
+          <Email />
         </ScText>
         {/* <ScImg /> */}
         <Img src={App} />
@@ -143,7 +148,7 @@ const Intro = () => {
       <Modal>
         <Overlay type={type} />
       </Modal>
-    </>
+    </div>
   );
 }
 export default Intro;

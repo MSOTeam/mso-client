@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-// import ProgressBar from 'react-scroll-on-progressbar';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
-import ProgressBar from "react-progressbar-on-scroll";
+import ProgressBar from 'react-progressbar-on-scroll';
 
 import * as actions from './actions';
 import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
@@ -516,7 +515,7 @@ class Article extends Component {
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
         <ProgressBar
           color="#21C1C4"
-          height={4}
+          height={6}
           direction="right"
           position="top"
         />

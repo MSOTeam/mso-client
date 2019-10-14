@@ -29,7 +29,7 @@ const Navitem = styled.div`
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.5px;
-  padding-left: 20px;
+  padding-left: 40px;
   ${props => props.logo && css`
     padding-left: 0;
   `}

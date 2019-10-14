@@ -22,7 +22,6 @@ const ScEmailSection = styled.div`
 const ScEmail = styled.div`  
   display: flex;
   margin: 80px auto 0;
-  width: 70%;
   justify-content: space-between;
   align-items: center;
   animation: ${boxShadow} 1.5s linear infinite;
@@ -37,7 +36,7 @@ const ScInput = styled.input`
   background: #fff;
   color: #40359C;
   height: 62px;
-  width: 100%;
+  width: 140%;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -191,7 +190,7 @@ render() {
             <ScInput placeholder="Email..." onChange={this.handleEmail}/>
             {this.state.spinner
               ? <Button sending onClick={this.signUp}><SubmitLoading/></Button>
-              : <Button idle onClick={this.signUp}>Request beta access</Button>
+              : <Button idle onClick={this.signUp}>Request access</Button>
             }           
         </ScEmail>
         {this.state.success && <ScSpan yes>Hooray, we will send you your access shortly 👏</ScSpan>}

@@ -15,7 +15,7 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   position: relative;
   z-index: 10;
-  padding: 0 20%;
+  margin: 0 10% 100px;
   opacity: 0;
   animation: ${fadeTop} 1.3s ease-in-out;
   animation-fill-mode: forwards;
@@ -27,7 +27,7 @@ const NavWrapper = styled.div`
     top: 5px;
   }
   @media (min-width: 2150px) {
-    padding: 0 25%;
+    padding: 0 20%;
   }
   
 `;
@@ -102,12 +102,12 @@ class Nav extends Component {
         <NavWrapper>
           <LogoW />
           <NavItemWrapper>
-            <div style={{ display: 'flex', justifyContent: 'space-between', width: '500px' }}>
-              <Navitem id="why">Why tagit</Navitem>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', width: '500px' }}>
+              {/* <Navitem id="why">Why tagit</Navitem>
               <Navitem id="features">Features</Navitem>
-              <Navitem id="features">Pricing</Navitem>
+              <Navitem id="features">Pricing</Navitem> */}
               <Navitem id="login" onClick={this.handleClick}>Sign in</Navitem>
-              <Navitem signup id="signup" onClick={this.handleClick}>Sign up</Navitem>
+              {/* <Navitem signup id="signup" onClick={this.handleClick}>Sign up</Navitem> */}
             </div>
           </NavItemWrapper>
         </NavWrapper>
