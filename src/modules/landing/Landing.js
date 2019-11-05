@@ -14,7 +14,6 @@ const ScApp = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  height: 100vh;
 `
 
 const ScCircleTop = styled.div`
@@ -74,25 +73,24 @@ const Text = styled.h1`
   color: white;
 `
 
-class Landing extends Component {
-  render() {
-    return (
-      <ScApp>
-        <Loader/>
-        <Nav/>
-        <Intro/>
-        {/* <What/> */}
-        {/* <Features/> */}
-        <ScCircleTop/>
-        <ScCircleBottom/>
-        {/* <EmailWrapper>
-          <Text>Want to join the party?</Text>
-          <Email/>
-        </EmailWrapper> */}
-        <ScSmall>Developed in Iceland</ScSmall>
-      </ScApp>
-    );
-  }
-}
+const Landing = () => {
+  return (
+    <ScApp>
+      <Loader />
+      <Nav />
+      <Intro />
+      {/* <What/> */}
+      <Features />
+      <ScCircleTop />
+      <ScCircleBottom />
+      {/* <EmailWrapper>
+        <Text>Want to join the party?</Text>
+        <Email/>
+      </EmailWrapper> */}
+      <ScSmall>Developed in Iceland</ScSmall>
+    </ScApp>
+  );
+};
+
 
 export default Landing;

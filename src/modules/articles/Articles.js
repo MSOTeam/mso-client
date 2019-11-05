@@ -153,6 +153,46 @@ const Categoryname = styled.h1`
   `}
 `;
 
+const WelcomeAdd = styled.h1`
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: 1px;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-self: center;
+  grid-row-start: 5;
+`;
+
+const WelcomeAction = styled.p`
+  font-size: 1.5em;
+  font-weight: 400;
+  letter-spacing: 1px;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-self: center;
+  grid-row-start: 6;
+`;
+
+const Extension = styled.a`
+  font-size: 1.1em;
+  font-weight: 400;
+  letter-spacing: 2px;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-self: center;
+  grid-row-start: 7;
+  border: 1px #5649CF solid;
+  padding: 15px 24px;
+  border-radius: 50px;
+  color: white;
+  background: #5649CF;
+  text-decoration: none;
+  transition: all .3s;
+  &:hover {
+    background: #40359c;
+  }
+`;
+
 class Articles extends Component {
   state = {
     articles: [],
@@ -222,6 +262,8 @@ class Articles extends Component {
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
     console.log(match.params.tag);
+    console.log(this.state.articles);
+
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}>
@@ -255,7 +297,18 @@ class Articles extends Component {
           <Sort style={{cursor:'pointer'}} />
           </div> */}
         <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-          {articles}
+          { articles.length ? (
+            <>
+              { articles }
+            </>
+            ) : (
+              <>
+                <WelcomeAdd>Welcome to tagit</WelcomeAdd>
+                <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
+                <Extension href="">tagit extension</Extension>
+              </>
+          )}
+
         </ArticlesGrid>
       </>
     );

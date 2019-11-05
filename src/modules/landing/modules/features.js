@@ -51,7 +51,7 @@ const ScFeatureHeadline = styled.h1`
   `
 
 const ScFeatureItemWrapper = styled.div`
-  width: calc(100vw/3.5);
+  width: calc(100vw/4);
   height: auto;  
   color: #000;
   margin: 20px 0;

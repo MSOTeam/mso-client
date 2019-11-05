@@ -30,7 +30,7 @@ const fadeIn = keyframes`
 
 const ArticleWrapper = styled.div`
   display: grid;
-  grid-template-columns: 80px repeat(8, 1fr);
+  grid-template-columns: 80px repeat(12, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   width: 100%;
   position: relative;
@@ -38,7 +38,7 @@ const ArticleWrapper = styled.div`
   animation: ${fadeIn} .5s ease-in-out;
   transition: all 0.3s;
   ${props => props.sidebarStatus === true && css`
-    grid-template-columns: 250px repeat(8, 1fr);
+    grid-template-columns: 250px repeat(12, 1fr);
   `}
 `;
 
@@ -47,7 +47,7 @@ const H1 = styled.h1`
   font-weight: 600;
   padding: 10px 0;
   line-height: 42px;
-  grid-column: 4 / 8;
+  grid-column: 6 / 10;
     grid-row: 3 / 3;
   letter-spacing: 1px;
   margin-bottom: 1px;
@@ -58,7 +58,7 @@ const H1 = styled.h1`
 `;
 
 const BackButton = styled.img`
-  grid-area: 1 / 3 / 1 / 3;
+  grid-area: 1 / 6 / 1 / 3;
   justify-self: center;
   position: sticky;
   top: 84px;
@@ -71,7 +71,7 @@ const BackButton = styled.img`
 
 const FeatImg = styled.img`
     width: 100%; 
-    grid-area: 1 / 8 / 1 / 4;
+    grid-area: 1 / 11 / 1 / 5;
     margin-bottom: 30px;
     @media (max-width: 1280px) {
       grid-area: 1 / 3 / 3 / 9;
@@ -91,7 +91,7 @@ const StatBox = styled.div`
     font-weight: 100;
   `}
   ${props => props.bottom && css`
-    grid-column: 4 / 8;
+    grid-column: 6 / 10;
     grid-row: 4 / 5;
     align-self: center;
     line-height: 24px;
@@ -122,9 +122,9 @@ const ArticleText = styled.p`
   font-weight: 300;
   font-size: 1.2em;
   letter-spacing: .5px;
-  line-height: 35px;
+  line-height: 1.58;
   margin-bottom: 25px;
-  grid-column: 4 / 8;
+  grid-column: 6 / 10;
   grid-row: 6;
   font-size: 21px;
   @media (max-width: 1280px) {
@@ -180,7 +180,7 @@ const ArticleText = styled.p`
 
 const EditBox = styled.div`
   margin-top: 12px;
-  grid-area: 5 / 8 / 8 / 8;
+  grid-area: 5 / 13 / 8 / 8;
   position: sticky;
   top: 100px;
   transition: width 0.3s;
@@ -300,7 +300,7 @@ const EditItem = styled.div`
 `;
 
 const Source = styled.a`
-  grid-area: 7 / 5 / 7 / 7;
+  grid-area: 7 / 9 / 7 / 7;
   justify-self: center;
   font-size: 0.9em;
   text-decoration: none;
