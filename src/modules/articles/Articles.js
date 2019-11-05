@@ -164,8 +164,8 @@ const WelcomeAdd = styled.h1`
 `;
 
 const WelcomeAction = styled.p`
-  font-size: 1.5em;
-  font-weight: 400;
+  font-size: 1.3em;
+  font-weight: 300;
   letter-spacing: 1px;
   grid-column-start: 1;
   grid-column-end: 5;
