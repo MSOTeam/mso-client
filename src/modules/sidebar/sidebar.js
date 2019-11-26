@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import * as actions from '../articles/actions';
 import { PropTypes } from 'prop-types';
 import styled, { css } from 'styled-components';
+import io from "socket.io-client";
 import _ from 'lodash';
 import axios from 'axios';
 import { color } from '../../styles/color';
@@ -102,8 +103,28 @@ class Sidebar extends Component {
     };
   }
 
+  // componentDidMount = () => {
+  //   this.fetch();
+  // }
+
   componentDidMount = () => {
     this.fetch();
+
+    //  const socket = io(`http://localhost:5000?token=${localStorage.getItem('token')}`);
+    //  socket.on('article', data => console.log(data));
+
+    const options = {
+      rememberUpgrade: true,
+      transports: ['websocket'],
+      secure: false,
+      rejectUnauthorized: false,
+    };
+
+    const socket = io('http://localhost:5000', options);
+    socket.on('article', (data) => {
+      console.log(data);
+      this.fetch();
+    });
   }
 
   fetch = () => {
