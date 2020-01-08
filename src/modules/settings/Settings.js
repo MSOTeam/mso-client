@@ -3,14 +3,14 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { color } from '../../styles/color';
+import { logout } from '../login/actions';
+import { Logo, FavCheckedSmall, InProgressCheckedSmall, ReminderCheckedSmall, LogOut, ArchiveCheckedSmall, Unsorted } from '../../assets/icon';
 
 const ArticlesGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 2em;
   padding: 20px 70px 0 140px;
   transition: all 0.3s;
-
+  height: calc(100% - 100px);
+  
   ${props => props.sidebarStatus === true && css`
       padding: 20px 70px 0  315px;
   `}
@@ -19,22 +19,8 @@ const ArticlesGrid = styled.div`
     background: white;
     color: palevioletred;
   `}
-  @media (max-width: 2600px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 1800px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-  @media (max-width: 1300px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
 `;
+
 const Header = styled.h1`
   font-size: 1.4em;
   font-weight: 700;
@@ -55,16 +41,21 @@ const Cats = styled.p`
   `}
 `;
 
-const Settings = ({ sidebarStatus }) => {
+const Settings = ({ sidebarStatus, dispatch, props }) => {
   return (
     <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
       <Header>Settings</Header>
-      <div style={{ gridArea: '2 / 1 / 2 / 4' }}>
-        <Cats active>Profile</Cats>
-        <Cats>Account</Cats>
-        <Cats>Membership</Cats>
-        <Cats>Security</Cats>
-      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div>
+          <Cats active>Profile</Cats>
+          <Cats>Account</Cats>
+          <Cats>Membership</Cats>
+          <Cats>Security</Cats>
+        </div>
+        <div onClick={() => dispatch(logout())} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', width: '83px',  justifyContent: 'space-between', marginBottom: '34px'}}><p style={{color: '#5649CF', position: 'relative', bottom: '1px'}}>Log out</p></div>
+        {/* background: '#FAFAFA', padding: '10px 6px'*/}
+       </div> 
     </ArticlesGrid>
   );
 };
@@ -77,6 +68,7 @@ Settings.propTypes = {
   sidebarStatus: PropTypes.shape({
     open: PropTypes.bool,
   }),
+  dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

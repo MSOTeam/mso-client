@@ -22,12 +22,12 @@ const ArticlesWrapper = styled.div`
 `;
 
 const Authenticated = ({ children, sidebarStatus }) => (
-  <div>
+  <div style={{height: '100%'}}>
     <NavWrapper>
       <AuthNavigation />
       <Sidebar />
     </NavWrapper>
-    <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen}>
+    <ArticlesWrapper sidebarStatus={sidebarStatus.isOpen} style={{height: '100%'}}>
       { children }
     </ArticlesWrapper>
   </div>

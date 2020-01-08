@@ -24,7 +24,7 @@ const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
   grid-gap: 2em;
-  padding: 35px 70px 0 140px;
+  padding: 20px 70px 0 140px;
   transition: all 0.3s;
 
   ${props => props.sidebarStatus === true && css`
@@ -135,7 +135,6 @@ const FilterBox = styled.input`
     letter-spacing: 1px;
     transition: all 0.3s;
     ${props => props.sidebarStatus === true && css`
-      width: calc(100% - 220px);
       margin-left: 175px;
     `}
 `;
@@ -153,34 +152,41 @@ const Categoryname = styled.h1`
   `}
 `;
 
+const WelcomeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 100px;
+  opacity: 0;
+  animation: ${fadeIn} 1s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
+`;
+
+
 const WelcomeAdd = styled.h1`
+    margin: 15px 0;
   font-size: 2.4em;
   font-weight: 800;
   letter-spacing: 1px;
-  grid-column-start: 1;
-  grid-column-end: 5;
-  justify-self: center;
-  grid-row-start: 5;
 `;
 
 const WelcomeAction = styled.p`
+    margin: 15px 0;
   font-size: 1.3em;
   font-weight: 300;
   letter-spacing: 1px;
-  grid-column-start: 1;
-  grid-column-end: 5;
-  justify-self: center;
   grid-row-start: 6;
+  text-align: center;
+  line-height: 31px;
 `;
 
 const Extension = styled.a`
+  margin: 15px 0;
   font-size: 1.1em;
   font-weight: 400;
   letter-spacing: 2px;
-  grid-column-start: 1;
-  grid-column-end: 5;
-  justify-self: center;
-  grid-row-start: 7;
   border: 1px #5649CF solid;
   padding: 15px 24px;
   border-radius: 50px;
@@ -228,7 +234,7 @@ class Articles extends Component {
     const { match } = this.props;
     const url = `article/?tag=${match.params.tag}`;
     const token = localStorage.getItem('token');
-
+    console.log(token);
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
@@ -261,9 +267,7 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-    console.log(match.params.tag);
     console.log(this.state.articles);
-
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}>
@@ -271,7 +275,14 @@ class Articles extends Component {
             {/* <div>
               <Fav/>
             </div> */}
-            <ArticleImage image={article.image} />
+            {
+              article.image !== '' ? (
+                <ArticleImage image={article.image} />
+                ) : (
+                <img src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
+
+              )
+            }
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
         </div>
@@ -296,20 +307,20 @@ class Articles extends Component {
         {/* <div title="Sort" style={{ padding: '0px 70px 0px 140px', display: 'flex', justifyContent: 'flex-end' }}>
           <Sort style={{cursor:'pointer'}} />
           </div> */}
-        <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+        <>
           { articles.length ? (
-            <>
+            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
               { articles }
-            </>
-            ) : (
-              <>
-                <WelcomeAdd>Welcome to tagit</WelcomeAdd>
-                <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
-                <Extension href="">tagit extension</Extension>
-              </>
+            </ArticlesGrid>
+          ) : (
+            <WelcomeWrapper>
+              <WelcomeAdd>Welcome to tagit</WelcomeAdd>
+              <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
+              <Extension href="">tagit extension</Extension>
+            </WelcomeWrapper>
           )}
 
-        </ArticlesGrid>
+        </>
       </>
     );
   }

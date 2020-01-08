@@ -245,9 +245,10 @@ export const Unsorted = (props) => {
 
 export const LogOut = (props) => {
   return (
-<svg width="19" height="18" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.49414 5.35059V1.0957H0.984375V14.9241H9.49414V10.6692M4.17578 8.01019H16.6745M16.6745 8.01019L13.2174 10.9354M16.6745 8.01019L13.2174 5.08496" stroke="#5649CF" stroke-width="0.7" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+    <svg width="20" height="20" viewBox="0 0 20 20"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+      <path data-name="layer2" d="M44.01 13.216a24 24 0 1 1-24.012-.004" fill="none" stroke="#5649CF" stroke-miterlimit="10" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"></path>
+      <path data-name="layer1" fill="none" stroke="#5649CF" stroke-miterlimit="10" stroke-width="4" d="M32 8v24" stroke-linejoin="round" stroke-linecap="round"></path>
+    </svg>
 
 
   );

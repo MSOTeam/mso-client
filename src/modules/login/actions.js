@@ -33,8 +33,8 @@ const setSession = (user, token) => {
   localStorage.setItem('setItem', user.email);
   localStorage.setItem('token', token);
   /* eslint-disable no-undef */
-  const extensionId = 'ihpdjpomclgldlpgcinplplcibicbnjd';
-  //  const extensionId = 'amaagfbjejeplpphcpajlakcamieadlo';
+  //const extensionId = 'ihpdjpomclgldlpgcinplplcibicbnjd';
+  const extensionId = 'amaagfbjejeplpphcpajlakcamieadlo';
   chrome.runtime.sendMessage(extensionId, token, resp => console.log({ resp }));
 };
 

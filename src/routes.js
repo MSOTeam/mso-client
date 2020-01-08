@@ -16,7 +16,7 @@ import {
 
 const Routes = props => (
   <ConnectedRouter history={props.history}>
-    <div>
+    <div style={{height: 'calc(100% - 100px)'}}>
       <Route exact path="/" component={main.Main} />
 
       <routes.AuthRoute path="/articles/:tag" component={articles.Articles} />
