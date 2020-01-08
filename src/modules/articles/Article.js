@@ -4,6 +4,12 @@ import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 import ProgressBar from 'react-progressbar-on-scroll';
+import {
+  motion,
+  useViewportScroll,
+  useSpring,
+  useTransform
+} from "framer-motion";
 
 import * as actions from './actions';
 import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
@@ -30,7 +36,7 @@ const fadeIn = keyframes`
 
 const ArticleWrapper = styled.div`
   display: grid;
-  grid-template-columns: 80px repeat(12, 1fr);
+  grid-template-columns: 80px repeat(24, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   width: 100%;
   position: relative;
@@ -47,34 +53,41 @@ const H1 = styled.h1`
   font-weight: 600;
   padding: 10px 0;
   line-height: 42px;
-  grid-column: 6 / 10;
-    grid-row: 3 / 3;
+  grid-area: 5 / 10 / 6 / 18;
   letter-spacing: 1px;
-  margin-bottom: 1px;
-  @media (max-width: 1280px) {
-    grid-column: 3 / 9;
+  margin-bottom: 10px;
+  @media (max-width: 2000px) {
+    grid-area: 3 / 9 / 3 / 19;
   }
-
+  @media (max-width: 1280px) {
+    grid-area: 3 /4 / 3 / 12;
+  }
 `;
 
 const BackButton = styled.img`
-  grid-area: 1 / 6 / 1 / 3;
+  grid-area: 1 / 6 / 1 / 12;
   justify-self: center;
   position: sticky;
   top: 84px;
   cursor: pointer;
   height: 25px;
+  @media (max-width: 2000px) {
+    grid-area: 1 / 6 / 1 / 10;
+  }
   @media (max-width: 1280px) {
-    grid-area: 1 / 2 / 1 / 3;
+    grid-area: 1 / 2 / 1 / 4;
   }
 `;
 
 const FeatImg = styled.img`
     width: 100%; 
-    grid-area: 1 / 11 / 1 / 5;
+    grid-area: 1 / 10 / 3 / 18;
     margin-bottom: 30px;
+    @media (max-width: 2000px) {
+      grid-area: 1 / 9 / 3 / 19;
+  }
     @media (max-width: 1280px) {
-      grid-area: 1 / 3 / 3 / 9;
+      grid-area: 1 / 4 / 3 / 12;
     }
 `;
 
@@ -91,15 +104,18 @@ const StatBox = styled.div`
     font-weight: 100;
   `}
   ${props => props.bottom && css`
-    grid-column: 6 / 10;
+    grid-column: 10 / 18;
     grid-row: 4 / 5;
     align-self: center;
     line-height: 24px;
     color: #5649CF;
-    margin: 15px 0 25px;
+    margin: 15px 0;
   `}
+  @media (max-width: 2000px) {
+    grid-column: 9 / 20;
+  }
   @media (max-width: 1280px) {
-    grid-column: 3 / 9;
+    grid-column: 4 / 12;
   }
 `;
 
@@ -124,11 +140,14 @@ const ArticleText = styled.p`
   letter-spacing: .5px;
   line-height: 1.58;
   margin-bottom: 25px;
-  grid-column: 6 / 10;
+  grid-column: 10 / 18;
   grid-row: 6;
   font-size: 21px;
+  @media (max-width: 2000px) {
+    grid-column: 9 / 19; 
+  }
   @media (max-width: 1280px) {
-    grid-column: 3 / 9;
+    grid-column: 4 / 12;
   }
   a  {
     text-decoration: none;
@@ -180,7 +199,7 @@ const ArticleText = styled.p`
 
 const EditBox = styled.div`
   margin-top: 12px;
-  grid-area: 5 / 13 / 8 / 8;
+  grid-area: 5 / 13 / 7 / 24;
   position: sticky;
   top: 100px;
   transition: width 0.3s;
@@ -192,8 +211,11 @@ const EditBox = styled.div`
   align-items: flex-start;
   ${props => props.sidebarStatus === true && css`
   `}
+  @media (max-width: 2000px) {
+    grid-area: 5 / 16 / 7 / 24;
+  }
   @media (max-width: 1280px) {
-    grid-area: 6 / 9 / 8 / 9;
+    grid-area: 6 / 12 / 8 / 14;
   }
 `;
 
@@ -300,7 +322,7 @@ const EditItem = styled.div`
 `;
 
 const Source = styled.a`
-  grid-area: 7 / 9 / 7 / 7;
+  grid-area: 7 / 21 / 7 / 7;
   justify-self: center;
   font-size: 0.9em;
   text-decoration: none;
@@ -359,14 +381,6 @@ const EditPop = styled.span`
   font-weight: 400;
   font-size: 1.1em;
 `;
-
-const Progress = styled(ProgressBar)`
-  color: white;
-  padding: 0 10px;
-  font-weight: 400;
-  font-size: 1.1em;
-`;
-
 
 class Article extends Component {
   constructor(props) {
@@ -511,7 +525,6 @@ class Article extends Component {
 
 
     return (
-      // <div style={{ display: 'flex', justifyContent: 'center', width: 'calc(100vw - 80px)', position: 'absolute', right:'0' }}>
       <ArticleWrapper sidebarStatus={sidebarStatus.isOpen}>
         <ProgressBar
           color="#21C1C4"
@@ -519,16 +532,9 @@ class Article extends Component {
           direction="right"
           position="top"
         />
-        {/* <StatBox top>
-          <div style={{ fontSize: '0.9em' }}>Tagged: {moment(article.createdAt).format('DD.MM.YYYY')}</div>
-          <div style={{ fontSize: '0.9em' }}>{article.tags ? article.tags.length : ''} tags</div>
-          <a href={article.url} target="_blank" style={{ fontSize: '0.9em' }}>Source</a>
-        </StatBox> */}
         <H1>{article.title}</H1>
         <StatBox bottom>
           <Tags style={{display: 'flex', flexWrap: 'wrap'}}>{tags} <AddTag>+</AddTag></Tags>
-
-          {/* <StatTime> {this.readingTime()} min</StatTime> */}
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
         <FeatImg src={article.image} />
