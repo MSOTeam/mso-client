@@ -59,9 +59,12 @@ const H1 = styled.h1`
   @media (max-width: 2000px) {
     grid-area: 3 / 9 / 3 / 19;
   }
-  @media (max-width: 1280px) {
-    grid-area: 3 /4 / 3 / 12;
+    @media (max-width: 2000px) {
+      grid-area: 3 / 7 / 3 / 21;
   }
+  /* @media (max-width: 1280px) {
+    grid-area: 3 /4 / 3 / 12;
+  } */
 `;
 
 const BackButton = styled.img`
@@ -74,9 +77,12 @@ const BackButton = styled.img`
   @media (max-width: 2000px) {
     grid-area: 1 / 6 / 1 / 10;
   }
-  @media (max-width: 1280px) {
-    grid-area: 1 / 2 / 1 / 4;
+  @media (max-width: 1500px) {
+    grid-area: 1 / 1 / 1 / 10;
   }
+  /* @media (max-width: 1280px) {
+    grid-area: 1 / 2 / 1 / 4;
+  } */
 `;
 
 const FeatImg = styled.img`
@@ -86,9 +92,12 @@ const FeatImg = styled.img`
     @media (max-width: 2000px) {
       grid-area: 1 / 9 / 3 / 19;
   }
-    @media (max-width: 1280px) {
+  @media (max-width: 2000px) {
+    grid-area: 1 / 7 / 3 / 21;
+  }
+    /* @media (max-width: 1280px) {
       grid-area: 1 / 4 / 3 / 12;
-    }
+    } */
 `;
 
 const StatBox = styled.div`
@@ -114,9 +123,12 @@ const StatBox = styled.div`
   @media (max-width: 2000px) {
     grid-column: 9 / 20;
   }
-  @media (max-width: 1280px) {
-    grid-column: 4 / 12;
+  @media (max-width: 2000px) {
+    grid-column: 7 / 21; 
   }
+  /* @media (max-width: 1280px) {
+    grid-column: 4 / 12;
+  } */
 `;
 
 const StatTime = styled.div`
@@ -146,9 +158,12 @@ const ArticleText = styled.p`
   @media (max-width: 2000px) {
     grid-column: 9 / 19; 
   }
-  @media (max-width: 1280px) {
-    grid-column: 4 / 12;
+  @media (max-width: 2000px) {
+    grid-column: 7 / 21; 
   }
+  /* @media (max-width: 1280px) {
+    grid-column: 4 / 12;
+  } */
   a  {
     text-decoration: none;
     padding-bottom: 1px;
@@ -214,9 +229,12 @@ const EditBox = styled.div`
   @media (max-width: 2000px) {
     grid-area: 5 / 16 / 7 / 24;
   }
-  @media (max-width: 1280px) {
-    grid-area: 6 / 12 / 8 / 14;
+  @media (max-width: 1500px) {
+    grid-area: 5 / 21 / 7 / 24;
   }
+  /* @media (max-width: 1280px) {
+    grid-area: 6 / 12 / 8 / 14;
+  } */
 `;
 
 const EditItem = styled.div`
