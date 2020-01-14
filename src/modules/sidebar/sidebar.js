@@ -27,6 +27,9 @@ const SidebarWrapper = styled.div`
   ${props => props.open && css`
     width: 250px;
   `}
+  @media (max-width: 800px) {
+    postioio: ${color.secondary};
+  }
 `;
 
 const SidebarItems = styled.div`

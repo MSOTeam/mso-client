@@ -25,11 +25,13 @@ const Navgrid = styled.div`
 
 const Navitem = styled.div`
   cursor: pointer;
+  display: flex;
   align-self: center;
+  align-items: center;
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.5px;
-  padding-left: 40px;
+  padding-left: 60px;
   ${props => props.logo && css`
     padding-left: 0;
   `}
@@ -38,6 +40,10 @@ const Navitem = styled.div`
     color: white;
     padding-left: 20px;
   }
+`;
+
+const NavName = styled.span`
+  padding-left: 10px;
 `;
 
 const Flex = styled.div`
@@ -51,11 +57,11 @@ const AuthNavigation = ({ dispatch, props }) => console.log(props) || (
       <Logo />
     </Navitem>
     <Flex>
-      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>Favorites</Navitem>
-      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}>In progress</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}>Reminder</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}>Unsorted</Navitem>
-      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}>Archive</Navitem>
+      <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><FavCheckedSmall/><NavName>Favorites</NavName></Navitem>
+      <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}><InProgressCheckedSmall/><NavName>In progress</NavName></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/><NavName>Reminder</NavName></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/><NavName>Unsorted</NavName></Navitem>
+      <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}><ArchiveCheckedSmall/><NavName>Archive</NavName></Navitem>
       {/* <Navitem logout onClick={() => dispatch(logout())}><LogOut /></Navitem> */}
     </Flex>
   </Navgrid>

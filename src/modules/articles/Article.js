@@ -46,6 +46,9 @@ const ArticleWrapper = styled.div`
   ${props => props.sidebarStatus === true && css`
     grid-template-columns: 250px repeat(12, 1fr);
   `}
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(12, 1fr);
+  }
 `;
 
 const H1 = styled.h1`
