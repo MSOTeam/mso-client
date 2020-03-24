@@ -73,6 +73,7 @@ const SidebarItem = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
+  white-space: nowrap;
   ${props => props.bread && css`
     font-weight: 100;
   `}

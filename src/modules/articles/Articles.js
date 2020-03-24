@@ -267,7 +267,6 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-    console.log(this.state.articles);
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}>
