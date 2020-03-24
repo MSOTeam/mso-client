@@ -88,10 +88,14 @@ const BackButton = styled.img`
   } */
 `;
 
-const FeatImg = styled.img`
-    width: 100%; 
+const FeatImgWrapper = styled.div`
+    width: 100%;
     grid-area: 1 / 10 / 3 / 18;
     margin-bottom: 30px;
+    width: 100%;
+    height: 500px;
+    max-height: 500px;
+    overflow: hidden;
     @media (max-width: 2000px) {
       grid-area: 1 / 9 / 3 / 19;
   }
@@ -101,6 +105,15 @@ const FeatImg = styled.img`
     /* @media (max-width: 1280px) {
       grid-area: 1 / 4 / 3 / 12;
     } */
+`;
+
+const FeatImg = styled.div`
+  ${props => props.image && css`
+    background: url(${props.image}) no-repeat center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+  `}
 `;
 
 const StatBox = styled.div`
@@ -558,7 +571,9 @@ class Article extends Component {
           <Tags style={{display: 'flex', flexWrap: 'wrap'}}>{tags} <AddTag>+</AddTag></Tags>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
-        <FeatImg src={article.image} />
+        <FeatImgWrapper>
+          <FeatImg image={article.image} />
+        </FeatImgWrapper>
         <ArticleText
           onMouseUp={this.edit}
           dangerouslySetInnerHTML={{ __html: article.content }}
