@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import { PropTypes } from 'prop-types';
@@ -87,11 +87,8 @@ const ArticleTags = styled.div`
   font-weight: 400;
   font-size: 12px;
   letter-spacing: 1px;
-  padding: 0px 12px;
   cursor: pointer;
   text-align: center;
-  border-radius: 20px;
-  border: 1px solid #5649cf47;
   margin-right: 10px;
   margin-bottom: 10px;
   cursor: pointer;
@@ -116,7 +113,7 @@ const FilteWrapper = styled.div`
 
 const FilterBox = styled.input`
     background-image: url(${Search});
-    background-position: 7px 14px;
+    background-position: -6px 14px;
     background-repeat: no-repeat;
     width: 100%;
     height: 60px;
@@ -129,7 +126,7 @@ const FilterBox = styled.input`
     border-right: none;
     outline: none;
     box-sizing: border-box;
-    padding-left: 50px;
+    padding-left: 35px;
     font-size: 1.3em;
     font-weight: 300;
     letter-spacing: 1px;
@@ -267,9 +264,11 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
+    console.log(this.props);
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
-        <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}>
+        <a style={{color: 'black', textDecoration:'none'}} href={article.url} target="_blank">
+        {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
           <ArticleBoxOverlay>
             {/* <div>
               <Fav/>
@@ -278,15 +277,16 @@ class Articles extends Component {
               article.image !== '' ? (
                 <ArticleImage image={article.image} />
                 ) : (
-                <img src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
+                  <img alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
 
               )
             }
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
-        </div>
+        {/* </div> */}
+        </a>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >{tag}</ArticleTags>))}
+          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
         </div>
       </ArticleBox>
     ));
@@ -307,17 +307,19 @@ class Articles extends Component {
           <Sort style={{cursor:'pointer'}} />
           </div> */}
         <>
-          { articles.length ? (
-            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-              { articles }
-            </ArticlesGrid>
-          ) : (
-            <WelcomeWrapper>
-              <WelcomeAdd>Welcome to tagit</WelcomeAdd>
-              <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
-              <Extension href="">tagit extension</Extension>
-            </WelcomeWrapper>
-          )}
+          <Suspense fallback={<h1>We are loading...🎅</h1>}>
+            { articles.length ? (
+              <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+                { articles }
+              </ArticlesGrid>
+            ) : (
+              <WelcomeWrapper>
+                <WelcomeAdd>Welcome to tagit</WelcomeAdd>
+                <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
+                <Extension href="">tagit extension</Extension>
+              </WelcomeWrapper>
+            )}
+          </Suspense>
 
         </>
       </>

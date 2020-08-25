@@ -401,7 +401,7 @@ const EditTag = styled.div`
 const EditMenu = styled.div`
   position: absolute;
   right: -64px;
-  bottom: -35px;
+  bottom: -50px;
   background: black;
   z-index: 1000;
   display: none;
@@ -545,9 +545,9 @@ class Article extends Component {
     const tags = article.tags.map((item) =>
      <TagWrapper>
       <StatTime tag onClick={() => dispatch(push(`/articles/${item}`))}>{item}</StatTime>
-      <EditTag>
+      {/* <EditTag>
         <EditIcon/>
-      </EditTag>
+      </EditTag> */}
       <EditMenu>
         <div style={{display: 'flex', flexDirection: 'column', padding: '6px'}}>
         <EditPop>Rename</EditPop>
@@ -568,7 +568,7 @@ class Article extends Component {
         />
         <H1>{article.title}</H1>
         <StatBox bottom>
-          <Tags style={{display: 'flex', flexWrap: 'wrap'}}>{tags} <AddTag>+</AddTag></Tags>
+          <Tags style={{display: 'flex', flexWrap: 'wrap'}}>{tags} {/*<AddTag>+</AddTag>*/}</Tags>
         </StatBox>
         <BackButton src={Back} onClick={this.back} />
         <FeatImgWrapper>
