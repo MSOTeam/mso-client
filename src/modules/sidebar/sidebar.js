@@ -8,15 +8,15 @@ import io from "socket.io-client";
 import _ from 'lodash';
 import axios from 'axios';
 import { color } from '../../styles/color';
-import { Menu, Crog, LogoWhite, Close } from '../../assets/icon';
+import { Menu, Crog, LogoWhite, Close, EditSidebar } from '../../assets/icon';
 import Arrow from '../../assets/arrow.svg';
 
 const SidebarWrapper = styled.div`
-  background: ${color.primary};
+  background: #3C40C6;
   position: fixed;
   top: 0;
   height: 100vh;
-  width: 80px;
+  width: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,6 +61,12 @@ const SidebarItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 30px 19px 30px;
+  &:hover {
+    cursor: pointer;
+    > div{
+      display: block;
+    }
+  }
 `;
 
 
@@ -70,32 +76,15 @@ const SidebarItem = styled.div`
   letter-spacing: 2px;
   font-weight: 400;
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
   ${props => props.bread && css`
     font-weight: 100;
   `}
-  ${props => props.child && css`
-    color: #5649CF;
-    letter-spacing: 1px;
-    letter-spacing: 1px;
-    font-weight: 700;
-    width: auto;
-    position: relative;
-    top: 2px;
-    font-size: 1em;
-    &:hover {
-      color: #40359C;
-    }
+  ${props => props.edit && css`
+    display: none;
   `}
-  &:hover {
-    cursor: pointer;
-    + div{
-      color: #40359C;
-    }
-  }
 `;
 
 class Sidebar extends Component {
@@ -126,7 +115,6 @@ class Sidebar extends Component {
 
     const socket = io('http://localhost:5000', options);
     socket.on('article', (data) => {
-      console.log(data);
       this.fetch();
     });
   }
@@ -139,7 +127,6 @@ class Sidebar extends Component {
         const { tags } = response.data;
         const ordered = _.orderBy(tags);
         this.setState({ taglist: ordered });
-        console.log(response.data)
       })
       .catch((error) => {
         console.log(error);
@@ -184,7 +171,7 @@ class Sidebar extends Component {
         <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}
         {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
         </SidebarItem>
-        <SidebarItem child onClick={this.edit}>Edit</SidebarItem>
+        <SidebarItem edit onClick={this.edit}><EditSidebar/></SidebarItem>
       </SidebarItemWrapper>
     ));
 
@@ -208,9 +195,6 @@ class Sidebar extends Component {
           )
          }
           <SidebarItems open={this.state.open}>
-            {/* <SidebarItemWrapper>
-              <SidebarItem bread>All</SidebarItem>
-            </SidebarItemWrapper> */}
             {categorys}
             <SidebarItemWrapper>
               <SidebarItem onClick={() => this.toggleTag('add')}>+</SidebarItem>

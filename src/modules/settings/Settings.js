@@ -7,12 +7,12 @@ import { logout } from '../login/actions';
 import { Logo, FavCheckedSmall, InProgressCheckedSmall, ReminderCheckedSmall, LogOut, ArchiveCheckedSmall, Unsorted } from '../../assets/icon';
 
 const ArticlesGrid = styled.div`
-  padding: 20px 70px 0 140px;
+  padding: 20px 70px 0 80px;
   transition: all 0.3s;
   height: calc(100% - 100px);
   
   ${props => props.sidebarStatus === true && css`
-      padding: 20px 70px 0  315px;
+      padding: 20px 70px 0 280px;
   `}
 
   ${props => props.primary && css`

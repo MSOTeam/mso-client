@@ -4,12 +4,6 @@ import { PropTypes } from 'prop-types';
 import styled, { css, keyframes } from 'styled-components';
 import { push } from 'react-router-redux';
 import ProgressBar from 'react-progressbar-on-scroll';
-import {
-  motion,
-  useViewportScroll,
-  useSpring,
-  useTransform
-} from "framer-motion";
 
 import * as actions from './actions';
 import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';

@@ -6,9 +6,8 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import io from "socket.io-client";
-import { color } from '../../styles/color';
-import { LoadingLogo, Sort } from '../../assets/icon';
 import Search from '../../assets/search.svg';
+import { FavSmall, AddTo } from '../../assets/icon';
 
 
 const fadeIn = keyframes`
@@ -24,11 +23,11 @@ const ArticlesGrid = styled.div`
   display: grid;
   grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) );
   grid-gap: 2em;
-  padding: 20px 70px 0 140px;
+  padding: 20px 30px 0 80px;
   transition: all 0.3s;
 
   ${props => props.sidebarStatus === true && css`
-      padding: 20px 70px 0  315px;
+      padding: 20px 30px 0  280px;
   `}
 
   ${props => props.primary && css`
@@ -42,7 +41,7 @@ const ArticleBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: 310px;
+  min-height: 150px;
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -64,7 +63,7 @@ const ArticleImage = styled.div`
   transition: transform .1s linear;
 
   &:hover {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
   }
 `;
 
@@ -72,7 +71,6 @@ const ArticleHeader = styled.div`
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-  margin-bottom: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
@@ -90,7 +88,6 @@ const ArticleTags = styled.div`
   cursor: pointer;
   text-align: center;
   margin-right: 10px;
-  margin-bottom: 10px;
   cursor: pointer;
   line-height: 24px;
   color: #5649CF;
@@ -104,10 +101,15 @@ const CatName = styled.h1`
 `;
 
 const FilteWrapper = styled.div`
-  padding: 0px 70px 0px 140px;
+  padding: 0px 30px 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: all 0.3s;
+
+  ${props => props.sidebarStatus === true && css`
+    padding: 0px 30px 0  280px;
+  `}
 `;
 
 
@@ -116,9 +118,7 @@ const FilterBox = styled.input`
     background-position: -6px 14px;
     background-repeat: no-repeat;
     width: 100%;
-    height: 60px;
-    margin: 0px 0 35px;
-    font-style: italic;
+    height: 50px;
     box-shadow: none;
     border: #eaeaea 1px solid;
     border-left: none;
@@ -127,38 +127,36 @@ const FilterBox = styled.input`
     outline: none;
     box-sizing: border-box;
     padding-left: 35px;
-    font-size: 1.3em;
+    font-size: 1em;
     font-weight: 300;
     letter-spacing: 1px;
-    transition: all 0.3s;
-    ${props => props.sidebarStatus === true && css`
-      margin-left: 175px;
-    `}
 `;
 
 const Categoryname = styled.h1`
-  font-size: 1.9em;
-  font-weight: 700;
+  font-size: 1.3em;
+  font-weight: 600;
   letter-spacing: 1px;
-  margin: 20px 0 30px 0;
-  text-transform: capitalize;
-  padding: 0px 70px 0 140px;
+  text-align: center;
+  padding: 0px 30px 0 80px;
   transition: all 0.3s;
   ${props => props.sidebarStatus === true && css`
-      padding: 0px 70px 0  315px;
+    padding: 0px 30px 0  280px;
   `}
 `;
 
 const WelcomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 100px;
-  opacity: 0;
-  animation: ${fadeIn} 1s ease-in-out;
-  animation-fill-mode: forwards;
-  animation-delay: 2s;
+  display: none;
+  ${props => props.display === false && css`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px;
+    opacity: 0;
+    animation: ${fadeIn} 1s ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+  `}
 `;
 
 
@@ -196,9 +194,29 @@ const Extension = styled.a`
   }
 `;
 
+const Options = styled.div`
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  display: flex;
+`;
+
+const OptionItem = styled.div`
+  background: white;
+  padding: 7px 7px;
+  margin-left: 5px;
+  line-height: 0;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+`;
+
 class Articles extends Component {
   state = {
     articles: [],
+    noArticles: false,
+    addToFav: false,
   }
    componentDidMount = () => {
      this.fetch();
@@ -215,7 +233,6 @@ class Articles extends Component {
 
      const socket = io('http://localhost:5000', options);
      socket.on('article', (data) => {
-       console.log(data);
        this.fetch();
      });
    }
@@ -231,11 +248,11 @@ class Articles extends Component {
     const { match } = this.props;
     const url = `article/?tag=${match.params.tag}`;
     const token = localStorage.getItem('token');
-    console.log(token);
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         this.setState({ articles: response.data.articles });
+        this.setState({noArticles: true});
       })
       .catch((error) => {
         console.log(error);
@@ -264,45 +281,52 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-    console.log(this.props);
+
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
-        <a style={{color: 'black', textDecoration:'none'}} href={article.url} target="_blank">
         {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
           <ArticleBoxOverlay>
-            {/* <div>
-              <Fav/>
-            </div> */}
-            {
+            <Options>
+              <OptionItem><FavSmall/></OptionItem>
+              <OptionItem><AddTo/></OptionItem>
+            </Options>
+            <a style={{color: 'black', textDecoration:'none'}} href={article.url} target="_blank">
+              {
               article.image !== '' ? (
                 <ArticleImage image={article.image} />
                 ) : (
-                  <img alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
+                  <img style={{width: '100%'}} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
 
               )
             }
+          </a>
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
         {/* </div> */}
-        </a>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))}
+          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))} 
+          <ArticleTags style={{ position: 'relative', top: '1px'}}></ArticleTags> 
         </div>
       </ArticleBox>
     ));
 
     return (
       <>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
         {
-          match.params.tag && <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
+          match.params.tag ? (
+            <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
+          ): (
+            <Categoryname sidebarStatus={sidebarStatus.isOpen}>Latest tags</Categoryname>
+          )
         }
-        <FilteWrapper>
+        <FilteWrapper sidebarStatus={sidebarStatus.isOpen} style={{width: '400px'}}>
           <FilterBox
             placeholder="Search"
-            sidebarStatus={sidebarStatus.isOpen}
             onChange={e => this.search(e.target.value)}
           />
         </FilteWrapper>
+        </div>
         {/* <div title="Sort" style={{ padding: '0px 70px 0px 140px', display: 'flex', justifyContent: 'flex-end' }}>
           <Sort style={{cursor:'pointer'}} />
           </div> */}
@@ -313,7 +337,7 @@ class Articles extends Component {
                 { articles }
               </ArticlesGrid>
             ) : (
-              <WelcomeWrapper>
+              <WelcomeWrapper display={this.state.noArticles}>
                 <WelcomeAdd>Welcome to tagit</WelcomeAdd>
                 <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
                 <Extension href="">tagit extension</Extension>
