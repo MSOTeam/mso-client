@@ -27,7 +27,7 @@ const NavWrapper = styled.div`
     top: 5px;
   }
   @media (min-width: 2150px) {
-    padding: 0 20%;
+    padding: 0 10%;
   }
   
 `;

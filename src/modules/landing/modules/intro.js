@@ -5,6 +5,7 @@ import Overlay from '../../navigation/component/Overlay';
 import Email from './email';
 import { fadeBottom, fadeRight, shake } from '../utility/animation';
 import App from '../assets/landing.png';
+import Mock from '../assets/tagit_mock.png';
 
 
 const ScIntroWrapper = styled.div`
@@ -14,7 +15,7 @@ const ScIntroWrapper = styled.div`
   z-index: 10;
   margin: 0 10% 100px;
   @media (min-width: 2150px) {
-    padding: 0 20%;
+    padding: 0 10%;
 
   }
   @media (max-width: 760px) {
@@ -28,6 +29,8 @@ const ScText = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 210px;
+  width: 500px;
+
   @media (min-width: 2750px) {
   }
   @media (max-width: 760px) {
@@ -44,7 +47,6 @@ const ScItem = styled.div`
 `;
 
 const ScHeadline = styled.h1`
-  font-family: 'Source Serif Pro', serif !important;
   font-size: 3.5em;
   font-weight: 900;
   line-height: 60px;
@@ -75,14 +77,21 @@ const ScMessage = styled.p`
 `;
 
 const ScImg = styled.div`
-  background: url( ${App} ) no-repeat;
+  background: url( ${Mock} ) no-repeat;
   width: 2070px;
   height: 980px;
   position: relative;
   opacity: 0;
+  position: absolute;
+    left: 674px;
+    background-size: contain;
   animation: ${fadeRight} 1s ease-in-out;
   animation-fill-mode: forwards;
   animation-delay: 1.8s;
+  @media (min-width: 2150px) {
+    left: 974px;
+    height: 900px;
+  }
   @media (max-width: 760px) {
     left: -30px;
     top: 100px;
@@ -131,8 +140,8 @@ const Intro = () => {
       <ScIntroWrapper>
         <ScText>
           <div>
-            <ScHeadline>Collect and keep all of your findings</ScHeadline>
-            {/* <ScHeadline>Your ultimate notebook on the web</ScHeadline> */}
+            {/* <ScHeadline>Collect and keep all of your findings</ScHeadline> */}
+            <ScHeadline>Your ultimate notebook on the web</ScHeadline>
             {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
             <ScMessage>With so much content available today on the internet the task of trying to finish all the articles or watch the videos you find can be daunting. Usually it resaults with a cluttered browser with either way to many open tabs or a bookmarking mess. With tagit you can save it and view it later whenever you want.</ScMessage>
@@ -142,8 +151,8 @@ const Intro = () => {
           </div>
           <Email />
         </ScText>
-        {/* <ScImg /> */}
-        <Img src={App} />
+        <ScImg />
+        {/* <Img src={Mock} /> */}
       </ScIntroWrapper>
       <Modal>
         <Overlay type={type} />

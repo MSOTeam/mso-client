@@ -145,18 +145,15 @@ const Categoryname = styled.h1`
 `;
 
 const WelcomeWrapper = styled.div`
-  display: none;
-  ${props => props.display === false && css`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 100px;
-    opacity: 0;
-    animation: ${fadeIn} 1s ease-in-out;
-    animation-fill-mode: forwards;
-    animation-delay: 2s;
-  `}
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 100px;
+  opacity: 0;
+  animation: ${fadeIn} 1s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 2s;
 `;
 
 
@@ -215,15 +212,10 @@ const OptionItem = styled.div`
 class Articles extends Component {
   state = {
     articles: [],
-    noArticles: false,
     addToFav: false,
   }
    componentDidMount = () => {
      this.fetch();
-
-     //  const socket = io(`http://localhost:5000?token=${localStorage.getItem('token')}`);
-     //  socket.on('article', data => console.log(data));
-
      const options = {
        rememberUpgrade: true,
        transports: ['websocket'],
@@ -252,7 +244,6 @@ class Articles extends Component {
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         this.setState({ articles: response.data.articles });
-        this.setState({noArticles: true});
       })
       .catch((error) => {
         console.log(error);
@@ -312,24 +303,21 @@ class Articles extends Component {
 
     return (
       <>
-      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
-        {
-          match.params.tag ? (
-            <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
-          ): (
-            <Categoryname sidebarStatus={sidebarStatus.isOpen}>Latest tags</Categoryname>
-          )
-        }
-        <FilteWrapper sidebarStatus={sidebarStatus.isOpen} style={{width: '400px'}}>
-          <FilterBox
-            placeholder="Search"
-            onChange={e => this.search(e.target.value)}
-          />
-        </FilteWrapper>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
+          {
+            match.params.tag ? (
+              <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
+            ): (
+              <Categoryname sidebarStatus={sidebarStatus.isOpen}>Latest tags</Categoryname>
+            )
+          }
+          <FilteWrapper sidebarStatus={sidebarStatus.isOpen} style={{width: '400px'}}>
+            <FilterBox
+              placeholder="Search"
+              onChange={e => this.search(e.target.value)}
+            />
+          </FilteWrapper>
         </div>
-        {/* <div title="Sort" style={{ padding: '0px 70px 0px 140px', display: 'flex', justifyContent: 'flex-end' }}>
-          <Sort style={{cursor:'pointer'}} />
-          </div> */}
         <>
           <Suspense fallback={<h1>We are loading...🎅</h1>}>
             { articles.length ? (
@@ -337,7 +325,7 @@ class Articles extends Component {
                 { articles }
               </ArticlesGrid>
             ) : (
-              <WelcomeWrapper display={this.state.noArticles}>
+              <WelcomeWrapper>
                 <WelcomeAdd>Welcome to tagit</WelcomeAdd>
                 <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
                 <Extension href="">tagit extension</Extension>

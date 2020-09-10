@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import axios from 'axios';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import { debounce } from 'lodash';
 
-import { Logo, Fav, Search, Archive } from '../../assets/icon';
+import { Logo, Fav, Archive } from '../../assets/icon';
 
 const Navgrid = styled.div`
   display: flex;

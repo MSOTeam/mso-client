@@ -14,7 +14,8 @@ const ScApp = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-`
+  height: 100vh;
+`;
 
 const ScCircleTop = styled.div`
   width: 1500px;
@@ -55,7 +56,8 @@ const ScSmall = styled.small`
     width: 100vw;
     background: black;
     color: white;
-    position: relative;
+    position: absolute;
+    bottom: 0;
     z-index: 100;
     height: 50px;
     display: flex;
@@ -80,7 +82,7 @@ const Landing = () => {
       <Nav />
       <Intro />
       {/* <What/> */}
-      <Features />
+      {/* <Features /> */}
       <ScCircleTop />
       <ScCircleBottom />
       {/* <EmailWrapper>
