@@ -4,7 +4,7 @@ import Modal from '../../modal/Modal';
 import Overlay from '../../navigation/component/Overlay';
 import { fadeTop } from '../utility/animation';
 import { color } from '../../../styles/color';
-import { LogoW } from '../assets/icon';
+import { LogoW, Lock } from '../assets/icon';
 
 
 const NavWrapper = styled.div`
@@ -15,7 +15,7 @@ const NavWrapper = styled.div`
   justify-content: space-between;
   position: relative;
   z-index: 10;
-  margin: 0 10% 100px;
+  margin: 0 10% 50px;
   opacity: 0;
   animation: ${fadeTop} 1.3s ease-in-out;
   animation-fill-mode: forwards;
@@ -106,7 +106,10 @@ class Nav extends Component {
               {/* <Navitem id="why">Why tagit</Navitem>
               <Navitem id="features">Features</Navitem>
               <Navitem id="features">Pricing</Navitem> */}
-              <Navitem id="login" onClick={this.handleClick}>Sign in</Navitem>
+              <Navitem >
+                <div id="login" onClick={this.handleClick} style={{width: '43px', height: '38px', position: 'absolute', right: '0', top: '0'}} />
+                <Lock />
+              </Navitem>
               {/* <Navitem signup id="signup" onClick={this.handleClick}>Sign up</Navitem> */}
             </div>
           </NavItemWrapper>

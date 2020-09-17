@@ -23,8 +23,16 @@ export const LogoW = () => (
 <path d="M22.192 0.550293C24.0222 0.550293 25.5058 2.03371 25.5058 3.86356V7.17425H18.8787V3.86356C18.8787 2.0336 20.3623 0.550293 22.192 0.550293Z" fill="white"/>
 </svg>
 
-)
-  
+);
+
+export const Lock = () => (
+<svg width="13" height="21" viewBox="0 0 13 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.49918 2.5C4.84148 2.5 3.49918 3.84228 3.49918 5.5V10.5H9.49918V5.5C9.49918 3.84228 8.15688 2.5 6.49918 2.5ZM1.49918 5.5V10.5C0.949551 10.5004 0.5 10.9503 0.5 11.5V19.5C0.5 20.05 0.95 20.5 1.5 20.5H11.5C12.05 20.5 12.5 20.05 12.5 19.5V11.5C12.5 10.95 12.05 10.5 11.5 10.5H11.4992V5.5C11.4992 2.73772 9.26148 0.5 6.49918 0.5C3.7369 0.5 1.49918 2.73772 1.49918 5.5Z" fill="white"/>
+</svg>
+
+
+);
+
 export const Save = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="22" height="22">
     <path fill="none" stroke="#5649CF" strokeMiterlimit="10" strokeWidth="3" d="M52 62V34H12v28m10-18h20m-20 8h16" strokeLinejoin="round" strokeLinecap="round"></path>
