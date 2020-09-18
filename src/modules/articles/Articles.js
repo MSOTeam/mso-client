@@ -6,6 +6,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import io from "socket.io-client";
+import Skeleton from 'react-loading-skeleton';
 import Search from '../../assets/search.svg';
 import { FavSmall, AddTo } from '../../assets/icon';
 
@@ -212,6 +213,7 @@ const OptionItem = styled.div`
 class Articles extends Component {
   state = {
     articles: [],
+    sk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     addToFav: false,
   }
    componentDidMount = () => {
@@ -301,6 +303,18 @@ class Articles extends Component {
       </ArticleBox>
     ));
 
+    const Skele = this.state.sk.map(article => (
+      <ArticleBox key={article._id} >
+          <ArticleBoxOverlay>
+            <ArticleImage>
+              <Skeleton height={200} />
+            </ArticleImage>
+          </ArticleBoxOverlay>
+        <ArticleHeader><Skeleton /></ArticleHeader>
+        <ArticleTags><Skeleton style={{float: 'left'}} width={50}/></ArticleTags>
+      </ArticleBox>
+    ));
+
     return (
       <>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
@@ -322,14 +336,12 @@ class Articles extends Component {
           <Suspense fallback={<h1>We are loading...🎅</h1>}>
             { articles.length ? (
               <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-                { articles }
+              {articles}
               </ArticlesGrid>
             ) : (
-              <WelcomeWrapper>
-                <WelcomeAdd>Welcome to tagit</WelcomeAdd>
-                <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
-                <Extension href="">tagit extension</Extension>
-              </WelcomeWrapper>
+              <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+              {Skele}
+              </ArticlesGrid>
             )}
           </Suspense>
 
