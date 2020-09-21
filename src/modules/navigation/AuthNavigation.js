@@ -24,15 +24,10 @@ const Navitem = styled.div`
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 0.5px;
-  padding-left: 20px;
+  padding-left: 30px;
   ${props => props.logo && css`
     padding-left: 0;
   `}
-  @media (max-width: 850px) {
-    font-size: 2px;
-    color: white;
-    padding-left: 20px;
-  }
 `;
 
 const Flex = styled.div`
@@ -47,7 +42,7 @@ const AuthNavigation = ({ dispatch }) => {
       </Navitem>
 
       <Flex>
-        <Navitem star onClick={() => dispatch(push('/articles/favorites'))}>+</Navitem>
+        <Navitem onClick={() => dispatch(push('/articles/favorites'))}>+</Navitem>
         {/* <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><Fav/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><InProgress/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem>

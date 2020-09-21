@@ -6,6 +6,7 @@ import Google from '../../assets/google.svg';
 
 const ScLogin = styled(Login)`
   border: 1px #a9a9a9 solid;
+  background: white;
   border-radius: 4px;
   width: 80%;
   margin: auto;

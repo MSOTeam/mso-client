@@ -102,12 +102,11 @@ const CatName = styled.h1`
 `;
 
 const FilteWrapper = styled.div`
-  padding: 0px 30px 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-column-end: -1;
   transition: all 0.3s;
-
   ${props => props.sidebarStatus === true && css`
     padding: 0px 30px 0  280px;
   `}
@@ -116,10 +115,10 @@ const FilteWrapper = styled.div`
 
 const FilterBox = styled.input`
     background-image: url(${Search});
-    background-position: -6px 14px;
+    background-position: -6px -6px;
     background-repeat: no-repeat;
     width: 100%;
-    height: 50px;
+    height: 30px;
     box-shadow: none;
     border: #eaeaea 1px solid;
     border-left: none;
@@ -128,6 +127,7 @@ const FilterBox = styled.input`
     outline: none;
     box-sizing: border-box;
     padding-left: 35px;
+    padding-bottom: 9px;
     font-size: 1em;
     font-weight: 300;
     letter-spacing: 1px;
@@ -137,9 +137,10 @@ const Categoryname = styled.h1`
   font-size: 1.3em;
   font-weight: 600;
   letter-spacing: 1px;
-  text-align: center;
-  padding: 0px 30px 0 80px;
   transition: all 0.3s;
+  &::first-letter {
+    text-transform: uppercase;
+  }
   ${props => props.sidebarStatus === true && css`
     padding: 0px 30px 0  280px;
   `}
@@ -305,11 +306,11 @@ class Articles extends Component {
 
     const Skele = this.state.sk.map(article => (
       <ArticleBox key={article._id} >
-          <ArticleBoxOverlay>
-            <ArticleImage>
-              <Skeleton height={200} />
-            </ArticleImage>
-          </ArticleBoxOverlay>
+        <ArticleBoxOverlay>
+          <ArticleImage>
+            <Skeleton height={200} />
+          </ArticleImage>
+        </ArticleBoxOverlay>
         <ArticleHeader><Skeleton /></ArticleHeader>
         <ArticleTags><Skeleton style={{float: 'left'}} width={50}/></ArticleTags>
       </ArticleBox>
@@ -317,7 +318,7 @@ class Articles extends Component {
 
     return (
       <>
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
+        <ArticlesGrid>
           {
             match.params.tag ? (
               <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
@@ -325,26 +326,23 @@ class Articles extends Component {
               <Categoryname sidebarStatus={sidebarStatus.isOpen}>Latest tags</Categoryname>
             )
           }
-          <FilteWrapper sidebarStatus={sidebarStatus.isOpen} style={{width: '400px'}}>
+          <FilteWrapper sidebarStatus={sidebarStatus.isOpen}>
             <FilterBox
               placeholder="Search"
               onChange={e => this.search(e.target.value)}
             />
           </FilteWrapper>
-        </div>
+        </ArticlesGrid>
         <>
-          <Suspense fallback={<h1>We are loading...🎅</h1>}>
-            { articles.length ? (
-              <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+          { articles.length ? (
+            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
               {articles}
-              </ArticlesGrid>
-            ) : (
-              <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+            </ArticlesGrid>
+          ) : (
+            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
               {Skele}
-              </ArticlesGrid>
-            )}
-          </Suspense>
-
+            </ArticlesGrid>
+          )}
         </>
       </>
     );

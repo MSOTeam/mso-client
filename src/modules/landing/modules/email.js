@@ -190,7 +190,7 @@ render() {
             <ScInput placeholder="Email..." onChange={this.handleEmail}/>
             {this.state.spinner
               ? <Button sending onClick={this.signUp}><SubmitLoading/></Button>
-              : <Button idle onClick={this.signUp}>Request access</Button>
+              : <Button idle onClick={this.signUp}>Sign up</Button>
             }           
         </ScEmail>
         {this.state.success && <ScSpan yes>Hooray, we will send you your access shortly 👏</ScSpan>}
