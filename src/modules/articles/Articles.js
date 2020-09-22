@@ -56,7 +56,7 @@ const ArticleBox = styled.div`
   transform: translateZ(0);
   &:hover {
     box-shadow: 0 2px 40px 0 rgb(0 0 0 / 20%);
-    transform: translate(0, -2px);
+    transform: translate(0, -4px);
   }
 `;
 
@@ -210,18 +210,20 @@ const Extension = styled.a`
 
 const Options = styled.div`
   position: absolute;
-  right: 5px;
+  right: 7px;
   top: 7px;
   display: flex;
+  flex-direction: column;
+  z-index: 1;
 `;
 
 const OptionItem = styled.div`
   background: white;
-  padding: 7px 7px;
+  padding: 8px 7px;
   margin-left: 5px;
   line-height: 0;
   border-radius: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex;
   justify-content: center;
 `;
@@ -294,25 +296,22 @@ class Articles extends Component {
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
-        <div>
+        <Options>
+          <OptionItem><FavSmall /></OptionItem>
+          <OptionItem><AddTo /></OptionItem>
+        </Options>
+        <a style={{ color: 'black', textDecoration: 'none' }} href={article.url} target="_blank" rel="noopener noreferrer">
           <ArticleBoxOverlay>
-            <Options>
-              <OptionItem><FavSmall/></OptionItem>
-              <OptionItem><AddTo/></OptionItem>
-            </Options>
-            <a style={{color: 'black', textDecoration:'none'}} href={article.url} target="_blank">
-              {
-              article.image !== '' ? (
-                <ArticleImage image={article.image} />
-                ) : (
-                  <img style={{width: '100%'}} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
-
+            {
+            article.image !== '' ? (
+              <ArticleImage image={article.image} />
+              ) : (
+                <img style={{ width: '100%' }} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
               )
             }
-          </a>
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
-          </div>
+        </a>
         {/* </div> */}
         <ArticleTagsWrapper>
           {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))} 
