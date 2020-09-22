@@ -12,8 +12,7 @@ import { Menu, Crog, LogoWhite, Close, EditSidebar } from '../../assets/icon';
 import Arrow from '../../assets/arrow.svg';
 
 const SidebarWrapper = styled.div`
-  background: #3C40C6;
-  position: fixed;
+  background: linear-gradient(122deg, #5649CF, #0b1963);  position: fixed;
   top: 0;
   height: 100vh;
   width: 50px;

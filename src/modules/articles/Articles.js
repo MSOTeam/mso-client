@@ -26,10 +26,15 @@ const ArticlesGrid = styled.div`
   grid-gap: 2em;
   padding: 20px 30px 0 80px;
   transition: all 0.3s;
+  margin-bottom: 30px;
 
   ${props => props.sidebarStatus === true && css`
       padding: 20px 30px 0  280px;
   `}
+  ${props => props.category && css`
+    margin-bottom: 15px;
+  `}
+
 
   ${props => props.primary && css`
     background: white;
@@ -38,11 +43,21 @@ const ArticlesGrid = styled.div`
 `;
 
 const ArticleBox = styled.div`
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   min-height: 150px;
+  box-shadow: 0 2px 40px 0 rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all .5s;
+  position: relative;
+  transition: box-shadow .3s ease-out, transform .3s ease-out;
+  transform: translateZ(0);
+  &:hover {
+    box-shadow: 0 2px 40px 0 rgb(0 0 0 / 20%);
+    transform: translate(0, -2px);
+  }
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -71,7 +86,7 @@ const ArticleImage = styled.div`
 const ArticleHeader = styled.div`
   font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 22px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
@@ -79,8 +94,14 @@ const ArticleHeader = styled.div`
   -webkit-box-orient: vertical;
   letter-spacing: 1px;
   box-sizing: border-box;
+  padding: 0 20px;
 `;
 
+const ArticleTagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 20px 10px;
+`;
 
 const ArticleTags = styled.div`
   font-weight: 400;
@@ -107,9 +128,6 @@ const FilteWrapper = styled.div`
   align-items: center;
   grid-column-end: -1;
   transition: all 0.3s;
-  ${props => props.sidebarStatus === true && css`
-    padding: 0px 30px 0  280px;
-  `}
 `;
 
 
@@ -141,9 +159,6 @@ const Categoryname = styled.h1`
   &::first-letter {
     text-transform: uppercase;
   }
-  ${props => props.sidebarStatus === true && css`
-    padding: 0px 30px 0  280px;
-  `}
 `;
 
 const WelcomeWrapper = styled.div`
@@ -279,6 +294,7 @@ class Articles extends Component {
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
+        <div>
           <ArticleBoxOverlay>
             <Options>
               <OptionItem><FavSmall/></OptionItem>
@@ -296,11 +312,11 @@ class Articles extends Component {
           </a>
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
+          </div>
         {/* </div> */}
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <ArticleTagsWrapper>
           {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))} 
-          <ArticleTags style={{ position: 'relative', top: '1px'}}></ArticleTags> 
-        </div>
+        </ArticleTagsWrapper>
       </ArticleBox>
     ));
 
@@ -311,14 +327,16 @@ class Articles extends Component {
             <Skeleton height={200} />
           </ArticleImage>
         </ArticleBoxOverlay>
-        <ArticleHeader><Skeleton /></ArticleHeader>
-        <ArticleTags><Skeleton style={{float: 'left'}} width={50}/></ArticleTags>
+        <ArticleHeader><Skeleton count={2} /></ArticleHeader>
+        <ArticleTagsWrapper>
+          <ArticleTags><Skeleton style={{float: 'left'}} width={50}/></ArticleTags>
+        </ArticleTagsWrapper>
       </ArticleBox>
     ));
 
     return (
       <>
-        <ArticlesGrid>
+        <ArticlesGrid sidebarStatus={sidebarStatus.isOpen} category>
           {
             match.params.tag ? (
               <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
