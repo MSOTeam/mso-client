@@ -8,7 +8,7 @@ import { debounce } from 'lodash';
 import io from "socket.io-client";
 import Skeleton from 'react-loading-skeleton';
 import Search from '../../assets/search.svg';
-import { FavSmall, AddTo } from '../../assets/icon';
+import { FavSmall, FavSmallChecked, AddTo } from '../../assets/icon';
 
 
 const fadeIn = keyframes`
@@ -161,53 +161,6 @@ const Categoryname = styled.h1`
   }
 `;
 
-const WelcomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 100px;
-  opacity: 0;
-  animation: ${fadeIn} 1s ease-in-out;
-  animation-fill-mode: forwards;
-  animation-delay: 2s;
-`;
-
-
-const WelcomeAdd = styled.h1`
-    margin: 15px 0;
-  font-size: 2.4em;
-  font-weight: 800;
-  letter-spacing: 1px;
-`;
-
-const WelcomeAction = styled.p`
-    margin: 15px 0;
-  font-size: 1.3em;
-  font-weight: 300;
-  letter-spacing: 1px;
-  grid-row-start: 6;
-  text-align: center;
-  line-height: 31px;
-`;
-
-const Extension = styled.a`
-  margin: 15px 0;
-  font-size: 1.1em;
-  font-weight: 400;
-  letter-spacing: 2px;
-  border: 1px #5649CF solid;
-  padding: 15px 24px;
-  border-radius: 50px;
-  color: white;
-  background: #5649CF;
-  text-decoration: none;
-  transition: all .3s;
-  &:hover {
-    background: #40359c;
-  }
-`;
-
 const Options = styled.div`
   position: absolute;
   right: 7px;
@@ -226,6 +179,9 @@ const OptionItem = styled.div`
   margin-bottom: 5px;
   display: flex;
   justify-content: center;
+  ${props => props.checked && css`
+    background: #6563FF;
+  `}
 `;
 
 class Articles extends Component {
@@ -292,12 +248,21 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-
+    console.log(this.state.articles);
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
         {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
         <Options>
-          <OptionItem><FavSmall /></OptionItem>
+          { article.tags.includes('favorites') ? (
+            <OptionItem checked onClick={() => alert('removed')}>
+              <FavSmallChecked />
+            </OptionItem>
+          ) : (
+            <OptionItem onClick={() => alert('added')}>
+              <FavSmall />
+            </OptionItem>
+          )}
+         
           <OptionItem><AddTo /></OptionItem>
         </Options>
         <a style={{ color: 'black', textDecoration: 'none' }} href={article.url} target="_blank" rel="noopener noreferrer">

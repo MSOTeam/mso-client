@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 
-import { Logo, Fav, Archive, Broken, Plug, Url } from '../../assets/icon';
+import { Logo, Fav, Archive, Broken, Plug, Url, Unsorted } from '../../assets/icon';
 
 const Navgrid = styled.div`
   display: flex;
@@ -77,6 +77,7 @@ const AuthNavigation = ({ dispatch }) => {
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/><NavName>Reminder</NavName></Navitem> */}
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem> */}
         <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/broken'))}><Broken /></Navitem>
+        <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted /></Navitem>
         <Navitem reminder title="View archived links" onClick={() => dispatch(push('/articles/archive'))}><Archive /></Navitem>
         {/* <Navitem logout onClick={() => dispatch(logout())}><LogOut /></Navitem> */}
       </Flex>
