@@ -527,7 +527,7 @@ class Article extends Component {
     }
 
     dispatch(actions.updateArticle(match.params.id, article ));
-
+    console.log(match.params.id);
     this.setState({ article })
 
   }

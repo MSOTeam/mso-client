@@ -9,6 +9,7 @@ import io from "socket.io-client";
 import Skeleton from 'react-loading-skeleton';
 import Search from '../../assets/search.svg';
 import { FavSmall, FavSmallChecked, AddTo } from '../../assets/icon';
+import * as actions from './actions';
 
 
 const fadeIn = keyframes`
@@ -94,13 +95,13 @@ const ArticleHeader = styled.div`
   -webkit-box-orient: vertical;
   letter-spacing: 1px;
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 0 10px;
 `;
 
 const ArticleTagsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 4px 20px 10px;
+  padding: 4px 10px 10px;
 `;
 
 const ArticleTags = styled.div`
@@ -171,6 +172,7 @@ const Options = styled.div`
 `;
 
 const OptionItem = styled.div`
+  cursor: pointer;
   background: white;
   padding: 8px 7px;
   margin-left: 5px;
@@ -179,7 +181,7 @@ const OptionItem = styled.div`
   margin-bottom: 5px;
   display: flex;
   justify-content: center;
-  ${props => props.checked && css`
+  ${props => props.bg && css`
     background: #6563FF;
   `}
 `;
@@ -226,6 +228,22 @@ class Articles extends Component {
       });
   }
 
+  toggleTag = (tag, article) => {
+    const { match, dispatch } = this.props;
+    console.log(tag);
+    console.log(article.tags);
+    const index = article.tags.indexOf(tag);
+    if (index === -1) {
+      article.tags.push(tag);
+    } else {
+      article.tags.splice(index, 1);
+    }
+    dispatch(actions.updateArticle(article._id, article ));
+    this.setState(prevState => ({
+      favs: !prevState.favs,
+    }));
+  }
+
   search = debounce((value) => {
     const { match } = this.props;
     let text = '';
@@ -248,23 +266,20 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-    console.log(this.state.articles);
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
-        {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
-        <Options>
-          { article.tags.includes('favorites') ? (
-            <OptionItem checked onClick={() => alert('removed')}>
+        <Options onClick={() => this.toggleTag('favorites', article)}>
+          <OptionItem bg={article.tags.indexOf('favorites') > -1}>
+            { article.tags.indexOf('favorites') > -1 ? (
               <FavSmallChecked />
-            </OptionItem>
-          ) : (
-            <OptionItem onClick={() => alert('added')}>
+            ) : (
               <FavSmall />
-            </OptionItem>
-          )}
-         
+            )}
+          </OptionItem>
           <OptionItem><AddTo /></OptionItem>
         </Options>
+        {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
+
         <a style={{ color: 'black', textDecoration: 'none' }} href={article.url} target="_blank" rel="noopener noreferrer">
           <ArticleBoxOverlay>
             {
@@ -279,7 +294,11 @@ class Articles extends Component {
         </a>
         {/* </div> */}
         <ArticleTagsWrapper>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))} 
+          { article.tags.length < 1 ? (
+            <ArticleTags onClick={() => dispatch(push('/articles/unsorted'))} >#unsorted</ArticleTags>
+          ) : (
+            article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))
+          )}
         </ArticleTagsWrapper>
       </ArticleBox>
     ));
