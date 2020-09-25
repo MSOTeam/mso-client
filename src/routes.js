@@ -8,17 +8,17 @@ import {
   // register,
   // login,
   main,
-  // search,
   settings,
   routes,
   articles,
 } from './modules';
 
 const Routes = props => (
-  <ConnectedRouter history={props.history}>
+  <ConnectedRouter history={props.history}>     
     <div style={{height: 'calc(100% - 100px)'}}>
       <Route exact path="/" component={main.Main} />
-
+      <Route path="/login" component={main.Main} />
+     
       <routes.AuthRoute path="/articles/:tag" component={articles.Articles} />
       <routes.AuthRoute path="/article/:id" component={articles.Article} />
       <routes.AuthRoute path="/settings" component={settings.Settings} />

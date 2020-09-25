@@ -7,15 +7,13 @@ import { connect } from 'react-redux';
 
 class AuthRoute extends Component {
 
- componentWillMount = () => {
-   const { dispatch } = this.props;
-   if (!localStorage.token) {
-     dispatch(push('/'));
-   }
- }
-
  render() {
    const { path, component } = this.props;
+   
+   if (!localStorage.token) {
+     return <div />;
+   }
+   
    return (
      <Route path={path} component={component} />
    );

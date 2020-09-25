@@ -77,12 +77,13 @@ class Login extends Component {
 
     const selection = (
       <LoginWrapper>
-        <H2>Welcome back</H2>
+        {/* <H2>Welcome back</H2> */}
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
         {/* <ScLogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign in with email</ScLogin> */}
       </LoginWrapper>
     );
+
 
     switch (step) {
       case 'email':

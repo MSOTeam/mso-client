@@ -92,9 +92,17 @@ class Nav extends Component {
     this.state = { type: '' };
     this.handleClick = this.handleClick.bind(this);
   }
-  handleClick(event) {
-    this.setState({ type: event.target.id });
+
+  componentDidMount() {
+    if(window.location.pathname === '/login')
+    {
+      this.setState({ type: 'login' }); 
+    }
   }
+
+  handleClick(event) {
+    this.setState({ type: event.target.id });    
+  }  
 
   render() {
     return (
