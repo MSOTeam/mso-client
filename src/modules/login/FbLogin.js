@@ -6,6 +6,7 @@ import Facebook from '../../assets/facebook.svg';
 
 const ScLogin = styled.button`
   border: 1px #a9a9a9 solid;
+  background: white;
   border-radius: 4px;
   width: 80%;
   margin: auto;

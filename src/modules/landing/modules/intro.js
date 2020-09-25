@@ -88,6 +88,7 @@ const ScImg = styled.div`
   animation: ${fadeRight} 1s ease-in-out;
   animation-fill-mode: forwards;
   animation-delay: 1.8s;
+  filter: drop-shadow(11.6248px 11.6248px 33.7118px rgba(0, 0, 0, 0.45));
   @media (min-width: 2150px) {
     left: 974px;
     height: 900px;

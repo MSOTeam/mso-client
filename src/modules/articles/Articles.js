@@ -6,8 +6,10 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 import { debounce } from 'lodash';
 import io from "socket.io-client";
+import Skeleton from 'react-loading-skeleton';
 import Search from '../../assets/search.svg';
-import { FavSmall, AddTo } from '../../assets/icon';
+import { FavSmall, FavSmallChecked, AddTo } from '../../assets/icon';
+import * as actions from './actions';
 
 
 const fadeIn = keyframes`
@@ -25,10 +27,15 @@ const ArticlesGrid = styled.div`
   grid-gap: 2em;
   padding: 20px 30px 0 80px;
   transition: all 0.3s;
+  margin-bottom: 30px;
 
   ${props => props.sidebarStatus === true && css`
       padding: 20px 30px 0  280px;
   `}
+  ${props => props.category && css`
+    margin-bottom: 15px;
+  `}
+
 
   ${props => props.primary && css`
     background: white;
@@ -37,11 +44,21 @@ const ArticlesGrid = styled.div`
 `;
 
 const ArticleBox = styled.div`
-  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   min-height: 150px;
+  box-shadow: 0 2px 40px 0 rgba(0,0,0,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all .5s;
+  position: relative;
+  transition: box-shadow .3s ease-out, transform .3s ease-out;
+  transform: translateZ(0);
+  &:hover {
+    box-shadow: 0 2px 40px 0 rgb(0 0 0 / 20%);
+    transform: translate(0, -4px);
+  }
 `;
 
 const ArticleBoxOverlay = styled.div`
@@ -70,7 +87,7 @@ const ArticleImage = styled.div`
 const ArticleHeader = styled.div`
   font-weight: 600;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 22px;
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
@@ -78,8 +95,14 @@ const ArticleHeader = styled.div`
   -webkit-box-orient: vertical;
   letter-spacing: 1px;
   box-sizing: border-box;
+  padding: 0 10px;
 `;
 
+const ArticleTagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 4px 10px 10px;
+`;
 
 const ArticleTags = styled.div`
   font-weight: 400;
@@ -101,24 +124,20 @@ const CatName = styled.h1`
 `;
 
 const FilteWrapper = styled.div`
-  padding: 0px 30px 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-column-end: -1;
   transition: all 0.3s;
-
-  ${props => props.sidebarStatus === true && css`
-    padding: 0px 30px 0  280px;
-  `}
 `;
 
 
 const FilterBox = styled.input`
     background-image: url(${Search});
-    background-position: -6px 14px;
+    background-position: -6px -6px;
     background-repeat: no-repeat;
     width: 100%;
-    height: 50px;
+    height: 30px;
     box-shadow: none;
     border: #eaeaea 1px solid;
     border-left: none;
@@ -127,6 +146,7 @@ const FilterBox = styled.input`
     outline: none;
     box-sizing: border-box;
     padding-left: 35px;
+    padding-bottom: 9px;
     font-size: 1em;
     font-weight: 300;
     letter-spacing: 1px;
@@ -136,82 +156,40 @@ const Categoryname = styled.h1`
   font-size: 1.3em;
   font-weight: 600;
   letter-spacing: 1px;
-  text-align: center;
-  padding: 0px 30px 0 80px;
   transition: all 0.3s;
-  ${props => props.sidebarStatus === true && css`
-    padding: 0px 30px 0  280px;
-  `}
-`;
-
-const WelcomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 100px;
-  opacity: 0;
-  animation: ${fadeIn} 1s ease-in-out;
-  animation-fill-mode: forwards;
-  animation-delay: 2s;
-`;
-
-
-const WelcomeAdd = styled.h1`
-    margin: 15px 0;
-  font-size: 2.4em;
-  font-weight: 800;
-  letter-spacing: 1px;
-`;
-
-const WelcomeAction = styled.p`
-    margin: 15px 0;
-  font-size: 1.3em;
-  font-weight: 300;
-  letter-spacing: 1px;
-  grid-row-start: 6;
-  text-align: center;
-  line-height: 31px;
-`;
-
-const Extension = styled.a`
-  margin: 15px 0;
-  font-size: 1.1em;
-  font-weight: 400;
-  letter-spacing: 2px;
-  border: 1px #5649CF solid;
-  padding: 15px 24px;
-  border-radius: 50px;
-  color: white;
-  background: #5649CF;
-  text-decoration: none;
-  transition: all .3s;
-  &:hover {
-    background: #40359c;
+  &::first-letter {
+    text-transform: uppercase;
   }
 `;
 
 const Options = styled.div`
   position: absolute;
-  right: 5px;
+  right: 7px;
   top: 7px;
   display: flex;
+  flex-direction: column;
+  z-index: 1;
 `;
 
 const OptionItem = styled.div`
+  cursor: pointer;
   background: white;
-  padding: 7px 7px;
+  padding: 8px 7px;
   margin-left: 5px;
   line-height: 0;
   border-radius: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex;
   justify-content: center;
+  ${props => props.bg && css`
+    background: #6563FF;
+  `}
 `;
 
 class Articles extends Component {
   state = {
     articles: [],
+    sk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     addToFav: false,
   }
    componentDidMount = () => {
@@ -250,6 +228,22 @@ class Articles extends Component {
       });
   }
 
+  toggleTag = (tag, article) => {
+    const { match, dispatch } = this.props;
+    console.log(tag);
+    console.log(article.tags);
+    const index = article.tags.indexOf(tag);
+    if (index === -1) {
+      article.tags.push(tag);
+    } else {
+      article.tags.splice(index, 1);
+    }
+    dispatch(actions.updateArticle(article._id, article ));
+    this.setState(prevState => ({
+      favs: !prevState.favs,
+    }));
+  }
+
   search = debounce((value) => {
     const { match } = this.props;
     let text = '';
@@ -272,38 +266,60 @@ class Articles extends Component {
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-
     const articles = this.state.articles.map(article => (
       <ArticleBox key={article._id} >
+        <Options onClick={() => this.toggleTag('favorites', article)}>
+          <OptionItem bg={article.tags.indexOf('favorites') > -1}>
+            { article.tags.indexOf('favorites') > -1 ? (
+              <FavSmallChecked />
+            ) : (
+              <FavSmall />
+            )}
+          </OptionItem>
+          <OptionItem><AddTo /></OptionItem>
+        </Options>
         {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
-          <ArticleBoxOverlay>
-            <Options>
-              <OptionItem><FavSmall/></OptionItem>
-              <OptionItem><AddTo/></OptionItem>
-            </Options>
-            <a style={{color: 'black', textDecoration:'none'}} href={article.url} target="_blank">
-              {
-              article.image !== '' ? (
-                <ArticleImage image={article.image} />
-                ) : (
-                  <img style={{width: '100%'}} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
 
+        <a style={{ color: 'black', textDecoration: 'none' }} href={article.url} target="_blank" rel="noopener noreferrer">
+          <ArticleBoxOverlay>
+            {
+            article.image !== '' ? (
+              <ArticleImage image={article.image} />
+              ) : (
+                <img style={{ width: '100%' }} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
               )
             }
-          </a>
           </ArticleBoxOverlay>
           <ArticleHeader>{article.title}</ArticleHeader>
+        </a>
         {/* </div> */}
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))} 
-          <ArticleTags style={{ position: 'relative', top: '1px'}}></ArticleTags> 
-        </div>
+        <ArticleTagsWrapper>
+          { article.tags.length < 1 ? (
+            <ArticleTags onClick={() => dispatch(push('/articles/unsorted'))} >#unsorted</ArticleTags>
+          ) : (
+            article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))
+          )}
+        </ArticleTagsWrapper>
+      </ArticleBox>
+    ));
+
+    const Skele = this.state.sk.map(article => (
+      <ArticleBox key={article._id} >
+        <ArticleBoxOverlay>
+          <ArticleImage>
+            <Skeleton height={200} />
+          </ArticleImage>
+        </ArticleBoxOverlay>
+        <ArticleHeader><Skeleton count={2} /></ArticleHeader>
+        <ArticleTagsWrapper>
+          <ArticleTags><Skeleton style={{float: 'left'}} width={50}/></ArticleTags>
+        </ArticleTagsWrapper>
       </ArticleBox>
     ));
 
     return (
       <>
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
+        <ArticlesGrid sidebarStatus={sidebarStatus.isOpen} category>
           {
             match.params.tag ? (
               <Categoryname sidebarStatus={sidebarStatus.isOpen}>{match.params.tag}</Categoryname>
@@ -311,28 +327,23 @@ class Articles extends Component {
               <Categoryname sidebarStatus={sidebarStatus.isOpen}>Latest tags</Categoryname>
             )
           }
-          <FilteWrapper sidebarStatus={sidebarStatus.isOpen} style={{width: '400px'}}>
+          <FilteWrapper sidebarStatus={sidebarStatus.isOpen}>
             <FilterBox
               placeholder="Search"
               onChange={e => this.search(e.target.value)}
             />
           </FilteWrapper>
-        </div>
+        </ArticlesGrid>
         <>
-          <Suspense fallback={<h1>We are loading...🎅</h1>}>
-            { articles.length ? (
-              <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
-                { articles }
-              </ArticlesGrid>
-            ) : (
-              <WelcomeWrapper>
-                <WelcomeAdd>Welcome to tagit</WelcomeAdd>
-                <WelcomeAction>First things first, click the button below to get the tagit extension</WelcomeAction>
-                <Extension href="">tagit extension</Extension>
-              </WelcomeWrapper>
-            )}
-          </Suspense>
-
+          { articles.length ? (
+            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+              {articles}
+            </ArticlesGrid>
+          ) : (
+            <ArticlesGrid sidebarStatus={sidebarStatus.isOpen}>
+              {Skele}
+            </ArticlesGrid>
+          )}
         </>
       </>
     );

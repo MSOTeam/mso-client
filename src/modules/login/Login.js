@@ -23,30 +23,6 @@ const H2 = styled.h2`
   letter-spacing: 1px;
 `;
 
-const ScLogin = styled.p`
-  border: 1px #E0E0E0 solid;
-  border-radius: 4px;
-  width: 80%;
-  margin: auto;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  padding: 20px;
-  box-sizing: border-box;
-  font-size: 15px;
-  font-weight: 400;
-  display: flex;
-  cursor:pointer;
-  align-items: center;
-  ${props => props.email && css`
-    &:before {
-      content:url(${Email});
-      margin-right: 20px;
-      width: 20px;
-    }
-  `}
-`;
-
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +56,6 @@ class Login extends Component {
         {/* <H2>Welcome back</H2> */}
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
-        {/* <ScLogin bottom email onClick={() => this.setState({ step: 'email' })}>Sign in with email</ScLogin> */}
       </LoginWrapper>
     );
 

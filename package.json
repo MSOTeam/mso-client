@@ -27,6 +27,7 @@
     "react-flexbox-grid": "^2.0.0",
     "react-google-login": "^3.2.1",
     "react-immutable-proptypes": "^2.1.0",
+    "react-loading-skeleton": "^2.1.1",
     "react-modal": "^3.3.2",
     "react-progressbar-on-scroll": "^1.0.3",
     "react-redux": "^5.0.6",
