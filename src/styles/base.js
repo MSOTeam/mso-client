@@ -1,8 +1,8 @@
 // base-styles.js
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-const baseStyles = () => injectGlobal`
+const baseStyles = () => createGlobalStyle`
   ${reset}
   * {
     font-family: 'Source Sans Pro', sans-serif !important;

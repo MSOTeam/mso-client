@@ -1,32 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router';
-import { ConnectedRouter } from 'react-router-redux';
+import { Router, Route } from 'react-router';
 
 import {
-  // app,
-  // register,
-  // login,
   main,
   settings,
   routes,
   articles,
 } from './modules';
 
-const Routes = props => (
-  <ConnectedRouter history={props.history}>     
-    <div style={{height: 'calc(100% - 100px)'}}>
-      <Route exact path="/" component={main.Main} />
-      <Route path="/login" component={main.Main} />
-     
-      <routes.AuthRoute path="/articles/:tag" component={articles.Articles} />
-      <routes.AuthRoute path="/article/:id" component={articles.Article} />
-      <routes.AuthRoute path="/settings" component={settings.Settings} />
-    </div>
-
-  </ConnectedRouter>
+const Routes = ({ history }) => (
+  <Router history={history}>
+    <Route exact path="/" component={main.Main} />
+    <Route path="/login" component={main.Main} />
+    <routes.AuthRoute path="/articles/:tag" component={articles.Articles} />
+    <routes.AuthRoute path="/article/:id" component={articles.Article} />
+    <routes.AuthRoute path="/settings" component={settings.Settings} />
+  </Router>
 );
-
 
 Routes.propTypes = {
   history: PropTypes.object.isRequired,
