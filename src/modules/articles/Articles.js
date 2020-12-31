@@ -1,16 +1,20 @@
-import React, { Component, Suspense } from 'react';
-import { connect } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
-import { PropTypes } from 'prop-types';
-import axios from 'axios';
-import { push } from 'react-router-redux';
-import { debounce } from 'lodash';
-import io from "socket.io-client";
-import Skeleton from 'react-loading-skeleton';
-import Search from '../../assets/search.svg';
-import { FavSmall, FavSmallChecked, AddTo } from '../../assets/icon';
+import "@yaireo/tagify/dist/tagify.css"
+
 import * as actions from './actions';
 
+import React, { Component } from 'react';
+import styled, { css, keyframes } from 'styled-components';
+
+import Card from '../../components/Card/Card';
+import { PropTypes } from 'prop-types';
+import Search from '../../assets/search.svg';
+import Skeleton from 'react-loading-skeleton';
+import Tags from "@yaireo/tagify/dist/react.tagify";
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { debounce } from 'lodash';
+import io from "socket.io-client";
+import { push } from 'react-router-redux';
 
 const fadeIn = keyframes`
   0% {
@@ -35,8 +39,6 @@ const ArticlesGrid = styled.div`
   ${props => props.category && css`
     margin-bottom: 15px;
   `}
-
-
   ${props => props.primary && css`
     background: white;
     color: palevioletred;
@@ -46,8 +48,9 @@ const ArticlesGrid = styled.div`
 const ArticleBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  min-height: 150px;
+  justify-content: space-between;
+  min-height: 292px;
+  height:100%;
   box-shadow: 0 2px 40px 0 rgba(0,0,0,0.07);
   border-radius: 8px;
   overflow: hidden;
@@ -162,35 +165,12 @@ const Categoryname = styled.h1`
   }
 `;
 
-const Options = styled.div`
-  position: absolute;
-  right: 7px;
-  top: 7px;
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-`;
 
-const OptionItem = styled.div`
-  cursor: pointer;
-  background: white;
-  padding: 8px 7px;
-  margin-left: 5px;
-  line-height: 0;
-  border-radius: 20px;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
-  ${props => props.bg && css`
-    background: #6563FF;
-  `}
-`;
 
 class Articles extends Component {
   state = {
     articles: [],
     sk: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-    addToFav: false,
   }
    componentDidMount = () => {
      this.fetch();
@@ -263,45 +243,19 @@ class Articles extends Component {
       });
   }, 300);
 
+  edit = (index) => {
+    this.setState(state => ({ showEdit: !state.showEdit }));
+  }
 
   render() {
     const { dispatch, sidebarStatus, match } = this.props;
-    const articles = this.state.articles.map(article => (
-      <ArticleBox key={article._id} >
-        <Options onClick={() => this.toggleTag('favorites', article)}>
-          <OptionItem bg={article.tags.indexOf('favorites') > -1}>
-            { article.tags.indexOf('favorites') > -1 ? (
-              <FavSmallChecked />
-            ) : (
-              <FavSmall />
-            )}
-          </OptionItem>
-          <OptionItem><AddTo /></OptionItem>
-        </Options>
-        {/* <div onClick={() => dispatch(push(`${'/article/'}${article._id}`))} style={{ marginBottom: '10px', cursor: 'pointer'}}> */}
-
-        <a style={{ color: 'black', textDecoration: 'none' }} href={article.url} target="_blank" rel="noopener noreferrer">
-          <ArticleBoxOverlay>
-            {
-            article.image !== '' ? (
-              <ArticleImage image={article.image} />
-              ) : (
-                <img style={{ width: '100%' }} alt={article.title} src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles" />
-              )
-            }
-          </ArticleBoxOverlay>
-          <ArticleHeader>{article.title}</ArticleHeader>
-        </a>
-        {/* </div> */}
-        <ArticleTagsWrapper>
-          { article.tags.length < 1 ? (
-            <ArticleTags onClick={() => dispatch(push('/articles/unsorted'))} >#unsorted</ArticleTags>
-          ) : (
-            article.tags.map(tag => (<ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))} >#{tag}</ArticleTags>))
-          )}
-        </ArticleTagsWrapper>
+  
+    const articles = this.state.articles.map((article, index) => (
+      <ArticleBox id={index} key={index} >         
+        <Card data={article} match={match} />
       </ArticleBox>
     ));
+
 
     const Skele = this.state.sk.map(article => (
       <ArticleBox key={article._id} >
@@ -316,6 +270,7 @@ class Articles extends Component {
         </ArticleTagsWrapper>
       </ArticleBox>
     ));
+
 
     return (
       <>

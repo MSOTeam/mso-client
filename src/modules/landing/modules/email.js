@@ -46,12 +46,12 @@ const ScInput = styled.input`
   border: none;
   cursor: pointer;
   padding-left: 20px;
-  letter-spacing: 1px;
-  font-size: 1.1em;
-  font-weight: 400;
   outline: none;
   &::placeholder {
-    color: #6955E2;
+    color: #000;
+    letter-spacing: 1px;
+    font-size: 1em;
+    font-weight: 400;
   }
   &:hover {
       cursor: text;
@@ -126,6 +126,8 @@ const Button = styled.div`
   font-weight: 400;
   padding: 7px 15px;
   transition: all 0.3s;
+  font-size: 0.9em !important;
+
   &:hover{
     cursor: pointer;
     background: #27b6b9;

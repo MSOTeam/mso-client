@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.tagify__input {
+  min-width: auto !important;
+}

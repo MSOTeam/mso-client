@@ -47,11 +47,10 @@ const ScItem = styled.div`
 `;
 
 const ScHeadline = styled.h1`
-  font-size: 3.5em;
+  font-size: 3em;
   font-weight: 900;
-  line-height: 60px;
+  line-height: 50px;
   color: white;
-  width: 110%;
   margin-bottom: 20px;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
@@ -65,9 +64,9 @@ const ScHeadline = styled.h1`
 `;
 
 const ScMessage = styled.p`  
-  font-size: 1.3em;
+  font-size: 1em;
   font-weight: 300;
-  line-height: 30px;
+  line-height: 24px;
   letter-spacing: 1px;
   color: white;
   opacity: 0;
@@ -83,7 +82,7 @@ const ScImg = styled.div`
   position: relative;
   opacity: 0;
   position: absolute;
-    left: 674px;
+    left: 574px;
     background-size: contain;
   animation: ${fadeRight} 1s ease-in-out;
   animation-fill-mode: forwards;
