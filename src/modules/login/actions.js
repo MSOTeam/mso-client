@@ -12,7 +12,7 @@ import GoogleUser from './types/GoogleUser';
 import FbUser from './types/FbUser';
 
 
-const loginRequest = () => ({
+export const loginRequest = () => ({
   type: LOGIN_REQUEST,
 });
 
@@ -22,20 +22,24 @@ export const loginSuccess = (user, token) => ({
   token,
 });
 
-const loginFailure = error => ({
+export const loginFailure = error => ({
   type: LOGIN_FAILURE,
   error,
 });
 
-const setSession = (user, token) => {
+export const setSession = (user, token) => {
   localStorage.setItem('firstName', user.firstName);
   localStorage.setItem('lastName', user.lastName);
   localStorage.setItem('setItem', user.email);
   localStorage.setItem('token', token);
-  /* eslint-disable no-undef */
-  //const extensionId = 'ihpdjpomclgldlpgcinplplcibicbnjd';
-  const extensionId = 'amaagfbjejeplpphcpajlakcamieadlo';
+  /* eslint-disable no-undef */  
+  const extensionId = 'hhkiffinelioeidmkhbmpldnhmjhifkm';
   chrome.runtime.sendMessage(extensionId, token, resp => console.log({ resp }));
+
+  // browser.runtime.sendMessage(
+  //   "hhkiffinelioeidmkhbmpldnhmjhifkm",
+  //   "my message"
+  // );
 };
 
 export const login = data => (dispatch) => {

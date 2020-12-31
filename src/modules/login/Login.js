@@ -53,11 +53,12 @@ class Login extends Component {
 
     const selection = (
       <LoginWrapper>
-        <H2>Welcome back</H2>
+        {/* <H2>Welcome back</H2> */}
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
       </LoginWrapper>
     );
+
 
     switch (step) {
       case 'email':

@@ -1,8 +1,8 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import Plain from 'slate-plain-serializer';
-import Html from 'slate-html-serializer';
-import { Editor as SlateEditor } from 'slate-react';
+// import React from 'react';
+// import { PropTypes } from 'prop-types';
+// import Plain from 'slate-plain-serializer';
+// import Html from 'slate-html-serializer';
+// import { Editor as SlateEditor } from 'slate-react';
 
 // import { ImagePlugin, ImageButton } from '@slate-editor/image-plugin';
  
@@ -80,34 +80,34 @@ import { Editor as SlateEditor } from 'slate-react';
 //   },
 // ];
 
-const html = new Html();
+// const html = new Html();
 
-class Editor extends React.Component {
-  state = {
-    value: html.deserialize(this.props.value),
-  }
+// class Editor extends React.Component {
+//   state = {
+//     value: html.deserialize(this.props.value),
+//   }
 
-  onChange = ({ value }) => {
-    this.setState({ value });
-  }
+//   onChange = ({ value }) => {
+//     this.setState({ value });
+//   }
 
-  render() {
-    return (
-      <SlateEditor
-        placeholder="Enter some plain text..."
-        value={this.state.value}
-        onChange={this.onChange}
-      />
-    );
-  }
-}
+//   render() {
+//     return (
+//       <SlateEditor
+//         placeholder="Enter some plain text..."
+//         value={this.state.value}
+//         onChange={this.onChange}
+//       />
+//     );
+//   }
+// }
 
-Editor.defaultProps = {
-  value: '',
-};
+// Editor.defaultProps = {
+//   value: '',
+// };
 
-Editor.propTypes = {
-  value: PropTypes.string,
-};
+// Editor.propTypes = {
+//   value: PropTypes.string,
+// };
 
-export default Editor;
+// export default Editor;
