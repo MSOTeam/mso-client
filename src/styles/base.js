@@ -2,7 +2,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-export const baseStyles = () => createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
     font-family: 'Source Sans Pro', sans-serif !important;
@@ -12,4 +12,3 @@ export const baseStyles = () => createGlobalStyle`
     overflow: hidden;
   }
 `;
-
