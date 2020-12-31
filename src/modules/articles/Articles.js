@@ -208,22 +208,6 @@ class Articles extends Component {
       });
   }
 
-  toggleTag = (tag, article) => {
-    const { match, dispatch } = this.props;
-    console.log(tag);
-    console.log(article.tags);
-    const index = article.tags.indexOf(tag);
-    if (index === -1) {
-      article.tags.push(tag);
-    } else {
-      article.tags.splice(index, 1);
-    }
-    dispatch(actions.updateArticle(article._id, article ));
-    this.setState(prevState => ({
-      favs: !prevState.favs,
-    }));
-  }
-
   search = debounce((value) => {
     const { match } = this.props;
     let text = '';

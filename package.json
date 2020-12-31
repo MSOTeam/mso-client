@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@yaireo/tagify": "^3.19.0",
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
@@ -21,11 +20,6 @@
     "lodash": "^4.17.4",
     "moment": "^2.22.2",
     "prettier": "^1.10.2",
-=======
-    "axios": "^0.20.0",
-    "history": "^5.0.0",
-    "lodash": "^4.17.20",
->>>>>>> ecb3ac79af72e959297247aba9c746b573b39701
     "prop-types": "^15.6.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

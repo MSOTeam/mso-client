@@ -1,18 +1,16 @@
+import './index.css';
+
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'react-router-redux';
-import axios from 'axios';
-import './index.css';
-import baseStyles from './styles/base';
-
-import registerServiceWorker from './registerServiceWorker';
-import configureStore from './configureStore';
-
 import Routes from './routes';
-
 import { app } from './modules';
+import axios from 'axios';
+import baseStyles from './styles/base';
+import configureStore from './configureStore';
+import { createBrowserHistory } from 'history';
+import registerServiceWorker from './registerServiceWorker';
+import { routerMiddleware } from 'react-router-redux';
 
 const history = createBrowserHistory();
 
