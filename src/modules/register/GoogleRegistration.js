@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import GoogleLogin from 'react-google-login';
-import styled from 'styled-components';
 import Google from '../../assets/google.svg';
+import GoogleLogin from 'react-google-login';
+import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
 
-const ScLogin = styled(GoogleLogin)`
+const GoogleButton = styled.div`
   border: 1px #a9a9a9 solid;
   background: white;
   border-radius: 4px;
@@ -35,9 +35,11 @@ const GoogleRegistration = ({ handleRegister, handleError }) => {
   };
 
   return (
-    <ScLogin
+    <GoogleLogin
       clientId="317827366745-tkf2ndf7ujaeur4mu26bvi5u4l2ts6li.apps.googleusercontent.com"
-      buttonText="Sign up with Google"
+      render={renderProps => (
+        <GoogleButton onClick={renderProps.onClick}>Sign up with Google</GoogleButton>
+      )}
       onSuccess={onSuccess}
       onFailure={onFailure}
     />

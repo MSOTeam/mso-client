@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
 import * as actions from './actions';
-import { color } from '../../styles/color';
+
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+
 import Email from '../../assets/email.svg';
-import GoogleLogin from './GoogleLogin';
-import FbLogin from './FbLogin';
 import EmailLogin from './EmailLogin';
+import FbLogin from './FbLogin';
+import GoogleLogin from './GoogleLogin';
+import PropTypes from 'prop-types';
+import { color } from '../../styles/color';
+import { connect } from 'react-redux';
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -53,7 +55,7 @@ class Login extends Component {
 
     const selection = (
       <LoginWrapper>
-        {/* <H2>Welcome back</H2> */}
+        <H2>Welcome back</H2>
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
         <FbLogin handleLogin={this.handleFbLogin} />
       </LoginWrapper>
