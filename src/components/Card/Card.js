@@ -158,6 +158,7 @@ const Button = styled.div`
   font-size: 14px;
   font-weight: 600;
   margin-top: 10px;
+  cursor: pointer;
   ${(props) =>
     props.archive &&
     css`
@@ -205,6 +206,7 @@ const OptionItem = styled.div`
 const Card = ({ data, dispatch, edit }) => {
   const [show, setShow] = useState(false);
   const [favs, setFavs] = useState(false);
+  const [tags, setTags] = useState(data.tags);
 
   //   const tagifySettings = {
   //     blacklist: ["xxx", "yyy", "zzz"],
@@ -244,7 +246,19 @@ const Card = ({ data, dispatch, edit }) => {
     }
     dispatch(actions.updateArticle(article._id, article));
     setFavs(!favs);
+    setShow(false);
   };
+
+  const updateTags = (value) => {  
+    const tags = value.map(tag => tag.value);
+    setTags(tags); 
+  };
+
+  const saveTags = (article) => {
+    article.tags = tags;
+    dispatch(actions.updateArticle(article._id, article));
+    setShow(false);
+  }
 
   return (
     <>
@@ -277,11 +291,14 @@ const Card = ({ data, dispatch, edit }) => {
                   value="unsorted"
                 />
               ) : (
-                <Taglist tags={data.tags} />
+                <Taglist
+                  tags={data.tags}
+                  onChange={updateTags}
+                />
               )}
               <Buttons>
-                <Button archive>Archive</Button>
-                <Button save>Save</Button>
+                <Button onClick={() => toggleTag("archive", data)} archive>Archive</Button>
+                <Button onClick={() => saveTags(data)}save>Save</Button>
               </Buttons>
             </ContentMini>
           </ContentWrapper>

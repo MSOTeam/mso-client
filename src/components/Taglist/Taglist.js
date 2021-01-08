@@ -12,12 +12,12 @@ margin: 15px 0;
   }
 `;
 
-const Taglist = ({tags}) => {
-
-  console.log(tags);
+const Taglist = ({tags, onChange}) => {
+  
   return (
     <Tag 
       value={tags}
+      onChange={e => onChange(JSON.parse(e.target.value))}
     />  
   );
 };
