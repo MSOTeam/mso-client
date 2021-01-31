@@ -1,50 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Navigation from '../navigation/index';
-import { go } from 'react-router-redux/actions';
-import { color } from '../../styles/color';
-
-const NavWrapper = styled.div`
-  background: ${color.light};
-  position: sticky;
-  top: 0px;
-`;
-
-const Signupfixed = styled.div`
-  background: ${color.primary};
-  color: ${color.light};
-  width: 100vw;
-  height: 70px;
-  position: fixed;
-  bottom: 0;
-  text-align: center;
-  font-weight: 700;
-  font-size: 20px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 4px;
-  cursor: pointer;
-`;
+import { connect } from 'react-redux';
+import SignUp from './SignUp';
+import Authenticated from './Authenticated';
+import { loginSuccess } from '../login/actions';
 
 class App extends Component {
+  componentWillMount = () => {
+    const { dispatch, authenticated } = this.props;
+    const { token } = localStorage;
+    if (token && !authenticated) {
+      dispatch(loginSuccess('', token));
+    }
+  }
+
   render() {
-    const { children } = this.props;
-    return (
-      <div>
-        <NavWrapper>
-          <Navigation />
-        </NavWrapper>
-        {children}
-        <Signupfixed>SIGN UP NOW!</Signupfixed>
-      </div>
-    );
+    const { children, authenticated } = this.props;
+    return authenticated ? (<Authenticated>{ children }</Authenticated>) :
+      (<SignUp>{ children }</SignUp>);
   }
 }
 
-App.propTypes = {
-  children: PropTypes.object
+App.defaultProps = {
+  authenticated: false,
 };
 
-export default App;
+App.propTypes = {
+  children: PropTypes.object.isRequired,
+  authenticated: PropTypes.bool,
+  dispatch: PropTypes.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  const authenticated = (state.login.token);
+  return {
+    authenticated,
+  };
+}
+
+export default connect(mapStateToProps)(App);

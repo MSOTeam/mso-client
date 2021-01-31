@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import SearchImg from '../../assets/img/shop.jpg';
 
 const SearchHeader = styled.div`
-  background: url(${SearchImg});
   background-size: cover;
   background-position: center;
-  height: 70vh;
-  margin: 0 2.5vw;
 `;
+
+const VideoOverlay = styled.div`
+  overflow: hidden;
+  height: 60vh;
+  z-index:-1;
+  postition: relative;
+`;
+
+const SearchBox = styled.div`
+  position: absolute;
+  width: 500px;
+  height: 50px;
+  background: white;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+`;
+
+
 
 class Search extends Component {
   render() {
-    return <SearchHeader />;
+    return (
+    <VideoOverlay />
+    //
+  )
   }
 }
 export default Search;

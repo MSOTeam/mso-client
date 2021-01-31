@@ -6,9 +6,9 @@
   "plugins": [
     "react"
   ],
-  "extends": [
-    "airbnb"
-  ],
+  // "extends": [
+  //   "airbnb"
+  // ],
   "globals": {
     "it": true
   },

@@ -1,13 +1,14 @@
 // base-styles.js
-import { injectGlobal } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-const baseStyles = () => injectGlobal`
+export const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
-    font-family: 'Nunito Sans', sans-serif !important;
-    font-size: 14px !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 14px;
+  }
+  .ReactModal__Body--open{
+    overflow: hidden;
   }
 `;
-
-export default baseStyles;
