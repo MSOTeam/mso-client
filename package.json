@@ -1,11 +1,12 @@
 {
-  "name": "mso-client",
+  "name": "tagit-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@yaireo/tagify": "^3.22.0",
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
+    "broken-link-checker": "^0.7.8",
     "draft-js": "^0.10.5",
     "eslint-config-airbnb": "^16.1.0",
     "framer-motion": "^1.11.1",

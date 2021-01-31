@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { boxShadow, change, fadeBottom } from '../utility/animation';
 import styled, { css } from 'styled-components';
-import axios from 'axios';
+
 import SubmitLoading from '../utility/submitloading';
-import { fadeBottom, change, boxShadow } from '../utility/animation';
+import axios from 'axios';
 
 const ScMessageEmail = styled.p`  
   font-size: 1.2em;
@@ -50,8 +51,9 @@ const ScInput = styled.input`
   &::placeholder {
     color: #000;
     letter-spacing: 1px;
-    font-size: 1em;
+    font-size: 20px;
     font-weight: 400;
+    font-weight: 100;
   }
   &:hover {
       cursor: text;
@@ -123,10 +125,10 @@ const Button = styled.div`
   border-bottom-left-radius: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-weight: 400;
+  font-weight: 700;
   padding: 7px 15px;
   transition: all 0.3s;
-  font-size: 0.9em !important;
+  font-size: 20px !important;
 
   &:hover{
     cursor: pointer;
