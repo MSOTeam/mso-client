@@ -92,6 +92,7 @@ class Sidebar extends Component {
     this.state = {
       open: false,
       taglist: [],
+      edits: []
     };
   }
 
@@ -138,10 +139,6 @@ class Sidebar extends Component {
     this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
   };
 
-  edit = (e) => {
-    console.log("hell");
-  };
-
   addTag = () => {
     console.log('added');
   }
@@ -159,19 +156,63 @@ class Sidebar extends Component {
     // dispatch(actions.updateArticle(match.params.id, article ));
 
     // this.setState({ article })
+  }
 
+  edit = (tag) => {
+    const edits = this.state.edits;
+    edits.push({ tag, newTag: tag });
+    this.setState({ edits });
+  }
+  
+  save = (oldTag, newTag) => {
+    console.log(newTag);
+    this.cancel(oldTag);
+  }
+
+  cancel = (tag) => {
+    const edits = this.state.edits;
+    _.remove(edits, (o) => { return o.tag === tag; });
+    this.setState({ edits });
+  }
+
+  onChange = (e, index) => {
+    const { edits } = this.state;
+    edits[index].newTag = e.target.value;
+    this.setState({ edits });  
+  }
+
+
+  content = (tag) => {
+    const { edits } = this.state;
+    const index = _.findIndex(edits, (o) => { return o.tag === tag.tag; });    
+
+    if(index > -1) {
+      return (
+        <SidebarItemWrapper key={tag.name}>
+          <input type="text" value={edits[index].newTag} onChange={e => this.onChange(e, index)} />
+          <button onClick={() => this.save(tag.tag, tag.newTag)}>S</button>
+          <button onClick={() => this.cancel(tag.tag)}>C</button>
+        </SidebarItemWrapper>
+      );
+    }
+
+    return (
+      <SidebarItemWrapper key={tag.name}>
+        <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>
+          {tag.tag}
+        </SidebarItem>
+        <SidebarItem edit onClick={() => this.edit(tag.tag)}>
+          <EditSidebar/>
+        </SidebarItem>
+      </SidebarItemWrapper>
+    );
   }
 
   render() {
     const { dispatch } = this.props;
-    const { taglist } = this.state;
-    const categorys = taglist.map(tag => (
-      <SidebarItemWrapper key={tag.name}>
-        <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}
-        {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
-        </SidebarItem>
-        <SidebarItem edit onClick={this.edit}><EditSidebar/></SidebarItem>
-      </SidebarItemWrapper>
+    const { taglist, edits } = this.state;
+    const categories = taglist.map(tag => (
+      this.content(tag)
     ));
 
     return (
@@ -194,7 +235,7 @@ class Sidebar extends Component {
           )
          }
           <SidebarItems open={this.state.open}>
-            {categorys}
+            {categories}
             <SidebarItemWrapper>
               <SidebarItem onClick={() => this.toggleTag('add')}>+</SidebarItem>
             </SidebarItemWrapper>
