@@ -52,7 +52,7 @@ const SidebarTopOpen = styled.div`
   justify-content: space-between;
   padding: 0 24px 0 30px;
   align-items: center;
-  margin-bottom: 55px;
+  margin-bottom: 25px;
   height: 30px;
 `;
 

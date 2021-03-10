@@ -208,35 +208,6 @@ const Card = ({ data, dispatch, edit }) => {
   const [favs, setFavs] = useState(false);
   const [tags, setTags] = useState(data.tags);
 
-  //   const tagifySettings = {
-  //     blacklist: ["xxx", "yyy", "zzz"],
-  //     // maxTags: 6,
-  //     backspace: "edit",
-  //     addTagOnBlur: false,
-  //     placeholder: "",
-  //     dropdown: {
-  //       enabled   : 3,
-  //       maxItems  : 3
-  //     }
-  //   };
-
-  //   const callback = e =>
-  //   console.log(`%c ${e.type}: `, "background:#222; color:#bada55", e.detail);
-
-  // const tagifyCallbacks = {
-  //   add: callback,
-  //   remove: callback,
-  //   input: callback,
-  //   edit: callback,
-  //   invalid: callback,
-  //   click: callback
-  // };
-
-  //   const settings = {
-  //     ...tagifySettings,
-  //     callbacks: tagifyCallbacks
-  //   };
-
   const toggleTag = (tag, article) => {
     const index = article.tags.indexOf(tag);
     if (index === -1) {
@@ -287,7 +258,6 @@ const Card = ({ data, dispatch, edit }) => {
               <h1>Edit or remove tags</h1>
               {data.tags.length < 1 ? (
                 <Tag
-                  // settings={settings}
                   value="unsorted"
                 />
               ) : (
@@ -327,7 +297,7 @@ const Card = ({ data, dispatch, edit }) => {
             <ArticleHeader>{data.title}</ArticleHeader>
           </a>
           <ArticleTagsWrapper>
-            {data.tags.length < 1 ? (
+            {data.tags[0] === "" ? (
               <ArticleTags onClick={() => dispatch(push("/articles/unsorted"))}>
                 #unsorted
               </ArticleTags>
