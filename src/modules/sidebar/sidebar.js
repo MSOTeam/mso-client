@@ -1,18 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-import * as actions from '../articles/actions';
-import { PropTypes } from 'prop-types';
-import styled, { css } from 'styled-components';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
+import * as actions from "../articles/actions";
+import { PropTypes } from "prop-types";
+import styled, { css, keyframes } from "styled-components";
 import io from "socket.io-client";
-import _ from 'lodash';
-import axios from 'axios';
-import { color } from '../../styles/color';
-import { Menu, Crog, LogoWhite, Close, EditSidebar } from '../../assets/icon';
-import Arrow from '../../assets/arrow.svg';
+import _ from "lodash";
+import axios from "axios";
+import { color } from "../../styles/color";
+import { Menu, Crog, LogoWhite, Close, EditSidebar } from "../../assets/icon";
+import Arrow from "../../assets/arrow.svg";
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
 
 const SidebarWrapper = styled.div`
-  background: linear-gradient(122deg, #5649CF, #0b1963);  position: fixed;
+  background: linear-gradient(122deg, #5649cf, #0b1963);
+  position: fixed;
   top: 0;
   height: 100vh;
   width: 50px;
@@ -23,9 +42,11 @@ const SidebarWrapper = styled.div`
   box-sizing: border-box;
   z-index: 100;
   transition: width 0.3s;
-  ${props => props.open && css`
-    width: 250px;
-  `}
+  ${(props) =>
+    props.open &&
+    css`
+      width: 250px;
+    `}
   @media (max-width: 800px) {
     postioio: ${color.secondary};
   }
@@ -33,11 +54,12 @@ const SidebarWrapper = styled.div`
 
 const SidebarItems = styled.div`
   display: none;
-  ${props => props.open && css`
-    display: flex;
-    flex-direction: column;
-    height: 80%;
-  `}
+  ${(props) =>
+    props.open &&
+    css`
+      display: flex;
+      flex-direction: column;
+    `}
 `;
 
 const SidebarTop = styled.div`
@@ -62,12 +84,21 @@ const SidebarItemWrapper = styled.div`
   margin: 0 30px 19px 30px;
   &:hover {
     cursor: pointer;
-    > div{
+    > div {
       display: block;
     }
   }
+  ${({ open }) => css`
+    ${open &&
+      css`
+        animation: ${fadeIn} 0.2s ease-in-out;
+      `}
+    ${!open &&
+      css`
+        animation: ${fadeOut} 0.2s ease-in-out;
+      `}
+  `};
 `;
-
 
 const SidebarItem = styled.div`
   font-size: 0.9em;
@@ -78,12 +109,16 @@ const SidebarItem = styled.div`
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
-  ${props => props.bread && css`
-    font-weight: 100;
-  `}
-  ${props => props.edit && css`
-    display: none;
-  `}
+  ${(props) =>
+    props.bread &&
+    css`
+      font-weight: 100;
+    `}
+  ${(props) =>
+    props.edit &&
+    css`
+      display: none;
+    `}
 `;
 
 class Sidebar extends Component {
@@ -95,33 +130,26 @@ class Sidebar extends Component {
     };
   }
 
-  // componentDidMount = () => {
-  //   this.fetch();
-  // }
-
   componentDidMount = () => {
     this.fetch();
 
-    //  const socket = io(`http://localhost:5000?token=${localStorage.getItem('token')}`);
-    //  socket.on('article', data => console.log(data));
-
     const options = {
       rememberUpgrade: true,
-      transports: ['websocket'],
+      transports: ["websocket"],
       secure: false,
       rejectUnauthorized: false,
     };
 
-    const socket = io('http://localhost:5000', options);
-    socket.on('article', (data) => {
+    const socket = io("http://localhost:5000", options);
+    socket.on("article", (data) => {
       this.fetch();
     });
-  }
+  };
 
   fetch = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     axios
-      .get('tag', { headers: { Authorization: `Bearer ${token}` } })
+      .get("tag", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         const { tags } = response.data;
         const ordered = _.orderBy(tags);
@@ -130,12 +158,11 @@ class Sidebar extends Component {
       .catch((error) => {
         console.log(error);
       });
-  }
-
+  };
 
   slide = () => {
     this.setState({ open: !this.state.open });
-    this.props.dispatch({ type: 'SIDEBAR_TOGGLE' });
+    this.props.dispatch({ type: "SIDEBAR_TOGGLE" });
   };
 
   edit = (e) => {
@@ -143,64 +170,73 @@ class Sidebar extends Component {
   };
 
   addTag = () => {
-    console.log('added');
-  }
+    console.log("added");
+  };
 
   toggleTag = (tag) => {
     const { match, dispatch } = this.props;
-    console.log(this.props);
-    // const index = article.tags.indexOf(tag);
-    // if(index === -1) {
-    //   article.tags.push(tag);
-    // } else {
-    //   article.tags.splice(index, 1);
-    // }
-
-    // dispatch(actions.updateArticle(match.params.id, article ));
-
-    // this.setState({ article })
-
-  }
+  };
 
   render() {
     const { dispatch } = this.props;
     const { taglist } = this.state;
-    const categorys = taglist.map(tag => (
-      <SidebarItemWrapper key={tag.name}>
-        <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>{tag.tag}
-        {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
-        </SidebarItem>
-        <SidebarItem edit onClick={this.edit}><EditSidebar/></SidebarItem>
-      </SidebarItemWrapper>
-    ));
 
     return (
       <SidebarWrapper open={this.state.open}>
         <SidebarTop>
-          {
-          this.state.open ? (
+          {this.state.open ? (
             <SidebarTopOpen open={this.state.open}>
-              <div style={{ cursor:'pointer'}} onClick={() => dispatch(push('/'))}>
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => dispatch(push("/"))}
+              >
                 <LogoWhite />
               </div>
-              <div style={{ cursor:'pointer', padding: '6px' }} onClick={this.slide} >
+              <div
+                style={{ cursor: "pointer", padding: "6px" }}
+                onClick={this.slide}
+              >
                 <Close />
               </div>
             </SidebarTopOpen>
           ) : (
-            <div style={{ cursor:'pointer', display: 'flex', justifyContent: 'center' }} onClick={this.slide}>
+            <div
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "center",
+              }}
+              onClick={this.slide}
+            >
               <Menu />
             </div>
-          )
-         }
+          )}
           <SidebarItems open={this.state.open}>
-            {categorys}
+            {taglist.map((tag) => (
+              <SidebarItemWrapper open={this.state.open} key={tag.name}>
+                <SidebarItem
+                  pops
+                  onClick={() => dispatch(push(`/articles/${tag.tag}`))}
+                >
+                  {tag.tag}
+                  {/* <SidebarItem child><img src={Arrow} alt="" /></SidebarItem> */}
+                </SidebarItem>
+                {/* <SidebarItem edit onClick={this.edit}><EditSidebar/></SidebarItem> */}
+              </SidebarItemWrapper>
+            ))}
             <SidebarItemWrapper>
-              <SidebarItem onClick={() => this.toggleTag('add')}>+</SidebarItem>
+              <SidebarItem onClick={() => this.toggleTag("add")}>+</SidebarItem>
             </SidebarItemWrapper>
           </SidebarItems>
         </SidebarTop>
-        <div style={{ cursor:'pointer', display: 'flex', justifyContent: 'center' }} onClick={() => dispatch(push('/settings'))} >
+        <div
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+          }}
+          onClick={() => dispatch(push("/settings"))}
+        >
           <Crog />
         </div>
       </SidebarWrapper>
