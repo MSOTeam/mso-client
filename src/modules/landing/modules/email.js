@@ -29,13 +29,12 @@ const ScEmail = styled.div`
   animation-direction: alternate;
   border-radius: 10px;
   @media (max-width: 1000px) {
-    flex-direction: column;
   }
 `
 
 const ScInput = styled.input`  
   background: #fff;
-  color: #40359C;
+  color: #000;
   height: 62px;
   width: 140%;
   display:flex;
@@ -48,10 +47,13 @@ const ScInput = styled.input`
   cursor: pointer;
   padding-left: 20px;
   outline: none;
+  font-size: 20px;
+  font-weight: 300;
+
   &::placeholder {
-    color: #000;
+    color: #40359C;
     letter-spacing: 1px;
-    font-size: 20px;
+    opacity: 0.7;
     font-weight: 400;
     font-weight: 100;
   }
@@ -114,7 +116,7 @@ const ScSpan = styled.div`
 
 const Button = styled.div`
   background: #29C3C6;
-  width: 400px;
+  min-width: 130px;
   height: 50px;
   display: flex;
   align-items: center;

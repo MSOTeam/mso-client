@@ -49,9 +49,9 @@ const Settings = ({ sidebarStatus, dispatch, props }) => {
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <div>
           <Cats active>Profile</Cats>
-          <Cats>Account</Cats>
+          {/* <Cats>Account</Cats>
           <Cats>Membership</Cats>
-          <Cats>Security</Cats>
+          <Cats>Security</Cats> */}
         </div>
         <div onClick={() => dispatch(logout())} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', width: '83px',  justifyContent: 'space-between', marginBottom: '34px'}}><p style={{color: '#5649CF', position: 'relative', bottom: '1px'}}>Log out</p></div>
         {/* background: '#FAFAFA', padding: '10px 6px'*/}

@@ -29,7 +29,6 @@ const Modal = styled.div`
   z-index: 1;
   width: 500px;
   margin: auto;
-  margin-top: 350px;
   height: 400px;
   background: white;
   padding-top: 20px;

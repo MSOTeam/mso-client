@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import Modal from '../../modal/Modal';
-import Overlay from '../../navigation/component/Overlay';
-import Email from './email';
-import { fadeBottom, fadeRight, shake } from '../utility/animation';
-import App from '../assets/landing.png';
-import Mock from '../assets/tagit_mock.png';
-
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
+import Modal from "../../modal/Modal";
+import Overlay from "../../navigation/component/Overlay";
+import Email from "./email";
+import { fadeBottom, fadeRight, shake } from "../utility/animation";
+import App from "../assets/landing.png";
+import Mock from "../assets/tagit_mock.png";
 
 const ScIntroWrapper = styled.div`
   display: flex;
@@ -16,7 +15,6 @@ const ScIntroWrapper = styled.div`
   margin: 0 10% 100px;
   @media (min-width: 2150px) {
     padding: 0 10%;
-
   }
   @media (max-width: 760px) {
     flex-direction: column;
@@ -39,15 +37,17 @@ const ScText = styled.div`
 `;
 
 const ScItem = styled.div`
-  ${props => props.top && css`
-    @media (max-width: 760px) {
-      min-height: 0;  
-    }
-  `}  
+  ${(props) =>
+    props.top &&
+    css`
+      @media (max-width: 760px) {
+        min-height: 0;
+      }
+    `}
 `;
 
 const ScHeadline = styled.h1`
-  font-size: 3em;
+  font-size: 3.3em;
   font-weight: 900;
   line-height: 50px;
   color: white;
@@ -63,27 +63,26 @@ const ScHeadline = styled.h1`
   }
 `;
 
-const ScMessage = styled.p`  
-  font-size: 1em;
-  font-weight: 300;
-  line-height: 24px;
-  letter-spacing: 1px;
+const ScMessage = styled.p`
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
   color: white;
   opacity: 0;
   animation: ${fadeBottom} 1s ease-in-out;
   animation-fill-mode: forwards;
-  animation-delay: 1.4s; 
+  animation-delay: 1.4s;
 `;
 
 const ScImg = styled.div`
-  background: url( ${Mock} ) no-repeat;
+  background: url(${Mock}) no-repeat;
   width: 2070px;
   height: 980px;
   position: relative;
   opacity: 0;
   position: absolute;
-    left: 574px;
-    background-size: contain;
+  left: 574px;
+  background-size: contain;
   animation: ${fadeRight} 1s ease-in-out;
   animation-fill-mode: forwards;
   animation-delay: 1.8s;
@@ -108,7 +107,7 @@ const Img = styled.img`
 `;
 
 const Button = styled.div`
-  background: #29C3C6;
+  background: #29c3c6;
   width: 300px;
   margin: auto;
   margin-top: 85px;
@@ -132,8 +131,7 @@ const Button = styled.div`
 const Intro = () => {
   const [type, setType] = useState(0);
 
-  useEffect(() => {
-  });
+  useEffect(() => {});
 
   return (
     <div>
@@ -144,7 +142,13 @@ const Intro = () => {
             <ScHeadline>Your ultimate notebook on the web</ScHeadline>
             {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
-            <ScMessage>With so much content available today on the internet the task of trying to finish all the articles or watch the videos you find can be daunting. Usually it resaults with a cluttered browser with either way to many open tabs or a bookmarking mess. With tagit you can save it and view it later whenever you want.</ScMessage>
+            <ScMessage>
+              With so much content available today on the internet the task of
+              trying to finish all the articles or watch the videos you find can
+              be daunting. Usually it resaults with a cluttered browser with
+              either way to many open tabs or a bookmarking mess. With tagit you
+              can save it and view it later whenever you want.
+            </ScMessage>
             {/* <ScMessage>All your precious findings and inspiration saved to the same place, forever!</ScMessage> */}
             {/* <Button id="signup" onClick={event => setType(event.target.id)}>Get started</Button> */}
             {/* <Button id="signup" onClick={event => setType(event.target.id)}>Request beta access</Button> */}
@@ -159,5 +163,5 @@ const Intro = () => {
       </Modal>
     </div>
   );
-}
+};
 export default Intro;
