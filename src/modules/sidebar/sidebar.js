@@ -158,18 +158,40 @@ class Sidebar extends Component {
     // this.setState({ article })
   }
 
-  edit = (tag) => {
+  openEdit = (tag) => {
     const edits = this.state.edits;
     edits.push({ tag, newTag: tag });
     this.setState({ edits });
   }
   
-  save = (oldTag, newTag) => {
-    console.log(newTag);
-    this.cancel(oldTag);
+  save = ({ tag, newTag}) => {
+    const { taglist } = this.state;
+
+    const index = _.findIndex(taglist, (o) => { return o.tag === tag; });    
+
+    taglist[index].tag = newTag; 
+
+    this.setState({ taglist });
+
+    const token = localStorage.getItem('token');
+    axios
+      .put(`${'/tag'}`, { tag, newTag }, { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        console.log(response);
+        
+        
+        // const { tags } = response.data;
+        // const ordered = _.orderBy(tags);
+        // this.setState({ taglist: ordered });
+      })
+      .catch((error) => {
+        console.log(error);
+    });
+    
+    this.closeEdit(tag);
   }
 
-  cancel = (tag) => {
+  closeEdit = (tag) => {
     const edits = this.state.edits;
     _.remove(edits, (o) => { return o.tag === tag; });
     this.setState({ edits });
@@ -183,6 +205,7 @@ class Sidebar extends Component {
 
 
   content = (tag) => {
+    const { dispatch } = this.props;
     const { edits } = this.state;
     const index = _.findIndex(edits, (o) => { return o.tag === tag.tag; });    
 
@@ -190,8 +213,8 @@ class Sidebar extends Component {
       return (
         <SidebarItemWrapper key={tag.name}>
           <input type="text" value={edits[index].newTag} onChange={e => this.onChange(e, index)} />
-          <button onClick={() => this.save(tag.tag, tag.newTag)}>S</button>
-          <button onClick={() => this.cancel(tag.tag)}>C</button>
+          <button onClick={() => this.save(edits[index])}>S</button>
+          <button onClick={() => this.closeEdit(tag.tag)}>C</button>
         </SidebarItemWrapper>
       );
     }
@@ -201,7 +224,7 @@ class Sidebar extends Component {
         <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>
           {tag.tag}
         </SidebarItem>
-        <SidebarItem edit onClick={() => this.edit(tag.tag)}>
+        <SidebarItem edit onClick={() => this.openEdit(tag.tag)}>
           <EditSidebar/>
         </SidebarItem>
       </SidebarItemWrapper>
