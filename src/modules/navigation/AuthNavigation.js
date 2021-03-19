@@ -1,10 +1,10 @@
+import { Archive, Broken, Fav, Logo, Plug, Unsorted, Url } from '../../assets/icon';
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { push } from 'react-router-redux';
-import { connect } from 'react-redux';
 
-import { Logo, Fav, Archive, Broken, Plug, Url, Unsorted } from '../../assets/icon';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 const Navgrid = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const AuthNavigation = ({ dispatch }) => {
       <Flex>
         <Extension title="Add the tagit extension" href="https://chrome.google.com/webstore/category/extensions" target="_blank"><Plug /><span>Click to add extension</span></Extension>
         <AddUrl type="text"  />
-        <Navitem title="Add url" onClick={() => dispatch(push('/articles/favorites'))}><Url /></Navitem>
+        {/* <Navitem title="Add url" onClick={() => dispatch(push('/articles/favorites'))}><Url /></Navitem> */}
         {/* <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><Fav/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><InProgress/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem>

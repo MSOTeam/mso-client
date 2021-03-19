@@ -1,15 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { push } from "react-router-redux";
 import * as actions from "../articles/actions";
-import { PropTypes } from "prop-types";
+
+import { Close, Crog, EditSidebar, LogoWhite, Menu } from "../../assets/icon";
+import React, { Component } from "react";
 import styled, { css, keyframes } from "styled-components";
-import io from "socket.io-client";
+
+import Arrow from "../../assets/arrow.svg";
+import { PropTypes } from "prop-types";
 import _ from "lodash";
 import axios from "axios";
 import { color } from "../../styles/color";
-import { Menu, Crog, LogoWhite, Close, EditSidebar } from "../../assets/icon";
-import Arrow from "../../assets/arrow.svg";
+import { connect } from "react-redux";
+import io from "socket.io-client";
+import { push } from "react-router-redux";
 
 const fadeIn = keyframes`
   0% {
@@ -88,15 +90,14 @@ const SidebarItemWrapper = styled.div`
       display: block;
     }
   }
-  ${({ open }) => css`
+  ${({ open, background }) => css`
     ${open &&
       css`
-        animation: ${fadeIn} 0.2s ease-in-out;
+        animation: ${fadeIn} 0.2s linear;
       `}
-    ${!open &&
-      css`
-        animation: ${fadeOut} 0.2s ease-in-out;
-      `}
+    ${background && css`
+      background: none;
+    `}
   `};
 `;
 
@@ -127,7 +128,7 @@ class Sidebar extends Component {
     this.state = {
       open: false,
       taglist: [],
-      edits: []
+      edits: [],
     };
   }
 
@@ -165,14 +166,12 @@ class Sidebar extends Component {
     this.setState({ open: !this.state.open });
     this.props.dispatch({ type: "SIDEBAR_TOGGLE" });
   };
-
   addTag = () => {
     console.log("added");
   };
 
   toggleTag = (tag) => {
     const { match, dispatch } = this.props;
-    console.log(this.props);
     // const index = article.tags.indexOf(tag);
     // if(index === -1) {
     //   article.tags.push(tag);
@@ -183,82 +182,118 @@ class Sidebar extends Component {
     // dispatch(actions.updateArticle(match.params.id, article ));
 
     // this.setState({ article })
-  }
+  };
 
   openEdit = (tag) => {
     const edits = this.state.edits;
     edits.push({ tag, newTag: tag });
     this.setState({ edits });
-  }
-  
-  save = ({ tag, newTag}) => {
+  };
+
+  save = ({ tag, newTag }) => {
     const { taglist } = this.state;
 
-    const index = _.findIndex(taglist, (o) => { return o.tag === tag; });    
+    const index = _.findIndex(taglist, (o) => {
+      return o.tag === tag;
+    });
 
-    taglist[index].tag = newTag; 
+    taglist[index].tag = newTag;
 
     this.setState({ taglist });
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     axios
-      .put(`${'/tag'}`, { tag, newTag }, { headers: { Authorization: `Bearer ${token}` } })
+      .put(
+        `${"/tag"}`,
+        { tag, newTag },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
-    });
-    
+      });
     this.closeEdit(tag);
-  }
+  };
 
   closeEdit = (tag) => {
     const edits = this.state.edits;
-    _.remove(edits, (o) => { return o.tag === tag; });
+    _.remove(edits, (o) => {
+      return o.tag === tag;
+    });
     this.setState({ edits });
-  }
+  };
+
+  onKey = (e, index, tag, edits) => {
+    e.key === "Escape" && this.closeEdit(tag)
+    e.key === "Enter" && this.save(edits)
+  };
 
   onChange = (e, index) => {
     const { edits } = this.state;
     edits[index].newTag = e.target.value;
-    this.setState({ edits });  
-  }
-
+    this.setState({ edits });
+  };
 
   content = (tag) => {
     const { dispatch } = this.props;
     const { edits } = this.state;
-    const index = _.findIndex(edits, (o) => { return o.tag === tag.tag; });    
+    const index = _.findIndex(edits, (o) => {
+      return o.tag === tag.tag;
+    });
 
-    if(index > -1) {
+    if (index > -1) {
       return (
-        <SidebarItemWrapper key={tag.name}>
-          <input type="text" value={edits[index].newTag} onChange={e => this.onChange(e, index)} />
-          <button onClick={() => this.save(edits[index])}>S</button>
-          <button onClick={() => this.closeEdit(tag.tag)}>C</button>
+        <SidebarItemWrapper background={true}
+          key={tag.name}
+          open={this.state.open}
+          style={{ position: "relative", marginBottom: "33px" }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: "-7px"
+            }}
+          >
+            <input
+              style={{
+                height: "25px",
+                borderRadius: "3px",
+                border: "none",
+                paddingLeft: "5px",
+                fontSize: "0.9em",
+                outline: "none",
+              }}
+              type="text"
+              value={edits[index].newTag}
+              onChange={(e) => this.onChange(e, index)}
+              onKeyDown={(e) => this.onKey(e, index, tag.tag, edits[index])}
+            />
+          </div>
         </SidebarItemWrapper>
       );
     }
 
     return (
-      <SidebarItemWrapper key={tag.name}>
-        <SidebarItem pops onClick={() => dispatch(push(`/articles/${tag.tag}`))}>
+      <SidebarItemWrapper key={tag.name} open={this.state.open}>
+        <SidebarItem
+          pops
+          onClick={() => dispatch(push(`/articles/${tag.tag}`))}
+        >
           {tag.tag}
         </SidebarItem>
         <SidebarItem edit onClick={() => this.openEdit(tag.tag)}>
-          <EditSidebar/>
+          <EditSidebar />
         </SidebarItem>
       </SidebarItemWrapper>
     );
-  }
+  };
 
   render() {
     const { dispatch } = this.props;
     const { taglist, edits } = this.state;
-    const categories = taglist.map(tag => (
-      this.content(tag)
-    ));
+    const categories = taglist.map((tag) => this.content(tag));
 
     return (
       <SidebarWrapper open={this.state.open}>
@@ -292,9 +327,9 @@ class Sidebar extends Component {
           )}
           <SidebarItems open={this.state.open}>
             {categories}
-            <SidebarItemWrapper>
+            {/* <SidebarItemWrapper>
               <SidebarItem onClick={() => this.toggleTag("add")}>+</SidebarItem>
-            </SidebarItemWrapper>
+            </SidebarItemWrapper> */}
           </SidebarItems>
         </SidebarTop>
         <div
