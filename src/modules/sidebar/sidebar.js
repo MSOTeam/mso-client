@@ -95,9 +95,10 @@ const SidebarItemWrapper = styled.div`
       css`
         animation: ${fadeIn} 0.2s linear;
       `}
-    ${background && css`
-      background: none;
-    `}
+    ${background &&
+      css`
+        background: none;
+      `}
   `};
 `;
 
@@ -110,6 +111,7 @@ const SidebarItem = styled.div`
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
+  width: 90%;
   ${(props) =>
     props.bread &&
     css`
@@ -119,6 +121,7 @@ const SidebarItem = styled.div`
     props.edit &&
     css`
       display: none;
+      width: 10%;
     `}
 `;
 
@@ -191,6 +194,8 @@ class Sidebar extends Component {
   };
 
   save = ({ tag, newTag }) => {
+    const { dispatch } = this.props;
+
     const { taglist } = this.state;
 
     const index = _.findIndex(taglist, (o) => {
@@ -215,6 +220,9 @@ class Sidebar extends Component {
         console.log(error);
       });
     this.closeEdit(tag);
+    if (decodeURIComponent(window.location.pathname) === `/articles/${tag}`) {
+      dispatch(push(`/articles/${newTag}`));
+    }
   };
 
   closeEdit = (tag) => {
@@ -226,8 +234,8 @@ class Sidebar extends Component {
   };
 
   onKey = (e, index, tag, edits) => {
-    e.key === "Escape" && this.closeEdit(tag)
-    e.key === "Enter" && this.save(edits)
+    e.key === "Escape" && this.closeEdit(tag);
+    e.key === "Enter" && this.save(edits);
   };
 
   onChange = (e, index) => {
@@ -245,7 +253,8 @@ class Sidebar extends Component {
 
     if (index > -1) {
       return (
-        <SidebarItemWrapper background={true}
+        <SidebarItemWrapper
+          background={true}
           key={tag.name}
           open={this.state.open}
           style={{ position: "relative", marginBottom: "33px" }}
@@ -253,7 +262,7 @@ class Sidebar extends Component {
           <div
             style={{
               position: "absolute",
-              top: "-7px"
+              top: "-7px",
             }}
           >
             <input
@@ -293,7 +302,6 @@ class Sidebar extends Component {
   render() {
     const { dispatch } = this.props;
     const { taglist, edits } = this.state;
-    const categories = taglist.map((tag) => this.content(tag));
 
     return (
       <SidebarWrapper open={this.state.open}>
@@ -326,7 +334,7 @@ class Sidebar extends Component {
             </div>
           )}
           <SidebarItems open={this.state.open}>
-            {categories}
+            {taglist.map((tag) => this.content(tag))}
             {/* <SidebarItemWrapper>
               <SidebarItem onClick={() => this.toggleTag("add")}>+</SidebarItem>
             </SidebarItemWrapper> */}
@@ -349,10 +357,16 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  match: {
+    params: {
+      tag: "",
+    },
+  },
 };
 
 Sidebar.defaultProps = {
   cats: [],
+  match: PropTypes.object,
 };
 function mapStateToProps(state) {
   return {
