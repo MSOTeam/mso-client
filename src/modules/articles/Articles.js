@@ -97,7 +97,7 @@ const Articles = ({ dispatch, ...props }) => {
       secure: false,
       rejectUnauthorized: false,
     };  
-    const socket = io("http://localhost:5000", options);
+    const socket = io("https://tagit-api.herokuapp.com/", options);
     socket.on("article", (data) => {
       fetch();
     });
