@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
-import styled, { css, keyframes } from 'styled-components';
-import { push } from 'react-router-redux';
-import ProgressBar from 'react-progressbar-on-scroll';
-
 import * as actions from './actions';
-import { EditIcon, Reminder, ReminderChecked, Archive, ArchiveChecked, Fav, FavChecked, InProgress, InProgressChecked } from '../../assets/icon';
-import Focus from '../../assets/focus.svg';
-import Edit from '../../assets/edit.svg';
-import Highlight from '../../assets/highlight.svg';
+
+import { Archive, ArchiveChecked, EditIcon, Fav, FavChecked, InProgress, InProgressChecked, Reminder, ReminderChecked } from '../../assets/icon';
+import React, { Component } from 'react';
+import styled, { css, keyframes } from 'styled-components';
+
+import Back from '../../assets/back.svg';
 import CommentMsg from '../../assets/comment.svg';
+import Edit from '../../assets/edit.svg';
+import Focus from '../../assets/focus.svg';
+import Highlight from '../../assets/highlight.svg';
 import Members from '../../assets/members.svg';
+import ProgessEmpty from '../../assets/progress_empty.svg';
+import ProgressBar from 'react-progressbar-on-scroll';
+import { PropTypes } from 'prop-types';
 import Share from '../../assets/share.svg';
 import StarEmpty from '../../assets/star_empty.svg';
-import ProgessEmpty from '../../assets/progress_empty.svg';
-import Back from '../../assets/back.svg';
-
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 const fadeIn = keyframes`
   0% {
@@ -527,7 +527,6 @@ class Article extends Component {
     }
 
     dispatch(actions.updateArticle(match.params.id, article ));
-    console.log(match.params.id);
     this.setState({ article })
 
   }

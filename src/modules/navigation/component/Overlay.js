@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import Register from '../../register/Register';
+
 import Login from '../../login/Login';
+import PropTypes from 'prop-types';
+import Register from '../../register/Register';
 import X from '../../../assets/close_black.svg';
 import { color } from '../../../styles/color';
 

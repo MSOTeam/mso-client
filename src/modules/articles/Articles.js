@@ -24,6 +24,7 @@ import Skeleton from "react-loading-skeleton";
 import axios from "axios";
 import { debounce } from "lodash";
 import io from "socket.io-client";
+import { isNull } from "lodash";
 import { keyframes } from "styled-components";
 
 const Articles = ({ dispatch, ...props }) => {
@@ -60,7 +61,6 @@ const Articles = ({ dispatch, ...props }) => {
     }
     const url = `article/?tag=${match.params.tag}`;
     const token = localStorage.getItem("token");
-    
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
@@ -96,7 +96,7 @@ const Articles = ({ dispatch, ...props }) => {
       transports: ["websocket"],
       secure: false,
       rejectUnauthorized: false,
-    };  
+    };
     const socket = io("http://localhost:5000", options);
     socket.on("article", (data) => {
       fetch();
@@ -123,37 +123,74 @@ const Articles = ({ dispatch, ...props }) => {
         </FilteWrapper>
       </Grid>
       <>
-        {articles?.articles?.length > 0 && articles?.articles !== undefined ? (
+        {articles?.articles?.length > 0 ? (
           <Grid sidebarStatus={sidebarStatus.isOpen}>
-            {articles?.articles?.map((article, index) => (
-              <Box id={index} key={index}>
-                <Card data={article} match={match} />
-              </Box>
-            ))}
-            {match.params.tag === "archive" && (
-              <Delete>Permanently delete all items</Delete>
-            )}
+            {match.params.tag === "archive" &&
+              articles?.articles?.map(
+                (article, index) =>
+                  !isNull(article.tags) &&
+                  article.tags[0] === "archive" && (
+                    <>
+                      <Box id={index} key={index}>
+                        <Card data={article} match={match} />
+                      </Box>
+                    </>
+                  )
+              )}
+            {match.params.tag === "unsorted" &&
+              articles?.articles?.map(
+                (article, index) =>
+                  !isNull(article.tags) &&
+                  article.tags[0] === "unsorted" && (
+                    <>
+                      <Box id={index} key={index}>
+                        <Card data={article} match={match} />
+                      </Box>
+                    </>
+                  )
+              )}
+            {match.params.tag !== "archive" &&
+              match.params.tag !== "unsorted" &&
+              articles?.articles?.map(
+                (article, index) =>
+                  !isNull(article.tags) &&
+                  article.tags[0] !== "archive" &&
+                  article.tags[0] !== "unsorted" && (
+                    <>
+                      <Box id={index} key={index}>
+                        <Card data={article} match={match} />
+                      </Box>
+                    </>
+                  )
+              )}
           </Grid>
         ) : (
           <Grid sidebarStatus={sidebarStatus.isOpen}>
-            {placeHolder.map((article) => (
-              <Box key={article._id}>
-                <BoxOverlay>
-                  <Image>
-                    <Skeleton height={200} />
-                  </Image>
-                </BoxOverlay>
-                <Header>
-                  <Skeleton count={2} />
-                </Header>
-                <TagsWrapper>
-                  <Tags>
-                    <Skeleton style={{ float: "left" }} width={50} />
-                  </Tags>
-                </TagsWrapper>
-              </Box>
-            ))}
+            {articles?.articles?.length === 0
+              ? <div>Nothing here :(</div>
+              : placeHolder.map((article) => (
+                  <Box key={article._id}>
+                    <BoxOverlay>
+                      <Image>
+                        <Skeleton height={200} />
+                      </Image>
+                    </BoxOverlay>
+                    <Header>
+                      <Skeleton count={2} />
+                    </Header>
+                    <TagsWrapper>
+                      <Tags>
+                        <Skeleton style={{ float: "left" }} width={50} />
+                      </Tags>
+                    </TagsWrapper>
+                  </Box>
+                ))}
           </Grid>
+        )}
+        {match.params.tag === "archive" && (
+          <div style={{ position: "relative" }}>
+            <Delete>Permanently delete all items</Delete>
+          </div>
         )}
       </>
     </>
