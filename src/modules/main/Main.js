@@ -1,19 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
-import Articles from '../articles/Articles';
-import { color } from '../../styles/color';
-import Search from '../../assets/search.svg';
-import { GridLayout, MasonaryLayout, Sort } from '../../assets/icon';
+import { GridLayout, MasonaryLayout, Sort } from "../../assets/icon";
+import styled, { css } from "styled-components";
+
+import Articles from "../articles/Articles";
+import PropTypes from "prop-types";
+import React from "react";
+import Search from "../../assets/search.svg";
+import { color } from "../../styles/color";
+import { connect } from "react-redux";
 
 const Header = styled.div`
-  padding: 0px 70px 0 140px;
+  padding: 20px 70px 0 80px;
   transition: all 0.3s;
 
-  ${props => props.sidebarStatus === true && css`
-      padding: 0px 70px 0  315px;
-  `}
+  ${(props) =>
+    props.sidebarStatus === true &&
+    css`
+      padding: 20px 70px 0 280px;
+    `}
 `;
 
 const Welcome = styled.h1`
@@ -29,15 +32,14 @@ const Cats = styled.p`
   padding-bottom: 15px;
   margin-bottom: 20px;
   margin-right: 20px;
-  ${props => props.active && css`
-    font-weight: 600;
-    border-bottom: 5px solid ${color.primary};
-    width: fit-content;
-  `}
+  ${(props) =>
+    props.active &&
+    css`
+      font-weight: 600;
+      border-bottom: 5px solid ${color.primary};
+      width: fit-content;
+    `}
 `;
-
-
-
 
 const Main = ({ authenticated, sidebarStatus }) => {
   if (!authenticated) {
@@ -45,18 +47,28 @@ const Main = ({ authenticated, sidebarStatus }) => {
   }
   return (
     <>
-      {/* <Header sidebarStatus={sidebarStatus.isOpen}> */}
-        {/* <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}> */}
-          {/* <Welcome>Welcome back {localStorage.getItem('firstName')} {localStorage.getItem('lastName')}</Welcome> */}
-        {/* </div> */}
-        {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex' }}>
+      {/* <Header sidebarStatus={sidebarStatus.isOpen}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Welcome>
+            Welcome back {localStorage.getItem("firstName")}{" "}
+            {localStorage.getItem("lastName")}
+          </Welcome>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex" }}>
             <Cats active>Latest</Cats>
+            <Cats>Following</Cats>
             <Cats>Recommended</Cats>
             <Cats>Trending</Cats>
           </div>
-        </div>*/}
-      {/* </Header> */}
+        </div>
+      </Header> */}
       <Articles />
     </>
   );
@@ -75,7 +87,7 @@ Main.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const authenticated = (state.login.token);
+  const authenticated = state.login.token;
   return {
     authenticated,
     sidebarStatus: state.sidebar,

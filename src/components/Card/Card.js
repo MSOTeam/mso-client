@@ -3,7 +3,7 @@ import "@yaireo/tagify/dist/tagify.css";
 import * as actions from "../../modules/articles/actions";
 
 import { AddTo, Close, FavSmall, FavSmallChecked } from "../../assets/icon";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 import Taglist from "../Taglist/Taglist";
@@ -206,11 +206,14 @@ const OptionItem = styled.div`
 const Card = ({ data, dispatch, edit }) => {
   const [show, setShow] = useState(false);
   const [favs, setFavs] = useState(false);
-  const [tags, setTags] = useState(data.tags);
+  const [tags, setTags] = useState("unsorted");
 
   const toggleTag = (tag, article) => {
     const index = article.tags.indexOf(tag);
     if (index === -1) {
+      while (article.tags.length) {
+        article.tags.pop();
+      }
       article.tags.push(tag);
     } else {
       article.tags.splice(index, 1);
@@ -220,16 +223,18 @@ const Card = ({ data, dispatch, edit }) => {
     setShow(false);
   };
 
-  const updateTags = (value) => {  
-    const tags = value.map(tag => tag.value);
-    setTags(tags); 
+  const updateTags = (value) => {
+    const tags = value.map((tag) => tag.value);
+    setTags(tags);
   };
 
   const saveTags = (article) => {
     article.tags = tags;
     dispatch(actions.updateArticle(article._id, article));
     setShow(false);
-  }
+  };
+
+  useEffect(() => {saveTags}, [data.tags]);
 
   return (
     <>
@@ -244,31 +249,30 @@ const Card = ({ data, dispatch, edit }) => {
             <FavSmall />
           )}
         </OptionItem>
-        <OptionItem onClick={ () => setShow(!show)}>
+        <OptionItem onClick={() => setShow(!show)}>
           <AddTo />
         </OptionItem>
       </Options>
       {show ? (
         <EditWrapper>
           <ContentWrapper>
-            <ExitEdit onClick={ () => setShow(!show)}>
+            <ExitEdit onClick={() => setShow(!show)}>
               <Close />
             </ExitEdit>
             <ContentMini>
               <h1>Edit or remove tags</h1>
-              {data.tags.length < 1 ? (
-                <Tag
-                  value="unsorted"
-                />
+              {data.tags[0] === "unsorted" || data.tags[0] === "archive" ? (
+                <Taglist tags={""} onChange={updateTags} />
               ) : (
-                <Taglist
-                  tags={data.tags}
-                  onChange={updateTags}
-                />
+                <Taglist tags={data.tags} onChange={updateTags} />
               )}
               <Buttons>
-                <Button onClick={() => toggleTag("archive", data)} archive>Archive</Button>
-                <Button onClick={() => saveTags(data)}save>Save</Button>
+                <Button onClick={() => toggleTag("archive", data)} archive>
+                  Archive
+                </Button>
+                <Button onClick={() => saveTags(data)} save>
+                  Save
+                </Button>
               </Buttons>
             </ContentMini>
           </ContentWrapper>
@@ -297,12 +301,13 @@ const Card = ({ data, dispatch, edit }) => {
             <ArticleHeader>{data.title}</ArticleHeader>
           </a>
           <ArticleTagsWrapper>
-            {data.tags[0] === "" ? (
+            {/* {console.log(data?.tags[0])} */}
+            {data?.tags[0] === "u" ? (
               <ArticleTags onClick={() => dispatch(push("/articles/unsorted"))}>
                 #unsorted
               </ArticleTags>
             ) : (
-              data.tags.map((tag) => (
+              data?.tags.map((tag) => (
                 <ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))}>
                   #{tag}
                 </ArticleTags>

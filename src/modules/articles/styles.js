@@ -159,12 +159,12 @@ export const Categoryname = styled.h1`
 `;
 
 export const Delete = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 93%;
+  width: 100%;
   height: 85px;
   font-size: 1.4em;
   background: black;

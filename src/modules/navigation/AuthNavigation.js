@@ -76,7 +76,7 @@ const AuthNavigation = ({ dispatch }) => {
         {/* <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}><InProgressCheckedSmall/><NavName>In progress</NavName></Navitem> */}
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/><NavName>Reminder</NavName></Navitem> */}
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem> */}
-        <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/broken'))}><Broken /></Navitem>
+        {/* <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/broken'))}><Broken /></Navitem> */}
         <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted /></Navitem>
         <Navitem reminder title="View archived links" onClick={() => dispatch(push('/articles/archive'))}><Archive /></Navitem>
         {/* <Navitem logout onClick={() => dispatch(logout())}><LogOut /></Navitem> */}
