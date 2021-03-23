@@ -50,7 +50,7 @@ const Articles = ({ dispatch, ...props }) => {
     18,
     19,
     20,
-  ]);
+  ]); 
 
   const { match, cats } = props;
 
@@ -99,7 +99,8 @@ const Articles = ({ dispatch, ...props }) => {
     };  
     const socket = io("http://localhost:5000", options);
     socket.on("article", (data) => {
-      fetch();
+      console.log('fetch');
+      fetch(match);
     });
   }, [match, cats, articles?.articles?.length]);
 
