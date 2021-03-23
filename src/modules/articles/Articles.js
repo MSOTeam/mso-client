@@ -102,8 +102,7 @@ const Articles = ({ dispatch, ...props }) => {
       console.log('fetch');
       fetch(match);
     });
-  }, [match, cats, articles?.articles?.length]);
-
+  }, [match, cats]);
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>

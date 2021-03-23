@@ -302,7 +302,7 @@ const Card = ({ data, dispatch, edit }) => {
           </a>
           <ArticleTagsWrapper>
             {/* {console.log(data?.tags[0])} */}
-            {data?.tags[0] === "u" ? (
+            {data?.tags[0] === "u" || data?.tags.length === 0 ? (
               <ArticleTags onClick={() => dispatch(push("/articles/unsorted"))}>
                 #unsorted
               </ArticleTags>

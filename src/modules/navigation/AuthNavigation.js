@@ -1,10 +1,18 @@
-import { Archive, Broken, Fav, Logo, Plug, Unsorted, Url } from '../../assets/icon';
-import React, {useState} from 'react';
-import styled, { css } from 'styled-components';
+import {
+  Archive,
+  Broken,
+  Fav,
+  Logo,
+  Plug,
+  Unsorted,
+  Url,
+} from "../../assets/icon";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { push } from "react-router-redux";
 
 const Navgrid = styled.div`
   display: flex;
@@ -25,13 +33,21 @@ const Navitem = styled.a`
   font-size: 15px;
   letter-spacing: 0.5px;
   padding-left: 30px;
-  ${props => props.logo && css`
-    padding-left: 0;
-  `}
+  box-sizing: border-box;
+  ${(props) =>
+    props.logo &&
+    css`
+      padding-left: 0;
+    `}
+  /* &:hover {
+    background: whitesmoke;
+    padding: 8px;
+    border-radius: 100px;
+  } */
 `;
 
 const Extension = styled.a`
-  background: #5649CF;
+  background: #5649cf;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,36 +76,57 @@ const AuthNavigation = ({ dispatch }) => {
 
   return (
     <Navgrid>
-      <Navitem logo onClick={() => dispatch(push('/'))}>
+      <Navitem logo onClick={() => dispatch(push("/"))}>
         <Logo />
       </Navitem>
 
       <Flex>
-        <Extension title="Add the tagit extension" href="https://chrome.google.com/webstore/category/extensions" target="_blank"><Plug /><span>Click to add extension</span></Extension>
-        <AddUrl type="text"  />
+        <Extension
+          title="Add the tagit extension"
+          href="https://chrome.google.com/webstore/category/extensions"
+          target="_blank"
+        >
+          <Plug />
+          <span>Click to add extension</span>
+        </Extension>
+        <AddUrl type="text" />
         {/* <Navitem title="Add url" onClick={() => dispatch(push('/articles/favorites'))}><Url /></Navitem> */}
         {/* <Navitem star onClick={() => dispatch(push('/articles/favorites'))}><Fav/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><InProgress/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem>
         <Navitem reminder onClick={() => dispatch(push('/articles/archive'))}><Archive/></Navitem> */}
-        <Navitem title="View favorites" onClick={() => dispatch(push('/articles/favorites'))}><Fav /></Navitem>
+        <Navitem
+          title="View favorites"
+          onClick={() => dispatch(push("/articles/favorites"))}
+        >
+          <Fav />
+        </Navitem>
         {/* <Navitem progress onClick={() => dispatch(push('/articles/inprogress'))}><InProgressCheckedSmall/><NavName>In progress</NavName></Navitem> */}
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/reminder'))}><ReminderCheckedSmall/><NavName>Reminder</NavName></Navitem> */}
         {/* <Navitem reminder onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted/></Navitem> */}
         {/* <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/broken'))}><Broken /></Navitem> */}
-        <Navitem reminder title="View broken links"onClick={() => dispatch(push('/articles/unsorted'))}><Unsorted /></Navitem>
-        <Navitem reminder title="View archived links" onClick={() => dispatch(push('/articles/archive'))}><Archive /></Navitem>
+        <Navitem
+          reminder
+          title="View broken links"
+          onClick={() => dispatch(push("/articles/unsorted"))}
+        >
+          <Unsorted />
+        </Navitem>
+        <Navitem
+          reminder
+          title="View archived links"
+          onClick={() => dispatch(push("/articles/archive"))}
+        >
+          <Archive />
+        </Navitem>
         {/* <Navitem logout onClick={() => dispatch(logout())}><LogOut /></Navitem> */}
       </Flex>
     </Navgrid>
   );
 };
 
-
 AuthNavigation.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-
 export default connect()(AuthNavigation);
-
