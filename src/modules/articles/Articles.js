@@ -73,7 +73,7 @@ const Articles = ({ dispatch, ...props }) => {
 
   const search = debounce((value) => {
     let text = "";
-    if (value.length > 3) {
+    if (value.length > 1) {
       text = value;
     }
     const url = `article/?tag=${match.params.tag}&text=${text}`;
@@ -99,7 +99,6 @@ const Articles = ({ dispatch, ...props }) => {
     };
     const socket = io("http://localhost:5000", options);
     socket.on("article", (data) => {
-      console.log('fetch');
       fetch(match);
     });
   }, [match, cats]);
