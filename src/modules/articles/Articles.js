@@ -22,7 +22,7 @@ import Card from "../../components/Card/Card";
 import { PropTypes } from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
-import { debounce } from "lodash";
+import { debounce, times, toSafeInteger } from "lodash";
 import io from "socket.io-client";
 import { isNull } from "lodash";
 import { keyframes } from "styled-components";
@@ -30,6 +30,7 @@ import { keyframes } from "styled-components";
 const Articles = ({ dispatch, ...props }) => {
   const sidebarStatus = useSelector((state) => state.sidebar);
   const [articles, setArticles] = useState([]);
+  const [query, setQuery] = useState('');
   const [placeHolder, setPlaceholder] = useState([
     1,
     2,
@@ -71,6 +72,11 @@ const Articles = ({ dispatch, ...props }) => {
       });
   };
 
+  const onSearch = (value) => {
+    setQuery(value);
+    search(value);
+  }
+
   const search = debounce((value) => {
     let text = "";
     if (value.length > 1) {
@@ -89,6 +95,7 @@ const Articles = ({ dispatch, ...props }) => {
       });
   }, 300);
 
+
   useEffect(() => {
     fetch(match);
     const options = {
@@ -97,8 +104,10 @@ const Articles = ({ dispatch, ...props }) => {
       secure: false,
       rejectUnauthorized: false,
     };
+
+    setQuery('');
     const socket = io("http://localhost:5000", options);
-    socket.on("article", (data) => {
+    socket.on("article", (data) => { 
       fetch(match);
     });
   }, [match, cats]);
@@ -117,7 +126,8 @@ const Articles = ({ dispatch, ...props }) => {
         <FilteWrapper sidebarStatus={sidebarStatus.isOpen}>
           <FilterBox
             placeholder="Search"
-            onChange={(e) => search(e.target.value)}
+            onChange={(e) => onSearch(e.target.value)}
+            value={query}
           />
         </FilteWrapper>
       </Grid>

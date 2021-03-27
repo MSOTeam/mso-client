@@ -145,10 +145,10 @@ class Sidebar extends Component {
       rejectUnauthorized: false,
     };
 
-    const socket = io("http://localhost:5000", options);
-    socket.on("article", (data) => {
-      this.fetch();
-    });
+    // const socket = io("http://localhost:5000", options);
+    // socket.on("article", (data) => {
+    //   this.fetch();
+    // });
   };
 
   fetch = () => {
@@ -213,16 +213,19 @@ class Sidebar extends Component {
         { tag, newTag },
         { headers: { Authorization: `Bearer ${token}` } }
       )
-      .then((response) => {
-        console.log(response);
+      .then((response) => {        
+        if (decodeURIComponent(window.location.pathname) === `/articles/${tag}`) {
+          dispatch(push(`/articles/${newTag}`));
+        } else
+        {
+          this.fetch();
+        } 
       })
       .catch((error) => {
         console.log(error);
       });
     this.closeEdit(tag);
-    if (decodeURIComponent(window.location.pathname) === `/articles/${tag}`) {
-      dispatch(push(`/articles/${newTag}`));
-    }
+    
   };
 
   closeEdit = (tag) => {
