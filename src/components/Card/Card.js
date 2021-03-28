@@ -203,10 +203,26 @@ const OptionItem = styled.div`
     `}
 `;
 
+const PlaceHolder = styled.div`
+  width: 100%;
+  height: 100%;
+  ${(props) =>
+    props.c1 && props.c2 &&
+    css`
+        background: linear-gradient(
+    137deg,
+    #${props.c1},
+    #${props.c2}
+  );
+    `}
+
+`;
+
 const Card = ({ data, dispatch, edit }) => {
   const [show, setShow] = useState(false);
   const [favs, setFavs] = useState(false);
   const [tags, setTags] = useState("unsorted");
+  const [imgUrl, setImgUrl] = useState();
 
   const toggleTag = (tag, article) => {
     const index = article.tags.indexOf(tag);
@@ -234,7 +250,21 @@ const Card = ({ data, dispatch, edit }) => {
     setShow(false);
   };
 
-  useEffect(() => {saveTags}, [data.tags]);
+  useEffect(() => {
+    saveTags;
+  }, [data.tags]);
+
+  const checkImage = (url) => {
+    var s = document.createElement("IMG");
+    s.src = url;
+    s.onerror = () => {
+      setImgUrl(false);
+    };
+    s.onload = () => {
+      setImgUrl(true);
+    };
+    return imgUrl;
+  };
 
   return (
     <>
@@ -287,21 +317,19 @@ const Card = ({ data, dispatch, edit }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ArticleBoxOverlay onClick={() => console.log(data.title)}>
-              {data.image !== "" ? (
+            <ArticleBoxOverlay>
+              {data.image !== "" && checkImage(data.image) ? (
                 <ArticleImage image={data.image} />
               ) : (
-                <img
-                  style={{ width: "100%" }}
-                  alt={data.title}
-                  src="https://generative-placeholders.glitch.me/image?width=350&height=350&style=tiles"
+                <PlaceHolder
+                  c1={Math.floor(Math.random() * 16777215).toString(16)}
+                  c2={Math.floor(Math.random() * 16777215).toString(16)}
                 />
               )}
             </ArticleBoxOverlay>
             <ArticleHeader>{data.title}</ArticleHeader>
           </a>
           <ArticleTagsWrapper>
-            {/* {console.log(data?.tags[0])} */}
             {data?.tags[0] === "u" || data?.tags.length === 0 ? (
               <ArticleTags onClick={() => dispatch(push("/articles/unsorted"))}>
                 #unsorted
