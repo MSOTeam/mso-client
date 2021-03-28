@@ -144,11 +144,6 @@ class Sidebar extends Component {
       secure: false,
       rejectUnauthorized: false,
     };
-
-    // const socket = io("http://localhost:5000", options);
-    // socket.on("article", (data) => {
-    //   this.fetch();
-    // });
   };
 
   fetch = () => {
@@ -195,7 +190,6 @@ class Sidebar extends Component {
 
   save = ({ tag, newTag }) => {
     const { dispatch } = this.props;
-
     const { taglist } = this.state;
 
     const index = _.findIndex(taglist, (o) => {
@@ -204,8 +198,8 @@ class Sidebar extends Component {
 
     taglist[index].tag = newTag;
 
-    this.setState({ taglist });
-
+    this.setState({ taglist });  
+    
     const token = localStorage.getItem("token");
     axios
       .put(

@@ -17,6 +17,7 @@ import {
 } from "./styles";
 import React, { useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import Card from "../../components/Card/Card";
 import { PropTypes } from "prop-types";
@@ -27,7 +28,7 @@ import io from "socket.io-client";
 import { isNull } from "lodash";
 import { keyframes } from "styled-components";
 
-const Articles = ({ dispatch, ...props }) => {
+const Articles = () => {
   const sidebarStatus = useSelector((state) => state.sidebar);
   const [articles, setArticles] = useState([]);
   const [query, setQuery] = useState('');
@@ -54,13 +55,13 @@ const Articles = ({ dispatch, ...props }) => {
     20,
   ]); 
 
-  const { match, cats } = props;
+  let { tag } = useParams();
+  if(!tag) {
+    tag = "";
+  }
 
-  const fetch = (match) => {
-    if (match?.params === undefined) {
-      return;
-    }
-    const url = `article/?tag=${match.params.tag}`;
+  const fetch = () => {
+    const url = `article/?tag=${tag}`;
     const token = localStorage.getItem("token");
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
@@ -82,7 +83,7 @@ const Articles = ({ dispatch, ...props }) => {
     if (value.length > 1) {
       text = value;
     }
-    const url = `article/?tag=${match.params.tag}&text=${text}`;
+    const url = `article/?tag=${tag}&text=${text}`;
     const token = localStorage.getItem("token");
 
     axios
@@ -96,8 +97,8 @@ const Articles = ({ dispatch, ...props }) => {
   }, 300);
 
 
-  useEffect(() => {
-    fetch(match);
+  useEffect(() => {        
+    fetch();
     const options = {
       rememberUpgrade: true,
       transports: ["websocket"],
@@ -107,16 +108,18 @@ const Articles = ({ dispatch, ...props }) => {
 
     setQuery('');
     const socket = io("http://localhost:5000", options);
-    socket.on("article", (data) => { 
-      fetch(match);
+    socket.on("article", (data) => {       
+      if(data === "new article" || tag === ""){
+        fetch();
+      };
     });
-  }, [match, cats]);
+  }, [tag]);
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>
-        {match.params.tag ? (
+        {tag ? (
           <Categoryname sidebarStatus={sidebarStatus.isOpen}>
-            {match.params.tag}
+            {tag}
           </Categoryname>
         ) : (
           <Categoryname sidebarStatus={sidebarStatus.isOpen}>
@@ -134,32 +137,32 @@ const Articles = ({ dispatch, ...props }) => {
       <>
         {articles?.articles?.length > 0 ? (
           <Grid sidebarStatus={sidebarStatus.isOpen}>
-            {match.params.tag === "archive" &&
+            {tag === "archive" &&
               articles?.articles?.map(
                 (article, index) =>
                   !isNull(article.tags) &&
                   article.tags[0] === "archive" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} match={match} />
+                        <Card data={article} />
                       </Box>
                     </>
                   )
               )}
-            {match.params.tag === "unsorted" &&
+            {tag === "unsorted" &&
               articles?.articles?.map(
                 (article, index) =>
                   !isNull(article.tags) &&
                   article.tags[0] === "unsorted" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} match={match} />
+                        <Card data={article} />
                       </Box>
                     </>
                   )
               )}
-            {match.params.tag !== "archive" &&
-              match.params.tag !== "unsorted" &&
+            {tag !== "archive" &&
+              tag !== "unsorted" &&
               articles?.articles?.map(
                 (article, index) =>
                   !isNull(article.tags) &&
@@ -167,7 +170,7 @@ const Articles = ({ dispatch, ...props }) => {
                   article.tags[0] !== "unsorted" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} match={match} />
+                        <Card data={article} />
                       </Box>
                     </>
                   )
@@ -196,7 +199,7 @@ const Articles = ({ dispatch, ...props }) => {
                 ))}
           </Grid>
         )}
-        {match.params.tag === "archive" && (
+        {tag === "archive" && (
           <div style={{ position: "relative" }}>
             <Delete>Permanently delete all items</Delete>
           </div>
@@ -206,24 +209,4 @@ const Articles = ({ dispatch, ...props }) => {
   );
 };
 
-Articles.defaultProps = {
-  match: {
-    params: {
-      tag: "",
-    },
-  },
-};
-
-Articles.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  match: PropTypes.object,
-};
-
-function mapStateToProps(state) {
-  return {
-    articles: state.articles.articles,
-    cats: state.articles,
-  };
-}
-
-export default connect(mapStateToProps)(Articles);
+export default Articles;
