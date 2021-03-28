@@ -285,7 +285,7 @@ class Sidebar extends Component {
       <SidebarItemWrapper key={tag.name} open={this.state.open}>
         <SidebarItem
           pops
-          onClick={() => dispatch(push(`/articles/${tag.tag}`))}
+          onClick={() => dispatch(push(`/articles/${encodeURIComponent(tag.tag)}`))}
         >
           {tag.tag}
         </SidebarItem>
