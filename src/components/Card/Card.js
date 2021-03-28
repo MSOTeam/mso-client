@@ -336,7 +336,7 @@ const Card = ({ data, dispatch, edit }) => {
               </ArticleTags>
             ) : (
               data?.tags.map((tag) => (
-                <ArticleTags onClick={() => dispatch(push(`/articles/${tag}`))}>
+                <ArticleTags onClick={() => dispatch(push(`/articles/${encodeURIComponent(tag)}`))}>
                   #{tag}
                 </ArticleTags>
               ))
