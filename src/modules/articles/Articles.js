@@ -118,7 +118,6 @@ const Articles = () => {
     });
     setUpdate(false);
   }, [tag, update]);
-
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>

@@ -1,11 +1,11 @@
+import { Lock, LogoW } from '../assets/icon';
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+
 import Modal from '../../modal/Modal';
 import Overlay from '../../navigation/component/Overlay';
-import { fadeTop } from '../utility/animation';
 import { color } from '../../../styles/color';
-import { LogoW, Lock } from '../assets/icon';
-
+import { fadeTop } from '../utility/animation';
 
 const NavWrapper = styled.div`
   height: 150px;
@@ -114,7 +114,7 @@ class Nav extends Component {
               {/* <Navitem id="why">Why tagit</Navitem>
               <Navitem id="features">Features</Navitem>
               <Navitem id="features">Pricing</Navitem> */}
-              <Navitem >
+              <Navitem style={{opacity:'0'}}>
                 <div id="login" onClick={this.handleClick} style={{width: '43px', height: '38px', position: 'absolute', right: '0', top: '0'}} />
                 <Lock />
               </Navitem>

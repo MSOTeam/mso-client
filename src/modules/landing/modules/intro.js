@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { fadeBottom, fadeRight, shake } from "../utility/animation";
 import styled, { css } from "styled-components";
+
+import App from "../assets/landing.png";
+import Email from "./email";
+import Mock from "../assets/tagit_mock.png";
 import Modal from "../../modal/Modal";
 import Overlay from "../../navigation/component/Overlay";
-import Email from "./email";
-import { fadeBottom, fadeRight, shake } from "../utility/animation";
-import App from "../assets/landing.png";
-import Mock from "../assets/tagit_mock.png";
 
 const ScIntroWrapper = styled.div`
   display: flex;
@@ -139,7 +140,7 @@ const Intro = () => {
         <ScText>
           <div>
             {/* <ScHeadline>Collect and keep all of your findings</ScHeadline> */}
-            <ScHeadline>Your ultimate notebook on the web</ScHeadline>
+            <ScHeadline>Your ultimate social content manager</ScHeadline>
             {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
             <ScMessage>
