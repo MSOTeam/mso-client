@@ -207,18 +207,14 @@ const PlaceHolder = styled.div`
   width: 100%;
   height: 100%;
   ${(props) =>
-    props.c1 && props.c2 &&
+    props.c1 &&
+    props.c2 &&
     css`
-        background: linear-gradient(
-    137deg,
-    #${props.c1},
-    #${props.c2}
-  );
+      background: linear-gradient(137deg, #${props.c1}, #${props.c2});
     `}
-
 `;
 
-const Card = ({ data, dispatch, edit }) => {
+const Card = ({ data, dispatch, edit, setUpdate }) => {
   const [show, setShow] = useState(false);
   const [favs, setFavs] = useState(false);
   const [tags, setTags] = useState("unsorted");
@@ -227,8 +223,10 @@ const Card = ({ data, dispatch, edit }) => {
   const toggleTag = (tag, article) => {
     const index = article.tags.indexOf(tag);
     if (index === -1) {
-      while (article.tags.length) {
-        article.tags.pop();
+      if (tag === "archive") {
+        while (article.tags.length) {
+          article.tags.pop();
+        }
       }
       article.tags.push(tag);
     } else {
@@ -237,6 +235,7 @@ const Card = ({ data, dispatch, edit }) => {
     dispatch(actions.updateArticle(article._id, article));
     setFavs(!favs);
     setShow(false);
+    setUpdate(true);
   };
 
   const updateTags = (value) => {
@@ -248,6 +247,7 @@ const Card = ({ data, dispatch, edit }) => {
     article.tags = tags;
     dispatch(actions.updateArticle(article._id, article));
     setShow(false);
+    setUpdate(true);
   };
 
   useEffect(() => {
@@ -336,7 +336,11 @@ const Card = ({ data, dispatch, edit }) => {
               </ArticleTags>
             ) : (
               data?.tags.map((tag) => (
-                <ArticleTags onClick={() => dispatch(push(`/articles/${encodeURIComponent(tag)}`))}>
+                <ArticleTags
+                  onClick={() =>
+                    dispatch(push(`/articles/${encodeURIComponent(tag)}`))
+                  }
+                >
                   #{tag}
                 </ArticleTags>
               ))

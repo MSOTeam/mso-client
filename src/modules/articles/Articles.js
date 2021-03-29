@@ -17,21 +17,22 @@ import {
 } from "./styles";
 import React, { useEffect, useState } from "react";
 import { connect, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { debounce, times, toSafeInteger } from "lodash";
 
 import Card from "../../components/Card/Card";
 import { PropTypes } from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import axios from "axios";
-import { debounce, times, toSafeInteger } from "lodash";
 import io from "socket.io-client";
 import { isNull } from "lodash";
 import { keyframes } from "styled-components";
+import { useParams } from "react-router-dom";
 
 const Articles = () => {
   const sidebarStatus = useSelector((state) => state.sidebar);
   const [articles, setArticles] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
+  const [update, setUpdate] = useState(false);
   const [placeHolder, setPlaceholder] = useState([
     1,
     2,
@@ -53,10 +54,10 @@ const Articles = () => {
     18,
     19,
     20,
-  ]); 
+  ]);
 
   let { tag } = useParams();
-  if(!tag) {
+  if (!tag) {
     tag = "";
   }
 
@@ -76,7 +77,7 @@ const Articles = () => {
   const onSearch = (value) => {
     setQuery(value);
     search(value);
-  }
+  };
 
   const search = debounce((value) => {
     let text = "";
@@ -96,8 +97,7 @@ const Articles = () => {
       });
   }, 300);
 
-
-  useEffect(() => {        
+  useEffect(() => {
     fetch();
     const options = {
       rememberUpgrade: true,
@@ -106,14 +106,15 @@ const Articles = () => {
       rejectUnauthorized: false,
     };
 
-    setQuery('');
+    setQuery("");
     const socket = io("http://localhost:5000", options);
-    socket.on("article", (data) => {       
-      if(data === "new article" || tag === ""){
+    socket.on("article", (data) => {
+      if (data === "new article" || tag === "") {
         fetch();
-      };
+      }
     });
-  }, [tag]);
+    setUpdate(false);
+  }, [tag, update]);
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>
@@ -144,7 +145,7 @@ const Articles = () => {
                   article.tags[0] === "archive" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} />
+                        <Card data={article} setUpdate={setUpdate} />
                       </Box>
                     </>
                   )
@@ -156,7 +157,7 @@ const Articles = () => {
                   article.tags[0] === "unsorted" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} />
+                        <Card data={article} setUpdate={setUpdate} />
                       </Box>
                     </>
                   )
@@ -170,7 +171,7 @@ const Articles = () => {
                   article.tags[0] !== "unsorted" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} />
+                        <Card data={article} setUpdate={setUpdate} />
                       </Box>
                     </>
                   )
@@ -178,25 +179,27 @@ const Articles = () => {
           </Grid>
         ) : (
           <Grid sidebarStatus={sidebarStatus.isOpen}>
-            {articles?.articles?.length === 0
-              ? <div>Nothing here :(</div>
-              : placeHolder.map((article) => (
-                  <Box key={article._id}>
-                    <BoxOverlay>
-                      <Image>
-                        <Skeleton height={200} />
-                      </Image>
-                    </BoxOverlay>
-                    <Header>
-                      <Skeleton count={2} />
-                    </Header>
-                    <TagsWrapper>
-                      <Tags>
-                        <Skeleton style={{ float: "left" }} width={50} />
-                      </Tags>
-                    </TagsWrapper>
-                  </Box>
-                ))}
+            {articles?.articles?.length === 0 ? (
+              <div>Nothing here :(</div>
+            ) : (
+              placeHolder.map((article) => (
+                <Box key={article._id}>
+                  <BoxOverlay>
+                    <Image>
+                      <Skeleton height={200} />
+                    </Image>
+                  </BoxOverlay>
+                  <Header>
+                    <Skeleton count={2} />
+                  </Header>
+                  <TagsWrapper>
+                    <Tags>
+                      <Skeleton style={{ float: "left" }} width={50} />
+                    </Tags>
+                  </TagsWrapper>
+                </Box>
+              ))
+            )}
           </Grid>
         )}
         {tag === "archive" && (
