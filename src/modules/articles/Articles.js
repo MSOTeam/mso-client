@@ -33,6 +33,7 @@ const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [query, setQuery] = useState("");
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState();
   const [placeHolder, setPlaceholder] = useState([
     1,
     2,
@@ -62,12 +63,14 @@ const Articles = () => {
   }
 
   const fetch = () => {
+    setLoading(true);
     const url = `article/?tag=${tag}`;
     const token = localStorage.getItem("token");
     axios
       .get(url, { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
         setArticles({ articles: response.data.articles });
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -115,6 +118,7 @@ const Articles = () => {
     });
     setUpdate(false);
   }, [tag, update]);
+
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>
@@ -171,7 +175,11 @@ const Articles = () => {
                   article.tags[0] !== "unsorted" && (
                     <>
                       <Box id={index} key={index}>
-                        <Card data={article} setUpdate={setUpdate} />
+                        <Card
+                          data={article}
+                          setUpdate={setUpdate}
+                          loading={loading}
+                        />
                       </Box>
                     </>
                   )

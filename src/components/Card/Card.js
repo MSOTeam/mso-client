@@ -214,7 +214,7 @@ const PlaceHolder = styled.div`
     `}
 `;
 
-const Card = ({ data, dispatch, edit, setUpdate }) => {
+const Card = ({ data, dispatch, edit, setUpdate, loading }) => {
   const [show, setShow] = useState(false);
   const [favs, setFavs] = useState(false);
   const [tags, setTags] = useState("unsorted");
@@ -222,12 +222,15 @@ const Card = ({ data, dispatch, edit, setUpdate }) => {
 
   const toggleTag = (tag, article) => {
     const index = article.tags.indexOf(tag);
+
     if (index === -1) {
       if (tag === "archive") {
         while (article.tags.length) {
           article.tags.pop();
         }
+        setUpdate(true);
       }
+      
       article.tags.push(tag);
     } else {
       article.tags.splice(index, 1);
@@ -235,7 +238,6 @@ const Card = ({ data, dispatch, edit, setUpdate }) => {
     dispatch(actions.updateArticle(article._id, article));
     setFavs(!favs);
     setShow(false);
-    setUpdate(true);
   };
 
   const updateTags = (value) => {
@@ -318,13 +320,19 @@ const Card = ({ data, dispatch, edit, setUpdate }) => {
             rel="noopener noreferrer"
           >
             <ArticleBoxOverlay>
-              {data.image !== "" && checkImage(data.image) ? (
-                <ArticleImage image={data.image} />
+              {!loading ? (
+                <>
+                  {data.image !== "" && checkImage(data.image) ? (
+                    <ArticleImage image={data.image} />
+                  ) : (
+                    <PlaceHolder
+                      c1={Math.floor(Math.random() * 16777215).toString(16)}
+                      c2={Math.floor(Math.random() * 16777215).toString(16)}
+                    />
+                  )}
+                </>
               ) : (
-                <PlaceHolder
-                  c1={Math.floor(Math.random() * 16777215).toString(16)}
-                  c2={Math.floor(Math.random() * 16777215).toString(16)}
-                />
+                <div />
               )}
             </ArticleBoxOverlay>
             <ArticleHeader>{data.title}</ArticleHeader>
