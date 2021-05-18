@@ -83,7 +83,7 @@ const AuthNavigation = ({ dispatch }) => {
       <Flex>
         <Extension
           title="Add the tagit extension"
-          href="https://chrome.google.com/webstore/category/extensions"
+          href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
           target="_blank"
         >
           <Plug />
