@@ -57,7 +57,7 @@ class Login extends Component {
       <LoginWrapper>
         <H2>Welcome back</H2>
         <GoogleLogin handleLogin={this.handleGoogleLogin} handleError={this.handleError} />
-        <FbLogin handleLogin={this.handleFbLogin} />
+        {/* <FbLogin handleLogin={this.handleFbLogin} /> */}
       </LoginWrapper>
     );
 
