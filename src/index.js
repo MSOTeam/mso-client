@@ -18,7 +18,7 @@ const store = configureStore({
   mware: routerMiddleware(history),
 });
 
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "https://tagit-api.herokuapp.com/";
 
 const Index = () => (
   <>
@@ -32,4 +32,4 @@ const Index = () => (
 );
 
 ReactDOM.render(<Index />, document.getElementById("root"));
-registerServiceWorker();
+// registerServiceWorker();

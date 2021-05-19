@@ -110,7 +110,7 @@ const Articles = () => {
     };
 
     setQuery("");
-    const socket = io("http://localhost:5000", options);
+    const socket = io("https://tagit-api.herokuapp.com", options);
     socket.on("article", (data) => {
       if (data === "new article" || tag === "") {
         fetch();

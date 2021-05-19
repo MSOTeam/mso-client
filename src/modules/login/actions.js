@@ -33,7 +33,8 @@ export const setSession = (user, token) => {
   localStorage.setItem('setItem', user.email);
   localStorage.setItem('token', token);
   /* eslint-disable no-undef */  
-  const extensionId = 'hhkiffinelioeidmkhbmpldnhmjhifkm';
+  // const extensionId = 'hhkiffinelioeidmkhbmpldnhmjhifkm';
+  const extensionId = 'jgamfimmaiipbddhkgopfbhddjejfnji';
   chrome.runtime.sendMessage(extensionId, token, resp => console.log({ resp }));
 
   // browser.runtime.sendMessage(
