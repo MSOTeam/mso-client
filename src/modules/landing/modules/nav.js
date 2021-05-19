@@ -114,7 +114,7 @@ class Nav extends Component {
               {/* <Navitem id="why">Why tagit</Navitem>
               <Navitem id="features">Features</Navitem>
               <Navitem id="features">Pricing</Navitem> */}
-              <Navitem style={{opacity:'1'}}>
+              <Navitem style={{opacity:'0'}}>
                 <div id="login" onClick={this.handleClick} style={{width: '43px', height: '38px', position: 'absolute', right: '0', top: '0'}} />
                 <Lock />
               </Navitem>
