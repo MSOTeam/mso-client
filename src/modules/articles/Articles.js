@@ -56,7 +56,7 @@ const Articles = () => {
     19,
     20,
   ]);
-
+  
   let { tag } = useParams();
   if (!tag) {
     tag = "";
@@ -100,7 +100,7 @@ const Articles = () => {
       });
   }, 300);
 
-  useEffect(() => {
+  useEffect(() => {    
     fetch();
     const options = {
       rememberUpgrade: true,
@@ -112,7 +112,7 @@ const Articles = () => {
     setQuery("");
     const socket = io("https://tagit-api.herokuapp.com", options);
     socket.on("article", (data) => {
-      if (data === "new article" || tag === "") {
+      if (data.socket === "new article" || tag === "") {
         fetch();
       }
     });

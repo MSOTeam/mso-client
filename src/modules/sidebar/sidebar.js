@@ -144,6 +144,13 @@ class Sidebar extends Component {
       secure: false,
       rejectUnauthorized: false,
     };
+
+    const socket = io("https://tagit-api.herokuapp.com", options);
+    socket.on("article", (data) => {
+      if (data.socket === "new article") {
+        this.fetch();
+      }
+    });
   };
 
   fetch = () => {
