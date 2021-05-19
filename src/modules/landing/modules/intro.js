@@ -140,7 +140,8 @@ const Intro = () => {
         <ScText>
           <div>
             {/* <ScHeadline>Collect and keep all of your findings</ScHeadline> */}
-            <ScHeadline>Your ultimate social content manager</ScHeadline>
+            <ScHeadline>Find, save, share and discover content</ScHeadline>
+            {/* <ScHeadline>Your ultimate social content manager</ScHeadline> */}
             {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
             {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
             <ScMessage>
