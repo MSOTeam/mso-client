@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-import Nav from './modules/nav';
-import Intro from './modules/intro';
-import What from './modules/what';
 import Email from './modules/email';
-
 import Features from './modules/features';
+import Intro from './modules/intro';
 import Loader from './utility/loader';
+import Nav from './modules/nav';
+import What from './modules/what';
+import styled from 'styled-components';
 
 const ScApp = styled.div`
   background-image: linear-gradient(#6955E2, #28A6C8);
@@ -15,6 +14,10 @@ const ScApp = styled.div`
   overflow: hidden;
   position: relative;
   height: 100vh;
+  @media (max-width: 900px) {
+    height: 100%;
+    min-height: 100vh;
+  }
 `;
 
 const ScCircleTop = styled.div`

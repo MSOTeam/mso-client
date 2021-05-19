@@ -17,9 +17,9 @@ const ScIntroWrapper = styled.div`
   @media (min-width: 2150px) {
     padding: 0 10%;
   }
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
     flex-direction: column;
-    padding: 0 10%;
+    height: 1000px;
   }
 `;
 
@@ -32,8 +32,9 @@ const ScText = styled.div`
 
   @media (min-width: 2750px) {
   }
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
     margin-bottom: 20px;
+    width: 100%;
   }
 `;
 
@@ -79,7 +80,6 @@ const ScImg = styled.div`
   background: url(${Mock}) no-repeat;
   width: 2070px;
   height: 980px;
-  position: relative;
   opacity: 0;
   position: absolute;
   left: 574px;
@@ -92,10 +92,25 @@ const ScImg = styled.div`
     left: 974px;
     height: 900px;
   }
-  @media (max-width: 760px) {
-    left: -30px;
-    top: 100px;
-    margin-bottom: 100px;
+  @media (max-width: 900px) {
+    position: absolute;
+    left: 0px;
+    width: 5673px;
+    height: 800px;
+    bottom: -440px;
+  }
+  @media (max-width: 550px) {
+    bottom: -500px;
+  }
+
+  @media (max-width: 430px) {
+    bottom: -550px;
+  }
+  @media (max-width: 423px) {
+    bottom: -620px;
+  }
+  @media (max-width: 320px) {
+    bottom: -690px;
   }
 `;
 
