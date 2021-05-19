@@ -20,16 +20,16 @@ const NavWrapper = styled.div`
   animation: ${fadeTop} 1.3s ease-in-out;
   animation-fill-mode: forwards;
   animation-delay: 1s;
-  @media (max-width: 761px) {
-    margin: 0;
-    height: 90px;
-    position: relative;
-    top: 5px;
-  }
+
   @media (min-width: 2150px) {
     padding: 0 10%;
   }
-  
+  @media (max-width: 900px) {
+    margin-bottom: 0;
+  }
+  @media (max-width: 415px) {
+    height: 100px;
+  }
 `;
 
 const Navitem = styled.div`
@@ -110,7 +110,7 @@ class Nav extends Component {
         <NavWrapper>
           <LogoW />
           <NavItemWrapper>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', width: '500px' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               {/* <Navitem id="why">Why tagit</Navitem>
               <Navitem id="features">Features</Navitem>
               <Navitem id="features">Pricing</Navitem> */}

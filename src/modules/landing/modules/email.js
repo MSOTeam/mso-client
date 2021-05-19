@@ -20,6 +20,10 @@ const ScEmailSection = styled.div`
   animation-delay: 1.5s;
   animation-delay: 1.8s;
   margin-top: 80px;
+  @media (max-width: 900px) {
+    margin-top: 50px;
+
+  }
 `;
 
 const ScEmail = styled.div`
@@ -126,7 +130,6 @@ const ScSpan = styled.div`
 
 const Button = styled.div`
   background: #29c3c6;
-  min-width: 130px;
   height: 50px;
   display: flex;
   align-items: center;
