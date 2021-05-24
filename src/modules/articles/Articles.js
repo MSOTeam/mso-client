@@ -118,6 +118,21 @@ const Articles = () => {
     });
     setUpdate(false);
   }, [tag, update]);
+
+  const emptyArchive = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .delete('article', { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => {
+        console.log({response});
+        fetch();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   return (
     <>
       <Grid sidebarStatus={sidebarStatus.isOpen} category>
@@ -211,7 +226,7 @@ const Articles = () => {
         )}
         {tag === "archive" && (
           <div style={{ position: "relative" }}>
-            <Delete>Permanently delete all items</Delete>
+            <Delete onClick={() => emptyArchive()}>Permanently delete all items</Delete>
           </div>
         )}
       </>
