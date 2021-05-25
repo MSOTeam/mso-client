@@ -61,6 +61,10 @@ const Extension = styled.a`
   > span {
     margin-left: 10px;
   }
+  @media (max-width: 1024px) {
+   display: none;
+
+  }
 `;
 
 const AddUrl = styled.input`
