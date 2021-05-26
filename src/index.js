@@ -9,7 +9,6 @@ import { app } from "./modules";
 import axios from "axios";
 import configureStore from "./configureStore";
 import { createBrowserHistory } from "history";
-import registerServiceWorker from "./registerServiceWorker";
 import { routerMiddleware } from "react-router-redux";
 
 const history = createBrowserHistory();
@@ -18,7 +17,7 @@ const store = configureStore({
   mware: routerMiddleware(history),
 });
 
-axios.defaults.baseURL = "https://tagit-api.herokuapp.com/";
+axios.defaults.baseURL = process.env.REACT_APP_API;
 
 const Index = () => (
   <>
@@ -32,4 +31,3 @@ const Index = () => (
 );
 
 ReactDOM.render(<Index />, document.getElementById("root"));
-// registerServiceWorker();

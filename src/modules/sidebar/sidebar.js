@@ -145,11 +145,9 @@ class Sidebar extends Component {
       rejectUnauthorized: false,
     };
 
-    const socket = io("https://tagit-api.herokuapp.com", options);
-    socket.on("article", (data) => {
-      if (data.socket === "new article") {
+    const socket = io(process.env.REACT_APP_API, options);
+    socket.on("menu", (data) => {
         this.fetch();
-      }
     });
   };
 
