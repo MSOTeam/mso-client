@@ -56,7 +56,7 @@ const Articles = () => {
     19,
     20,
   ]);
-  
+
   let { tag } = useParams();
   if (!tag) {
     tag = "";
@@ -100,7 +100,7 @@ const Articles = () => {
       });
   }, 300);
 
-  useEffect(() => {    
+  useEffect(() => {
     fetch();
     const options = {
       rememberUpgrade: true,
@@ -122,16 +122,15 @@ const Articles = () => {
   const emptyArchive = () => {
     const token = localStorage.getItem("token");
     axios
-      .delete('article', { headers: { Authorization: `Bearer ${token}` } })
+      .delete("article", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        console.log({response});
+        console.log({ response });
         fetch();
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
 
   return (
     <>
@@ -155,19 +154,18 @@ const Articles = () => {
       </Grid>
       <>
         {articles?.articles?.length > 0 ? (
-          <Grid sidebarStatus={sidebarStatus.isOpen}>
+          <Grid sidebarStatus={sidebarStatus.isOpen} tag={tag}>
             {tag === "archive" &&
               articles?.articles?.map(
                 (article, index) =>
                   !isNull(article.tags) &&
                   article.tags[0] === "archive" && (
-                    <>
-                      <Box id={index} key={index}>
-                        <Card data={article} setUpdate={setUpdate} />
-                      </Box>
-                    </>
+                    <Box id={index} key={index}>
+                      <Card data={article} setUpdate={setUpdate} />
+                    </Box>
                   )
               )}
+
             {tag === "unsorted" &&
               articles?.articles?.map(
                 (article, index) =>
@@ -226,7 +224,12 @@ const Articles = () => {
         )}
         {tag === "archive" && (
           <div style={{ position: "relative" }}>
-            <Delete onClick={() => emptyArchive()}>Permanently delete all items</Delete>
+            <Delete
+              sidebarStatus={sidebarStatus.isOpen}
+              onClick={() => emptyArchive()}
+            >
+              Permanently delete all items
+            </Delete>
           </div>
         )}
       </>

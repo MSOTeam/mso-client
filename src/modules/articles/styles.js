@@ -35,6 +35,11 @@ export const Grid = styled.div`
       background: white;
       color: palevioletred;
     `}
+    ${(props) =>
+    props.tag === 'archive' &&
+    css`
+      margin-bottom: 140px;
+    `}
 `;
 
 export const Box = styled.div`
@@ -164,7 +169,7 @@ export const Delete = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 30px - 80px);
   height: 85px;
   font-size: 1.4em;
   background: black;
@@ -172,4 +177,15 @@ export const Delete = styled.div`
   border-radius: 8px;
   letter-spacing: 3px;
   cursor: pointer;
+  right: 30px;
+  left: 80px;
+  transition: all 0.3s;
+
+  ${(props) =>
+    props.sidebarStatus === true &&
+    css`
+      width: calc(100% - 30px - 280px);
+
+      left: 280px;
+    `}
 `;
