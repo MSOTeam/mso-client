@@ -253,6 +253,10 @@ class Sidebar extends Component {
       return o.tag === tag.tag;
     });
 
+    if(tag.tag === 'archive' || tag.tag === 'favorites') {
+      return <></>;
+    }
+
     if (index > -1) {
       return (
         <SidebarItemWrapper
