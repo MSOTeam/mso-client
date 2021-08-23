@@ -24,3 +24,10 @@ yarn-error.log*
 
 .eslintcache
 package-lock.json
+
+# next.js build output
+.next
+
+# dotenv environment variables file (build for Zeit Now)
+.env
+.env.build
