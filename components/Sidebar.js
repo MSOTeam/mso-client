@@ -1,20 +1,19 @@
 import { useEffect, useState } from 'react';
-
-import axios from "axios";
 import { fetcher } from '../util/helpers'
 import styled from 'styled-components';
 import useSWR from 'swr'
+import { sidebarStatus, tokenId } from "../util/state";
+import { useRecoilState } from "recoil";
+import { LogoWhite } from "../util/icon";
 
-const SidebarItem = styled.div`
-  font-size: 0.9em;
-  color: white;
-  letter-spacing: 2px;
-  font-weight: 400;
+const Wrapper = styled.div`
+  background: linear-gradient(122deg, rgb(86, 73, 207), rgb(11, 25, 99));
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  white-space: nowrap;
-  width: 90%;
+  flex-direction: column;
+  height: 100vh;
+  width: auto;
+  overflow: scroll;
+  padding: 20px 30px;
   ${(props) =>
     props.bread &&
     css`
@@ -26,47 +25,44 @@ const SidebarItem = styled.div`
       display: none;
       width: 10%;
     `}
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 `;
 
-const Sidebar = ( ) => {
-  const [tags, setTags] = useState(0);
+const LogoWrapper = styled.div`
+  margin: 10px 0;
+`;
 
-  const [parameters, setParameters] = useState({
-    revalidateOnFocus: false,
-    revalidateOnMount:false,
-    revalidateOnReconnect: false,
-    refreshWhenOffline: false,
-    refreshWhenHidden: false,
-    refreshInterval: 0
-  });
+const Item = styled.span`
+  font-size: 0.9em;
+  color: white;
+  letter-spacing: 2px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  cursor: pointer;
+`;
 
-    const { data, error, isValidating, mutate  } = useSWR(
-    [`http://localhost:5000/tag`, localStorage?.getItem("token")],
-    fetcher, parameters
+const Sidebar = () => {
+  const [token, setToken] = useRecoilState(tokenId);
+  const [sidebar, setSidebar] = useRecoilState(sidebarStatus);
+
+  const url = 'http://localhost:5000/tag';
+
+  const { data, error } = useSWR(
+    [url, token],
+    fetcher
   );
-  if (error) console.log(error);
-  if (data) console.log(data);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log(token)
-    axios
-      .get("http://localhost:5000/tag", { headers: { Authorization: `Bearer ${token}` } })
-      .then((response) => {
-        const { tags } = response?.data;
-        setTags(tags)
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-  console.log(tags)
   return (
-    <div style={{display: 'flex', flexDirection:"column"}}>
-        {tags?.length > 1 && tags?.map((item) => (
-          <span>{item?.tag}</span>
-        ))}
-    </div>
+    <Wrapper>
+      <LogoWrapper>
+        <LogoWhite />
+      </LogoWrapper>
+      {data?.tags?.length >= 1 && data?.tags?.map((item) => (
+        <Item onClick={() => setSidebar(!sidebar)}>{item?.tag}</Item>
+      ))}
+    </Wrapper>
   );
 };
 
