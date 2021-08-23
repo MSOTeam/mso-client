@@ -6,6 +6,7 @@ import { sidebarStatus, tokenId } from "../util/state";
 import { useRecoilState } from "recoil";
 import { LogoWhite } from "../util/icon";
 import Link from 'next/link'
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Wrapper = styled.div`
   background: linear-gradient(122deg, rgb(86, 73, 207), rgb(11, 25, 99));
@@ -59,18 +60,50 @@ const Sidebar = () => {
   );
 
   return (
-    <Wrapper>
-      <Link href={`/`}>
-        <LogoWrapper>
-          <LogoWhite />
-        </LogoWrapper>
-      </Link>
-      {data?.tags?.length >= 1 && data?.tags?.map((item) => (
-        <Link href={`/${item?.tag}`}>
-          <Item>{item?.tag}</Item>
-        </Link>
-
-      ))}
+    <Wrapper onClick={() => setSidebar(!sidebar)}>
+      <AnimatePresence>
+        {sidebar && (
+          <motion.aside
+            initial={{ width: 0 }}
+            animate={{ width: 200 }}
+            exit={{ width: 0 }}>
+            <motion.div
+              initial='hidden'
+              animate='visible'
+              variants={{
+                hidden: { x: 0, opacity: 0 },
+                visible: {
+                  x: 10,
+                  opacity: 1,
+                  transition: { duration: 0.5 },
+                },
+              }}>
+              <Link href={`/`}>
+                <LogoWrapper>
+                  <LogoWhite />
+                </LogoWrapper>
+              </Link>
+            </motion.div>
+            {data?.tags?.length >= 1 && data?.tags?.map((item) => (
+              <motion.div
+                initial='hidden'
+                animate='visible'
+                variants={{
+                  hidden: { x: 0, opacity: 0 },
+                  visible: {
+                    x: 10,
+                    opacity: 1,
+                    transition: { duration: 0.5 },
+                  },
+                }}>
+                <Link href={`/${item?.tag}`}>
+                  <Item>{item?.tag}</Item>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </Wrapper>
   );
 };
