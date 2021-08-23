@@ -11,9 +11,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: auto;
-  overflow: scroll;
+  overflow-y: auto;
   padding: 20px 30px;
+  position: sticky;
+  top: 0;
   ${(props) =>
     props.bread &&
     css`
@@ -34,13 +35,14 @@ const LogoWrapper = styled.div`
   margin: 10px 0;
 `;
 
-const Item = styled.span`
+const Item = styled.div`
   font-size: 0.9em;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
   margin-bottom: 20px;
   cursor: pointer;
+  margin-right: 20px;
 `;
 
 const Sidebar = () => {
@@ -65,24 +67,5 @@ const Sidebar = () => {
     </Wrapper>
   );
 };
-
-// export async function getServerSideProps() {
-//   const tags = await fetcher('http://localhost:5000/tag', localStorage.getItem("token"))
-//   return { props: { t } }
-// }
-
-// export const getServerSideProps = async (context) => {
-//   const hero = await graphQlClient.request(HERO_IMAGES, {
-//     tag: "frontpage",
-//   });
-
-//   const services = await graphQlClient.request(SERVICE_TYPES);
-
-//   return {
-//     props: { hero, services },
-//   };
-// };
-
-
 
 export default Sidebar;
