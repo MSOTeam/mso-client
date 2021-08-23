@@ -66,7 +66,7 @@ const Sidebar = () => {
         </LogoWrapper>
       </Link>
       {data?.tags?.length >= 1 && data?.tags?.map((item) => (
-        <Link href={`/${item?.tag.toLowerCase()}`}>
+        <Link href={`/${item?.tag}`}>
           <Item>{item?.tag}</Item>
         </Link>
 

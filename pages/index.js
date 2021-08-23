@@ -15,7 +15,7 @@ const Index = () => {
   useEffect(() => {
     setToken(localStorage?.getItem("token"));
   }, []);
-
+  console.log(token)
   return (
     data?.articles?.length >= 1 && data?.articles?.map((item) => (
       <Card item={item} />

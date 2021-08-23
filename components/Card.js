@@ -93,7 +93,7 @@ const Card = ({ item }) => {
         <Text>{item?.title}</Text>
         <TagsWrapper>
           {item?.tags?.length >= 1 && item?.tags?.map((item) => (
-            <Link href={`/${item?.toLowerCase()}`}>
+            <Link href={`/${item}`}>
               <Tags >{item}</Tags>
             </Link>
           ))}
