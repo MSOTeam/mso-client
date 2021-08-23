@@ -20,14 +20,6 @@ const fadeIn = keyframes`
   }
 `;
 
-const Tag = styled(Tags)`
-  background: #fff;
-  margin: 15px 0;
-  > span {
-    padding-left: 0px;
-  }
-`;
-
 const ArticleBoxOverlay = styled.div`
   overflow: hidden;
   height: 200px;
