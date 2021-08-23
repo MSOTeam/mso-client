@@ -1,10 +1,9 @@
-
+import { fetcher } from '../util/helpers'
 import useSWR from 'swr'
-import { fetcher} from '../util/helpers'
 
 const Index = ({ posts }) => {
   const { data } = useSWR('/api/posts', fetcher, { initialData: posts })
-  console.log(data)
+
   return (
     <>
       hello
