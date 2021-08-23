@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { sidebarStatus, tokenId } from "../util/state";
 import { useRecoilState } from "recoil";
 import { LogoWhite } from "../util/icon";
+import Link from 'next/link'
 
 const Wrapper = styled.div`
   background: linear-gradient(122deg, rgb(86, 73, 207), rgb(11, 25, 99));
@@ -33,6 +34,7 @@ const Wrapper = styled.div`
 
 const LogoWrapper = styled.div`
   margin: 10px 0;
+  cursor: pointer;
 `;
 
 const Item = styled.div`
@@ -46,7 +48,7 @@ const Item = styled.div`
 `;
 
 const Sidebar = () => {
-  const [token, setToken] = useRecoilState(tokenId);
+  const [token,] = useRecoilState(tokenId);
   const [sidebar, setSidebar] = useRecoilState(sidebarStatus);
 
   const url = 'http://localhost:5000/tag';
@@ -58,11 +60,16 @@ const Sidebar = () => {
 
   return (
     <Wrapper>
-      <LogoWrapper>
-        <LogoWhite />
-      </LogoWrapper>
+      <Link href={`/`}>
+        <LogoWrapper>
+          <LogoWhite />
+        </LogoWrapper>
+      </Link>
       {data?.tags?.length >= 1 && data?.tags?.map((item) => (
-        <Item onClick={() => setSidebar(!sidebar)}>{item?.tag}</Item>
+        <Link href={`/${item?.tag.toLowerCase()}`}>
+          <Item>{item?.tag}</Item>
+        </Link>
+
       ))}
     </Wrapper>
   );
