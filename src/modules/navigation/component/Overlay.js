@@ -85,7 +85,7 @@ const Terms = styled.p`
 const Overlay = (props) => {
   const [type, setType] = useState(0);
   useEffect(() => {
-    setType(props.type);
+    setType(props?.type);
   }, [props]);
   const Close = () => {
     setType(type === '');
