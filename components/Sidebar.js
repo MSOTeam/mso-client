@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { Close, LogoWhite, Menu } from "../util/icon";
+import { sidebarStatus, tokenId } from "../util/state";
+
+import Link from 'next/link'
 import { fetcher } from '../util/helpers'
 import styled from 'styled-components';
-import useSWR from 'swr'
-import { sidebarStatus, tokenId } from "../util/state";
 import { useRecoilState } from "recoil";
-import { LogoWhite, Menu, Close } from "../util/icon";
-import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion';
+import useSWR from 'swr'
 
 const Wrapper = styled.div`
   background: linear-gradient(122deg, rgb(86, 73, 207), rgb(11, 25, 99));
@@ -14,23 +13,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   overflow-y: auto;
-  padding: 20px 30px;
+  padding: ${props => props.open ? "20px 30px" : "30px 20px"};
   position: sticky;
   top: 0;
-  ${(props) =>
-    props.bread &&
-    css`
-      font-weight: 100;
-    `}
-  ${(props) =>
-    props.edit &&
-    css`
-      display: none;
-      width: 10%;
-    `}
-  ::-webkit-scrollbar {
-    width: 0px;
-  }
 `;
 
 const LogoWrapper = styled.div`
@@ -61,10 +46,9 @@ const Sidebar = () => {
     [url, token],
     fetcher
   );
-
+    console.log(sidebar)
   return (
-    <Wrapper>
-      <AnimatePresence>
+    <Wrapper open={sidebar}>
         {sidebar ? (
           <>
             <Link href={`/`}>
@@ -82,9 +66,8 @@ const Sidebar = () => {
             ))}
           </>
         ) : (
-            <span onClick={() => setSidebar(!sidebar)}><Menu /></span>
+            <LogoWrapper onClick={() => setSidebar(!sidebar)}><Menu /></LogoWrapper>
           )}
-      </AnimatePresence>
     </Wrapper>
   );
 };
