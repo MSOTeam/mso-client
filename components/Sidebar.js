@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useSWR from 'swr'
 import { sidebarStatus, tokenId } from "../util/state";
 import { useRecoilState } from "recoil";
-import { LogoWhite } from "../util/icon";
+import { LogoWhite, Menu, Close } from "../util/icon";
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -34,6 +34,9 @@ const Wrapper = styled.div`
 `;
 
 const LogoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px 0;
   cursor: pointer;
 `;
@@ -60,49 +63,27 @@ const Sidebar = () => {
   );
 
   return (
-    <Wrapper onClick={() => setSidebar(!sidebar)}>
+    <Wrapper>
       <AnimatePresence>
-        {sidebar && (
-          <motion.aside
-            initial={{ width: 0 }}
-            animate={{ width: 200 }}
-            exit={{ width: 0 }}>
-            <motion.div
-              initial='hidden'
-              animate='visible'
-              variants={{
-                hidden: { x: 0, opacity: 0 },
-                visible: {
-                  x: 10,
-                  opacity: 1,
-                  transition: { duration: 0.5 },
-                },
-              }}>
-              <Link href={`/`}>
-                <LogoWrapper>
-                  <LogoWhite />
-                </LogoWrapper>
-              </Link>
-            </motion.div>
+        {sidebar ? (
+          <>
+            <Link href={`/`}>
+              <LogoWrapper>
+                <LogoWhite />
+                <span onClick={() => setSidebar(!sidebar)}>
+                  <Close />
+                </span>
+              </LogoWrapper>
+            </Link>
             {data?.tags?.length >= 1 && data?.tags?.map((item) => (
-              <motion.div
-                initial='hidden'
-                animate='visible'
-                variants={{
-                  hidden: { x: 0, opacity: 0 },
-                  visible: {
-                    x: 10,
-                    opacity: 1,
-                    transition: { duration: 0.5 },
-                  },
-                }}>
-                <Link href={`/${item?.tag}`}>
-                  <Item>{item?.tag}</Item>
-                </Link>
-              </motion.div>
+              <Link href={`/${item?.tag}`}>
+                <Item>{item?.tag}</Item>
+              </Link>
             ))}
-          </motion.aside>
-        )}
+          </>
+        ) : (
+            <span onClick={() => setSidebar(!sidebar)}><Menu /></span>
+          )}
       </AnimatePresence>
     </Wrapper>
   );
