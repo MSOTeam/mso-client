@@ -10,8 +10,7 @@ const Category = () => {
   const [token,] = useRecoilState(tokenId);
   const url = `http://localhost:5000/article/?tag=${router.asPath.replace(/^\/|\/$/g, '')}`;
   
-  const { data, error } = useSWR([url, token], fetcher);
-  console.log(token, data)
+  const { data, error } = useSWR([url, token], fetcher, { refreshInterval: 10 });
 
   return (
     data?.articles?.length >= 1 && data?.articles?.map((item) => (

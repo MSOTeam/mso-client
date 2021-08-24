@@ -1,9 +1,12 @@
 import { Close, Logo, Menu } from "../util/icon";
+import { useEffect, useState } from 'react';
 
 import Actions from './Actions'
 import Head from "next/head";
 import Sidebar from './Sidebar'
 import styled from "styled-components";
+import { tokenId } from "../util/state";
+import { useRecoilState } from "recoil";
 
 const Flex = styled.div`
   display: flex;
@@ -22,6 +25,11 @@ const Grid = styled.div`
 `
 
 const Layout = ({ children }) => {
+  const [token, setToken] = useRecoilState(tokenId);
+
+  useEffect(() => {
+    setToken(localStorage?.getItem("token"));
+  }, []);
   return (
     <>
       <Head>

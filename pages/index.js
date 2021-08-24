@@ -7,15 +7,9 @@ import { useRecoilState } from "recoil";
 import useSWR from 'swr'
 
 const Index = () => {
-  const [token, setToken] = useRecoilState(tokenId);
-
+  const [token,] = useRecoilState(tokenId);
   const url = 'http://localhost:5000/article/?tag=';
-
   const { data, error } = useSWR([url, token], fetcher);
-
-  useEffect(() => {
-    setToken(localStorage?.getItem("token"));
-  }, []);
 
   return (
     <>
