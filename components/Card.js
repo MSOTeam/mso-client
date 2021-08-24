@@ -1,4 +1,6 @@
+import React, { CSSProperties } from "react";
 import styled, { css } from 'styled-components';
+
 import Link from 'next/link'
 
 const Wrapper = styled.a`
@@ -29,17 +31,20 @@ const ImageWrapper = styled.div`
   border-top-left-radius: 8px;
 `;
 
-
 const Image = styled.div`
 height: 100%;
 width: 100%;
-${({ src }) => css`
-    ${src &&
+${({ src, c1, c2 }) => css`
+  ${src &&
     css`
       background-image: url(${src});
+      background-size: cover;
+      background-position: center;
     `}
-    background-size: cover;
-    background-position: center;
+    ${c1 &&
+    css`
+      background: #${c1};
+    `}
   `};
 `;
 
@@ -84,15 +89,23 @@ export const Tags = styled.div`
 `;
 
 const Card = ({ item }) => {
+
   return (
     <Wrapper href={item?.url} target="_blank">
       <ImageWrapper>
-        <Image src={item?.image} />
+      {console.log(item?.image , " ", item?.title, " ", item)}
+        {item?.image === undefined  || item?.image?.startsWith("data") || item?.image?.includes("filter") || item?.image?.includes("object") || item?.image === "" ? (
+          <Image 
+            c1={Math.floor(Math.random()*16777215).toString(16)}
+          />
+        ) : (
+          <Image src={item?.image} />
+        )}
       </ImageWrapper>
       <BottomWrapper>
         <Text>{item?.title}</Text>
-        <TagsWrapper>
-          {item?.tags?.length >= 1 && item?.tags?.map((item) => (
+        <TagsWrapper>          
+          {item?.tags?.length >= 1  && item?.tags?.map((item) => (
             <Link href={`/${item}`}>
               <Tags >{item}</Tags>
             </Link>
@@ -103,4 +116,4 @@ const Card = ({ item }) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

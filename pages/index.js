@@ -1,9 +1,10 @@
-import { fetcher } from '../util/helpers'
-import useSWR from 'swr'
-import { tokenId } from "../util/state";
 import { useEffect, useState } from 'react';
-import { useRecoilState } from "recoil";
+
 import Card from '../components/Card'
+import { fetcher } from '../util/helpers'
+import { tokenId } from "../util/state";
+import { useRecoilState } from "recoil";
+import useSWR from 'swr'
 
 const Index = () => {
   const [token, setToken] = useRecoilState(tokenId);
@@ -15,11 +16,14 @@ const Index = () => {
   useEffect(() => {
     setToken(localStorage?.getItem("token"));
   }, []);
-  console.log(token)
+
   return (
-    data?.articles?.length >= 1 && data?.articles?.map((item) => (
+    <>
+    {data?.articles?.length >= 1 && data?.articles?.map((item) => (
       <Card item={item} />
-    ))
+    ))}
+    <div style={{marginBottom: '350px'}} />
+    </>
   );
 };
 

@@ -46,7 +46,7 @@ const Sidebar = () => {
     [url, token],
     fetcher
   );
-    console.log(sidebar)
+
   return (
     <Wrapper open={sidebar}>
         {sidebar ? (
