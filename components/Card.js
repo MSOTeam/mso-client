@@ -8,7 +8,6 @@ const Card = ({ item }) => {
   return (
     <Wrapper href={item?.url} target="_blank">
       <ImageWrapper>
-      {console.log("https://picsum.photos/seed/picsum/600/300")}
         {item?.image === undefined  || item?.image?.startsWith("data") || item?.image?.includes("filter") || item?.image?.includes("object") || item?.image === "" ? (
           <Image 
             src={`https://picsum.photos/600/300.webp?random=${Math.floor(Math.random() * 10)}`}
@@ -21,7 +20,7 @@ const Card = ({ item }) => {
         <Text>{item?.title}</Text>
         <TagsWrapper>          
           {item?.tags?.length >= 1  && item?.tags?.map((item) => (
-            <Link href={`/${item}`}>
+            <Link href={`/${item}`} key={item?.tags?.length}>
               <Tags >{item}</Tags>
             </Link>
           ))}

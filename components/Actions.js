@@ -3,6 +3,49 @@ import styled, { css } from "styled-components";
 
 import Link from 'next/link'
 
+const Actions = () => {
+  return (
+    <Navgrid>
+      <Link Link href={`/`}>
+        <Navitem>
+          <Logo />
+        </Navitem>
+      </Link>
+
+     <Flex>
+      <Extension
+        title="Add the tagit extension"
+        href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
+        target="_blank"
+      >
+        <Plug />
+        <span>Click to add extension</span>
+      </Extension>
+      <AddUrl type="text" />
+  
+      <Link href={`/favorites`}>
+        <Navitem>
+          <Fav />
+        </Navitem>
+      </Link>
+
+      <Link href={`/unsorted`}>
+        <Navitem>
+          <Unsorted />
+        </Navitem>
+      </Link>
+
+      <Link href={`/archive`}>
+        <Navitem>
+          <Archive />
+        </Navitem>
+      </Link>
+
+    </Flex>
+  </Navgrid>
+  );
+};
+
 const Navgrid = styled.div`
   display: flex;
   justify-content: space-between;
@@ -55,47 +98,5 @@ const AddUrl = styled.input`
 const Flex = styled.div`
   display: flex;
 `;
-const Actions = () => {
-  return (
-    <Navgrid>
-      <Link Link href={`/`}>
-        <Navitem>
-          <Logo />
-        </Navitem>
-      </Link>
-
-     <Flex>
-      <Extension
-        title="Add the tagit extension"
-        href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
-        target="_blank"
-      >
-        <Plug />
-        <span>Click to add extension</span>
-      </Extension>
-      <AddUrl type="text" />
-  
-      <Link href={`/favorites`}>
-        <Navitem>
-          <Fav />
-        </Navitem>
-      </Link>
-
-      <Link href={`/unsorted`}>
-        <Navitem>
-          <Unsorted />
-        </Navitem>
-      </Link>
-
-      <Link href={`/archive`}>
-        <Navitem>
-          <Archive />
-        </Navitem>
-      </Link>
-
-    </Flex>
-  </Navgrid>
-  );
-};
 
 export default Actions;
