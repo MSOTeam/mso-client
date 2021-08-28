@@ -3,6 +3,34 @@ import styled, { css } from 'styled-components';
 
 import Link from 'next/link'
 
+const Card = ({ item }) => {
+
+  return (
+    <Wrapper href={item?.url} target="_blank">
+      <ImageWrapper>
+      {console.log("https://picsum.photos/seed/picsum/600/300")}
+        {item?.image === undefined  || item?.image?.startsWith("data") || item?.image?.includes("filter") || item?.image?.includes("object") || item?.image === "" ? (
+          <Image 
+            src={`https://picsum.photos/600/300.webp?random=${Math.floor(Math.random() * 10)}`}
+          />
+        ) : (
+          <Image src={item?.image} />
+        )}
+      </ImageWrapper>
+      <BottomWrapper>
+        <Text>{item?.title}</Text>
+        <TagsWrapper>          
+          {item?.tags?.length >= 1  && item?.tags?.map((item) => (
+            <Link href={`/${item}`}>
+              <Tags >{item}</Tags>
+            </Link>
+          ))}
+        </TagsWrapper>
+      </BottomWrapper>
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.a`
 color: #000;
 text-decoration: none;
@@ -13,6 +41,7 @@ text-decoration: none;
   transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
   transform: translateZ(0);
   max-height: 310px;
+  height: 310px;
   &:hover {
     cursor: pointer;
     box-shadow: 0 2px 40px 0 rgb(0 0 0 / 20%);
@@ -87,33 +116,5 @@ export const Tags = styled.div`
   line-height: 24px;
   color: #5649cf;
 `;
-
-const Card = ({ item }) => {
-
-  return (
-    <Wrapper href={item?.url} target="_blank">
-      <ImageWrapper>
-      {console.log(item?.image , " ", item?.title, " ", item)}
-        {item?.image === undefined  || item?.image?.startsWith("data") || item?.image?.includes("filter") || item?.image?.includes("object") || item?.image === "" ? (
-          <Image 
-            c1={Math.floor(Math.random()*16777215).toString(16)}
-          />
-        ) : (
-          <Image src={item?.image} />
-        )}
-      </ImageWrapper>
-      <BottomWrapper>
-        <Text>{item?.title}</Text>
-        <TagsWrapper>          
-          {item?.tags?.length >= 1  && item?.tags?.map((item) => (
-            <Link href={`/${item}`}>
-              <Tags >{item}</Tags>
-            </Link>
-          ))}
-        </TagsWrapper>
-      </BottomWrapper>
-    </Wrapper>
-  );
-};
 
 export default React.memo(Card);
