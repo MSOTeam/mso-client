@@ -61,7 +61,7 @@ const Wrapper = styled.div`
   height: 100vh;
   overflow-y: auto;
   width: ${props => props.open ? "320px" : "auto"};
-  padding: ${props => props.open ? "30px 0px 30px 20px" : "20px 30px"};
+  padding: ${props => props.open ? "30px 0px 30px 20px" : "0px 30px"};
   position: sticky;
   top: 0;
   ::-webkit-scrollbar {
@@ -76,7 +76,7 @@ const LogoWrapper = styled.div`
   cursor: pointer;
   margin-bottom: 40px;
   padding-right: ${props => props.open ? "20px" : "0px"};
-  margin-top: ${props => props.closed ? "18px" : "0px"};
+  margin-top: ${props => props.closed ? "38px" : "0px"};
 
 `;
 
