@@ -40,7 +40,26 @@ const Overlay = ({ children, visibility, tag }) => {
               </Change>
               <Change>
                 <P>Tag visibility</P>
-                <Input />
+                <Flex>
+                  <Flex>
+                    <Radio
+                      type="radio"
+                      id="Public"
+                      name="type"
+                      value="Public"
+                    />
+                      <Label for="Public">Public</Label>
+                  </Flex>
+                  <Flex>
+                    <Radio
+                      type="radio"
+                      id="Private"
+                      name="type"
+                      value="Private"
+                    />
+                      <Label for="Private">Private</Label>
+                  </Flex>
+                </Flex>
               </Change>
               <Action>
                 <Delete>
@@ -76,7 +95,7 @@ const Wrapper = styled.div`
 const Action = styled.div`
   display: flex;
   justify-content: space-between;
-	margin: 30px 0 20px;
+  margin: 30px 0 20px;
 `;
 
 const Edit = styled.div`
@@ -101,8 +120,27 @@ const Box = styled.div`
   justify-content: space-between;
 `;
 
+const Radio = styled.input`
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+`;
+
+const Label = styled.label`
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-left: 5px;
+	margin-right: 20px;
+`;
+
 const Change = styled.div`
   width: 100%;
+`;
+
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const H2 = styled.h2`
@@ -126,7 +164,9 @@ const Input = styled.input`
   font-size: 18px;
   padding-left: 10px;
   width: 96%;
-	font-weight: 100;
+  font-weight: 200;
+  font-family: "Source Sans Pro", sans-serif;
+  letter-spacing: 1px;
 `;
 
 const Background = styled.div`
