@@ -76,7 +76,7 @@ const Wrapper = styled.div`
 const Action = styled.div`
   display: flex;
   justify-content: space-between;
-	margin-top: 30px;
+	margin: 30px 0 20px;
 `;
 
 const Edit = styled.div`
@@ -115,17 +115,18 @@ const H2 = styled.h2`
 const P = styled.p`
   font-weight: 500;
   font-size: 18px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 `;
 
 const Input = styled.input`
   outline: none;
   border: 1px solid #b4b4b4;
   border-radius: 10px;
-  height: 41px;
-  font-size: 16px;
+  height: 45px;
+  font-size: 18px;
   padding-left: 10px;
   width: 96%;
+	font-weight: 100;
 `;
 
 const Background = styled.div`
