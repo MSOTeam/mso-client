@@ -1,13 +1,13 @@
 import { Close, LogoWhite, Menu } from "../util/icon";
 import { sidebarStatus, tokenId } from "../util/state";
+import { useEffect, useState } from "react";
 
 import Link from 'next/link'
+import Overlay from './Overlay';
 import { fetcher } from '../util/helpers'
 import styled from 'styled-components';
 import { useRecoilState } from "recoil";
 import useSWR from 'swr'
-import Overlay from './Overlay';
-import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const [token,] = useRecoilState(tokenId);
@@ -28,7 +28,7 @@ const Sidebar = () => {
             <LogoWrapper open={sidebar}>
               <LogoWhite />
               <span onClick={() => setSidebar(!sidebar)}>
-                <Close />
+                <Close/>
               </span>
             </LogoWrapper>
           </Link>
@@ -47,7 +47,7 @@ const Sidebar = () => {
           ))}
         </>
       ) : (
-        <LogoWrapper onClick={() => setSidebar(!sidebar)}><Menu /></LogoWrapper>
+        <LogoWrapper closed={!sidebar} onClick={() => setSidebar(!sidebar)}><Menu /></LogoWrapper>
       )
       }
     </Wrapper >
@@ -73,10 +73,11 @@ const LogoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
   cursor: pointer;
   margin-bottom: 40px;
   padding-right: ${props => props.open ? "20px" : "0px"};
+  margin-top: ${props => props.closed ? "18px" : "0px"};
+
 `;
 
 const Item = styled.div`

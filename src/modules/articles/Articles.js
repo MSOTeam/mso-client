@@ -124,7 +124,6 @@ const Articles = () => {
     axios
       .delete("article", { headers: { Authorization: `Bearer ${token}` } })
       .then((response) => {
-        console.log({ response });
         fetch();
       })
       .catch((error) => {

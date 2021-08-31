@@ -10,7 +10,7 @@ const Index = () => {
   const [token,] = useRecoilState(tokenId);
   const url = 'http://localhost:5000/article/?tag=';
   const { data, error } = useSWR([url, token], fetcher);
-
+  const { content } = useSWR(['/api/articles/dfd', token], fetcher);
   return (
     <>
     {data?.articles?.length >= 1 && data?.articles?.map((item) => (

@@ -1,48 +1,49 @@
 import { Archive, Close, Fav, Logo, Menu, Plug, Unsorted } from "../util/icon";
 import styled, { css } from "styled-components";
 
-import Link from 'next/link'
+import Link from "next/link";
+import { sidebarStatus } from "../util/state";
+import { useRecoilState } from "recoil";
 
 const Actions = () => {
+  const [sidebar] = useRecoilState(sidebarStatus);
+
   return (
     <Navgrid>
       <Link Link href={`/`}>
-        <Navitem>
-          <Logo />
-        </Navitem>
+        <Navitem>{!sidebar && <Logo />}</Navitem>
       </Link>
 
-     <Flex>
-      <Extension
-        title="Add the tagit extension"
-        href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
-        target="_blank"
-      >
-        <Plug />
-        <span>Click to add extension</span>
-      </Extension>
-      <AddUrl type="text" />
-  
-      <Link href={`/favorites`}>
-        <Navitem>
-          <Fav />
-        </Navitem>
-      </Link>
+      <Flex>
+        <Extension
+          title="Add the tagit extension"
+          href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
+          target="_blank"
+        >
+          <Plug />
+          <span>Click to add extension</span>
+        </Extension>
+        <AddUrl type="text" />
 
-      <Link href={`/unsorted`}>
-        <Navitem>
-          <Unsorted />
-        </Navitem>
-      </Link>
+        <Link href={`/favorites`}>
+          <Navitem>
+            <Fav />
+          </Navitem>
+        </Link>
 
-      <Link href={`/archive`}>
-        <Navitem>
-          <Archive />
-        </Navitem>
-      </Link>
+        <Link href={`/unsorted`}>
+          <Navitem>
+            <Unsorted />
+          </Navitem>
+        </Link>
 
-    </Flex>
-  </Navgrid>
+        <Link href={`/archive`}>
+          <Navitem>
+            <Archive />
+          </Navitem>
+        </Link>
+      </Flex>
+    </Navgrid>
   );
 };
 
@@ -50,7 +51,6 @@ const Navgrid = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 27px 30px 10px 0px;
-
 `;
 
 const Navitem = styled.a`
@@ -86,8 +86,7 @@ const Extension = styled.a`
     margin-left: 10px;
   }
   @media (max-width: 1024px) {
-   display: none;
-
+    display: none;
   }
 `;
 
