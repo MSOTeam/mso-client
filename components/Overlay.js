@@ -1,4 +1,4 @@
-import { Archive, LogoWhite, Menu } from "../util/icon";
+import { Archive, ClosePurple } from "../util/icon";
 import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 
@@ -30,8 +30,11 @@ const Overlay = ({ children, visibility, tag }) => {
           <Edit>
             <Box>
               <H2>Edit tag: {children}</H2>
+              <CloseWrapper onClick={hide}>
+                <ClosePurple />
+              </CloseWrapper>
               <Change>
-                <P>Change or add a tag</P>
+                <P>Change or add</P>
                 <Input />
               </Change>
               <Change>
@@ -108,6 +111,13 @@ const Edit = styled.div`
   height: 100%;
 `;
 
+const CloseWrapper = styled.span`
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+`;
+
 const Box = styled.div`
   background: white;
   width: 400px;
@@ -118,6 +128,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 `;
 
 const Radio = styled.input`
@@ -127,15 +138,18 @@ const Radio = styled.input`
 `;
 
 const Label = styled.label`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   letter-spacing: 1px;
-  margin-left: 5px;
-	margin-right: 20px;
+  margin-left: 2px;
+  margin-right: 20px;
+  position: relative;
+  top: 2px;
 `;
 
 const Change = styled.div`
   width: 100%;
+  margin-bottom: 10px;
 `;
 
 const Flex = styled.div`
@@ -145,23 +159,24 @@ const Flex = styled.div`
 
 const H2 = styled.h2`
   font-weight: 700;
-  font-size: 28px;
-  letter-spacing: 1px;
+  font-size: 20px;
+  letter-spacing: 0.6px;
   margin: 10px 0 10px;
 `;
 
 const P = styled.p`
   font-weight: 500;
-  font-size: 18px;
-  margin-bottom: 12px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
 `;
 
 const Input = styled.input`
   outline: none;
   border: 1px solid #b4b4b4;
-  border-radius: 10px;
+  border-radius: 8px;
   height: 45px;
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 10px;
   width: 96%;
   font-weight: 200;

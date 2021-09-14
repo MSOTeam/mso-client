@@ -21,29 +21,31 @@ const Sidebar = () => {
     <Wrapper open={sidebar}>
       {sidebar ? (
         <>
-          <Link href={`/`}>
-            <LogoWrapper open={sidebar}>
-              <LogoWhite />
-              <span onClick={() => setSidebar(!sidebar)}>
-                <Close />
-              </span>
-            </LogoWrapper>
-          </Link>
+          <LogoWrapper open={sidebar}>
+            <Link href={`/`}>
+              <div>
+                <LogoWhite />
+              </div>
+            </Link>
+            <span onClick={() => setSidebar(!sidebar)}>
+              <Close />
+            </span>
+          </LogoWrapper>
           {data?.tags?.length >= 1 &&
             data?.tags?.map((item) => (
               <>
                 {item?.tag !== "" && (
-                  <Link href={`/${item?.tag}`}>
-                    <Flex>
-                      <Item
-                        onMouseOver={() => setVisibility(!visibility)}
-                        onMouseOut={() => setVisibility(true)}
-                      >
-                        {item?.tag}
-                        <Overlay tag={item?.tag}>{item?.tag}</Overlay>
-                      </Item>
-                    </Flex>
-                  </Link>
+                  <Flex>
+                    <Item
+                      onMouseOver={() => setVisibility(!visibility)}
+                      onMouseOut={() => setVisibility(true)}
+                    >
+                      <Link href={`/${item?.tag}`}>
+                        <span>{item?.tag}</span>
+                      </Link>
+                      <Overlay tag={item?.tag}>{item?.tag}</Overlay>
+                    </Item>
+                  </Flex>
                 )}
               </>
             ))}
