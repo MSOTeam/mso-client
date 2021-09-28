@@ -119,6 +119,13 @@ export const Tags = styled.div`
   margin-right: 10px;
   line-height: 24px;
   color: #5649cf;
+  border: 0.2px solid rgb(0 0 0 / 8%);
+  padding: 0px 8px;
+  border-radius: 20px;
+  transition: all 0.2s linear;
+  &:hover {
+    background: rgb(0 0 0 / 3%);
+  }
 `;
 
 export default React.memo(Card);
