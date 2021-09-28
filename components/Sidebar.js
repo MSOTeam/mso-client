@@ -65,6 +65,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   height: 100vh;
   overflow-y: auto;
+  box-sizing: border-box;
   width: ${(props) => (props.open ? "320px" : "auto")};
   padding: ${(props) => (props.open ? "30px 0px 30px 20px" : "0px 30px")};
   position: sticky;

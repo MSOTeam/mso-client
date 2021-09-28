@@ -3,7 +3,10 @@ import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
 
 import { EditSidebar } from "../util/icon";
+import Tagify from "@yaireo/tagify";
 import usePortal from "react-cool-portal";
+
+var tagify = new Tagify();
 
 const Overlay = ({ children, visibility, tag }) => {
   const { Portal, isShow, show, hide, toggle } = usePortal({
@@ -17,8 +20,10 @@ const Overlay = ({ children, visibility, tag }) => {
       // The event object will be the parameter of "hide(e?)", it maybe MouseEvent (on clicks outside) or KeyboardEvent (press ESC key)
     },
   });
+  
+  useEffect(() => {
+  }, []);
 
-  useEffect(() => {}, []);
 
   return (
     <>

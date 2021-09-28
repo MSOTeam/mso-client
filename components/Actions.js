@@ -4,46 +4,54 @@ import styled, { css } from "styled-components";
 import Link from "next/link";
 import { sidebarStatus } from "../util/state";
 import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 
 const Actions = () => {
   const [sidebar] = useRecoilState(sidebarStatus);
-
+  const router = useRouter();
+  console.log(router.query.category);
   return (
-    <Navgrid>
-      <Link Link href={`/`}>
-        <Navitem>{!sidebar && <Logo />}</Navitem>
-      </Link>
-
-      <Flex>
-        <Extension
-          title="Add the tagit extension"
-          href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
-          target="_blank"
-        >
-          <Plug />
-          <span>Click to add extension</span>
-        </Extension>
-        <AddUrl type="text" />
-
-        <Link href={`/favorites`}>
-          <Navitem>
-            <Fav />
-          </Navitem>
+    <>
+      <Navgrid>
+        <Link Link href={`/`}>
+          <Navitem>{!sidebar && <Logo />}</Navitem>
         </Link>
+        <Flex>
+          <Extension
+            title="Add the tagit extension"
+            href="https://chrome.google.com/webstore/detail/tagit-extension/jgamfimmaiipbddhkgopfbhddjejfnji?hl=en&authuser=0&fbclid=IwAR2Il_4GAm0CwhGhZg_4Yq2_s1-r0hTZtDvRdagljuQrZ8vxRyn3ODvYbwQ"
+            target="_blank"
+          >
+            <Plug />
+            <span>Click to add extension</span>
+          </Extension>
+          <AddUrl type="text" />
 
-        <Link href={`/unsorted`}>
-          <Navitem>
-            <Unsorted />
-          </Navitem>
-        </Link>
+          <Link href={`/favorites`}>
+            <Navitem>
+              <Fav />
+            </Navitem>
+          </Link>
 
-        <Link href={`/archive`}>
-          <Navitem>
-            <Archive />
-          </Navitem>
-        </Link>
-      </Flex>
-    </Navgrid>
+          <Link href={`/unsorted`}>
+            <Navitem>
+              <Unsorted />
+            </Navitem>
+          </Link>
+
+          <Link href={`/archive`}>
+            <Navitem>
+              <Archive />
+            </Navitem>
+          </Link>
+        </Flex>
+      </Navgrid>
+      <Title open={sidebar}>
+        {router.query.category !== undefined
+          ? router.query.category
+          : "Latest tags"}
+      </Title>
+    </>
   );
 };
 
@@ -96,6 +104,18 @@ const AddUrl = styled.input`
 
 const Flex = styled.div`
   display: flex;
+`;
+
+export const Title = styled.h1`
+  font-size: 1.1em;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  margin: 20px 0 10px 33px;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export default Actions;

@@ -1,16 +1,21 @@
 import React, { CSSProperties } from "react";
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import Link from 'next/link'
+import Link from "next/link";
 
 const Card = ({ item }) => {
-
   return (
     <Wrapper href={item?.url} target="_blank">
       <ImageWrapper>
-        {item?.image === undefined  || item?.image?.startsWith("data") || item?.image?.includes("filter") || item?.image?.includes("object") || item?.image === "" ? (
-          <Image 
-            src={`https://picsum.photos/600/300.webp?random=${Math.floor(Math.random() * 10)}`}
+        {item?.image === undefined ||
+        item?.image?.startsWith("data") ||
+        item?.image?.includes("filter") ||
+        item?.image?.includes("object") ||
+        item?.image === "" ? (
+          <Image
+            src={`https://picsum.photos/600/300.webp?random=${Math.floor(
+              Math.random() * 10
+            )}`}
           />
         ) : (
           <Image src={item?.image} />
@@ -18,12 +23,13 @@ const Card = ({ item }) => {
       </ImageWrapper>
       <BottomWrapper>
         <Text>{item?.title}</Text>
-        <TagsWrapper>          
-          {item?.tags?.length >= 1  && item?.tags?.map((item) => (
-            <Link href={`/${item}`} key={item?.tags?.length}>
-              <Tags >{item}</Tags>
-            </Link>
-          ))}
+        <TagsWrapper>
+          {item?.tags?.length >= 1 &&
+            item?.tags?.map((item) => (
+              <Link href={`/${item}`} key={item?.tags?.length}>
+                <Tags>#{item}</Tags>
+              </Link>
+            ))}
         </TagsWrapper>
       </BottomWrapper>
     </Wrapper>
@@ -31,8 +37,8 @@ const Card = ({ item }) => {
 };
 
 const Wrapper = styled.a`
-color: #000;
-text-decoration: none;
+  color: #000;
+  text-decoration: none;
   box-shadow: rgb(0 0 0 / 7%) 0px 2px 40px 0px;
   border-radius: 8px;
   transition: all 0.5s;
@@ -60,10 +66,10 @@ const ImageWrapper = styled.div`
 `;
 
 const Image = styled.div`
-height: 100%;
-width: 100%;
-${({ src, c1, c2 }) => css`
-  ${src &&
+  height: 100%;
+  width: 100%;
+  ${({ src, c1, c2 }) => css`
+    ${src &&
     css`
       background-image: url(${src});
       background-size: cover;
@@ -94,10 +100,9 @@ const Text = styled.p`
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   height: 33%;
 `;
-
 
 export const TagsWrapper = styled.div`
   display: flex;

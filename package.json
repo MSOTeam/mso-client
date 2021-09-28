@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@yaireo/tagify": "^4.7.1",
+    "@yaireo/tagify": "^4.7.2",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "broken-link-checker": "^0.7.8",
