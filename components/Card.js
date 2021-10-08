@@ -1,12 +1,14 @@
 import React, { CSSProperties } from "react";
 import styled, { css } from "styled-components";
 
+import { CardActions } from "./index";
 import Link from "next/link";
 
 const Card = ({ item }) => {
   return (
     <Wrapper href={item?.url} target="_blank">
       <ImageWrapper>
+        <CardActions article={item} />
         {item?.image === undefined ||
         item?.image?.startsWith("data") ||
         item?.image?.includes("filter") ||
@@ -47,6 +49,7 @@ const Wrapper = styled.a`
   transform: translateZ(0);
   max-height: 310px;
   height: 310px;
+  position: relative;
   &:hover {
     cursor: pointer;
     box-shadow: 0 2px 40px 0 rgb(0 0 0 / 20%);
@@ -116,15 +119,15 @@ export const Tags = styled.div`
   letter-spacing: 1px;
   cursor: pointer;
   text-align: center;
-  margin-right: 10px;
   line-height: 24px;
   color: #5649cf;
-  border: 0.2px solid rgb(0 0 0 / 5%);
-  padding: 0px 12px;
+  /* border: 0.2px solid rgb(0 0 0 / 5%); */
+  margin-right: 5px;
+  padding: 0px 7px;
   border-radius: 20px;
   transition: all 0.2s linear;
   &:hover {
-    background: rgb(0 0 0 / 3%);
+    background: #e7e7e7;
   }
 `;
 
