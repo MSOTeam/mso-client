@@ -10,4 +10,9 @@ export const tokenId = atom({
   default: '',
 });
 
+export const sidebarItemsStatus = atom({
+  key: "sidebarItemsStatus",
+  default: {},
+});
+
 

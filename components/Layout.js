@@ -1,22 +1,32 @@
 import { Close, Logo, Menu } from "../util/icon";
-import { sidebarStatus, tokenId } from "../util/state";
+import { sidebarItemsStatus, sidebarStatus, tokenId } from "../util/state";
 import { useEffect, useState } from "react";
 
 import Actions from "./Actions";
 import Head from "next/head";
 import Sidebar from "./Sidebar";
+import { fetcher } from "../util/helpers";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/router";
+import useSWR from "swr";
 
 const Layout = ({ children }) => {
-  const [, setToken] = useRecoilState(tokenId);
+  const [token, setToken] = useRecoilState(tokenId);
   const [sidebar] = useRecoilState(sidebarStatus);
-  console.log(sidebar);
+  const [, setSidebarItems] = useRecoilState(sidebarItemsStatus);
+
   const router = useRouter();
+
+  const url = "http://localhost:5000/tag";
+  const { data, error } = useSWR([url, token], fetcher);
+  
   useEffect(() => {
     setToken(localStorage?.getItem("token"));
-  }, []);
+    setSidebarItems(data);
+  }, [data]);
+
+  
   return (
     <>
       <Head>

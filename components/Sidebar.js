@@ -1,22 +1,18 @@
 import { Close, LogoWhite, Menu } from "../util/icon";
-import { sidebarStatus, tokenId } from "../util/state";
+import { sidebarItemsStatus, sidebarStatus, tokenId } from "../util/state";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import Overlay from "./Overlay";
-import { fetcher } from "../util/helpers";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
-import useSWR from "swr";
 
 const Sidebar = () => {
-  const [token] = useRecoilState(tokenId);
   const [sidebar, setSidebar] = useRecoilState(sidebarStatus);
   const [visibility, setVisibility] = useState(false);
+  const [sidebarItems] = useRecoilState(sidebarItemsStatus);
 
-  const url = "http://localhost:5000/tag";
 
-  const { data, error } = useSWR([url, token], fetcher);
   return (
     <Wrapper open={sidebar}>
       {sidebar ? (
@@ -31,8 +27,8 @@ const Sidebar = () => {
               <Close />
             </span>
           </LogoWrapper>
-          {data?.tags?.length >= 1 &&
-            data?.tags?.map((item) => (
+          {sidebarItems?.tags?.length >= 1 &&
+            sidebarItems?.tags?.map((item) => (
               <>
                 {item?.tag !== "" && (
                   <Flex>
