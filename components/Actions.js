@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 const Actions = () => {
   const [sidebar] = useRecoilState(sidebarStatus);
   const router = useRouter();
-  console.log(router.query.category);
   return (
     <>
       <Navgrid>
@@ -90,7 +89,6 @@ const Extension = styled.a`
   text-decoration: none;
   letter-spacing: 1px;
   font-weight: 300;
-  font-size: 12px;
   > span {
     margin-left: 10px;
   }

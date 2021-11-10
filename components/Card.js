@@ -15,7 +15,7 @@ const Card = ({ item }) => {
         item?.image?.includes("object") ||
         item?.image === "" ? (
           <Image
-            src={`https://picsum.photos/600/300.webp?random=${Math.floor(
+            src={`https://picsum.photos/300/300.webp?random=${Math.floor(
               Math.random() * 10
             )}`}
           />
