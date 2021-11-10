@@ -1,12 +1,23 @@
+import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
+
 import { Archive, ClosePurple } from "../util/icon";
 import styled, { css } from "styled-components";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { EditSidebar } from "../util/icon";
-import Tagify from "@yaireo/tagify";
+import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
 import usePortal from "react-cool-portal";
 
-var tagify = new Tagify();
+const baseTagifySettings = {
+  blacklist: [],
+  maxTags: 2,
+  backspace: "edit",
+  editTags: 1,
+  dropdown: {
+    enabled: 0
+  },
+  callbacks: {}
+};
 
 const Overlay = ({ children, visibility, tag }) => {
   const { Portal, isShow, show, hide, toggle } = usePortal({
@@ -20,10 +31,17 @@ const Overlay = ({ children, visibility, tag }) => {
       // The event object will be the parameter of "hide(e?)", it maybe MouseEvent (on clicks outside) or KeyboardEvent (press ESC key)
     },
   });
-  
-  useEffect(() => {
-  }, []);
 
+  useEffect(() => {}, []);
+
+  // on tag add/edit/remove
+  const onChange = useCallback((e) => {
+    console.log(
+      "CHANGED:",
+      e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
+      e.detail.value // a string representing the tags
+    );
+  }, []);
 
   return (
     <>
@@ -40,11 +58,11 @@ const Overlay = ({ children, visibility, tag }) => {
               </CloseWrapper>
               <Change>
                 <P>Change or add</P>
-                <Input />
+                <Tags defaultValue={children} {...baseTagifySettings} onChange={onChange} />
               </Change>
               <Change>
                 <P>Add collaborators</P>
-                <Input />
+                <Tags defaultValue="Björn" onChange={onChange} />
               </Change>
               <Change>
                 <P>Tag visibility</P>
@@ -88,15 +106,15 @@ const Wrapper = styled.div`
   display: none;
   ${({ show }) => css`
     ${show &&
-    css`
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      z-index: 1;
-    `}
+      css`
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        z-index: 1;
+      `}
   `};
 `;
 
@@ -176,7 +194,7 @@ const P = styled.p`
   letter-spacing: 0.5px;
 `;
 
-const Input = styled.input`
+const Input = styled(Tags)`
   outline: none;
   border: 1px solid #b4b4b4;
   border-radius: 8px;
