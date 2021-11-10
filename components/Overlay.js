@@ -9,14 +9,16 @@ import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
 import usePortal from "react-cool-portal";
 
 const baseTagifySettings = {
-  blacklist: [],
-  maxTags: 2,
+  blacklist: ["xxx", "yyy", "zzz"],
+  maxTags: 1,
   backspace: "edit",
-  editTags: 1,
+  addTagOnBlur: false,
+  placeholder: "",
+  autofocus: true,
   dropdown: {
-    enabled: 0
+    enabled: 2,
+    maxItems: 10,
   },
-  callbacks: {}
 };
 
 const Overlay = ({ children, visibility, tag }) => {
@@ -34,14 +36,33 @@ const Overlay = ({ children, visibility, tag }) => {
 
   useEffect(() => {}, []);
 
-  // on tag add/edit/remove
-  const onChange = useCallback((e) => {
-    console.log(
-      "CHANGED:",
-      e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
-      e.detail.value // a string representing the tags
-    );
-  }, []);
+    // on tag add/edit/remove
+    const onChange = useCallback((e) => {
+      console.log(
+        "CHANGED:",
+        e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
+        e.detail.value // a string representing the tags
+      );
+    }, []);
+    
+
+  const settings = {
+    ...baseTagifySettings,
+    // whitelist: suggestions,
+    callbacks: {
+      add: onChange,
+      remove: onChange,
+      blur: onChange,
+      edit: onChange,
+      invalid: onChange,
+      click: onChange,
+      focus: onChange,
+      "edit:updated": onChange,
+      "edit:start": onChange,
+    },
+  };
+
+
 
   return (
     <>
@@ -57,12 +78,19 @@ const Overlay = ({ children, visibility, tag }) => {
                 <ClosePurple />
               </CloseWrapper>
               <Change>
-                <P>Change or add</P>
-                <Tags defaultValue={children} {...baseTagifySettings} onChange={onChange} />
+                <P>Change list name</P>
+                <Tags
+                  defaultValue={children}
+                  settings={settings} // tagify settings object
+                  onChange={onChange}
+                />
               </Change>
               <Change>
                 <P>Add collaborators</P>
-                <Tags defaultValue="Björn" onChange={onChange} />
+                <Tags
+                  defaultValue="Björn Lárus Arnórsson"
+                  onChange={onChange}
+                />
               </Change>
               <Change>
                 <P>Tag visibility</P>
@@ -82,6 +110,7 @@ const Overlay = ({ children, visibility, tag }) => {
                       id="Private"
                       name="type"
                       value="Private"
+                      defaultChecked
                     />
                       <Label for="Private">Private</Label>
                   </Flex>
