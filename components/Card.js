@@ -3,9 +3,13 @@ import styled, { css } from "styled-components";
 
 import { CardActions } from "./index";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Card = ({ item }) => {
-  return (
+  const router = useRouter();
+
+  return router.query.category === "archive" &&
+    item?.tags?.includes("archive") ? (
     <Wrapper href={item?.url} target="_blank">
       <ImageWrapper>
         <CardActions article={item} />
@@ -35,6 +39,38 @@ const Card = ({ item }) => {
         </TagsWrapper>
       </BottomWrapper>
     </Wrapper>
+  ) : (
+    !item?.tags?.includes("archive") && (
+      <Wrapper href={item?.url} target="_blank">
+        <ImageWrapper>
+          <CardActions article={item} />
+          {item?.image === undefined ||
+          item?.image?.startsWith("data") ||
+          item?.image?.includes("filter") ||
+          item?.image?.includes("object") ||
+          item?.image === "" ? (
+            <Image
+              src={`https://picsum.photos/300/300.webp?random=${Math.floor(
+                Math.random() * 10
+              )}`}
+            />
+          ) : (
+            <Image src={item?.image} />
+          )}
+        </ImageWrapper>
+        <BottomWrapper>
+          <Text>{item?.title}</Text>
+          <TagsWrapper>
+            {item?.tags?.length >= 1 &&
+              item?.tags?.map((item) => (
+                <Link href={`/${item}`} key={item?.tags?.length}>
+                  <Tags>#{item}</Tags>
+                </Link>
+              ))}
+          </TagsWrapper>
+        </BottomWrapper>
+      </Wrapper>
+    )
   );
 };
 
