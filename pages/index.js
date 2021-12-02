@@ -18,10 +18,11 @@ const Index = () => {
   const placeholder = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   useEffect(() => {
     setArticles(data);
-    setDeleteArticle(false)
-
+    setDeleteArticle(false);
   }, [data, deleteArticle]);
-  return !data ? (
+
+  console.log(articles);
+  return !articles ? (
     <>
       {placeholder?.map(() => (
         <MyLoader />
@@ -30,7 +31,9 @@ const Index = () => {
   ) : (
     <>
       {articles?.articles?.length >= 1 &&
-        articles?.articles?.map((item) => <Card item={item} />)}
+        articles?.articles?.map(
+          (item, index) => index > 2 && <Card item={item} />
+        )}
     </>
   );
 };
