@@ -15,4 +15,15 @@ export const sidebarItemsStatus = atom({
   default: {},
 });
 
+export const articleState = atom({
+  key: "articleState",
+  default: {},
+});
+
+
+export const deleteArticleState = atom({
+  key: "deleteArticleState",
+  default: false,
+});
+
 

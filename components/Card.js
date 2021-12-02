@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const Card = ({ item }) => {
   const router = useRouter();
-
+  console.log(item)
   return router.query.category === "archive" &&
     item?.tags?.includes("archive") ? (
     <Wrapper href={item?.url} target="_blank">
