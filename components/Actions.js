@@ -88,7 +88,9 @@ const Extension = styled.a`
   color: white;
   text-decoration: none;
   letter-spacing: 1px;
-  font-weight: 300;
+  font-family: new-order, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   > span {
     margin-left: 10px;
   }
@@ -106,9 +108,12 @@ const Flex = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 1.1em;
+  font-size: 22px;
+  font-family: new-order, sans-serif;
+
   font-weight: 600;
-  letter-spacing: 1px;
+
+  font-style: normal;
   transition: all 0.3s;
   margin: 20px 0 10px 33px;
 

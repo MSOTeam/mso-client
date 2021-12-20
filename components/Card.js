@@ -2,33 +2,48 @@ import React, { CSSProperties } from "react";
 import styled, { css } from "styled-components";
 
 import { CardActions } from "./index";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 const Card = ({ item }) => {
   const router = useRouter();
-  console.log(item)
   return router.query.category === "archive" &&
     item?.tags?.includes("archive") ? (
     <Wrapper href={item?.url} target="_blank">
-      <ImageWrapper>
+      <Box>
         <CardActions article={item} />
         {item?.image === undefined ||
         item?.image?.startsWith("data") ||
         item?.image?.includes("filter") ||
         item?.image?.includes("object") ||
         item?.image === "" ? (
-          <Image
-            src={`https://picsum.photos/300/300.webp?random=${Math.floor(
-              Math.random() * 10
-            )}`}
-          />
+          <ImageWrapper>
+            <Img
+              src={`https://picsum.photos/300/300.webp?random=${Math.floor(
+                Math.random() * 10
+              )}`}
+              width={0}
+              height={0}
+              layout="fill"
+              alt="image"
+            ></Img>
+          </ImageWrapper>
         ) : (
-          <Image src={item?.image} />
+          <ImageWrapper>
+            <Img
+              src={item?.image}
+              width={0}
+              height={0}
+              layout="fill"
+              alt="image"
+            ></Img>
+          </ImageWrapper>
         )}
-      </ImageWrapper>
+      </Box>
       <BottomWrapper>
         <Text>{item?.title}</Text>
+
         <TagsWrapper>
           {item?.tags?.length >= 1 &&
             item?.tags?.map((item) => (
@@ -42,22 +57,18 @@ const Card = ({ item }) => {
   ) : (
     !item?.tags?.includes("archive") && (
       <Wrapper href={item?.url} target="_blank">
-        <ImageWrapper>
+        <Box>
           <CardActions article={item} />
-          {item?.image === undefined ||
-          item?.image?.startsWith("data") ||
-          item?.image?.includes("filter") ||
-          item?.image?.includes("object") ||
-          item?.image === "" ? (
-            <Image
-              src={`https://picsum.photos/300/300.webp?random=${Math.floor(
-                Math.random() * 10
-              )}`}
-            />
-          ) : (
-            <Image src={item?.image} />
-          )}
-        </ImageWrapper>
+          <ImageWrapper>
+            <Img
+              src={item?.image}
+              width={0}
+              height={0}
+              layout="fill"
+              alt="image"
+            ></Img>
+          </ImageWrapper>
+        </Box>
         <BottomWrapper>
           <Text>{item?.title}</Text>
           <TagsWrapper>
@@ -93,7 +104,7 @@ const Wrapper = styled.a`
   }
 `;
 
-const ImageWrapper = styled.div`
+const Box = styled.div`
   overflow: hidden;
   height: 200px;
   margin-bottom: 10px;
@@ -104,25 +115,17 @@ const ImageWrapper = styled.div`
   border-top-left-radius: 8px;
 `;
 
-const Image = styled.div`
-  height: 100%;
-  width: 100%;
-  ${({ src, c1, c2 }) => css`
-    ${src &&
-    css`
-      background-image: url(${src});
-      background-size: cover;
-      background-position: center;
-    `}
-    ${c1 &&
-    css`
-      background: #${c1};
-    `}
-  `};
+const ImageWrapper = styled.div``;
+
+const Img = styled(Image)`
+  object-fit: cover;
 `;
 
 const Text = styled.p`
-  font-weight: 600;
+  font-family: new-order, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 1px;
   font-size: 16px;
   line-height: 22px;
   overflow: hidden;
@@ -130,7 +133,6 @@ const Text = styled.p`
   -webkit-line-clamp: 2;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  letter-spacing: 1px;
   box-sizing: border-box;
   padding: 0 15px;
   margin: 5px 0;
@@ -150,8 +152,7 @@ export const TagsWrapper = styled.div`
 `;
 
 export const Tags = styled.div`
-  font-weight: 400;
-  font-size: 12px;
+  font-style: normal;
   letter-spacing: 1px;
   cursor: pointer;
   text-align: center;

@@ -1,17 +1,31 @@
 import { Close, LogoWhite, Menu } from "../util/icon";
-import { sidebarItemsStatus, sidebarStatus, tokenId } from "../util/state";
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import Link from "next/link";
 import Overlay from "./Overlay";
+import { sidebarStatus } from "../util/state";
 import styled from "styled-components";
 import { useRecoilState } from "recoil";
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useRecoilState(sidebarStatus);
   const [visibility, setVisibility] = useState(false);
-  const [sidebarItems] = useRecoilState(sidebarItemsStatus);
+  const [data, dataSet] = useState(null);
 
+  const fetchMyAPI = useCallback(async () => {
+    let response = await fetch("api/articles/");
+    response = await response.json();
+    let res = response?.map((item) => {
+      return item?.tags;
+    });
+    const arr = res?.flat();
+    const uniq = [...new Set(arr)];
+    dataSet(uniq);
+  }, []);
+
+  useMemo(() => {
+    fetchMyAPI();
+  }, [fetchMyAPI]);
 
   return (
     <Wrapper open={sidebar}>
@@ -27,8 +41,8 @@ const Sidebar = () => {
               <Close />
             </span>
           </LogoWrapper>
-          {sidebarItems?.tags?.length >= 1 &&
-            sidebarItems?.tags?.map((item) => (
+          {data?.length > 0 &&
+            data?.map((item) => (
               <>
                 {item?.tag !== "" && (
                   <Flex>
@@ -36,10 +50,10 @@ const Sidebar = () => {
                       onMouseOver={() => setVisibility(!visibility)}
                       onMouseOut={() => setVisibility(true)}
                     >
-                      <Link href={`/${item?.tag}`}>
-                        <span>{item?.tag}</span>
+                      <Link href={`/${item}`}>
+                        <span>{item}</span>
                       </Link>
-                      <Overlay tag={item?.tag}>{item?.tag}</Overlay>
+                      <Overlay tag={item}>{item}</Overlay>
                     </Item>
                   </Flex>
                 )}
@@ -82,7 +96,9 @@ const LogoWrapper = styled.div`
 `;
 
 const Item = styled.div`
-  font-size: 0.9em;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
   color: white;
   letter-spacing: 2px;
   font-weight: 400;

@@ -11,7 +11,7 @@ import { tokenId } from "../util/state";
 import { useRecoilState } from "recoil";
 
 const CardActions = ({ article }) => {
-  const [token] = useRecoilState(tokenId);
+  // const [token] = useRecoilState(tokenId);
   const [click, setClick] = useState();
   const [dropdownState, setDropdownState] = useState(false);
   const clickRef = useRef();

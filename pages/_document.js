@@ -1,7 +1,8 @@
-import Document from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import Document, { Head, Html, Main, NextScript } from "next/document";
 
-export default class MyDocument extends Document {
+import { ServerStyleSheet } from "styled-components";
+
+class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
@@ -26,4 +27,27 @@ export default class MyDocument extends Document {
       sheet.seal();
     }
   }
+  render() {
+    return (
+      <Html>
+        <Head>
+          <meta charSet="utf-8" />
+          <meta
+            key="title"
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+          <title>tagit</title>
+          <link rel="icon" href="/favicon.ico" />
+          <link rel="stylesheet" href="https://use.typekit.net/ryv6lsq.css" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }
+
+export default MyDocument;

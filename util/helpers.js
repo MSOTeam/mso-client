@@ -1,8 +1,6 @@
-// export const fetcher = (...args) => fetch(...args).then(res => res.json())
-import axios from "axios";
-
-export const fetcher = (url, token) =>
-    axios
-      .get(url, { headers: { Authorization: "Bearer " + token } })
-      .then((res) => res.data);
-
+export const fetcher = (url) => fetch(url).then((r) => r.json());
+export const fetcherWithTags = (url, page) =>
+  fetch(url, {
+    method: "POST",
+    body: page,
+  }).then((r) => r.json());
