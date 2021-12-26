@@ -8,42 +8,24 @@ import { useRouter } from "next/router";
 
 const Card = ({ item }) => {
   const router = useRouter();
-  return router.query.category === "archive" &&
-    item?.tags?.includes("archive") ? (
+
+  return (
     <Wrapper href={item?.url} target="_blank">
       <Box>
-        <CardActions article={item} />
-        {item?.image === undefined ||
-        item?.image?.startsWith("data") ||
-        item?.image?.includes("filter") ||
-        item?.image?.includes("object") ||
-        item?.image === "" ? (
-          <ImageWrapper>
-            <Img
-              src={`https://picsum.photos/300/300.webp?random=${Math.floor(
-                Math.random() * 10
-              )}`}
-              width={0}
-              height={0}
-              layout="fill"
-              alt="image"
-            ></Img>
-          </ImageWrapper>
-        ) : (
-          <ImageWrapper>
-            <Img
-              src={item?.image}
-              width={0}
-              height={0}
-              layout="fill"
-              alt="image"
-            ></Img>
-          </ImageWrapper>
-        )}
+        <CardActions article={item} tags={item?.tags} id={item?._id} />
+        <ImageWrapper>
+          <Img
+            src={item?.image}
+            width={0}
+            sizes="50vw"
+            height={0}
+            layout="fill"
+            alt="image"
+          ></Img>
+        </ImageWrapper>
       </Box>
       <BottomWrapper>
         <Text>{item?.title}</Text>
-
         <TagsWrapper>
           {item?.tags?.length >= 1 &&
             item?.tags?.map((item) => (
@@ -54,34 +36,6 @@ const Card = ({ item }) => {
         </TagsWrapper>
       </BottomWrapper>
     </Wrapper>
-  ) : (
-    !item?.tags?.includes("archive") && (
-      <Wrapper href={item?.url} target="_blank">
-        <Box>
-          <CardActions article={item} />
-          <ImageWrapper>
-            <Img
-              src={item?.image}
-              width={0}
-              height={0}
-              layout="fill"
-              alt="image"
-            ></Img>
-          </ImageWrapper>
-        </Box>
-        <BottomWrapper>
-          <Text>{item?.title}</Text>
-          <TagsWrapper>
-            {item?.tags?.length >= 1 &&
-              item?.tags?.map((item) => (
-                <Link href={`/${item}`} key={item?.tags?.length}>
-                  <Tags>#{item}</Tags>
-                </Link>
-              ))}
-          </TagsWrapper>
-        </BottomWrapper>
-      </Wrapper>
-    )
   );
 };
 
@@ -122,8 +76,7 @@ const Img = styled(Image)`
 `;
 
 const Text = styled.p`
-  font-family: new-order, sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   letter-spacing: 1px;
   font-size: 16px;
@@ -152,7 +105,7 @@ export const TagsWrapper = styled.div`
 `;
 
 export const Tags = styled.div`
-  font-style: normal;
+  font-size: 12px;
   letter-spacing: 1px;
   cursor: pointer;
   text-align: center;

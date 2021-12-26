@@ -88,7 +88,6 @@ const Extension = styled.a`
   color: white;
   text-decoration: none;
   letter-spacing: 1px;
-  font-family: new-order, sans-serif;
   font-weight: 400;
   font-style: normal;
   > span {
@@ -109,7 +108,6 @@ const Flex = styled.div`
 
 export const Title = styled.h1`
   font-size: 22px;
-  font-family: new-order, sans-serif;
 
   font-weight: 600;
 

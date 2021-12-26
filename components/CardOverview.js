@@ -4,13 +4,11 @@ import { Archive, ClosePurple } from "../util/icon";
 import styled, { css } from "styled-components";
 import { useCallback, useEffect } from "react";
 
-import { EditSidebar } from "../util/icon";
 import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
 import usePortal from "react-cool-portal";
 
 const baseTagifySettings = {
   blacklist: ["xxx", "yyy", "zzz"],
-  maxTags: 1,
   backspace: "edit",
   addTagOnBlur: false,
   placeholder: "",
@@ -21,7 +19,7 @@ const baseTagifySettings = {
   },
 };
 
-const Overlay = ({ children, visibility, tag }) => {
+const Overlay = ({ children, tag }) => {
   const { Portal, isShow, show, hide, toggle } = usePortal({
     defaultShow: false,
     onShow: (e) => {},
@@ -57,9 +55,7 @@ const Overlay = ({ children, visibility, tag }) => {
 
   return (
     <>
-      <div onClick={show}>
-        <EditSidebar />
-      </div>
+      <div onClick={show}>{children}</div>
       <Portal>
         <Wrapper show={show}>
           <Edit>
@@ -69,43 +65,12 @@ const Overlay = ({ children, visibility, tag }) => {
                 <ClosePurple />
               </CloseWrapper>
               <Change>
-                <P>Change list name</P>
+                <P>Change tags</P>
                 <Tags
-                  defaultValue={children}
-                  settings={settings} // tagify settings object
+                  defaultValue={tag}
+                  settings={settings}
                   onChange={onChange}
                 />
-              </Change>
-              <Change>
-                <P>Add collaborators</P>
-                <Tags
-                  defaultValue="Björn Lárus Arnórsson"
-                  onChange={onChange}
-                />
-              </Change>
-              <Change>
-                <P>Tag visibility</P>
-                <Flex>
-                  <Flex>
-                    <Radio
-                      type="radio"
-                      id="Public"
-                      name="type"
-                      value="Public"
-                    />
-                      <Label for="Public">Public</Label>
-                  </Flex>
-                  <Flex>
-                    <Radio
-                      type="radio"
-                      id="Private"
-                      name="type"
-                      value="Private"
-                      defaultChecked
-                    />
-                      <Label for="Private">Private</Label>
-                  </Flex>
-                </Flex>
               </Change>
               <Action>
                 <Delete>

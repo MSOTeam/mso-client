@@ -26,4 +26,9 @@ export const deleteArticleState = atom({
   default: false,
 });
 
+export const dataRefreshState = atom({
+  key: "dataRefreshState",
+  default: false,
+});
+
 

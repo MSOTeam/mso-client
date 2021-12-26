@@ -1,55 +1,54 @@
-import { Bin, Dots, EditTag, FavSmall, FavSmallChecked } from "../util/icon";
-import React, { CSSProperties } from "react";
-import _, { set } from "lodash";
+import { Dots, FavSmall, FavSmallChecked } from "../util/icon";
 import styled, { css } from "styled-components";
 import { useEffect, useRef, useState } from "react";
-import useSWR, { useSWRConfig } from "swr";
 
-import axios from "axios";
-import { fetcher } from "../util/helpers";
-import { tokenId } from "../util/state";
+import CardOverview from "./CardOverview";
+import React from "react";
+import _ from "lodash";
+import { dataRefreshState } from "../util/state";
 import { useRecoilState } from "recoil";
 
-const CardActions = ({ article }) => {
+const CardActions = ({ article, tags, id }) => {
   // const [token] = useRecoilState(tokenId);
-  const [click, setClick] = useState();
+    const [dataRefresh, setDataRerfresh] = useRecoilState(dataRefreshState);
+
+  const [click] = useState();
+  const [icon, setIcon] = useState(false);
   const [dropdownState, setDropdownState] = useState(false);
   const clickRef = useRef();
 
-  const url = "http://localhost:5000/article/";
-
-  const Favs = (e, item) => {
+  const Favs = (e) => {
     e.preventDefault();
-    var id = article._id;
-    const tagsArr = article?.tags;
-    const index = tagsArr.indexOf(tagsArr);
-    if (tagsArr.includes(item)) {
-      tagsArr?.splice(index);
-      setClick(false);
-    } else {
-      tagsArr.push(item);
-      setClick(true);
-    }
-    axios.put(
-      url,
-      { id, article },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    setIcon(!icon)
+    setDataRerfresh(true)
+    tags?.includes("favorites")
+      ? fetch("/api/removeTag", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            tag: "favorites",
+          }),
+        })
+      : fetch("/api/addTag", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id,
+            tag: "favorites",
+          }),
+        });
   };
-
   const Delete = (e, item) => {
     e.preventDefault();
-    var id = article._id;
-    const tagsArr = article?.tags;
-    while (tagsArr.length > 0) {
-      tagsArr.pop();
-    }
-    tagsArr.push("archive");
-    axios.put(
-      url,
-      { id, article },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+  };
+
+  const Edit = (e) => {
+    e.preventDefault();
   };
 
   const toggleDropdown = (e) => {
@@ -68,15 +67,16 @@ const CardActions = ({ article }) => {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  });
+  }, []);
+
   return (
     <>
       <Wrapper>
         <Icon
-          click={article?.tags?.includes("favorites")}
+        icon
           onClick={(e) => Favs(e, "favorites")}
         >
-          {click || article?.tags?.includes("favorites") ? (
+          {article?.tags?.includes("favorites") || icon ? (
             <FavSmallChecked />
           ) : (
             <FavSmall />
@@ -89,12 +89,10 @@ const CardActions = ({ article }) => {
           <>
             <Arrow />
             <Dropdown ref={clickRef}>
-              <Item
-                // onClick={(e) => Action(e, "edit")}
-                padding="10px 15px 5px 15px"
-              >
-                Edit
+              <Item onClick={(e) => Edit(e)} padding="10px 15px 5px 15px">
+                <CardOverview tag={tags}>Edit</CardOverview>
               </Item>
+
               <Item
                 onClick={(e) => Delete(e, "archive")}
                 padding="5px 15px 10px 15px"
@@ -119,7 +117,7 @@ const Wrapper = styled.div`
 `;
 
 const Icon = styled.div`
-  background-color: ${(props) => (props.click ? `#5649cf` : "#fff")};
+  background-color: ${(props) => (props.icon ? `#5649cf` : "#fff")};
   position: relative;
   z-index: 1000000;
   width: 30px;

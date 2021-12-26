@@ -1,12 +1,28 @@
 import Card from "../components/Card";
 import { MyLoader } from "../util/icon";
+import { dataRefreshState } from "../util/state";
 import { fetcher } from "../util/helpers";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 
-const Index = () => {
+const Index = ({ data }) => {
   const placeholder = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-  const { data, error } = useSWR(['/api/articles'], fetcher);
-  console.log(data)
+  const router = useRouter();
+  const [dataRefresh, setDataRerfresh] = useRecoilState(dataRefreshState);
+
+  // const { data } = useSWR(["/api/articles"], fetcher);
+  
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
+  useEffect(() => {
+    refreshData()
+    setDataRerfresh(false);
+  }, [dataRefresh]);
+
   return !data ? (
     <>
       {placeholder?.map(() => (
@@ -14,17 +30,14 @@ const Index = () => {
       ))}
     </>
   ) : (
-    <>
-      {data?.length > 0 &&
-        data?.map((item) => <Card item={item} />)}
-    </>
+    <>{data?.length > 0 && data?.map((item) => <Card item={item} />)}</>
   );
 };
 
-export async function getServerSideProps(context) {
-  const res = await fetch(`http://localhost:3000/api/articles`);
-  const content = await res.json();
-  return { props: { content } };
+export async function getServerSideProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/articles`);
+  const data = await res.json();
+  return { props: { data } };
 }
 
 export default Index;

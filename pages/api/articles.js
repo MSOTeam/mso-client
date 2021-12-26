@@ -6,7 +6,6 @@ export default async (req, res) => {
   const content = await db
     .collection("content")
     .find({})
-    .sort({ metacritic: -1 })
     .limit(20)
     .toArray();
 
