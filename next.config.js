@@ -2,7 +2,7 @@ const intercept = require("intercept-stdout");
 
 module.exports = {
   images: {
-    domains: ['www.visir.is', 'm.media-amazon.com'],
+    domains: ['www.visir.is', 'm.media-amazon.com', 'cdn.vox-cdn.com'],
   },
 }
 
