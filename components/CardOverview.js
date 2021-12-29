@@ -1,9 +1,9 @@
 import "@yaireo/tagify/dist/tagify.css"; // Tagify CSS
 
-import { Archive, ClosePurple } from "../util/icon";
 import styled, { css } from "styled-components";
-import { useCallback, useEffect } from "react";
+import { useCallback, useState } from "react";
 
+import { ClosePurple } from "../util/icon";
 import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
 import usePortal from "react-cool-portal";
 
@@ -19,22 +19,40 @@ const baseTagifySettings = {
   },
 };
 
-const Overlay = ({ children, tag }) => {
+const Overlay = ({ children, tag, id }) => {
+  const [tags, setTags] = useState([]);
   const { Portal, isShow, show, hide, toggle } = usePortal({
     defaultShow: false,
     onShow: (e) => {},
     onHide: (e) => {},
   });
 
-  useEffect(() => {}, []);
-
-  // on tag add/edit/remove
+  const Submit = () => {
+    fetch("/api/updateTags", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        tags: tags,
+      }),
+    })
+  };
+  
   const onChange = useCallback((e) => {
-    console.log(
-      "CHANGED:",
-      e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
-      e.detail.value // a string representing the tags
-    );
+    let tagsArr = [];
+    // console.log(
+    //   "CHANGED:",
+    //   e.detail.tagify.value, // Array where each tag includes tagify's (needed) extra properties
+    //   e.detail.value // a string representing the tags
+    // );
+    // console.log(e.detail.tagify.value);
+    // console.log(e.detail?.tagify?.value?.length);
+
+    e.detail?.tagify?.value?.length > 0 &&
+      e.detail?.tagify?.value?.map((item) => tagsArr?.push(item?.value));
+    setTags(tagsArr);
   }, []);
 
   const settings = {
@@ -73,10 +91,7 @@ const Overlay = ({ children, tag }) => {
                 />
               </Change>
               <Action>
-                <Delete>
-                  <Archive />
-                </Delete>
-                <Save>Save</Save>
+                <Save onClick={() => Submit()}>Save</Save>
               </Action>
             </Box>
           </Edit>
@@ -107,6 +122,7 @@ const Action = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 30px 0 20px;
+  height: 50px;
 `;
 
 const Edit = styled.div`
@@ -139,22 +155,6 @@ const Box = styled.div`
   position: relative;
 `;
 
-const Radio = styled.input`
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
-`;
-
-const Label = styled.label`
-  font-size: 16px;
-  font-weight: 300;
-  letter-spacing: 1px;
-  margin-left: 2px;
-  margin-right: 20px;
-  position: relative;
-  top: 2px;
-`;
-
 const Change = styled.div`
   width: 100%;
   margin-bottom: 10px;
@@ -179,19 +179,6 @@ const P = styled.p`
   letter-spacing: 0.5px;
 `;
 
-const Input = styled(Tags)`
-  outline: none;
-  border: 1px solid #b4b4b4;
-  border-radius: 8px;
-  height: 45px;
-  font-size: 16px;
-  padding-left: 10px;
-  width: 96%;
-  font-weight: 200;
-  font-family: "Source Sans Pro", sans-serif;
-  letter-spacing: 1px;
-`;
-
 const Background = styled.div`
   position: absolute;
   top: 0;
@@ -201,14 +188,9 @@ const Background = styled.div`
   opacity: 0.8;
 `;
 
-const Delete = styled.div`
-  background: rgb(0 0 0 / 7%);
-  padding: 11px 20px;
-  border-radius: 100px;
-`;
 const Save = styled.div`
   background: #5649cf;
-  width: 77%;
+  width: 100%;
   border-radius: 34px;
   display: flex;
   justify-content: center;

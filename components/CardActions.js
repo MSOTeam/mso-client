@@ -43,6 +43,7 @@ const CardActions = ({ article, tags, id }) => {
           }),
         });
   };
+  
   const Delete = (e, item) => {
     e.preventDefault();
   };
@@ -90,7 +91,7 @@ const CardActions = ({ article, tags, id }) => {
             <Arrow />
             <Dropdown ref={clickRef}>
               <Item onClick={(e) => Edit(e)} padding="10px 15px 5px 15px">
-                <CardOverview tag={tags}>Edit</CardOverview>
+                <CardOverview tag={tags} id={id}>Edit</CardOverview>
               </Item>
 
               <Item
