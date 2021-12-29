@@ -10,17 +10,17 @@ import useSWR from "swr";
 const Index = ({ data }) => {
   const placeholder = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   const router = useRouter();
-  const [dataRefresh, setDataRerfresh] = useRecoilState(dataRefreshState);
+  const [dataRefresh, setDataRefresh] = useRecoilState(dataRefreshState);
 
   // const { data } = useSWR(["/api/articles"], fetcher);
-  
   const refreshData = () => {
     router.replace(router.asPath);
   };
 
   useEffect(() => {
-    refreshData()
-    setDataRerfresh(false);
+    console.log(dataRefresh)
+    refreshData();
+    setDataRefresh(false);
   }, [dataRefresh]);
 
   return !data ? (
@@ -30,7 +30,12 @@ const Index = ({ data }) => {
       ))}
     </>
   ) : (
-    <>{data?.length > 0 && data?.map((item) => <Card item={item} />)}</>
+    <>
+      {data?.length > 0 &&
+        data?.map((item) =>
+          item?.tags?.includes("archive") ? "" : <Card item={item} />
+        )}
+    </>
   );
 };
 

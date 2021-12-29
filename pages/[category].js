@@ -26,7 +26,7 @@ const Category = ({ data }) => {
   return (
     <>
       {data?.length > 0 ? (
-        data?.map((item) => <Card item={item} />)
+        data?.map((item) => <Card key={item?.id} item={item} />)
       ) : (
         <div>Nothing here</div>
       )}

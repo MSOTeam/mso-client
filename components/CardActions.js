@@ -10,7 +10,7 @@ import { useRecoilState } from "recoil";
 
 const CardActions = ({ article, tags, id }) => {
   // const [token] = useRecoilState(tokenId);
-    const [dataRefresh, setDataRerfresh] = useRecoilState(dataRefreshState);
+  const [dataRefresh, setDataRefresh] = useRecoilState(dataRefreshState);
 
   const [click] = useState();
   const [icon, setIcon] = useState(false);
@@ -19,8 +19,8 @@ const CardActions = ({ article, tags, id }) => {
 
   const Favs = (e) => {
     e.preventDefault();
-    setIcon(!icon)
-    setDataRerfresh(true)
+    setIcon(!icon);
+    setDataRefresh(true);
     tags?.includes("favorites")
       ? fetch("/api/removeTag", {
           method: "POST",
@@ -43,9 +43,20 @@ const CardActions = ({ article, tags, id }) => {
           }),
         });
   };
-  
+
   const Delete = (e, item) => {
     e.preventDefault();
+    setDataRefresh(true);
+    fetch("/api/updateTags", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        tags: ["archive"],
+      }),
+    });
   };
 
   const Edit = (e) => {
@@ -73,10 +84,7 @@ const CardActions = ({ article, tags, id }) => {
   return (
     <>
       <Wrapper>
-        <Icon
-        icon
-          onClick={(e) => Favs(e, "favorites")}
-        >
+        <Icon icon onClick={(e) => Favs(e, "favorites")}>
           {article?.tags?.includes("favorites") || icon ? (
             <FavSmallChecked />
           ) : (
@@ -91,7 +99,9 @@ const CardActions = ({ article, tags, id }) => {
             <Arrow />
             <Dropdown ref={clickRef}>
               <Item onClick={(e) => Edit(e)} padding="10px 15px 5px 15px">
-                <CardOverview tag={tags} id={id}>Edit</CardOverview>
+                <CardOverview tag={tags} id={id}>
+                  Edit
+                </CardOverview>
               </Item>
 
               <Item

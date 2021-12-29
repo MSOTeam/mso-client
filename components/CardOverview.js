@@ -5,7 +5,9 @@ import { useCallback, useState } from "react";
 
 import { ClosePurple } from "../util/icon";
 import Tags from "@yaireo/tagify/dist/react.tagify"; // React-wrapper file
+import { dataRefreshState } from "../util/state";
 import usePortal from "react-cool-portal";
+import { useRecoilState } from "recoil";
 
 const baseTagifySettings = {
   blacklist: ["xxx", "yyy", "zzz"],
@@ -21,6 +23,8 @@ const baseTagifySettings = {
 
 const Overlay = ({ children, tag, id }) => {
   const [tags, setTags] = useState([]);
+  const [dataRefresh, setDataRerfresh] = useRecoilState(dataRefreshState);
+
   const { Portal, isShow, show, hide, toggle } = usePortal({
     defaultShow: false,
     onShow: (e) => {},
@@ -28,6 +32,7 @@ const Overlay = ({ children, tag, id }) => {
   });
 
   const Submit = () => {
+    setDataRerfresh(true);
     fetch("/api/updateTags", {
       method: "POST",
       headers: {
@@ -37,9 +42,9 @@ const Overlay = ({ children, tag, id }) => {
         id: id,
         tags: tags,
       }),
-    })
+    });
   };
-  
+
   const onChange = useCallback((e) => {
     let tagsArr = [];
     // console.log(
@@ -200,6 +205,9 @@ const Save = styled.div`
   letter-spacing: 1px;
   font-weight: bold;
   font-size: 16px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default Overlay;
