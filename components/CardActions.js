@@ -6,6 +6,7 @@ import CardOverview from "./CardOverview";
 import React from "react";
 import _ from "lodash";
 import { dataRefreshState } from "../util/state";
+import {useOnClickOutside} from '../util/hooks'
 import { useRecoilState } from "recoil";
 
 const CardActions = ({ article, tags, id }) => {
@@ -16,6 +17,7 @@ const CardActions = ({ article, tags, id }) => {
   const [icon, setIcon] = useState(false);
   const [dropdownState, setDropdownState] = useState(false);
   const clickRef = useRef();
+  const ref = useRef();
 
   const Favs = (e) => {
     e.preventDefault();
@@ -68,6 +70,9 @@ const CardActions = ({ article, tags, id }) => {
     setDropdownState(!dropdownState);
   };
 
+  useOnClickOutside(ref, () => setDropdownState(!dropdownState));
+
+
   const handleClick = (e) => {
     if (clickRef.current && !clickRef.current.contains(e.target)) {
       setDropdownState(!dropdownState);
@@ -97,7 +102,7 @@ const CardActions = ({ article, tags, id }) => {
         {dropdownState && (
           <>
             <Arrow />
-            <Dropdown ref={clickRef}>
+            <Dropdown ref={clickRef} ref={ref}>
               <Item onClick={(e) => Edit(e)} padding="10px 15px 5px 15px">
                 <CardOverview tag={tags} id={id}>
                   Edit

@@ -18,9 +18,7 @@ const Index = ({ data }) => {
   };
 
   useEffect(() => {
-    console.log(dataRefresh)
     refreshData();
-    setDataRefresh(false);
   }, [dataRefresh]);
 
   return !data ? (

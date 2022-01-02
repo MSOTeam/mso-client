@@ -1,13 +1,17 @@
-import React, { CSSProperties } from "react";
-import styled, { css } from "styled-components";
-
 import { CardActions } from "./index";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import React from "react";
+import styled from "styled-components";
 
 const Card = ({ item }) => {
-  const router = useRouter();
+  function add3Dots(string, limit) {
+    var dots = "...";
+    if (string.length > limit) {
+      string = string.substring(0, limit) + dots;
+    }
+    return string;
+  }
 
   return (
     <Wrapper href={item?.url} target="_blank">
@@ -25,7 +29,7 @@ const Card = ({ item }) => {
         </ImageWrapper>
       </Box>
       <BottomWrapper>
-        <Text>{item?.title}</Text>
+        <Text>{add3Dots(item?.title, 55)}</Text>
         <TagsWrapper>
           {item?.tags?.length >= 1 &&
             item?.tags?.map((item) => (
@@ -48,8 +52,7 @@ const Wrapper = styled.a`
   position: relative;
   transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
   transform: translateZ(0);
-  max-height: 310px;
-  height: 310px;
+  min-height: 310px;
   position: relative;
   &:hover {
     cursor: pointer;
@@ -82,6 +85,7 @@ const Text = styled.p`
   font-size: 16px;
   line-height: 22px;
   overflow: hidden;
+  min-height: 60px;
   text-overflow: ellipsis;
   -webkit-line-clamp: 2;
   display: -webkit-box;
