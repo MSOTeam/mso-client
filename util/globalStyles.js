@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: proxima-nova, sans-serif;
-    font-weight: 400;
+    font-weight: 100;
     font-size: 16px;
     font-style: normal;
   }

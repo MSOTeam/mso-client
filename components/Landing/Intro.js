@@ -1,0 +1,140 @@
+import { fadeBottom, fadeRight } from "../../util/animation";
+import styled, { css } from "styled-components";
+
+import { Signup } from "..";
+
+const Intro = () => {
+  return (
+    <Wrapper>
+      <Text>
+        {/* <ScHeadline>Collect and keep all of your findings</ScHeadline> */}
+        <Headline>Find, save, share and discover content</Headline>
+        {/* <ScHeadline>Your ultimate social content manager</ScHeadline> */}
+        {/* <ScHeadline>Save anything and view it  when you want</ScHeadline> */}
+        {/* <ScMessage>Tagit is a solution to the modern problem of content. So many articles you want to read but don't have the time. Tagit will help you save that content so you can read it later at the perfect time for you</ScMessage> */}
+        <Message>
+          With so much content available today on the internet the task of
+          trying to finish all the articles or watch the videos you find can be
+          daunting. Usually it resaults with a cluttered browser with either way
+          to many open tabs or a bookmarking mess. With tagit you can save it
+          and view it later whenever you want.
+        </Message>
+        {/* <ScMessage>All your precious findings and inspiration saved to the same place, forever!</ScMessage> */}
+        {/* <Button id="signup" onClick={event => setType(event.target.id)}>Get started</Button> */}
+        {/* <Button id="signup" onClick={event => setType(event.target.id)}>Request beta access</Button> */}
+        {/* <Email /> */}
+        <Signup/>
+      </Text>
+      <Img />
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 10;
+  margin: 0 10% 100px;
+  @media (min-width: 2150px) {
+    padding: 0 10%;
+  }
+  @media (max-width: 900px) {
+    flex-direction: column;
+    height: 1000px;
+  }
+`;
+
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 210px;
+  width: 500px;
+
+  @media (min-width: 2750px) {
+  }
+  @media (max-width: 900px) {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+`;
+
+const ScItem = styled.div`
+  ${(props) =>
+    props.top &&
+    css`
+      @media (max-width: 760px) {
+        min-height: 0;
+      }
+    `}
+`;
+
+const Headline = styled.h1`
+  font-size: 3em;
+  font-weight: 800;
+  line-height: 50px;
+  color: white;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: ${fadeBottom} 1s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 1.2s;
+  margin-bottom: 20px;
+  @media (max-width: 760px) {
+    font-size: 2.3em;
+    line-height: 45px;
+  }
+`;
+
+const Message = styled.p`
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  color: white;
+  opacity: 0;
+  animation: ${fadeBottom} 1s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 1.4s;
+`;
+
+const Img = styled.div`
+  background: url("/tagit_mock.png") no-repeat;
+  width: 2070px;
+  height: 980px;
+  opacity: 0;
+  position: absolute;
+  left: 574px;
+  top: 60px;
+  background-size: contain;
+  animation: ${fadeRight} 1s ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 1.8s;
+  filter: drop-shadow(11.6248px 11.6248px 33.7118px rgba(0, 0, 0, 0.45));
+  @media (min-width: 2150px) {
+    left: 974px;
+    height: 900px;
+  }
+  @media (max-width: 900px) {
+    position: absolute;
+    left: 0px;
+    width: 5673px;
+    height: 800px;
+    bottom: -440px;
+  }
+  @media (max-width: 550px) {
+    bottom: -500px;
+  }
+
+  @media (max-width: 430px) {
+    bottom: -550px;
+  }
+  @media (max-width: 423px) {
+    bottom: -620px;
+  }
+  @media (max-width: 320px) {
+    bottom: -690px;
+  }
+`;
+
+export default Intro;

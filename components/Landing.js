@@ -1,8 +1,13 @@
+import { Intro, LandingLoader, Nav } from ".";
+
 import styled from "styled-components";
 
-const Landing = ({ data }) => {
+const Landing = () => {
   return (
     <Wrapper>
+      <LandingLoader />
+      <Nav />
+      <Intro />
       <CircleTop />
       <CircleBottom />
       <Small>Developed in Iceland</Small>
@@ -46,18 +51,18 @@ const CircleBottom = styled.div`
 `;
 
 const Small = styled.small`
-    width: 100vw;
-    background: black;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    z-index: 100;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    letter-spacing: 1px;
+  width: 100vw;
+  background: black;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: 1px;
 `;
 
 export default Landing;
